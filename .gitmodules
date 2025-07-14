@@ -1,0 +1,3 @@
+[submodule "botbowl"]
+	path = botbowl
+	url = https://github.com/njustesen/botbowl
