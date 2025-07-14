@@ -1,0 +1,43 @@
+Kontekst i motywacja
+1.1. Krótkie wprowadzenie do sztucznej inteligencji jak zmieniała świat do tej pory. Zastosowaniu jej w podejmowaniu samodzielnych decyzji w złożonym środowisku (np decyzji biznesowych). 
+1.2. Testowaniu jej możliwości w grach (planszowych raz komputerowych)
+1.3. Wybór gry Bloodbowl jako przykładowego środowiska o wysokiej złożoności decyzyjnej
+
+Reinforcement Learning w grach o dużej przestrzeni decyzji
+2.1. Podstawowe pojęcia RL: agent, środowisko, nagroda, polityka
+2.2. Wyzwania przy dużym branching factor: eksploracja vs. eksploatacja, próbkowanie akcji
+2.3. Przegląd wybranych algorytmów: Q-learning, Policy Gradient, A2C/A3C
+
+Charakterystyka gry Bloodbowl i środowiska BotBowl
+3.1. Zasady gry Bloodbowl – cele, tury, możliwe akcje
+3.2. BotBowl jako symulator RL: architektura, interfejs, obsługa stanów przestrzennych i nieprzestrzennych
+3.3. Metody reprezentacji stanu i masek akcji
+
+Różne architektury sieci neuronowych w RL
+4.1. Sieci w pełni połączone (MLP)
+4.2. Konwolucyjne sieci przestrzenne (CNN) – przetwarzanie mapy planszy
+4.3. Hybrydowe modele łączące strumienie przestrzenne i nieprzestrzenne
+4.4. Inne nowoczesne podejścia (np. sieci rekurencyjne, Attention)
+
+Cele pracy i pytania badawcze
+5.1. Główny cel: porównanie efektywności różnych architektur sieci w grze o wysokim branching factor
+5.2. Pytania:
+
+Jak architektura wpływa na szybkość konwergencji w A2C?
+
+Jaki model osiąga lepszą jakość gry (skuteczność, stabilność)?
+
+Jak różne reprezentacje stanu wpływają na efektywność uczenia?
+
+Zakres i ograniczenia
+6.1. Wybrane scenariusze testowe i liczba gier/epizodów
+6.2. Parametry hiperparametrów i metodologia pomiaru wyników
+6.3. Ograniczenia środowiska BotBowl i założeń eksperymentu
+
+Struktura pracy
+7.1. Rozdział 2: Przegląd literatury
+7.2. Rozdział 3: Opis środowiska BotBowl i przygotowanie eksperymentu
+7.3. Rozdział 4: Implementacja i opis testowanych architektur
+7.4. Rozdział 5: Wyniki eksperymentów i analiza
+7.5. Rozdział 6: Wnioski i dalsze kierunki badań
+
