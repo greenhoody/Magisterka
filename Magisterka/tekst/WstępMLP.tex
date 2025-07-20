@@ -1,0 +1,216 @@
+Idea sztucznych sieci nuornowych narodziła się podczas prób modelowaniu pracy ludzkiego mózgu w [McCulloch‑Pitts (1943)]. Badacze w swojej pracy  
+
+
+
+
+
+
+
+
+
+
+
+
+
+Poniżej znajdziesz *rzetelne źródła naukowe* oraz rekomendowaną literaturę do Twojej pracy magisterskiej, z podziałem na aspekty konceptualne, matematyczne oraz implementacyjne sieci neuronowych:
+
+
+
+---
+
+
+
+## 📘 1. Literatura matematyczno-teoretyczna
+
+
+
+* *Jentzen, Kuckuck & von Wurstemberger – *Mathematical Introduction to Deep Learning: Methods, Implementations, and Theory (2023)**
+
+Szczegółowe omówienie architektur (MLP, konwolucyjne, rekurencyjne, residual, batch norm), metod optymalizacji (SGD, techniki przyspieszające, adaptacyjne), teoria aproksymacji, nierówności Kurdyki‑Łojasiewicza oraz analiza błędu uogólnienia. Zawiera też rozdziały dot. PINN i metod Galerkin dla równań PDE ([justpaste.it][1], [arXiv][2]).
+
+
+
+* *Weinan E, Chao Ma, Stephan Wojtowytsch, Lei Wu – *Towards a Mathematical Understanding of Neural Network‑Based Machine Learning (2020)**
+
+Przegląd najnowszych wyników teoretycznych, analiza osiągnięć i otwartych problemów matematycznych związanych z uczeniem sieci neuronowych ([arXiv][3]).
+
+
+
+* *Higham & Higham – *Deep Learning: An Introduction for Applied Mathematicians (2018)**
+
+Wprowadzenie z punktu widzenia matematyki stosowanej: analiza sieci, SGD, kalkulacja gradientów, przykładowe implementacje w MATLAB-ie i omówienie użycia bibliotek na dużych zestawach danych ([arXiv][4]).
+
+
+
+* *McCulloch & Pitts – *A Logical Calculus of the Ideas Immanent in Nervous Activity (1943)**
+
+Klasyczny artykuł definiujący matematyczny model neuronu jako bramkę logiczną z progiem – fundament koncepcji sieci neuronowych ([Wikipedia][5], [RUJ][6]).
+
+
+
+* *Universal Approximation Theorem – Hornik, Stinchcombe, White (1989)*
+
+Teorem o aproksymacji dowodzący, że MLP z odpowiednią strukturą potrafi przybliżać dowolne funkcje ciągłe — fundament matematyczny tezy o "uniwersalnym aproksymatorze" ([Wikipedia][7], [yadda.icm.edu.pl][8]).
+
+
+
+---
+
+
+
+## 🔧 2. Koncepcja i implementacja (praktyczne podejście)
+
+
+
+* *Stanisław Osowski – “Sztuczne sieci neuronowe – podstawowe struktury i algorytmy uczące” (Przegląd Elektrotechniczny, 2009)*
+
+Przegląd MLP, RBF, algorytmów uczących (back‑propagation) w języku polskim — bardzo przystępny tekst do części teoretyczno-implementacyjnej ([yadda.icm.edu.pl][8]).
+
+
+
+* *Babik Wiesław – „Sztuczne sieci neuronowe w systemach informacyjno‑wyszukiwawczych” (2000)*
+
+Omówienie typologii sieci, procesu uczenia oraz przykłady wdrożeń w systemach IR (bibliografie, grupowanie, filtrowanie informacji) ([RUJ][6]).
+
+
+
+---
+
+
+
+## 🧪 3. Prace dyplomowe (implementacje w PL)
+
+
+
+* *NEAT — Politechnika Warszawska, praca inżynierska 2021*
+
+Implementacja algorytmu neuroewolucji (NEAT): zarówno struktury sieci, jak i wag, udokumentowana i użyteczna dydaktycznie ([repo.pw.edu.pl][9]).
+
+
+
+* *Sieci neuronowe + TensorFlow — Politechnika Warszawska, praca 2022*
+
+Implementacja modułu uczącego sieci neuronowe przy użyciu TensorFlow w praktycznym narzędziu MITforRD; zawiera opis struktury sieci, procesów uczenia i integracji kodu ([repo.pw.edu.pl][10]).
+
+
+
+* *Sieci impulsowe + RL — Politechnika Warszawska, praca magisterska*
+
+Implementacja i porównanie spiking neural networks użytych w algorytmach uczenia ze wzmocnieniem (DQN, PPO, A2C) – implementacja LIF‑neurony w Atari ([repo.pw.edu.pl][11]).
+
+
+
+---
+
+
+
+## 📚 4. Podstawowa literatura klasyczna i książki w języku polskim
+
+
+
+* Książki starsze klasyki:
+
+
+
+* Żurada, Barski & Jędruch – Sztuczne sieci neuronowe (PWN, 1996)
+
+* Osowski – Sieci neuronowe w ujęciu algorytmicznym (WNT, 1996)
+
+* Tadeusiewicz – Sieci neuronowe (RM, 1993) ([is.umk.pl][12])
+
+
+
+* Literatura do głębokiego uczenia:
+
+
+
+* Goodfellow, Bengio & Courville – Deep Learning, MIT Press (2016)
+
+* Michael Nielsen – Neural Networks and Deep Learning
+
+* Kursy online: Geoffrey Hinton tutorials, Dive into Deep Learning, materiał uczelniany NTU, GitHub z implementacjami ([is.umk.pl][12], [is.umk.pl][13])
+
+
+
+---
+
+
+
+## 📝 Propozycja struktury bibliografii
+
+
+
+| Obszar                                | Źródła                                                      |
+
+| ------------------------------------- | ----------------------------------------------------------- |
+
+| *Koncepcyjny/historiczny*           | McCulloch‑Pitts (1943)                                      |
+
+| *Podstawy matematyczne*             | Universal Approximation Theorem, Higham & E, Weinan E i in. |
+
+| *Teoria głębokiego uczenia*         | Jentzen et al. (2023)                                       |
+
+| *Algorytmy i implementacja*         | Osowski, Babik                                              |
+
+| *Praktyczne zaimplementowane prace* | NEAT, TensorFlow, SNN+RL z PW                               |
+
+
+
+---
+
+
+
+### 🧠 Jak wykorzystać te źródła w pracy?
+
+
+
+* *Rozdział teoretyczny*: zacznij od klasyki (McCulloch‑Pitts, Universal Approximation), dalej rozwinięcie matematyczne (SGD, teoria aproksymacji, generalizacja) na podstawie Jentzen i Weinan E.
+
+* *Rozdział implementacyjny*: od algorytmu back‑prop (Osowski), przez praktyczne narzędzia (TensorFlow, NEAT, spiking NN).
+
+* *Część praktyczna / studia przypadków*: wykorzystanie prac magisterskich jako inspiracja opisu implementacji lub nawet adaptacji.
+
+
+
+Jeśli chciałbyś, mogę pomóc sformułować konkretne cytowania, streszczenia poszczególnych prac lub zasugerować dodatkowe artykuły specjalistyczne (np. spiking networks, neural ODEs itp.). Daj znać!
+
+
+
+[1]: https://justpaste.it/sieci-neuronowe-sztuczna-intelig?utm_source=chatgpt.com
+"Sieci neuronowe, sztuczna inteligencja - JustPaste.it"
+
+[2]: https://arxiv.org/abs/2310.20360?utm_source=chatgpt.com
+"Mathematical Introduction to Deep Learning: Methods, Implementations, and Theory"
+
+[3]: https://arxiv.org/abs/2009.10713?utm_source=chatgpt.com
+"Towards a Mathematical Understanding of Neural Network-Based Machine Learning: what we know and what we don't"
+
+[4]: https://arxiv.org/abs/1801.05894?utm_source=chatgpt.com
+"Deep Learning: An Introduction for Applied Mathematicians"
+
+[5]: https://en.wikipedia.org/wiki/A_Logical_Calculus_of_the_Ideas_Immanent_in_Nervous_Activity?utm_source=chatgpt.com
+"A Logical Calculus of the Ideas Immanent in Nervous Activity"
+
+[6]: https://ruj.uj.edu.pl/handle/item/58186?utm_source=chatgpt.com
+"Sztuczne sieci neuronowe w systemach informacyjno-wyszukiwawczych"
+
+[7]: https://en.wikipedia.org/wiki/Universal_approximation_theorem?utm_source=chatgpt.com
+"Universal approximation theorem"
+
+[8]: https://yadda.icm.edu.pl/yadda/element/bwmeta1.element.baztech-article-BPOZ-0012-0001?utm_source=chatgpt.com
+"Sztuczne sieci neuronowe - podstawowe struktury sieciowe i algorytmy uczące - Przegląd Elektrotechniczny - Tom R. 85, nr 8 (2009) - Biblioteka Nauki - Yadda"
+
+[9]: https://repo.pw.edu.pl/info/bachelor/WUTe7a22297587e4dee932a74f65465f4b4/?utm_source=chatgpt.com
+"Prace inżynierskie / licencjackie – Implementacja algorytmu neuroewolucji sztucznej sieci neuronowej – Politechnika Warszawska"
+
+[10]: https://repo.pw.edu.pl/info/bachelor/WUT6491ba4e836f4d2593e3e2516bc85c02/?utm_source=chatgpt.com
+"Prace inżynierskie / licencjackie – Implementacja modułu uczącego sieci neuronowe przy wykorzystaniu TensorFlow dla programu MITforRD – Politechnika Warszawska"
+
+[11]: https://repo.pw.edu.pl/info/master/WUTea487f577a5e40698416e9fab4bf1a18/?utm_source=chatgpt.com
+"Prace magisterskie – Implementacja i porównanie modeli impulsowych sieci neuronowych w wybranych algorytmach uczenia ze wzmocnieniem w grach Atari – Politechnika Warszawska"
+
+[12]: https://is.umk.pl/~grochu/wiki/doku.php?id=zajecia%3Ann_2020_1%3Astart&utm_source=chatgpt.com
+"zajecia:nn_2020_1:start [Marek Grochowski]"
+
+[13]: https://is.umk.pl/~grochu/wiki/doku.php?id=zajecia%3Ann_2022_1%3Astart&utm_source=chatgpt.com
+"zajecia:nn_2022_1:start [Marek Grochowski]"
