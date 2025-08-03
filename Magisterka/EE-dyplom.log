@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  28 JUL 2025 19:25
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  3 AUG 2025 12:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1616,6 +1616,122 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 \docparskip=\skip115
 \c@easyappendix=\count556
 )
+(c:/texlive/2025/texmf-dist/tex/latex/pgfplots/pgfplots.sty
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
+Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
+\t@pgfplots@toka=\toks61
+\t@pgfplots@tokb=\toks62
+\t@pgfplots@tokc=\toks63
+\pgfplots@tmpa=\dimen345
+\c@pgfplots@coordindex=\count557
+\c@pgfplots@scanlineindex=\count558
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.te
+x))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.tex)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfs
+upp_loader.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex)
+Package pgfplots: loading complementary utilities for your pgf version...
+\t@pgf@toka=\toks64
+\t@pgf@tokb=\toks65
+\t@pgf@tokc=\toks66
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfs
+upp_pgfutil-common-lists.tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststru
+cture.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststru
+ctureext.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray.co
+de.tex
+\c@pgfplotsarray@tmp=\count559
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatrix.c
+ode.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshared.c
+ode.tex
+\c@pgfplotstable@counta=\count560
+\t@pgfplotstable@a=\toks67
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque.co
+de.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.code.
+tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code.te
+x)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.surfsh
+ading.code.tex
+\c@pgfplotslibrarysurf@no=\count561
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfsha
+ding.pgfsys-xetex.def
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfsha
+ding.pgfsys-dvipdfmx.def
+\c@pgfplotslibrarysurf@streamlen=\count562
+))))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.t
+ex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex
+))) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.t
+ex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarydecorations.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.t
+ex
+\pgfdecoratedcompleteddistance=\dimen346
+\pgfdecoratedremainingdistance=\dimen347
+\pgfdecoratedinputsegmentcompleteddistance=\dimen348
+\pgfdecoratedinputsegmentremainingdistance=\dimen349
+\pgf@decorate@distancetomove=\dimen350
+\pgf@decorate@repeatstate=\count563
+\pgfdecorationsegmentamplitude=\dimen351
+\pgfdecorationsegmentlength=\dimen352
+)
+\tikz@lib@dec@box=\box131
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarydecorations.pathmorphing.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydec
+orations.pathmorphing.code.tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarydecorations.pathreplacing.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydec
+orations.pathreplacing.code.tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.conto
+urlua.code.tex)
+\pgfplots@numplots=\count564
+\pgfplots@xmin@reg=\dimen353
+\pgfplots@xmax@reg=\dimen354
+\pgfplots@ymin@reg=\dimen355
+\pgfplots@ymax@reg=\dimen356
+\pgfplots@zmin@reg=\dimen357
+\pgfplots@zmax@reg=\dimen358
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryplotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.
+tex
+File: pgflibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
 
 Package fontspec Info: 
 (fontspec)             Font family 'LatinModernSans(1)' created for font
@@ -1638,26 +1754,27 @@ Package fontspec Info:
  (./EE-dyplom.aux)
 \openout1 = `EE-dyplom.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1713,7 +1830,7 @@ Package biblatex Info: ... file 'latin.lbx' not found.
 
 
 Package biblatex Warning: Language 'latin' not supported.
-(biblatex)                Using dummy definitions on input line 67.
+(biblatex)                Using dummy definitions on input line 74.
 
 Package biblatex Info: Trying to load language 'polish'...
 Package biblatex Info: ... file 'polish.lbx' found.
@@ -1730,18 +1847,22 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'EE-dyplom.bbl' not found.
 
 No file EE-dyplom.bbl.
-Package biblatex Info: Reference section=0 on input line 67.
-Package biblatex Info: Reference segment=0 on input line 67.
+Package biblatex Info: Reference section=0 on input line 74.
+Package biblatex Info: Reference segment=0 on input line 74.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 67.
+Package hyperref Info: Link coloring ON on input line 74.
 (./EE-dyplom.out) (./EE-dyplom.out)
 \@outlinefile=\write9
 \openout9 = `EE-dyplom.out'.
 
-\c@lstlisting=\count557
+\c@lstlisting=\count565
+
+Package pgfplots notification 'compat/show suggested version=true': document ha
+s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
+
 File: gfx/HeadeePL.png Graphic file (type bmp)
 <gfx/HeadeePL.png>
 File: gfx/mgrhead.png Graphic file (type bmp)
@@ -1771,37 +1892,34 @@ File: gfx/mgrhead.png Graphic file (type bmp)
 [6
 
 ] (./EE-dyplom.toc
-LaTeX Font Info:    Trying to load font information for U+msa on input line 11.
-
+LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 11.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
 
 (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+esint on input line 1
-1.
+LaTeX Font Info:    Trying to load font information for U+esint on input line 5
+.
 
 (c:/texlive/2025/texmf-dist/tex/latex/esint/uesint.fd
 File: uesint.fd 
 )
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 11.
+(Font)              scaled to size 8.0pt on input line 5.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 11.
+(Font)              scaled to size 6.0pt on input line 5.
 
 
 LaTeX Font Warning: Font shape `TU/LatinModernMath(1)/m/it' undefined
-(Font)              using `TU/LatinModernMath(1)/m/n' instead on input line 11.
-
+(Font)              using `TU/LatinModernMath(1)/m/n' instead on input line 5.
 
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 11.
+(Font)              scaled to size 8.0pt on input line 5.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 6.0pt on input line 11.
+(Font)              scaled to size 6.0pt on input line 5.
 
 
 [7
@@ -1829,22 +1947,42 @@ Rozdział 2.
 
 LaTeX Warning: Citation 'McCulloch1943' on page 11 undefined on input line 1.
 
-)
+
+LaTeX Warning: Citation 'minsky1969perceptrons' on page 11 undefined on input l
+ine 13.
+
+
 
 [11]
 
+LaTeX Warning: Citation 'Cybenko1989' on page 12 undefined on input line 76.
+
+
+LaTeX Warning: Citation 'HORNIK1989359' on page 12 undefined on input line 76.
+
+
+
 [12]
-Rozdział 3.
+
+LaTeX Warning: Citation 'RolnickTegmark2017' on page 13 undefined on input line
+ 79.
 
 
-[13
+LaTeX Warning: Citation 'H.N.Mhaskar2020' on page 13 undefined on input line 84
+.
 
-]
+
+LaTeX Warning: Citation 'telgarsky2016benefits' on page 13 undefined on input l
+ine 86.
+
+)
+
+[13]
 
 [14
 
 ]
-Rozdział 4.
+Rozdział 3.
 
 
 [15]
@@ -1852,7 +1990,7 @@ Rozdział 4.
 [16
 
 ]
-Rozdział 5.
+Rozdział 4.
 
 
 [17]
@@ -1860,7 +1998,7 @@ Rozdział 5.
 [18
 
 ]
-Rozdział 6.
+Rozdział 5.
 
 
 [19]
@@ -1868,12 +2006,20 @@ Rozdział 6.
 [20
 
 ]
-Rozdział 7.
-(./tekst/Wyniki.tex)
+Rozdział 6.
+
 
 [21]
 
 [22
+
+]
+Rozdział 7.
+(./tekst/Wyniki.tex)
+
+[23]
+
+[24
 
 ]
 Rozdział 8.
@@ -1890,7 +2036,7 @@ LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
 (Font)              scaled to size 10.95pt on input line 28.
 
 
-[23]
+[25]
 File: rysunki/Kopernik.jpg Graphic file (type bmp)
 <rysunki/Kopernik.jpg>
 File: rysunki/wektorowo.pdf Graphic file (type pdf)
@@ -1899,37 +2045,37 @@ File: rysunki/wektorowo.png Graphic file (type bmp)
 <rysunki/wektorowo.png>
 
 
-[24]
-
-[25]
-
-LaTeX Warning: Citation 'fowler2009' on page 26 undefined on input line 82.
-
-
-LaTeX Warning: Citation 'maxwell1865' on page 26 undefined on input line 82.
-
-
-LaTeX Warning: Citation 'leksinski1995' on page 26 undefined on input line 82.
-
-
-LaTeX Warning: Citation 'leksinski1995' on page 26 undefined on input line 82.
-
-
-
 [26]
 
-LaTeX Warning: Citation 'tegoniema' on page 27 undefined on input line 90.
+[27]
+
+LaTeX Warning: Citation 'fowler2009' on page 28 undefined on input line 82.
+
+
+LaTeX Warning: Citation 'maxwell1865' on page 28 undefined on input line 82.
+
+
+LaTeX Warning: Citation 'leksinski1995' on page 28 undefined on input line 82.
+
+
+LaTeX Warning: Citation 'leksinski1995' on page 28 undefined on input line 82.
+
+
+
+[28]
+
+LaTeX Warning: Citation 'tegoniema' on page 29 undefined on input line 90.
 
 File: rysunki/citethis.png Graphic file (type bmp)
 <rysunki/citethis.png>
 
-LaTeX Warning: Citation 'maxwell1865' on page 27 undefined on input line 101.
+LaTeX Warning: Citation 'maxwell1865' on page 29 undefined on input line 101.
 
 
-LaTeX Warning: Citation 'cichon1995' on page 27 undefined on input line 101.
+LaTeX Warning: Citation 'cichon1995' on page 29 undefined on input line 101.
 
 
-LaTeX Warning: Citation 'lncsevo' on page 27 undefined on input line 101.
+LaTeX Warning: Citation 'lncsevo' on page 29 undefined on input line 101.
 
 
 Overfull \hbox (0.86353pt too wide) in paragraph at lines 101--102
@@ -1939,27 +2085,27 @@ Overfull \hbox (0.86353pt too wide) in paragraph at lines 101--102
 
 
 
-[27]
+[29]
 
-LaTeX Warning: Citation 'cpee2018' on page 28 undefined on input line 103.
-
-
-LaTeX Warning: Citation 'truong2018' on page 28 undefined on input line 105.
+LaTeX Warning: Citation 'cpee2018' on page 30 undefined on input line 103.
 
 
-LaTeX Warning: Citation 'poirier2020' on page 28 undefined on input line 105.
+LaTeX Warning: Citation 'truong2018' on page 30 undefined on input line 105.
 
 
-LaTeX Warning: Citation 'nask2020' on page 28 undefined on input line 105.
+LaTeX Warning: Citation 'poirier2020' on page 30 undefined on input line 105.
 
 
-LaTeX Warning: Citation 'AN4230' on page 28 undefined on input line 105.
+LaTeX Warning: Citation 'nask2020' on page 30 undefined on input line 105.
 
 
-LaTeX Warning: Citation 'szablon' on page 28 undefined on input line 107.
+LaTeX Warning: Citation 'AN4230' on page 30 undefined on input line 105.
 
 
-LaTeX Warning: Citation 'wilamowski2017' on page 28 undefined on input line 116
+LaTeX Warning: Citation 'szablon' on page 30 undefined on input line 107.
+
+
+LaTeX Warning: Citation 'wilamowski2017' on page 30 undefined on input line 116
 .
 
 
@@ -1988,7 +2134,7 @@ Package polyglossia Info: Activating hyphenation patterns for modern Latin on
 
 
 
-[28]
+[30]
 Overfull \hbox (11.37851pt too wide) in paragraph at lines 129--130
 []\TU/LatinModernSans(1)/m/n/10.95 Kolor „wrzosowy” – [][][][][][][]Administrac
 ji
@@ -2032,7 +2178,7 @@ Missing character: There is no e ("65) in font nullfont!
 Missing character: There is no r ("72) in font nullfont!
 
 
-[29]
+[31]
 Underfull \hbox (badness 10000) in paragraph at lines 190--190
 []|\TU/LatinModernSans(1)/m/n/10.95 2017-- 08-- 11
  []
@@ -2042,17 +2188,17 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 
-[30]
+[32]
 File: rysunki/kile.png Graphic file (type bmp)
 <rysunki/kile.png>
 
 
-[31]
+[33]
 File: rysunki/Ampere.jpg Graphic file (type bmp)
 <rysunki/Ampere.jpg>
 
 
-[32]
+[34]
 File: rysunki/Faraday.jpg Graphic file (type bmp)
 <rysunki/Faraday.jpg>
 File: rysunki/Ohm.jpg Graphic file (type bmp)
@@ -2063,32 +2209,32 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[33]
+[35]
 
-LaTeX Warning: Citation 'maxwell1865' on page 34 undefined on input line 311.
+LaTeX Warning: Citation 'maxwell1865' on page 36 undefined on input line 311.
 
 
 
-[34]
+[36]
 File: rysunki/Maxwell.jpg Graphic file (type bmp)
 <rysunki/Maxwell.jpg>
 
 
-[35]
+[37]
 LaTeX Font Info:    Trying to load font information for U+euf on input line 350
 .
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 )
 
-[36] (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+[38] (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 461.
 
 
-[37]
+[39]
 
 LaTeX Font Warning: Font shape `TU/LatinModernMono(0)/b/n' undefined
 (Font)              using `TU/LatinModernMono(0)/m/n' instead on input line 467
@@ -2102,28 +2248,28 @@ File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 )
 (./src/Keccak-inplace32BI.c
 
-[38])
+[40])
 
-[39] (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+[41] (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 
-[40]
-
-[41])
-
 [42]
+
+[43])
+
+[44]
 Rozdział 9.
 
 
-[43
+[45
 
 ]
 
-[44
+[46
 
 ]
 Rozdział 10.
@@ -2137,39 +2283,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--15
 
 
 
-[45]
-
-[46]
-
 [47]
 
-[48])
+[48]
 
 [49]
 
-[50
-
-]
-Rozdział 11.
-(./tekst/podsumowanie.tex))
+[50])
 
 [51]
 
 [52
 
 ]
+Rozdział 11.
+(./tekst/podsumowanie.tex))
 
-LaTeX Warning: Empty bibliography on input line 78.
+[53]
+
+[54
+
+]
+
+LaTeX Warning: Empty bibliography on input line 85.
 
 No file EE-dyplom.acr.
 No file EE-dyplom.sls.
 
 
-[53
+[55
 
 ]
 
-[54
+[56
 
 ] (./EE-dyplom.lof)
 \tf@lof=\write11
@@ -2177,9 +2323,9 @@ No file EE-dyplom.sls.
 
 
 
-[55]
+[57]
 
-[56
+[58
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2187,21 +2333,15 @@ No file EE-dyplom.sls.
 
 
 
-[57]
+[59]
 
-[58
+[60
 
 ] (./EE-dyplom.app)
 \tf@app=\write13
 \openout13 = `EE-dyplom.app'.
 
  (./appendices.tex
-
-[59]
-
-[60
-
-]
 
 [61]
 
@@ -2219,9 +2359,15 @@ No file EE-dyplom.sls.
 
 [66
 
+]
+
+[67]
+
+[68
+
 ])
 
-[67] (./EE-dyplom.aux)
+[69] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2234,7 +2380,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
-(rerunfilecheck)             Checksum: D980655DFFC0DC57D7C5D56DDC38C26A;5558.
+(rerunfilecheck)             Checksum: 669850AF2FCEE8E501D1147874C257B0;6024.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                EE-dyplom
@@ -2245,12 +2391,12 @@ Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 47614 strings out of 468529
- 979398 string characters out of 5451399
- 2279016 words of memory out of 5000000
- 75140 multiletter control sequences out of 15000+600000
+ 57991 strings out of 468529
+ 1329870 string characters out of 5451399
+ 2711120 words of memory out of 5000000
+ 85378 multiletter control sequences out of 15000+600000
  639429 words of font info for 163 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  114i,18n,131p,2506b,5050s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (67 pages).
+Output written on EE-dyplom.pdf (69 pages).

@@ -2377,22 +2377,28 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1" intorder="1">McCulloch1943</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">fowler2009</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">maxwell1865</bcf:citekey>
-    <bcf:citekey order="3" intorder="2">leksinski1995</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">leksinski1995</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">tegoniema</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">maxwell1865</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">cichon1995</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">lncsevo</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">cpee2018</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">truong2018</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">poirier2020</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">nask2020</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">AN4230</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">szablon</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">wilamowski2017</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">maxwell1865</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">minsky1969perceptrons</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">Cybenko1989</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">HORNIK1989359</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">RolnickTegmark2017</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">H.N.Mhaskar2020</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">telgarsky2016benefits</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">fowler2009</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">maxwell1865</bcf:citekey>
+    <bcf:citekey order="9" intorder="2">leksinski1995</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">leksinski1995</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">tegoniema</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">maxwell1865</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">cichon1995</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">lncsevo</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">cpee2018</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">truong2018</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">poirier2020</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">nask2020</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">AN4230</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">szablon</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">wilamowski2017</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">maxwell1865</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

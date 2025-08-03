@@ -8,11 +8,11 @@ gdzie:
 	\item $w_{ij}$ - waga połączenia między wektorem j oraz i.
 	\item $\Theta$ - próg wyzwalania, neuron aktywuje się, gdy sygnał wejściowy go przekroczy.
 \end{itemize}
+\medskip
 
-Sieć złożona z takich neuronów jest nazywana dzisiaj perceptronem. Służy ona do zadań klasyfikacji binarnej. Potrafi określić przynależność do jednej z klas na podstawie wybranych cech. 
+Sieć złożona z takich neuronów jest nazywana dzisiaj perceptronem. Służy ona do zadań klasyfikacji binarnej. Potrafi określić przynależność badanego obiektu do jednej z klas na podstawie wybranych cech. W 1957 roku peceptron stworzony przez Franka Rosenblatt'a został pierwszą uczącą się siecią neuronową. Chociaż perceptron był przełomowy, miał istotne ograniczenie - nie był w stanie rozwiązać problemów nielinowych, takich jak funkcja XOR. dopiero zastąpienie funkcji skokowej ciągłymi, różniczkowalnymi funkcjami aktywacji umożliwiło trenowanie modeli za pomocą metod opartych o pochodne, takich jak propagacja wsteczna. \cite{minsky1969perceptrons}
 
-
-Jak zostało wcześniej wspomniane ten model został stworzony w określonym celu, opisaniu działania biologicznego neuronu. Można uogólnić ten model, pozwalając stworzyć bardziej uniwersalny model matematyczny.
+Jak zostało wcześniej wspomniane ten model został stworzony w celu opisania sposobu działania biologicznego neuronu. Można go uogólnić, pozwalając stworzyć bardziej uniwersalny model matematyczny.
 
 \[ y=f\left( \sum_{i=1}^{m}w_{i}(t)x_{i}(t)+b\right) \]
 gdzie:
@@ -25,6 +25,78 @@ gdzie:
 	\item b – stała wartość (ang. bias).
 \end{itemize}
 
-W przypadku neuronu McCollocha-Pilltsa, funkcja aktywacji przyjęła postać funkcji skokowej Heaviside'a. Dzięki takiemu przedstawieniu działania neuronu, możemy zastosować dowolną funkcję aktywacji.
+Do funkcji aktywacji f jest przekazywana ważona suma wejść do, której może być dodany bias. Dzięki takiemu przedstawieniu działania neuronu, możemy zastosować dowolną funkcję aktywacji. Obecnie, żadko używa się funkcji skokowej. W współczesnych zaawansowanych modelach są używane funkcje ciągłe(takie jak sigmoid, tangens hiperboliczny) lub ReLU z różnymi modyfikacjami. Ich najważniejszą cechą jest różniczkowalność. Umożliwia to wykorzystanie metod opartych o gradient do uczenia sieci. 
+
+\begin{tikzpicture}
+	\begin{axis}[
+		width=13cm, height=6cm,
+		axis lines=middle,
+		xlabel={$x$},
+		ylabel={$H'(x)$},
+		ymin=-0.2, ymax=1.5,
+		xmin=-3, xmax=3,
+		xtick={-3,-2,-1,0,1,2,3},
+		ytick={0,1},
+		domain=-3:3,
+		samples=200,
+		legend style={at={(0.5,-0.2)}, anchor=north},
+		]
+		
+		% Linia zerowa - pochodna poza x=0
+	\addplot[red, ultra thick] coordinates {(0,0) (0,1.3)};
+	\addplot[domain=-3:0, thick, red] {0};
+	\addplot[domain=0.01:3, thick, red] {0};
+	\addlegendentry{$H'(x) = 0$ dla $x \ne 0$}
+	\node[red, above] at (axis cs:0,1.3) {$\delta(x)$};
+		
+	\end{axis}
+\end{tikzpicture}
+
+
+
+
+
+%TODO Dodac porównanie różniczki funkcji skokowej i np tanh
+
+\section{Funkcja aktywacji i rola nieliniowości}
+
+{\Large Chat GPT porponuje tę część, ale to wygląda jak poprzedni akapit}
+
+%W przypadku neuronu McCollocha-Pilltsa, funkcja aktywacji przyjęła postać funkcji skokowej Heaviside'a.
+
+\section{Architektura sieci neuronowej}
+
+W sztucznej sieci neuronowej neurony są zorganizowane w warstwy, gdzie wyjścia neuronów poprzedniej warstwy stają się wejściami nueronów następnej. Typowa struktura to warstwa wejściowa, jedna lub więcej warstw ukrytych oraz warstwa wyjściowa. Zazwyczaj wastwy są ze sobą w pełni połączone (ang. full connected). To znaczy, że każdy neuron jest połączony ze wszystkimi neuronami następnej warstwy.
+
+{\Large wstawić obraz}
+
+Sieci mozna podzielić pod względem ich głębokości. Głębokośc sieci neuronowych jest rozumiana jako ilości warstw ukrytych. Określenie ,,płytka'' zazwyczaj oznacza sieć z jedną warstwą ukrytą, natomiast sieć ,,głęboka'' posiada ich wiele.
+ 
+\subsection*{Uniwersalna aproksymacja}
+Twierdzenie uniwersalnej aproksymacji, mówi że odpowiednio ,,szeroka'' (szerokość - liczba neuronów w warstwie) sieć płytka jest w stanie dokonać aproksymacji dowolnej funkci ciągłej na zwartym zbiorze \cite{Cybenko1989} \cite{HORNIK1989359}.
+Częściowo tłumaczy to, użyteczność sieci neuronowych. Udowadnia ono, że sztuczne sieci neuronowe mogą prezentować bardzo skomplikowane zależności z wystarzającą ilością neuronów. 
+
+Jednak użycie pojedyńczej warstwy ukrytej wymaga o wiele większej liczby parametrów niż w przypadku sieci głębokich. Zostało to udowodniene w \cite{RolnickTegmark2017}, 
+%TODO upewnić się, że mogę tutaj użyć opisu liniowy
+że całkowita liczba neuronów wymaganych do aproksymacji naturalnych klas wielomianów n zmiennych wielowymiarowych rośnie liniowo tylko w przypadku głębokich sieci neuronowych, ale rośnie wykładniczo, gdy dozwolona jest tylko jedna warstwa ukryta. Dodatkowo w artykule są prezentowane dowody na to, że przy k wartwach ukrytych wymagana liczba neuronów rośnie wykładniczo nie z n, ale z $n^{\frac{1}{k}}$, co sugeruje, że minimalna liczba warstw wymaganych do praktycznej ekspresji rośnie logarytmicznie z n.
+
+Dzieje się tak, ponieważ głębsze modele wykonują więcej sekwencyjnych przekształceń danych wejściowych, co z punktu widzenia teorii obliczeń odpowiada większej liczbie kroków kompozycji funkcji.
+$f(x) = f^{(n)}(\dots f^{(3)}(f^{(2)}(f^{(1)}(x))))$, gdzie $f^{(1)}, f^{(2)}, f^{(3)}$ to funkcje realizowane odpowiednio przez kolejne warstwy (wraz z nieliniowymi aktywacjami). W sieci płytkiej mamy tylko jedną taką zagnieżdżoną kompozycję (np. $f(x)=f^{(2)}(f^{(1)}(x))$). \cite{H.N.Mhaskar2020}
+
+Formalnie udowodniono istnienie tzw. hierarchii głębokości: dla pewnych klas funkcji ograniczenie głębokości sieci neuronowej prowadzi do konieczności znaczącego zwiększenia liczby jednostek obliczeniowych. Na przykład, \cite{telgarsky2016benefits} wykazał, że dla dowolnego $k$ można skonstruować funkcję, którą sieć o głębokości ~$k^3$ i stałej liczbie neuronów na warstwę jest w stanie efektywnie odwzorować, natomiast każda sieć płytka o głębokości $O(k)$ wymagałaby w przybliżeniu $2^k$ neuronów. Oznacza to, że wzrost głębokości sieci przekłada się na istotnie większą efektywność reprezentacyjną niż analogiczny wzrost szerokości.
+
+
+
+\textit{Użyte w tekście symbole O, $\Omega$, to notacje asymptotyczne używane do opisu tempa wzrostu. $O(k)$ oznacza ,,co najwyżej proporcjonalne do k'', $\Omega(2^{k})$ oznacza dolne ograniczenie}
+
+
+
+ 
+
+
+
+ 
+ 
+ 
 
 
