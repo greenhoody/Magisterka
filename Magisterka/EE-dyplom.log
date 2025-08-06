@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  3 AUG 2025 12:40
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  6 AUG 2025 22:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1954,26 +1954,33 @@ ine 13.
 
 
 [11]
-
-LaTeX Warning: Citation 'Cybenko1989' on page 12 undefined on input line 76.
-
-
-LaTeX Warning: Citation 'HORNIK1989359' on page 12 undefined on input line 76.
-
+LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
+(Font)              scaled to size 5.0pt on input line 59.
+LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
+(Font)              scaled to size 5.0pt on input line 59.
+LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
+(Font)              scaled to size 10.95pt on input line 59.
 
 
 [12]
 
+LaTeX Warning: Citation 'Cybenko1989' on page 13 undefined on input line 146.
+
+
+LaTeX Warning: Citation 'HORNIK1989359' on page 13 undefined on input line 146.
+
+
+
 LaTeX Warning: Citation 'RolnickTegmark2017' on page 13 undefined on input line
- 79.
+ 149.
 
 
-LaTeX Warning: Citation 'H.N.Mhaskar2020' on page 13 undefined on input line 84
-.
+LaTeX Warning: Citation 'H.N.Mhaskar2020' on page 13 undefined on input line 15
+4.
 
 
 LaTeX Warning: Citation 'telgarsky2016benefits' on page 13 undefined on input l
-ine 86.
+ine 156.
 
 )
 
@@ -2026,14 +2033,8 @@ Rozdział 8.
 (./tekst/wstep.tex
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
 (Font)              scaled to size 9.0pt on input line 19.
-LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 19.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
 (Font)              scaled to size 9.0pt on input line 19.
-LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 5.0pt on input line 19.
-LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 28.
 
 
 [25]
@@ -2391,10 +2392,10 @@ Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 57991 strings out of 468529
- 1329870 string characters out of 5451399
+ 58073 strings out of 468529
+ 1331675 string characters out of 5451399
  2711120 words of memory out of 5000000
- 85378 multiletter control sequences out of 15000+600000
+ 85460 multiletter control sequences out of 15000+600000
  639429 words of font info for 163 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  114i,18n,131p,2506b,5050s stack positions out of 10000i,1000n,20000p,200000b,200000s
