@@ -1,1 +1,81 @@
-\subsection{TEST}
+\section{Techniki uczenia sieci neuronowych}
+Uczenie sieci neuronowych to proces, podczas którego model dopasowuje swoje parametry w taki sposób, aby minimalizować błąd predykcji. Efektywność tego procesu decyduje o zdolności modelu do generalizacji, czyli poprawnego działania na podstawie danych, których nie widział podczas treningu. W praktyce, uczenie polega na iteracyjnym modyfikowaniu parametrów na podstawie informacji zwrotnej wyrażonej za pomocą funkcji kosztu (straty), której wartość wskazuje, jak bardzo przewidywania modelu odbiegają od pożądanych wyników.
+% Fajne przejście do funkcji strat
+
+% TODO spytać się gpt czy są inne
+W zależności od dostępności etykiet uczących oraz celu analizy, metody uczenia sieci neuronowych można podzielić na trzy główne kategorie (Bishop, 2006):
+
+\begin{itemize}
+	\item Uczenie nadzorowane, w którym model trenuje na parach danych wejściowych i wynikowych, ucząc się mapowania między wejściem, a oczekiwanym wynikiem.
+	\item Uczenie nienadzorowane ma na celu odkrycie ukrytych zależności w zbiorze danych wejściowych.
+	\item Uczenie ze wzmocnieniem polega na nauce agenta do podejmowania decyzji poprzez interakcje ze środowiskiem, otrzymując nagrody i kary. 
+\end{itemize}
+
+\subsection*{Uczenie nadzorowane}
+
+Uczenie nadzorowane (\textit{supervised learning}) jest najczęściej stosowanym paradygmatem uczenia sieci neuronowych. Zakłada ono, że dostępny jest zbiór danych uczących składający się z par $(\mathbf{x}, y)$, gdzie $\mathbf{x}$ reprezentuje wektor cech opisujących przykład, a $y$ jest przypisaną do niego etykietą lub wartością wyjściową. Celem modelu jest nauczenie się odwzorowania $f: \mathbf{x} \rightarrow y$ w taki sposób, aby przewidywane wyjście $\hat{y}$ było jak najbardziej zbliżone do wartości rzeczywistej $y$ \cite{Goodfellow-et-al-2016}.
+
+W ramach uczenia nadzorowanego wyróżnia się dwa główne typy zadań:
+\begin{itemize}
+	\item \textbf{Klasyfikacja} – gdy etykiety $y$ należą do skończonego zbioru klas, a model ma za zadanie przypisać dany przykład do jednej z nich. Przykłady zastosowań obejmują rozpoznawanie obrazów, klasyfikację dokumentów tekstowych czy diagnozowanie chorób na podstawie danych medycznych.
+	\item \textbf{Regresja} – gdy etykieta $y$ jest wartością liczbową, a celem jest przewidzenie wartości ciągłej. Do typowych przykładów należą prognozowanie cen, przewidywanie popytu czy estymacja parametrów fizycznych w eksperymentach naukowych.
+\end{itemize}
+
+Proces uczenia w paradygmacie nadzorowanym obejmuje następujące kroki:
+\begin{enumerate}
+	\item \textbf{Propagacja w przód (forward pass)} – dane wejściowe są przetwarzane przez kolejne warstwy sieci neuronowej, aż do uzyskania prognozy $\hat{y}$.
+	\item \textbf{Obliczenie błędu} – na podstawie funkcji kosztu $L(y, \hat{y})$ mierzona jest różnica między przewidywaniami a wartościami rzeczywistymi.
+	\item \textbf{Propagacja wsteczna (backpropagation)} – przy użyciu reguły łańcuchowej obliczane są gradienty funkcji kosztu względem parametrów modelu \cite{Rumelhart1986}.
+	\item \textbf{Aktualizacja wag} – parametry modelu są modyfikowane zgodnie z wybranym algorytmem optymalizacji, np. stochastycznym spadkiem gradientu (SGD) lub Adamem \cite{Kingma2014}.
+\end{enumerate}
+
+Dzięki swojej uniwersalności, uczenie nadzorowane jest stosowane w szerokim zakresie dziedzin, od rozpoznawania mowy i analizy obrazu, przez systemy rekomendacyjne, aż po prognozowanie finansowe i modelowanie procesów przemysłowych.
+
+\subsection{Uczenie nienadzorowane}
+
+Uczenie nienadzorowane (\textit{unsupervised learning}) obejmuje metody, w których model uczy się wyłącznie na podstawie danych wejściowych $\mathbf{x}$, bez dostępu do odpowiadających im etykiet wynikowych. Celem jest odkrycie wewnętrznej struktury danych, zależności pomiędzy przykładami lub reprezentacji pozwalających na ich bardziej efektywne opisanie \cite{Goodfellow-et-al-2016}.  
+
+W ramach uczenia nienadzorowanego wyróżnić można kilka głównych typów zadań:
+\begin{itemize}
+	\item \textbf{Grupowanie (clustering)} – podział zbioru danych na zbiory (klastry) w taki sposób, aby przykłady w tym samym klastrze były do siebie możliwie podobne, a między klastrami występowały wyraźne różnice. Przykładami algorytmów są \textit{k-means}, DBSCAN czy sieci Kohonena (SOM) \cite{Kohonen1990}.
+	\item \textbf{Redukcja wymiarowości} – przekształcenie danych do przestrzeni o mniejszej liczbie wymiarów przy zachowaniu jak największej ilości istotnej informacji. Popularne metody to analiza głównych składowych (PCA) czy autoenkodery.
+	\item \textbf{Uczenie reprezentacji} – poszukiwanie wewnętrznych opisów danych (tzw. reprezentacji ukrytych), które mogą ułatwić dalsze zadania, np. klasyfikację lub generowanie nowych przykładów. Przykładem są modele generatywne, takie jak \textit{Variational Autoencoder} (VAE) czy \textit{Generative Adversarial Networks} (GAN) \cite{GoodfellowGAN2014}.
+\end{itemize}
+
+Proces uczenia nienadzorowanego obejmuje zazwyczaj:
+\begin{enumerate}
+	\item \textbf{Propagację w przód (forward pass)} – przekształcenie danych wejściowych przez kolejne warstwy modelu w celu uzyskania reprezentacji wewnętrznych lub wyników segmentacji.
+	\item \textbf{Obliczenie miary dopasowania} – zamiast klasycznej funkcji straty porównującej prognozy z etykietami, stosuje się miary podobieństwa lub różnicy pomiędzy danymi wejściowymi a ich odwzorowaniem (np. błąd rekonstrukcji).
+	\item \textbf{Propagację wsteczną (backpropagation)} – obliczenie gradientów względem parametrów modelu.
+	\item \textbf{Aktualizację wag} – modyfikację parametrów zgodnie z wybranym algorytmem optymalizacji.
+\end{enumerate}
+
+Uczenie nienadzorowane znajduje zastosowanie m.in. w segmentacji obrazów, eksploracji danych, kompresji informacji, wyszukiwaniu podobnych obiektów, detekcji anomalii czy jako etap wstępny w uczeniu nadzorowanym (tzw. \textit{pretraining}).
+
+\subsection{Funkcje kosztu (straty)}
+
+Funkcja kosztu (ang. \textit{loss function}, \textit{cost function}) pełni kluczową rolę w procesie uczenia sieci neuronowych, ponieważ stanowi ilościową miarę różnicy pomiędzy przewidywaniami modelu $\hat{y}$ a wartościami oczekiwanymi $y$. To właśnie na podstawie wartości funkcji kosztu algorytm optymalizacji oblicza gradienty, które następnie służą do modyfikacji wag modelu w kierunku minimalizacji błędu \cite{Goodfellow-et-al-2016}. Dobór odpowiedniej funkcji straty jest ściśle związany z charakterem problemu i typem danych wyjściowych.  
+
+W praktyce można wyróżnić dwie główne grupy funkcji kosztu:  
+\begin{itemize}
+	\item \textbf{Funkcje kosztu dla klasyfikacji} – stosowane, gdy zadaniem modelu jest przypisanie przykładu do jednej z klas:
+	\begin{itemize}
+		\item \textit{Entropia krzyżowa} (\textit{cross-entropy loss}) – powszechnie używana w zadaniach klasyfikacji wieloklasowej i binarnej. Funkcja ta silnie karze błędne przewidywania o wysokim poziomie pewności.
+		\item \textit{Hinge loss} – często stosowana w klasyfikatorach typu SVM, promuje dużą marginesową separację pomiędzy klasami.
+	\end{itemize}
+	\item \textbf{Funkcje kosztu dla regresji} – używane, gdy przewidywane są wartości ciągłe:
+	\begin{itemize}
+		\item \textit{Mean Squared Error (MSE)} – średnia wartość kwadratu różnic pomiędzy przewidywaniami a wartościami rzeczywistymi; silnie penalizuje duże błędy.
+		\item \textit{Mean Absolute Error (MAE)} – średnia wartość bezwzględna błędów; mniej wrażliwa na wartości odstające niż MSE.
+	\end{itemize}
+\end{itemize}
+
+Dobór funkcji kosztu powinien uwzględniać:
+\begin{itemize}
+	\item \textbf{Charakter problemu} – np. klasyfikacja binarna vs. wieloklasowa, regresja liniowa vs. nieliniowa.
+	\item \textbf{Wrażliwość na wartości odstające} – MSE jest silnie wrażliwe na anomalie, MAE bardziej odporne.
+	\item \textbf{Interpretowalność} – niektóre funkcje, takie jak log-loss, mają bezpośrednie powiązanie z teorią prawdopodobieństwa.
+	\item \textbf{Stabilność numeryczna} – przy dużej liczbie klas lub ekstremalnych wartościach wyjściowych warto stosować wersje funkcji kosztu zoptymalizowane pod kątem obliczeń numerycznych.
+\end{itemize}
+
+Ostateczny wybór funkcji straty ma istotny wpływ na przebieg procesu uczenia, tempo konwergencji oraz końcową jakość modelu.

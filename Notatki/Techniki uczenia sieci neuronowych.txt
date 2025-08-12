@@ -1,0 +1,134 @@
+Rozdział X: Uczenie sieci neuronowych (bez uczenia ze wzmocnieniem)
+1. Wprowadzenie
+
+    Cel procesu uczenia: dopasowanie parametrów (wag i biasów), aby minimalizować błąd predykcji.
+
+    Podział metod uczenia:
+
+        Uczenie nadzorowane (supervised learning).
+
+        Uczenie nienadzorowane (unsupervised learning).
+
+        (Wzmianka) Uczenie ze wzmocnieniem – omówione w osobnym rozdziale.
+
+2. Uczenie nadzorowane
+
+    Definicja: posiadamy zbiór par (wejście, etykieta) i uczymy model, by przewidywał etykietę.
+
+    Rodzaje zadań:
+
+        Klasyfikacja.
+
+        Regresja.
+
+    Proces uczenia:
+
+        Propagacja w przód (forward pass).
+
+        Obliczenie błędu przy użyciu funkcji straty.
+
+        Propagacja wsteczna (backpropagation).
+
+        Aktualizacja wag.
+
+    Przykłady zastosowań: rozpoznawanie obrazów, analiza tekstu, prognozowanie.
+
+3. Uczenie nienadzorowane
+
+    Definicja: brak etykiet – sieć uczy się struktury danych.
+
+    Cele:
+
+        Redukcja wymiarowości (np. autoenkodery).
+
+        Grupowanie danych (np. sieci Kohonena – SOM).
+
+        Uczenie reprezentacji.
+
+    Przykłady zastosowań: kompresja danych, wyszukiwanie podobieństw, segmentacja obrazów.
+
+4. Funkcje kosztu (straty)
+
+    Rola w procesie uczenia – mierzą różnicę między przewidywaniem a oczekiwanym wynikiem.
+
+    Przykłady:
+
+        Klasyfikacja: entropia krzyżowa, hinge loss.
+
+        Regresja: MSE, MAE.
+
+    Kryteria wyboru odpowiedniej funkcji do zadania.
+
+5. Algorytmy optymalizacji
+
+    Cel: minimalizacja funkcji kosztu poprzez aktualizację wag.
+
+    Gradient Descent:
+
+        Pełna wersja (Batch GD).
+
+        Stochastyczny (SGD).
+
+        Mini-batch.
+
+    Zaawansowane optymalizatory:
+
+        Momentum, Nesterov.
+
+        RMSProp.
+
+        Adam, AdamW.
+
+    Wpływ hiperparametrów (learning rate, momentum) na proces uczenia.
+
+6. Propagacja wsteczna (Backpropagation)
+
+    Idea: obliczanie gradientów za pomocą reguły łańcuchowej.
+
+    Rola różniczkowalnych funkcji aktywacji.
+
+    Schemat przepływu informacji w przód i wstecz.
+
+7. Przygotowanie i wstępne przetwarzanie danych
+
+    Normalizacja i standaryzacja wejść.
+
+    Augmentacja danych.
+
+    Podział na zbiory: treningowy, walidacyjny, testowy.
+
+8. Regularizacja i kontrola złożoności modelu
+
+    Cel: ograniczenie przeuczenia.
+
+    Metody:
+
+        L1, L2 (regularyzacja wag).
+
+        Dropout.
+
+        Early stopping.
+
+        Data augmentation jako regularyzacja pośrednia.
+
+9. Monitorowanie i diagnostyka procesu uczenia
+
+    Śledzenie funkcji kosztu i metryk jakości na zbiorze treningowym i walidacyjnym.
+
+    Wykrywanie przeuczenia i niedouczenia.
+
+    Wizualizacja uczenia (np. TensorBoard).
+
+10. Specjalne techniki i trendy
+
+    Transfer learning – wykorzystanie wytrenowanych modeli.
+
+    Fine-tuning – dostrajanie ostatnich warstw.
+
+    Uczenie kontrastowe (contrastive learning).
+
+11. Podsumowanie
+
+    Kluczowe etapy i decyzje w procesie uczenia sieci neuronowych.
+
+    Przejście do rozdziału o uczeniu ze wzmocnieniem (RL: A2C, PPO).

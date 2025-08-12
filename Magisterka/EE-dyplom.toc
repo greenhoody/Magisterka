@@ -4,44 +4,46 @@
 \contentsline {chapter}{\numberline {2}Sieci Neuronowe}{11}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Funkcja aktywacji}{12}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Architektura sieci neuronowej}{14}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}TEST}{15}{subsection.2.2.1}%
-\contentsline {chapter}{\numberline {3}Sieci Konwolucyjne}{17}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Sieci Rekurencyjne}{19}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Sieci LSTM GRU}{21}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Zanik Gradientu/Wybuch gradientu}{23}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Wyniki}{25}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Początek templatu}{27}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Rysunki}{28}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Odniesienia do literatury}{30}{section.8.2}%
-\contentsline {paragraph}{Przykład 1.}{31}{section*.9}%
-\contentsline {paragraph}{Przykład 2.}{32}{section*.10}%
-\contentsline {paragraph}{Przykład 3.}{32}{section*.11}%
-\contentsline {paragraph}{Przykład 4.}{32}{section*.12}%
-\contentsline {section}{\numberline {8.3}Cytowania}{32}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Kolory}{33}{section.8.4}%
-\contentsline {subsection}{\numberline {8.4.1}Przykład zdefiniowanej palety kolorów}{33}{subsection.8.4.1}%
-\contentsline {section}{\numberline {8.5}Tabele}{34}{section.8.5}%
-\contentsline {section}{\numberline {8.6}Wzory}{36}{section.8.6}%
-\contentsline {subsection}{\numberline {8.6.1}André-Marie Ampère}{36}{subsection.8.6.1}%
-\contentsline {subsection}{\numberline {8.6.2}Michael Faraday}{36}{subsection.8.6.2}%
-\contentsline {subsection}{\numberline {8.6.3}Georg Simon Ohm}{37}{subsection.8.6.3}%
-\contentsline {subsection}{\numberline {8.6.4}James Clerk Maxwell}{38}{subsection.8.6.4}%
-\contentsline {subsection}{\numberline {8.6.5}Jeszcze kilka przypadkowo wybranych wzorów}{39}{subsection.8.6.5}%
-\contentsline {section}{\numberline {8.7}Kody źródłowe}{41}{section.8.7}%
-\contentsline {section}{\numberline {8.8}Ostatnie drobiazgi}{43}{section.8.8}%
-\contentsline {subsection}{\numberline {8.8.1}Podstawowe style tekstu}{43}{subsection.8.8.1}%
-\contentsline {subsection}{\numberline {8.8.2}Wiszące znaki}{43}{subsection.8.8.2}%
-\contentsline {subsection}{\numberline {8.8.3}Wypunktowania}{44}{subsection.8.8.3}%
-\contentsline {subsection}{\numberline {8.8.4}Dywiz a~myślnik}{44}{subsection.8.8.4}%
-\contentsline {subsection}{\numberline {8.8.5}Akronimy i~symbole}{44}{subsection.8.8.5}%
-\contentsline {subsection}{\numberline {8.8.6}Ozdobniki graficzne w~opisie oprogramowania}{45}{subsection.8.8.6}%
-\contentsline {subsection}{\numberline {8.8.7}Puste miejsca}{46}{subsection.8.8.7}%
-\contentsline {subsection}{\numberline {8.8.8}Kompilowanie lokalnie}{46}{subsection.8.8.8}%
-\contentsline {chapter}{\numberline {9}Nienudny tytuł dla teorii}{47}{chapter.9}%
-\contentsline {chapter}{\numberline {10}Niebanalny tytuł kolejnego rozdziału}{49}{chapter.10}%
-\contentsline {chapter}{\numberline {11}Podsumowanie}{55}{chapter.11}%
-\contentsline {chapter}{Bibliografia}{57}{section*.23}%
-\contentsline {chapter}{Wykaz skrótów i symboli}{57}{chapter*.24}%
-\contentsline {chapter}{Spis rysunków}{59}{chapter*.25}%
-\contentsline {chapter}{Spis tabel}{61}{chapter*.26}%
-\contentsline {chapter}{Spis załączników}{63}{chapter*.27}%
+\contentsline {section}{\numberline {2.3}Techniki uczenia sieci neuronowych}{16}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Uczenie nienadzorowane}{17}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Funkcje kosztu (straty)}{18}{subsection.2.3.2}%
+\contentsline {chapter}{\numberline {3}Sieci Konwolucyjne}{19}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Sieci Rekurencyjne}{21}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Sieci LSTM GRU}{23}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Zanik Gradientu/Wybuch gradientu}{25}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Wyniki}{27}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Początek templatu}{29}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Rysunki}{30}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Odniesienia do literatury}{32}{section.8.2}%
+\contentsline {paragraph}{Przykład 1.}{33}{section*.10}%
+\contentsline {paragraph}{Przykład 2.}{34}{section*.11}%
+\contentsline {paragraph}{Przykład 3.}{34}{section*.12}%
+\contentsline {paragraph}{Przykład 4.}{34}{section*.13}%
+\contentsline {section}{\numberline {8.3}Cytowania}{34}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Kolory}{35}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Przykład zdefiniowanej palety kolorów}{35}{subsection.8.4.1}%
+\contentsline {section}{\numberline {8.5}Tabele}{36}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Wzory}{38}{section.8.6}%
+\contentsline {subsection}{\numberline {8.6.1}André-Marie Ampère}{38}{subsection.8.6.1}%
+\contentsline {subsection}{\numberline {8.6.2}Michael Faraday}{38}{subsection.8.6.2}%
+\contentsline {subsection}{\numberline {8.6.3}Georg Simon Ohm}{39}{subsection.8.6.3}%
+\contentsline {subsection}{\numberline {8.6.4}James Clerk Maxwell}{40}{subsection.8.6.4}%
+\contentsline {subsection}{\numberline {8.6.5}Jeszcze kilka przypadkowo wybranych wzorów}{41}{subsection.8.6.5}%
+\contentsline {section}{\numberline {8.7}Kody źródłowe}{43}{section.8.7}%
+\contentsline {section}{\numberline {8.8}Ostatnie drobiazgi}{45}{section.8.8}%
+\contentsline {subsection}{\numberline {8.8.1}Podstawowe style tekstu}{45}{subsection.8.8.1}%
+\contentsline {subsection}{\numberline {8.8.2}Wiszące znaki}{45}{subsection.8.8.2}%
+\contentsline {subsection}{\numberline {8.8.3}Wypunktowania}{46}{subsection.8.8.3}%
+\contentsline {subsection}{\numberline {8.8.4}Dywiz a~myślnik}{46}{subsection.8.8.4}%
+\contentsline {subsection}{\numberline {8.8.5}Akronimy i~symbole}{46}{subsection.8.8.5}%
+\contentsline {subsection}{\numberline {8.8.6}Ozdobniki graficzne w~opisie oprogramowania}{47}{subsection.8.8.6}%
+\contentsline {subsection}{\numberline {8.8.7}Puste miejsca}{48}{subsection.8.8.7}%
+\contentsline {subsection}{\numberline {8.8.8}Kompilowanie lokalnie}{48}{subsection.8.8.8}%
+\contentsline {chapter}{\numberline {9}Nienudny tytuł dla teorii}{49}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Niebanalny tytuł kolejnego rozdziału}{51}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Podsumowanie}{57}{chapter.11}%
+\contentsline {chapter}{Bibliografia}{59}{section*.24}%
+\contentsline {chapter}{Wykaz skrótów i symboli}{59}{chapter*.25}%
+\contentsline {chapter}{Spis rysunków}{61}{chapter*.26}%
+\contentsline {chapter}{Spis tabel}{63}{chapter*.27}%
+\contentsline {chapter}{Spis załączników}{65}{chapter*.28}%

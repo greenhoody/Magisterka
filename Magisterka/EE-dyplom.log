@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  9 AUG 2025 13:50
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  11 AUG 2025 19:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1993,30 +1993,58 @@ LaTeX Warning: Citation 'H.N.Mhaskar2020' on page 15 undefined on input line 28
 LaTeX Warning: Citation 'telgarsky2016benefits' on page 15 undefined on input l
 ine 282.
 
-) (./tekst/Uczenie_sieci_neuronowych_bez_RL.tex)
+) (./tekst/Uczenie_sieci_neuronowych_bez_RL.tex
 
 [15]
 
-[16
+LaTeX Font Warning: Font shape `TU/LatinModernMath(0)/bx/n' undefined
+(Font)              using `TU/LatinModernMath(0)/m/n' instead on input line 16.
 
-]
+
+
+LaTeX Warning: Citation 'Goodfellow-et-al-2016' on page 16 undefined on input l
+ine 16.
+
+
+LaTeX Warning: Citation 'Rumelhart1986' on page 16 undefined on input line 28.
+
+
+LaTeX Warning: Citation 'Kingma2014' on page 16 undefined on input line 29.
+
+
+
+[16]
+
+LaTeX Warning: Citation 'Goodfellow-et-al-2016' on page 17 undefined on input l
+ine 36.
+
+
+LaTeX Warning: Citation 'Kohonen1990' on page 17 undefined on input line 40.
+
+
+LaTeX Warning: Citation 'GoodfellowGAN2014' on page 17 undefined on input line 
+42.
+
+
+LaTeX Warning: Citation 'Goodfellow-et-al-2016' on page 17 undefined on input l
+ine 57.
+
+
+
+[17])
+
+[18]
 Rozdział 3.
 
 
-[17]
-
-[18
+[19
 
 ]
-Rozdział 4.
-
-
-[19]
 
 [20
 
 ]
-Rozdział 5.
+Rozdział 4.
 
 
 [21]
@@ -2024,7 +2052,7 @@ Rozdział 5.
 [22
 
 ]
-Rozdział 6.
+Rozdział 5.
 
 
 [23]
@@ -2032,12 +2060,20 @@ Rozdział 6.
 [24
 
 ]
-Rozdział 7.
-(./tekst/Wyniki.tex)
+Rozdział 6.
+
 
 [25]
 
 [26
+
+]
+Rozdział 7.
+(./tekst/Wyniki.tex)
+
+[27]
+
+[28
 
 ]
 Rozdział 8.
@@ -2048,7 +2084,7 @@ LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
 (Font)              scaled to size 9.0pt on input line 19.
 
 
-[27]
+[29]
 File: rysunki/Kopernik.jpg Graphic file (type bmp)
 <rysunki/Kopernik.jpg>
 File: rysunki/wektorowo.pdf Graphic file (type pdf)
@@ -2057,37 +2093,37 @@ File: rysunki/wektorowo.png Graphic file (type bmp)
 <rysunki/wektorowo.png>
 
 
-[28]
-
-[29]
-
-LaTeX Warning: Citation 'fowler2009' on page 30 undefined on input line 82.
-
-
-LaTeX Warning: Citation 'maxwell1865' on page 30 undefined on input line 82.
-
-
-LaTeX Warning: Citation 'leksinski1995' on page 30 undefined on input line 82.
-
-
-LaTeX Warning: Citation 'leksinski1995' on page 30 undefined on input line 82.
-
-
-
 [30]
 
-LaTeX Warning: Citation 'tegoniema' on page 31 undefined on input line 90.
+[31]
+
+LaTeX Warning: Citation 'fowler2009' on page 32 undefined on input line 82.
+
+
+LaTeX Warning: Citation 'maxwell1865' on page 32 undefined on input line 82.
+
+
+LaTeX Warning: Citation 'leksinski1995' on page 32 undefined on input line 82.
+
+
+LaTeX Warning: Citation 'leksinski1995' on page 32 undefined on input line 82.
+
+
+
+[32]
+
+LaTeX Warning: Citation 'tegoniema' on page 33 undefined on input line 90.
 
 File: rysunki/citethis.png Graphic file (type bmp)
 <rysunki/citethis.png>
 
-LaTeX Warning: Citation 'maxwell1865' on page 31 undefined on input line 101.
+LaTeX Warning: Citation 'maxwell1865' on page 33 undefined on input line 101.
 
 
-LaTeX Warning: Citation 'cichon1995' on page 31 undefined on input line 101.
+LaTeX Warning: Citation 'cichon1995' on page 33 undefined on input line 101.
 
 
-LaTeX Warning: Citation 'lncsevo' on page 31 undefined on input line 101.
+LaTeX Warning: Citation 'lncsevo' on page 33 undefined on input line 101.
 
 
 Overfull \hbox (0.86353pt too wide) in paragraph at lines 101--102
@@ -2097,27 +2133,27 @@ Overfull \hbox (0.86353pt too wide) in paragraph at lines 101--102
 
 
 
-[31]
+[33]
 
-LaTeX Warning: Citation 'cpee2018' on page 32 undefined on input line 103.
-
-
-LaTeX Warning: Citation 'truong2018' on page 32 undefined on input line 105.
+LaTeX Warning: Citation 'cpee2018' on page 34 undefined on input line 103.
 
 
-LaTeX Warning: Citation 'poirier2020' on page 32 undefined on input line 105.
+LaTeX Warning: Citation 'truong2018' on page 34 undefined on input line 105.
 
 
-LaTeX Warning: Citation 'nask2020' on page 32 undefined on input line 105.
+LaTeX Warning: Citation 'poirier2020' on page 34 undefined on input line 105.
 
 
-LaTeX Warning: Citation 'AN4230' on page 32 undefined on input line 105.
+LaTeX Warning: Citation 'nask2020' on page 34 undefined on input line 105.
 
 
-LaTeX Warning: Citation 'szablon' on page 32 undefined on input line 107.
+LaTeX Warning: Citation 'AN4230' on page 34 undefined on input line 105.
 
 
-LaTeX Warning: Citation 'wilamowski2017' on page 32 undefined on input line 116
+LaTeX Warning: Citation 'szablon' on page 34 undefined on input line 107.
+
+
+LaTeX Warning: Citation 'wilamowski2017' on page 34 undefined on input line 116
 .
 
 
@@ -2146,7 +2182,7 @@ Package polyglossia Info: Activating hyphenation patterns for modern Latin on
 
 
 
-[32]
+[34]
 Overfull \hbox (11.37851pt too wide) in paragraph at lines 129--130
 []\TU/LatinModernSans(1)/m/n/10.95 Kolor „wrzosowy” – [][][][][][][]Administrac
 ji
@@ -2190,7 +2226,7 @@ Missing character: There is no e ("65) in font nullfont!
 Missing character: There is no r ("72) in font nullfont!
 
 
-[33]
+[35]
 Underfull \hbox (badness 10000) in paragraph at lines 190--190
 []|\TU/LatinModernSans(1)/m/n/10.95 2017-- 08-- 11
  []
@@ -2200,17 +2236,17 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 
-[34]
+[36]
 File: rysunki/kile.png Graphic file (type bmp)
 <rysunki/kile.png>
 
 
-[35]
+[37]
 File: rysunki/Ampere.jpg Graphic file (type bmp)
 <rysunki/Ampere.jpg>
 
 
-[36]
+[38]
 File: rysunki/Faraday.jpg Graphic file (type bmp)
 <rysunki/Faraday.jpg>
 File: rysunki/Ohm.jpg Graphic file (type bmp)
@@ -2221,32 +2257,32 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[37]
+[39]
 
-LaTeX Warning: Citation 'maxwell1865' on page 38 undefined on input line 311.
+LaTeX Warning: Citation 'maxwell1865' on page 40 undefined on input line 311.
 
 
 
-[38]
+[40]
 File: rysunki/Maxwell.jpg Graphic file (type bmp)
 <rysunki/Maxwell.jpg>
 
 
-[39]
+[41]
 LaTeX Font Info:    Trying to load font information for U+euf on input line 350
 .
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 )
 
-[40] (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+[42] (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 461.
 
 
-[41]
+[43]
 
 LaTeX Font Warning: Font shape `TU/LatinModernMono(0)/b/n' undefined
 (Font)              using `TU/LatinModernMono(0)/m/n' instead on input line 467
@@ -2260,28 +2296,28 @@ File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 )
 (./src/Keccak-inplace32BI.c
 
-[42])
+[44])
 
-[43] (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+[45] (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 
-[44]
-
-[45])
-
 [46]
+
+[47])
+
+[48]
 Rozdział 9.
 
 
-[47
+[49
 
 ]
 
-[48
+[50
 
 ]
 Rozdział 10.
@@ -2295,25 +2331,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--15
 
 
 
-[49]
-
-[50]
-
 [51]
 
-[52])
+[52]
 
 [53]
 
-[54
+[54])
+
+[55]
+
+[56
 
 ]
 Rozdział 11.
 (./tekst/podsumowanie.tex))
 
-[55]
+[57]
 
-[56
+[58
 
 ]
 
@@ -2323,11 +2359,11 @@ No file EE-dyplom.acr.
 No file EE-dyplom.sls.
 
 
-[57
+[59
 
 ]
 
-[58
+[60
 
 ] (./EE-dyplom.lof)
 \tf@lof=\write11
@@ -2335,9 +2371,9 @@ No file EE-dyplom.sls.
 
 
 
-[59]
+[61]
 
-[60
+[62
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2345,21 +2381,15 @@ No file EE-dyplom.sls.
 
 
 
-[61]
+[63]
 
-[62
+[64
 
 ] (./EE-dyplom.app)
 \tf@app=\write13
 \openout13 = `EE-dyplom.app'.
 
  (./appendices.tex
-
-[63]
-
-[64
-
-]
 
 [65]
 
@@ -2377,9 +2407,15 @@ No file EE-dyplom.sls.
 
 [70
 
+]
+
+[71]
+
+[72
+
 ])
 
-[71] (./EE-dyplom.aux)
+[73] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2391,14 +2427,8 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-Package rerunfilecheck Warning: File `EE-dyplom.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `EE-dyplom.out':
-(rerunfilecheck)             Before: 5C397019D1D168BAA34B489565441FA7;5907
-(rerunfilecheck)             After:  8EFFEF5C71C0E101E7CF42936EBC50C4;5989.
+Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
+(rerunfilecheck)             Checksum: DFC94BD8A5B9119AC5B8AF29B4141C74;6505.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                EE-dyplom
@@ -2409,12 +2439,12 @@ Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 58315 strings out of 468529
- 1335942 string characters out of 5451399
- 2711121 words of memory out of 5000000
- 85699 multiletter control sequences out of 15000+600000
+ 58325 strings out of 468529
+ 1336207 string characters out of 5451399
+ 2711275 words of memory out of 5000000
+ 85709 multiletter control sequences out of 15000+600000
  639429 words of font info for 163 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 114i,18n,131p,2506b,5050s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 114i,18n,131p,2506b,5174s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (71 pages).
+Output written on EE-dyplom.pdf (73 pages).
