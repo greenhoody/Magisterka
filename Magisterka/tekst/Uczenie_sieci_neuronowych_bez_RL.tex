@@ -31,7 +31,7 @@ Proces uczenia w paradygmacie nadzorowanym obejmuje następujące kroki:
 
 Dzięki swojej uniwersalności, uczenie nadzorowane jest stosowane w szerokim zakresie dziedzin, od rozpoznawania mowy i analizy obrazu, przez systemy rekomendacyjne, aż po prognozowanie finansowe i modelowanie procesów przemysłowych.
 
-\subsection{Uczenie nienadzorowane}
+\subsection*{Uczenie nienadzorowane}
 
 Uczenie nienadzorowane (\textit{unsupervised learning}) obejmuje metody, w których model uczy się wyłącznie na podstawie danych wejściowych $\mathbf{x}$, bez dostępu do odpowiadających im etykiet wynikowych. Celem jest odkrycie wewnętrznej struktury danych, zależności pomiędzy przykładami lub reprezentacji pozwalających na ich bardziej efektywne opisanie \cite{Goodfellow-et-al-2016}.  
 
@@ -52,7 +52,7 @@ Proces uczenia nienadzorowanego obejmuje zazwyczaj:
 
 Uczenie nienadzorowane znajduje zastosowanie m.in. w segmentacji obrazów, eksploracji danych, kompresji informacji, wyszukiwaniu podobnych obiektów, detekcji anomalii czy jako etap wstępny w uczeniu nadzorowanym (tzw. \textit{pretraining}).
 
-\subsection{Funkcje kosztu (straty)}
+\subsection*{Funkcje kosztu (straty)}
 
 Funkcja kosztu (ang. \textit{loss function}, \textit{cost function}) pełni kluczową rolę w procesie uczenia sieci neuronowych, ponieważ stanowi ilościową miarę różnicy pomiędzy przewidywaniami modelu $\hat{y}$ a wartościami oczekiwanymi $y$. To właśnie na podstawie wartości funkcji kosztu algorytm optymalizacji oblicza gradienty, które następnie służą do modyfikacji wag modelu w kierunku minimalizacji błędu \cite{Goodfellow-et-al-2016}. Dobór odpowiedniej funkcji straty jest ściśle związany z charakterem problemu i typem danych wyjściowych.  
 
@@ -79,3 +79,15 @@ Dobór funkcji kosztu powinien uwzględniać:
 \end{itemize}
 
 Ostateczny wybór funkcji straty ma istotny wpływ na przebieg procesu uczenia, tempo konwergencji oraz końcową jakość modelu.
+
+\subsection*{Algorytmy optymalizacji}
+
+Kluczowym elementem procesu uczenia są Algorytmy optymalizacji. Odpowiadają one za aktualizację parametrów modelu w celu minimalizacji wartości funkcji straty. Optymalizator wykorzystuje z obliczonych gradientów, wyznacza kierunek i wielkość zmian współczynników sieci.  \cite{Goodfellow-et-al-2016}
+
+Podstawową metodą optymalizacji jest spadek gradientu w którym parametry $\theta$ są aktualizowane zgodnie z regułą. 
+\[
+\theta \leftarrow \theta - \eta \nabla_{\theta} L(\theta),
+\]
+gdzie $\eta$ to współczynnik uczenia (ang. \textit{learning rate}), a $\nabla_{\theta} L(\theta)$ jest gradientem funkcji kosztu względem parametrów. Pomimo prostej zasady działania nie jest ona obecnie najpowszechniej stosowaną metodą uczenia sieci. Jest ona podatna na utknięcie w minimach lokalnych oraz ma niską prędkość zbieżności. Wraz z zbliżaniem do minimum jej prędkość uczenia się drastycznie spada. Aby metoda najszybszego spadku działała poprawnie, należy dobrać poprawną wartością współczynnika prędkości uczenia. Zbyt duża wartość uniemożliwi znalezienie minimum funkcji straty, a zbyt mała zwiększy podatność na utknięcie minimach lokalnych oraz spowolni proces uczenia.
+
+Kolejnym 
