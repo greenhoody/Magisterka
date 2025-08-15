@@ -9,39 +9,7 @@
 \contentsline {chapter}{\numberline {4}Sieci Rekurencyjne}{23}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Sieci LSTM GRU}{25}{chapter.5}%
 \contentsline {chapter}{\numberline {6}Zanik Gradientu/Wybuch gradientu}{27}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Wyniki}{29}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Początek templatu}{31}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Rysunki}{32}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Odniesienia do literatury}{34}{section.8.2}%
-\contentsline {paragraph}{Przykład 1.}{35}{section*.13}%
-\contentsline {paragraph}{Przykład 2.}{36}{section*.14}%
-\contentsline {paragraph}{Przykład 3.}{36}{section*.15}%
-\contentsline {paragraph}{Przykład 4.}{36}{section*.16}%
-\contentsline {section}{\numberline {8.3}Cytowania}{36}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Kolory}{37}{section.8.4}%
-\contentsline {subsection}{\numberline {8.4.1}Przykład zdefiniowanej palety kolorów}{37}{subsection.8.4.1}%
-\contentsline {section}{\numberline {8.5}Tabele}{38}{section.8.5}%
-\contentsline {section}{\numberline {8.6}Wzory}{40}{section.8.6}%
-\contentsline {subsection}{\numberline {8.6.1}André-Marie Ampère}{40}{subsection.8.6.1}%
-\contentsline {subsection}{\numberline {8.6.2}Michael Faraday}{40}{subsection.8.6.2}%
-\contentsline {subsection}{\numberline {8.6.3}Georg Simon Ohm}{41}{subsection.8.6.3}%
-\contentsline {subsection}{\numberline {8.6.4}James Clerk Maxwell}{42}{subsection.8.6.4}%
-\contentsline {subsection}{\numberline {8.6.5}Jeszcze kilka przypadkowo wybranych wzorów}{43}{subsection.8.6.5}%
-\contentsline {section}{\numberline {8.7}Kody źródłowe}{45}{section.8.7}%
-\contentsline {section}{\numberline {8.8}Ostatnie drobiazgi}{47}{section.8.8}%
-\contentsline {subsection}{\numberline {8.8.1}Podstawowe style tekstu}{47}{subsection.8.8.1}%
-\contentsline {subsection}{\numberline {8.8.2}Wiszące znaki}{47}{subsection.8.8.2}%
-\contentsline {subsection}{\numberline {8.8.3}Wypunktowania}{48}{subsection.8.8.3}%
-\contentsline {subsection}{\numberline {8.8.4}Dywiz a~myślnik}{48}{subsection.8.8.4}%
-\contentsline {subsection}{\numberline {8.8.5}Akronimy i~symbole}{48}{subsection.8.8.5}%
-\contentsline {subsection}{\numberline {8.8.6}Ozdobniki graficzne w~opisie oprogramowania}{49}{subsection.8.8.6}%
-\contentsline {subsection}{\numberline {8.8.7}Puste miejsca}{50}{subsection.8.8.7}%
-\contentsline {subsection}{\numberline {8.8.8}Kompilowanie lokalnie}{50}{subsection.8.8.8}%
-\contentsline {chapter}{\numberline {9}Nienudny tytuł dla teorii}{51}{chapter.9}%
-\contentsline {chapter}{\numberline {10}Niebanalny tytuł kolejnego rozdziału}{53}{chapter.10}%
-\contentsline {chapter}{\numberline {11}Podsumowanie}{59}{chapter.11}%
-\contentsline {chapter}{Bibliografia}{61}{section*.27}%
-\contentsline {chapter}{Wykaz skrótów i symboli}{61}{chapter*.28}%
-\contentsline {chapter}{Spis rysunków}{63}{chapter*.29}%
-\contentsline {chapter}{Spis tabel}{65}{chapter*.30}%
-\contentsline {chapter}{Spis załączników}{67}{chapter*.31}%
+\contentsline {chapter}{Bibliografia}{29}{section*.12}%
+\contentsline {chapter}{Wykaz skrótów i symboli}{29}{chapter*.13}%
+\contentsline {chapter}{Spis rysunków}{31}{chapter*.14}%
+\contentsline {chapter}{Spis tabel}{33}{chapter*.15}%

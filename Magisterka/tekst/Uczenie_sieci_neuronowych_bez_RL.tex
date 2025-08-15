@@ -84,10 +84,25 @@ Ostateczny wybór funkcji straty ma istotny wpływ na przebieg procesu uczenia, 
 
 Kluczowym elementem procesu uczenia są Algorytmy optymalizacji. Odpowiadają one za aktualizację parametrów modelu w celu minimalizacji wartości funkcji straty. Optymalizator wykorzystuje z obliczonych gradientów, wyznacza kierunek i wielkość zmian współczynników sieci.  \cite{Goodfellow-et-al-2016}
 
+\subsubsection*{Metoda najszybszego spadku}
+
 Podstawową metodą optymalizacji jest spadek gradientu w którym parametry $\theta$ są aktualizowane zgodnie z regułą. 
 \[
 \theta \leftarrow \theta - \eta \nabla_{\theta} L(\theta),
 \]
 gdzie $\eta$ to współczynnik uczenia (ang. \textit{learning rate}), a $\nabla_{\theta} L(\theta)$ jest gradientem funkcji kosztu względem parametrów. Pomimo prostej zasady działania nie jest ona obecnie najpowszechniej stosowaną metodą uczenia sieci. Jest ona podatna na utknięcie w minimach lokalnych oraz ma niską prędkość zbieżności. Wraz z zbliżaniem do minimum jej prędkość uczenia się drastycznie spada. Aby metoda najszybszego spadku działała poprawnie, należy dobrać poprawną wartością współczynnika prędkości uczenia. Zbyt duża wartość uniemożliwi znalezienie minimum funkcji straty, a zbyt mała zwiększy podatność na utknięcie minimach lokalnych oraz spowolni proces uczenia.
 
-Kolejnym 
+\subsubsection*{Metoda najszybszego spadku z bezwładnością}
+
+Dla udoskonalenia metody najszybszego spadku dodano do niej element zachowania momentu pędu. Zaletą tej modyfikacji jest przyśpieszenie zbieżności oraz zmniejszenie oscylacji podczas optymalizacji.\cite{Qian1999} Inspiracją dla tego usprawnienia, jak sama nazwa wskazuje, jest zasada zachowania pędu. Zamiast używania przeciwności gradientu jako kierunku uczenia,  wykorzystujemy kierunek z poprzedniej iteracji zmodyfikowany przez obecny gradient. 
+\[
+\begin{aligned}
+	v_t        &= \gamma\, v_{t-1} + \eta\, \nabla_{\theta} L(\theta_t),\\
+	\theta_{t+1} &= \theta_t - v_t.
+\end{aligned}
+\]
+
+
+W tej metodzie wartości o jakie zostaną dostosowane parametry modelu jest oznaczona przez $v_{t}$. W każdej iteracji jest ustalane przez połączenie dwóch czynników. $v_{t-1}$, które przechodzi w stopniu $\gamma$ oraz $\nabla_{\theta} L(\theta_t)$, które wpływa na kierunek w stopniu $\eta$.
+
+Dzięki temu na dużych płaszczyznach o stałym, ale łagodnym gradiencie tempo uczenia przyśpiesza, zamiast mieć stałą niską wartość. Z drugiej strony model może unikać minimum lokalnego "przeskakując" przez nie. 

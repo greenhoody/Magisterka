@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  13 AUG 2025 23:14
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  15 AUG 2025 22:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1920,22 +1920,23 @@ LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
 (Font)              scaled to size 8.0pt on input line 5.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
 (Font)              scaled to size 6.0pt on input line 5.
-
-
-[7
-
-])
+)
 \tf@toc=\write10
 \openout10 = `EE-dyplom.toc'.
 
 
 
-[8] (./tekst/main.tex
+[7
+
+]
+
+[8
+
+] (./tekst/main.tex
 Rozdział 1.
 (./tekst/WstępBB.tex)
 
 [9
-
 
 ]
 
@@ -2038,7 +2039,11 @@ ine 85.
 
 
 
-[18])
+[18]
+
+LaTeX Warning: Citation 'Qian1999' on page 19 undefined on input line 97.
+
+)
 
 [19]
 
@@ -2070,295 +2075,11 @@ Rozdział 5.
 
 ]
 Rozdział 6.
-
+)
 
 [27]
 
 [28
-
-]
-Rozdział 7.
-(./tekst/Wyniki.tex)
-
-[29]
-
-[30
-
-]
-Rozdział 8.
-(./tekst/wstep.tex
-LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 9.0pt on input line 19.
-LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 9.0pt on input line 19.
-
-
-[31]
-File: rysunki/Kopernik.jpg Graphic file (type bmp)
-<rysunki/Kopernik.jpg>
-File: rysunki/wektorowo.pdf Graphic file (type pdf)
-<use rysunki/wektorowo.pdf>
-File: rysunki/wektorowo.png Graphic file (type bmp)
-<rysunki/wektorowo.png>
-
-
-[32]
-
-[33]
-
-LaTeX Warning: Citation 'fowler2009' on page 34 undefined on input line 82.
-
-
-LaTeX Warning: Citation 'maxwell1865' on page 34 undefined on input line 82.
-
-
-LaTeX Warning: Citation 'leksinski1995' on page 34 undefined on input line 82.
-
-
-LaTeX Warning: Citation 'leksinski1995' on page 34 undefined on input line 82.
-
-
-
-[34]
-
-LaTeX Warning: Citation 'tegoniema' on page 35 undefined on input line 90.
-
-File: rysunki/citethis.png Graphic file (type bmp)
-<rysunki/citethis.png>
-
-LaTeX Warning: Citation 'maxwell1865' on page 35 undefined on input line 101.
-
-
-LaTeX Warning: Citation 'cichon1995' on page 35 undefined on input line 101.
-
-
-LaTeX Warning: Citation 'lncsevo' on page 35 undefined on input line 101.
-
-
-Overfull \hbox (0.86353pt too wide) in paragraph at lines 101--102
- []\TU/LatinModernSans(1)/b/n/10.95 Przykład 1.[] \TU/LatinModernSans(1)/m/n/10
-.95 James Clerk Maxwell opublikował swe wiekopomne dzieło mając 35 lat [[]].
- []
-
-
-
-[35]
-
-LaTeX Warning: Citation 'cpee2018' on page 36 undefined on input line 103.
-
-
-LaTeX Warning: Citation 'truong2018' on page 36 undefined on input line 105.
-
-
-LaTeX Warning: Citation 'poirier2020' on page 36 undefined on input line 105.
-
-
-LaTeX Warning: Citation 'nask2020' on page 36 undefined on input line 105.
-
-
-LaTeX Warning: Citation 'AN4230' on page 36 undefined on input line 105.
-
-
-LaTeX Warning: Citation 'szablon' on page 36 undefined on input line 107.
-
-
-LaTeX Warning: Citation 'wilamowski2017' on page 36 undefined on input line 116
-.
-
-
-Package polyglossia Info: Activating Latin language variant "modern" on line
-(polyglossia)             118.
-
-
-Package polyglossia Info: Activating hyphenation patterns for modern Latin on
-(polyglossia)             line 118.
-
-
-Package polyglossia Info: Activating Latin language variant "modern" on line
-(polyglossia)             118.
-
-
-Package polyglossia Info: Activating hyphenation patterns for modern Latin on
-(polyglossia)             line 118.
-
-
-Package polyglossia Info: Activating Latin language variant "modern" on line
-(polyglossia)             118.
-
-
-Package polyglossia Info: Activating hyphenation patterns for modern Latin on
-(polyglossia)             line 118.
-
-
-
-[36]
-Overfull \hbox (11.37851pt too wide) in paragraph at lines 129--130
-[]\TU/LatinModernSans(1)/m/n/10.95 Kolor „wrzosowy” – [][][][][][][]Administrac
-ji
- []
-
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no v ("76) in font nullfont!
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no r ("72) in font nullfont!
-Missing character: There is no y ("79) in font nullfont!
-Missing character: There is no n ("6E) in font nullfont!
-Missing character: There is no o ("6F) in font nullfont!
-Missing character: There is no d ("64) in font nullfont!
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no / ("2F) in font nullfont!
-Missing character: There is no . ("2E) in font nullfont!
-Missing character: There is no a ("61) in font nullfont!
-Missing character: There is no p ("70) in font nullfont!
-Missing character: There is no p ("70) in font nullfont!
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no n ("6E) in font nullfont!
-Missing character: There is no d ("64) in font nullfont!
-Missing character: There is no s ("73) in font nullfont!
-Missing character: There is no t ("74) in font nullfont!
-Missing character: There is no y ("79) in font nullfont!
-Missing character: There is no l ("6C) in font nullfont!
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no = ("3D) in font nullfont!
-Missing character: There is no a ("61) in font nullfont!
-Missing character: There is no n ("6E) in font nullfont!
-Missing character: There is no c ("63) in font nullfont!
-Missing character: There is no h ("68) in font nullfont!
-Missing character: There is no o ("6F) in font nullfont!
-Missing character: There is no r ("72) in font nullfont!
-Missing character: There is no = ("3D) in font nullfont!
-Missing character: There is no c ("63) in font nullfont!
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no n ("6E) in font nullfont!
-Missing character: There is no t ("74) in font nullfont!
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no r ("72) in font nullfont!
-
-
-[37]
-Underfull \hbox (badness 10000) in paragraph at lines 190--190
-[]|\TU/LatinModernSans(1)/m/n/10.95 2017-- 08-- 11
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[38]
-File: rysunki/kile.png Graphic file (type bmp)
-<rysunki/kile.png>
-
-
-[39]
-File: rysunki/Ampere.jpg Graphic file (type bmp)
-<rysunki/Ampere.jpg>
-
-
-[40]
-File: rysunki/Faraday.jpg Graphic file (type bmp)
-<rysunki/Faraday.jpg>
-File: rysunki/Ohm.jpg Graphic file (type bmp)
-<rysunki/Ohm.jpg>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[41]
-
-LaTeX Warning: Citation 'maxwell1865' on page 42 undefined on input line 311.
-
-
-
-[42]
-File: rysunki/Maxwell.jpg Graphic file (type bmp)
-<rysunki/Maxwell.jpg>
-
-
-[43]
-LaTeX Font Info:    Trying to load font information for U+euf on input line 350
-.
- (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/ueuf.fd
-File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
-)
-
-[44] (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 461.
-
-
-[45]
-
-LaTeX Font Warning: Font shape `TU/LatinModernMono(0)/b/n' undefined
-(Font)              using `TU/LatinModernMono(0)/m/n' instead on input line 467
-.
-
-(c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-(c:/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
-)
-(./src/Keccak-inplace32BI.c
-
-[46])
-
-[47] (c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-(c:/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-
-[48]
-
-[49])
-
-[50]
-Rozdział 9.
-
-
-[51
-
-]
-
-[52
-
-]
-Rozdział 10.
-(./tekst/praktyka.tex
-File: rysunki/Kopernik.jpg Graphic file (type bmp)
-<rysunki/Kopernik.jpg>
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--15
-[]|\TU/LatinModernSans(1)/m/n/10.95 2017-- 08-- 11
- []
-
-
-
-[53]
-
-[54]
-
-[55]
-
-[56])
-
-[57]
-
-[58
-
-]
-Rozdział 11.
-(./tekst/podsumowanie.tex))
-
-[59]
-
-[60
 
 ]
 
@@ -2368,11 +2089,11 @@ No file EE-dyplom.acr.
 No file EE-dyplom.sls.
 
 
-[61
+[29
 
 ]
 
-[62
+[30
 
 ] (./EE-dyplom.lof)
 \tf@lof=\write11
@@ -2380,9 +2101,9 @@ No file EE-dyplom.sls.
 
 
 
-[63]
+[31]
 
-[64
+[32
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2390,41 +2111,7 @@ No file EE-dyplom.sls.
 
 
 
-[65]
-
-[66
-
-] (./EE-dyplom.app)
-\tf@app=\write13
-\openout13 = `EE-dyplom.app'.
-
- (./appendices.tex
-
-[67]
-
-[68
-
-]
-
-[69]
-
-[70
-
-]
-
-[71]
-
-[72
-
-]
-
-[73]
-
-[74
-
-])
-
-[75] (./EE-dyplom.aux)
+[33] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2437,7 +2124,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
-(rerunfilecheck)             Checksum: 0FCC9F2016DE3ADDB4FFE4EF1D884322;6141.
+(rerunfilecheck)             Checksum: AC72A126E683B9B7D230C1C89AC39E81;1870.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                EE-dyplom
@@ -2448,12 +2135,12 @@ Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 58324 strings out of 468529
- 1336194 string characters out of 5451399
- 2711282 words of memory out of 5000000
- 85708 multiletter control sequences out of 15000+600000
- 639429 words of font info for 163 fonts, out of 8000000 for 9000
+ 57544 strings out of 468529
+ 1322723 string characters out of 5451399
+ 2579246 words of memory out of 5000000
+ 85004 multiletter control sequences out of 15000+600000
+ 633706 words of font info for 129 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 114i,18n,131p,2506b,5174s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 114i,17n,131p,2506b,5174s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (75 pages).
+Output written on EE-dyplom.pdf (33 pages).
