@@ -2391,7 +2391,9 @@
     <bcf:citekey order="13" intorder="1">GoodfellowGAN2014</bcf:citekey>
     <bcf:citekey order="14" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
     <bcf:citekey order="15" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">Qian1999</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">Nesterov1983</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">Hinton2012</bcf:citekey>
+    <bcf:citekey order="17" intorder="2">MediumRMSProp</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

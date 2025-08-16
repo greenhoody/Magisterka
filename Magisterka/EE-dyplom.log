@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  15 AUG 2025 22:18
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  16 AUG 2025 22:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2041,24 +2041,27 @@ ine 85.
 
 [18]
 
-LaTeX Warning: Citation 'Qian1999' on page 19 undefined on input line 97.
+LaTeX Warning: Citation 'Nesterov1983' on page 19 undefined on input line 116.
 
-)
+
+LaTeX Warning: Citation 'Hinton2012' on page 19 undefined on input line 127.
+
+
+LaTeX Warning: Citation 'MediumRMSProp' on page 19 undefined on input line 127.
+
+
+
 
 [19]
 
-[20
-
-]
-Rozdział 3.
-
+[20])
 
 [21]
 
 [22
 
 ]
-Rozdział 4.
+Rozdział 3.
 
 
 [23]
@@ -2066,7 +2069,7 @@ Rozdział 4.
 [24
 
 ]
-Rozdział 5.
+Rozdział 4.
 
 
 [25]
@@ -2074,12 +2077,20 @@ Rozdział 5.
 [26
 
 ]
-Rozdział 6.
-)
+Rozdział 5.
+
 
 [27]
 
 [28
+
+]
+Rozdział 6.
+)
+
+[29]
+
+[30
 
 ]
 
@@ -2089,11 +2100,11 @@ No file EE-dyplom.acr.
 No file EE-dyplom.sls.
 
 
-[29
+[31
 
 ]
 
-[30
+[32
 
 ] (./EE-dyplom.lof)
 \tf@lof=\write11
@@ -2101,9 +2112,9 @@ No file EE-dyplom.sls.
 
 
 
-[31]
+[33]
 
-[32
+[34
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2111,7 +2122,7 @@ No file EE-dyplom.sls.
 
 
 
-[33] (./EE-dyplom.aux)
+[35] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2123,8 +2134,14 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
-(rerunfilecheck)             Checksum: AC72A126E683B9B7D230C1C89AC39E81;1870.
+
+Package rerunfilecheck Warning: File `EE-dyplom.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `EE-dyplom.out':
+(rerunfilecheck)             Before: 07FD3608CBCFE1D247F0F7491C11C956;1870
+(rerunfilecheck)             After:  6EBCD19CA463C5D51B98E4B9231CA60C;1870.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                EE-dyplom
@@ -2137,10 +2154,10 @@ Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 Here is how much of TeX's memory you used:
  57544 strings out of 468529
  1322723 string characters out of 5451399
- 2579246 words of memory out of 5000000
+ 2579304 words of memory out of 5000000
  85004 multiletter control sequences out of 15000+600000
  633706 words of font info for 129 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  114i,17n,131p,2506b,5174s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (33 pages).
+Output written on EE-dyplom.pdf (35 pages).

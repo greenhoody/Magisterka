@@ -92,17 +92,91 @@ Podstawową metodą optymalizacji jest spadek gradientu w którym parametry $\th
 \]
 gdzie $\eta$ to współczynnik uczenia (ang. \textit{learning rate}), a $\nabla_{\theta} L(\theta)$ jest gradientem funkcji kosztu względem parametrów. Pomimo prostej zasady działania nie jest ona obecnie najpowszechniej stosowaną metodą uczenia sieci. Jest ona podatna na utknięcie w minimach lokalnych oraz ma niską prędkość zbieżności. Wraz z zbliżaniem do minimum jej prędkość uczenia się drastycznie spada. Aby metoda najszybszego spadku działała poprawnie, należy dobrać poprawną wartością współczynnika prędkości uczenia. Zbyt duża wartość uniemożliwi znalezienie minimum funkcji straty, a zbyt mała zwiększy podatność na utknięcie minimach lokalnych oraz spowolni proces uczenia.
 
-\subsubsection*{Metoda najszybszego spadku z bezwładnością}
+\subsubsection*{Spadek gradientu z momentem (Momentum)}
 
-Dla udoskonalenia metody najszybszego spadku dodano do niej element zachowania momentu pędu. Zaletą tej modyfikacji jest przyśpieszenie zbieżności oraz zmniejszenie oscylacji podczas optymalizacji.\cite{Qian1999} Inspiracją dla tego usprawnienia, jak sama nazwa wskazuje, jest zasada zachowania pędu. Zamiast używania przeciwności gradientu jako kierunku uczenia,  wykorzystujemy kierunek z poprzedniej iteracji zmodyfikowany przez obecny gradient. 
+Metoda \textit{momentum} to usprawnienie klasycznego spadku gradientu, które wprowadza do aktualizacji wag składnik bezwładności (momentum) odpowiednio skalowany przez parametr $\gamma$. Pozwala to na użycie większego współczynnika uczenia. Tempo konwergencji znacząco wzrasta, w szczególności w trudnych obszarach funkcji kosztu z dużą ilością minimów lokalnych.
+
 \[
 \begin{aligned}
+	1 &= \gamma + \eta \\
 	v_t        &= \gamma\, v_{t-1} + \eta\, \nabla_{\theta} L(\theta_t),\\
 	\theta_{t+1} &= \theta_t - v_t.
 \end{aligned}
 \]
 
+\begin{itemize}
+	\item $\eta$ — learning rate (wielkość kroku).
+	\item $\gamma \in [0,1)$ — momentum coefficient, określa stopień zachowania poprzednich gradientów.  
+\end{itemize}
 
-W tej metodzie wartości o jakie zostaną dostosowane parametry modelu jest oznaczona przez $v_{t}$. W każdej iteracji jest ustalane przez połączenie dwóch czynników. $v_{t-1}$, które przechodzi w stopniu $\gamma$ oraz $\nabla_{\theta} L(\theta_t)$, które wpływa na kierunek w stopniu $\eta$.
+Efektem jest filtr wygładzający historię gradientów, co przyspiesza konwergencję i redukuje oscylacje, a także ułatwia przeciskanie przez lokalne minima.
 
-Dzięki temu na dużych płaszczyznach o stałym, ale łagodnym gradiencie tempo uczenia przyśpiesza, zamiast mieć stałą niską wartość. Z drugiej strony model może unikać minimum lokalnego "przeskakując" przez nie. 
+\subsubsection*{Metoda przyśpieszonego gradientu}
+
+Metoda przyśpieszonego gradientu, nazywana Metodą Nestorova od nazwiska autora, jest dalszym usprawnieniem metody z momentem, w którym gradient jest obliczany nie w bieżącym położeniu parametrów, a w przewidywanym „przyszłym” położeniu modelu. Dzięki temu aktualizacja jest bardziej precyzyjna i stabilna, co pozwala uniknąć nadmiernego przeskoczenia minimum \cite{Nesterov1983}
+
+\[
+\begin{aligned}
+	v_t &= \gamma\, v_{t-1} + \eta\, \nabla_{\theta} L(\theta_t - \gamma\, v_{t-1}),\\
+	\theta_{t+1} &= \theta_t - v_t.
+\end{aligned}
+\]
+
+\subsubsection*{RMSProp (Root Mean Square Propagation)}
+
+RMSProp to metoda optymalizacji z adaptacyjnym współczynnikiem uczenia, będąca modyfikacją algorytmu AdaGrad. W przeciwieństwie do AdaGrad, który kumuluje wszystkie poprzednie kwadraty gradientów, RMSProp wykorzystuje wykładniczą średnią ruchomą kwadratów gradientów, co pozwala na utrzymanie stabilnych kroków uczenia wraz z postępem treningu \cite{Hinton2012,MediumRMSProp}.
+
+Aktualizacje w RMSProp zapisuje się jako:
+\[
+E[g^2]_t = \rho\, E[g^2]_{t-1} + (1-\rho)\, (\nabla_{\theta} L(\theta_t))^2,
+\]
+\[
+\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{E[g^2]_t + \epsilon}}\, \nabla_{\theta} L(\theta_t),
+\]
+gdzie:
+\begin{itemize}
+	\item $\rho$ (typowo ok. 0.9) — współczynnik wygładzania,
+	\item $\epsilon$ — mała stała dla stabilności numerycznej,
+	\item $\eta$ — współczynnik uczenia.
+\end{itemize}
+
+\textbf{Zalety RMSProp:}
+\begin{itemize}
+	\item Utrzymuje adaptacyjny krok uczenia bez jego nadmiernej redukcji,
+	\item Poprawia zbieżność w problemach o zmiennych gradientach — często stosowany w RNN.
+\end{itemize}
+
+\textbf{Wady:}
+\begin{itemize}
+	\item Wymaga starannego doboru hiperparametrów,
+	\item Może być mniej skuteczny w przypadku ekstremalnie rzadkich gradientów — wtedy lepszy jest Adam.
+\end{itemize}
+
+
+\subsubsection*{Adam (Adaptive Moment Estimation)}
+
+Adam łączy zalety momentum i RMSProp poprzez adaptacyjne skalowanie kroku uczenia dla każdego parametru na podstawie estymat pierwszego (średnia) i drugiego momentu (wariancja) gradientów. Algorytm jest opisany następująco:
+\[
+\begin{aligned}
+	m_t &= \beta_1 m_{t-1} + (1 - \beta_1) g_t,\\
+	v_t &= \beta_2 v_{t-1} + (1 - \beta_2) g_t^2,\\
+	\hat{m}_t &= \tfrac{m_t}{1 - \beta_1^t},\quad
+	\hat{v}_t = \tfrac{v_t}{1 - \beta_2^t},\\
+	\theta_{t+1} &= \theta_t - \frac{\eta\,\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon},
+\end{aligned}
+\]
+gdzie \(g_t = \nabla_{\theta} L(\theta_t)\), \(\beta_1\), \(\beta_2\) są współczynnikami wygładzania (np. 0.9 i 0.999), a \(\epsilon\) to mała wartość stabilizująca.
+
+\textbf{Zalety:}
+\begin{itemize}
+	\item Adaptacyjny krok dla każdego parametru,
+	\item Efektywny obliczeniowo i pamięciowo,
+	\item Działa dobrze przy danych z szumem, gradientach niestabilnych.
+\end{itemize}
+
+\textbf{Wady:}
+\begin{itemize}
+	\item Możliwe problemy ze zbieżnością w funkcjach wypukłych,
+	\item Czasem gorsza generalizacja niż klasyczne SGD z momentum,
+	\item Wymaga dostrojenia wielu hiperparametrów.
+\end{itemize}
