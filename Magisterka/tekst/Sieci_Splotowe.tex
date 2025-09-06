@@ -1,0 +1,14 @@
+\section{Geneza}
+Sieci splotowe (ang. Convolutional Neural Networks, CNN) stanowią jedną z najważniejszych architektur głębokiego uczenia. Ich powstanie inspirowane było budową kory wzrokowej, w której poszczególne neurony reagują na proste wzorce w ograniczonych fragmentach pola widzenia. W odróżnieniu od klasycznych perceptronów wielowarstwowych, w CNN poszczególen neurony nie są połączone ze wszystkimi danymi wejściowymi, lecz analizują jedynie lokalne fragmenty sygnału. Dzięki temu sieć uczy się filtrów, które automatycznie wykrywają charakterystyczne cechy - od prostych krawędzi, po złożone struktury przestrzenne.
+
+Takie podejście sprawia, że CNN szczególnie dobrze nadają się do analizy danych przestrzennych, takich jak obrazy, mapy czy stany gry. Filtry konwolucyjne działają niezależnie od położenia wzorca, co oznacza, że ta sama cecha (np. zawodnik na planszy gry BloodBowl) może być rozpoznana w różnych miejscach bez potrzeby uczenia oddzielnych wag. Dodatkowo mechanizm współdzielenia wag ogranicza liczbę parametrów modelu, co zmniejsza ryzyko przeuczenia i przyspiesza uczenie.
+
+W kontekście gier o dużej złożoności, takich jak BloodBowl, sieci konwolucyjne pozwalają efektywnie przetwarzać przestrzenną reprezentację planszy – rozpoznając układy zawodników, potencjalne zagrożenia czy możliwości ofensywne. Dlatego architektury CNN są powszechnie stosowane jako moduły ekstrakcji cech w algorytmach uczenia ze wzmocnieniem, m.in. w politykach agentów A2C i PPO.
+\cite{lecun1998gradient}
+
+\section{Sposób działania}
+
+Warstwa konwolucyjna jest oparta na operacji splotu. Polega ona na przesuwaniu filtra(jądra) po sygnale i obliczeniu sumy ważonej wartości lokalnych. Dzięki temu warstwa splotowa umożliwia wykrywanie charakterystycznych wzorców, takich jak krawędzie, niezależnie od ich położenia.
+
+\subsection*{Splot w 1D}
+

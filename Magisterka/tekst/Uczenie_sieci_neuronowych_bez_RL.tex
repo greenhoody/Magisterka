@@ -124,21 +124,25 @@ Metoda przyśpieszonego gradientu, nazywana Metodą Nestorova od nazwiska autora
 
 \subsubsection*{RMSProp (Root Mean Square Propagation)}
 
-RMSProp to metoda optymalizacji z adaptacyjnym współczynnikiem uczenia, będąca modyfikacją algorytmu AdaGrad. W przeciwieństwie do AdaGrad, który kumuluje wszystkie poprzednie kwadraty gradientów, RMSProp wykorzystuje wykładniczą średnią ruchomą kwadratów gradientów, co pozwala na utrzymanie stabilnych kroków uczenia wraz z postępem treningu \cite{Hinton2012,MediumRMSProp}.
+RMSProp to metoda optymalizacji z adaptacyjnym współczynnikami uczenia. Jest ona modyfikacją optymalizatora AdaGrad(Adaptive Gradient).
+Algorytmy tego typu dostosowują tępo uczenia dla każdego parametru indywidualnie. 
+\cite{Hinton2012,MediumRMSProp}.
 
 Aktualizacje w RMSProp zapisuje się jako:
 \[
-E[g^2]_t = \rho\, E[g^2]_{t-1} + (1-\rho)\, (\nabla_{\theta} L(\theta_t))^2,
+V_t = \beta\, V_{t-1} + (1-\beta)\, (\nabla_{\theta} L(\theta_t))^2,
 \]
 \[
-\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{E[g^2]_t + \epsilon}}\, \nabla_{\theta} L(\theta_t),
+\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{V_t + \epsilon}}\, \nabla_{\theta} L(\theta_t),
 \]
 gdzie:
 \begin{itemize}
-	\item $\rho$ (typowo ok. 0.9) — współczynnik wygładzania,
-	\item $\epsilon$ — mała stała dla stabilności numerycznej,
+	\item $\beta$ (typowo ok. 0.9) — współczynnik wygładzania,
+	\item $\epsilon$ — mała stała dla stabilności numerycznej i uniknięcia dzielenia przez zero
 	\item $\eta$ — współczynnik uczenia.
 \end{itemize}
+
+Dzięki temu zwiększamy tempo nauki parametrów, których gradient jest mały oraz zwalniamy proces nauki parametrów z porównywalnie stromym gradientem. Chroni to sieć przed pominięciem optimum w regionie o stromym gradiencie oraz przyspiesza proces nauki w przeciwnym przypadku.
 
 \textbf{Zalety RMSProp:}
 \begin{itemize}
@@ -153,18 +157,47 @@ gdzie:
 \end{itemize}
 
 
+
 \subsubsection*{Adam (Adaptive Moment Estimation)}
 
-Adam łączy zalety momentum i RMSProp poprzez adaptacyjne skalowanie kroku uczenia dla każdego parametru na podstawie estymat pierwszego (średnia) i drugiego momentu (wariancja) gradientów. Algorytm jest opisany następująco:
+Adam stara się łączyć zalety optymalizatorów momentum i RMSProp. Uwzględnia kierunek zmian gradientu i wygładza aktualizacje tak jak momentum oraz adaptacyjnie skaluje krok uczenia względem wariancji gradientów jak RMSProp.
+Z tego powodu jest on obecnie, wraz z wariantami, najpopularniejszym optymalizatorem sieci neuronowych. 
+
+W Adamie dla każdego parametru  $\theta$ śledzi sie dwa momenty:
+
+Pierwszy moment, średnia gradientów
+\[
+\begin{aligned}	
+	m_t &= \beta_1 m_{t-1} + (1 - \beta_1) g_t
+\end{aligned}
+\]
+
+Drugi moment, średnia kwadratów gradientów
+	
+\[
+\begin{aligned}	
+	v_t &= \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
+\end{aligned}
+\]
+
+Ze względu na początkowe wartości zerowe $m_t$ oraz $v_t$ wprowadza się poprawki biasu. Dzięki nim na początku uczenie nie jest spowolnione. 
+
 \[
 \begin{aligned}
 	m_t &= \beta_1 m_{t-1} + (1 - \beta_1) g_t,\\
 	v_t &= \beta_2 v_{t-1} + (1 - \beta_2) g_t^2,\\
 	\hat{m}_t &= \tfrac{m_t}{1 - \beta_1^t},\quad
-	\hat{v}_t = \tfrac{v_t}{1 - \beta_2^t},\\
+	\hat{v}_t = \tfrac{v_t}{1 - \beta_2^t}
+\end{aligned}
+\]
+
+Finalna aktualizacja wag ma postać
+\[
+\begin{aligned}
 	\theta_{t+1} &= \theta_t - \frac{\eta\,\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon},
 \end{aligned}
 \]
+
 gdzie \(g_t = \nabla_{\theta} L(\theta_t)\), \(\beta_1\), \(\beta_2\) są współczynnikami wygładzania (np. 0.9 i 0.999), a \(\epsilon\) to mała wartość stabilizująca.
 
 \textbf{Zalety:}
@@ -180,3 +213,6 @@ gdzie \(g_t = \nabla_{\theta} L(\theta_t)\), \(\beta_1\), \(\beta_2\) są wspó�
 	\item Czasem gorsza generalizacja niż klasyczne SGD z momentum,
 	\item Wymaga dostrojenia wielu hiperparametrów.
 \end{itemize}
+
+\cite{kingma2015adam}
+

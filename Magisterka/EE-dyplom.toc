@@ -5,7 +5,10 @@
 \contentsline {section}{\numberline {2.1}Funkcja aktywacji}{12}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Architektura sieci neuronowej}{14}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Techniki uczenia sieci neuronowych}{16}{section.2.3}%
-\contentsline {chapter}{Bibliografia}{23}{section*.15}%
-\contentsline {chapter}{Wykaz skrótów i symboli}{23}{chapter*.16}%
-\contentsline {chapter}{Spis rysunków}{25}{chapter*.17}%
-\contentsline {chapter}{Spis tabel}{27}{chapter*.18}%
+\contentsline {chapter}{\numberline {3}Sieci Konwolucyjne}{23}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Geneza}{23}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Sposób działania}{23}{section.3.2}%
+\contentsline {chapter}{Bibliografia}{25}{section*.16}%
+\contentsline {chapter}{Wykaz skrótów i symboli}{25}{chapter*.17}%
+\contentsline {chapter}{Spis rysunków}{27}{chapter*.18}%
+\contentsline {chapter}{Spis tabel}{29}{chapter*.19}%

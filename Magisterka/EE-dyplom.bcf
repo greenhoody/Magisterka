@@ -2394,6 +2394,8 @@
     <bcf:citekey order="16" intorder="1">Nesterov1983</bcf:citekey>
     <bcf:citekey order="17" intorder="1">Hinton2012</bcf:citekey>
     <bcf:citekey order="17" intorder="2">MediumRMSProp</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">kingma2015adam</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">lecun1998gradient</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">
