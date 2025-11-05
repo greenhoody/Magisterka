@@ -13,134 +13,89 @@ from examples.a2c.a2c_env import a2c_scripted_actions
 from botbowl.ai.layers import *
 
 # Architecture
-model_name = "test-3"
-env_name = f"botbowl-3"
+model_name = "260d8284-9d44-11ec-b455-faffc23fefdb"
+env_name = f"botbowl-11"
 model_filename = f"models/{env_name}/{model_name}.nn"
 log_filename = f"logs/{env_name}/{env_name}.dat"
 
 
-class SpatialInceptionBlock(nn.Module):
-    def __init__(self, spatial_shape, kernels):
-        super(SpatialInceptionBlock, self).__init__()
-        branches = []
-        # kernels pairs (number of kernels, size of kernels)
-        for out_channels, kernel_s in kernels:
-            p = kernel_s // 2
-            branches.append(
-                nn.Sequential(
-                    nn.Conv2d(
-                        spatial_shape[0],
-                        out_channels,
-                        kernel_size=kernel_s,
-                        stride=1,
-                        padding=p,
-                        bias=False,
-                    ),
-                    nn.BatchNorm2d(out_channels),
-                    nn.PReLU(num_parameters=out_channels),
-                )
-            )
-        self.branches = nn.ModuleList(branches)
-
-    def forward(self, x):
-        outputs = [branch(x) for branch in self.branches]
-        # konkatenacja po kanale
-        return torch.cat(outputs, dim=1)
-
-
 class CNNPolicy(nn.Module):
     def __init__(
-        self,
-        spatial_shape,
-        non_spatial_inputs,
-        hidden_nodes,
-        kernels,
-        residual_blocks,
-        actions,
+        self, spatial_shape, non_spatial_inputs, hidden_nodes, kernels, actions
     ):
         super(CNNPolicy, self).__init__()
-        # My Spatial input
-        # Spatial inception-res
-        inception_blocks = []
 
-        for _ in range(residual_blocks):
-            inception_blocks.append(SpatialInceptionBlock(spatial_shape, kernels))
-        self.inception_blocks = nn.ModuleList(inception_blocks)
-        # My Non-spatial
+        # Spatial input stream
+        self.conv1 = nn.Conv2d(
+            spatial_shape[0],
+            out_channels=kernels[0],
+            kernel_size=3,
+            stride=1,
+            padding=1,
+        )
+        self.conv2 = nn.Conv2d(
+            in_channels=kernels[0],
+            out_channels=kernels[1],
+            kernel_size=3,
+            stride=1,
+            padding=1,
+        )
+
+        # Non-spatial input stream
         self.linear0 = nn.Linear(non_spatial_inputs, hidden_nodes)
 
-        # combining spatial and non spatial analizys.
-
-        # po zbudowaniu self.inception_blocks
-        # kernels to teraz [(out1,k1), (out2,k2), ..., (outN,kN)]
-        total_out_ch = sum(out_ch for out_ch, _ in kernels)
-        # teraz policz rozmiar strumienia przestrzennego
-        stream_size = total_out_ch * spatial_shape[1] * spatial_shape[2]
-        # dodaj wymiar nie-przestrzenny
+        # Linear layers
+        stream_size = kernels[1] * spatial_shape[1] * spatial_shape[2]
         stream_size += hidden_nodes
-        # old
-        # stream_size = kernels[1] * spatial_shape[1] * spatial_shape[2]
-        # stream_size += hidden_nodes
-        self.linear1 = nn.Linear(stream_size, stream_size)
-        self.critic_linear = nn.Linear(stream_size, hidden_nodes)
-        self.actor_linear = nn.Linear(stream_size, stream_size)
+        self.linear1 = nn.Linear(stream_size, hidden_nodes)
+
         # The outputs
         self.critic = nn.Linear(hidden_nodes, 1)
-        self.actor = nn.Linear(stream_size, actions)
+        self.actor = nn.Linear(hidden_nodes, actions)
+
         self.train()
         self.reset_parameters()
 
     def reset_parameters(self):
-        """
-        He‐inicjalizacja dla Conv2d i Linear,
-        BatchNorm weight→1, bias→0.
-        """
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                # He‐inicjalizacja wariant normalny
-                nn.init.kaiming_normal_(m.weight, mode="fan_in", nonlinearity="relu")
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-
-            elif isinstance(m, nn.Linear):
-                nn.init.kaiming_normal_(m.weight, mode="fan_in", nonlinearity="relu")
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-
-            elif isinstance(m, (nn.BatchNorm2d, nn.BatchNorm1d)):
-                # gamma=1, beta=0
-                nn.init.ones_(m.weight)
-                nn.init.zeros_(m.bias)
+        relu_gain = nn.init.calculate_gain("relu")
+        self.conv1.weight.data.mul_(relu_gain)
+        self.conv2.weight.data.mul_(relu_gain)
+        self.linear0.weight.data.mul_(relu_gain)
+        self.linear1.weight.data.mul_(relu_gain)
+        self.actor.weight.data.mul_(relu_gain)
+        self.critic.weight.data.mul_(relu_gain)
 
     def forward(self, spatial_input, non_spatial_input):
         """
         The forward functions defines how the data flows through the graph (layers)
         """
-        # My Forward
-        #
-        # 1) Spatial → Inception-Res blocks
-        x = spatial_input  # shape [B, C, H, W]
-        for block in self.inception_blocks:
-            residual = x
-            out = block(x)
-            x = out + residual  # dalej [B, C_out, H, W]
+        # Spatial input through two convolutional layers
 
-        x = x.flatten(start_dim=1)  # → [B, C_out*H*W]
+        x1 = self.conv1(spatial_input)
+        x1 = F.relu(x1)
+        x1 = self.conv2(x1)
+        x1 = F.relu(x1)
 
-        # 2) Non-spatial → dense
-        y = self.linear0(non_spatial_input)  # [B, hidden_nodes]
-        y = F.relu(y, inplace=True)
-        y = y.flatten(start_dim=1)
-        # 3) Concatenate i kolejna warstwa
-        xy = torch.cat([x, y], dim=1)  # [B, stream_size]
-        z = self.linear1(xy)  # [B, hidden_nodes]
-        z = F.relu(z, inplace=True)
-        lc = self.critic_linear(z)
-        la = self.actor_linear(z)
-        # 4) Dwa wyjścia
-        value = self.critic(lc)  # [B, 1]
-        actor = self.actor(la)  # [B, actions]
+        # Concatenate the input streams
+        flatten_x1 = x1.flatten(start_dim=1)
 
+        x2 = self.linear0(non_spatial_input)
+        x2 = F.relu(x2)
+
+        flatten_x2 = x2.flatten(start_dim=1)
+        concatenated = torch.cat((flatten_x1, flatten_x2), dim=1)
+
+        # Fully-connected layers
+        x3 = self.linear1(concatenated)
+        x3 = F.relu(x3)
+        # x2 = self.linear2(x2)
+        # x2 = F.relu(x2)
+
+        # Output streams
+        value = self.critic(x3)
+        actor = self.actor(x3)
+
+        # return value, policy
         return value, actor
 
     def act(self, spatial_inputs, non_spatial_input, action_mask):
@@ -189,11 +144,9 @@ class A2CAgent(Agent):
         env_conf: EnvConf,
         scripted_func: Callable[[Game], Optional[Action]] = None,
         filename=model_filename,
-        exclude_pathfinding_moves=True,
     ):
         super().__init__(name)
         self.env = BotBowlEnv(env_conf)
-        self.exclude_pathfinding_moves = exclude_pathfinding_moves
 
         self.scripted_func = scripted_func
         self.action_queue = []
@@ -306,3 +259,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

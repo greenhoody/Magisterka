@@ -1,7 +1,3 @@
-import os
-from copy import deepcopy
-import uuid
-import numpy as np
 from functools import partial
 from multiprocessing import Process, Pipe
 import random
@@ -22,12 +18,12 @@ from botbowl.ai.env import (
     BotBowlWrapper,
     PPCGWrapper,
 )
-from a2c_agent import A2CAgent, CNNPolicy
-from a2c_env import A2C_Reward, a2c_scripted_actions
+from examples.a2c.a2c_agent import A2CAgent, CNNPolicy
+from examples.a2c.a2c_env import A2C_Reward, a2c_scripted_actions
 from botbowl.ai.layers import *
 
 # Environment
-env_size = 11  # Options are 1,3,5,7,11
+env_size = 3  # Options are 1,3,5,7,11
 env_name = f"botbowl-{env_size}"
 env_conf = EnvConf(size=env_size, pathfinding=False)
 
@@ -46,9 +42,9 @@ def make_env():
 
 
 # Training configuration
-num_steps = 100000
+num_steps = 1000000
 num_processes = 8
-steps_per_update = 10
+steps_per_update = 20
 learning_rate = 0.001
 gamma = 0.99
 entropy_coef = 0.01
@@ -56,7 +52,7 @@ value_loss_coef = 0.5
 max_grad_norm = 0.05
 log_interval = 50
 save_interval = 10
-ppcg = False
+ppcg = True
 
 
 reset_steps = 5000  # The environment is reset after this many steps it gets stuck
@@ -69,8 +65,7 @@ selfplay_swap_steps = selfplay_save_steps
 
 # Architecture
 num_hidden_nodes = 128
-num_residual_blocks = 2
-num_cnn_kernels = [(18, 3), (18, 5), (8, 7)]
+num_cnn_kernels = [32, 64]
 
 # When using A2CAgent, remember to set exclude_pathfinding_moves = False if you train with pathfinding_enabled = True
 
@@ -131,37 +126,14 @@ class Memory(object):
     def insert(
         self, step, spatial_obs, non_spatial_obs, action, reward, mask, action_masks
     ):
-        spatial_tensor = torch.as_tensor(
-            spatial_obs, dtype=torch.float32, device=self.spatial_obs.device
+        self.spatial_obs[step + 1].copy_(torch.from_numpy(spatial_obs).float())
+        self.non_spatial_obs[step + 1].copy_(
+            torch.from_numpy(np.expand_dims(non_spatial_obs, axis=1)).float()
         )
-        self.spatial_obs[step + 1].copy_(spatial_tensor)
-
-        non_spatial_tensor = torch.as_tensor(
-            non_spatial_obs, dtype=torch.float32, device=self.non_spatial_obs.device
-        )
-        if non_spatial_tensor.dim() == 2:
-            non_spatial_tensor = non_spatial_tensor.unsqueeze(1)
-        self.non_spatial_obs[step + 1].copy_(non_spatial_tensor)
-
-        action_tensor = torch.as_tensor(
-            action, dtype=torch.long, device=self.actions.device
-        )
-        self.actions[step].copy_(action_tensor)
-
-        reward_tensor = torch.as_tensor(
-            reward, dtype=torch.float32, device=self.rewards.device
-        ).view(-1, 1)
-        self.rewards[step].copy_(reward_tensor)
-
-        mask_tensor = torch.as_tensor(
-            mask, dtype=self.masks.dtype, device=self.masks.device
-        )
-        self.masks[step].copy_(mask_tensor)
-
-        action_mask_tensor = torch.as_tensor(
-            action_masks, dtype=torch.bool, device=self.action_masks.device
-        )
-        self.action_masks[step + 1].copy_(action_mask_tensor)
+        self.actions[step].copy_(action)
+        self.rewards[step].copy_(torch.from_numpy(np.expand_dims(reward, 1)).float())
+        self.masks[step].copy_(mask)
+        self.action_masks[step + 1].copy_(torch.from_numpy(action_masks))
 
     def compute_returns(self, next_value, gamma):
         self.returns[-1] = next_value
@@ -294,9 +266,6 @@ class VecEnv:
 
 
 def main():
-    # Chwytanie GPU
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
     envs = VecEnv([make_env() for _ in range(num_processes)])
 
     env = make_env()
@@ -316,9 +285,8 @@ def main():
         non_spatial_obs_space,
         hidden_nodes=num_hidden_nodes,
         kernels=num_cnn_kernels,
-        residual_blocks=num_residual_blocks,
         actions=action_space,
-    ).to(device)
+    )
 
     # OPTIMIZER
     optimizer = optim.RMSprop(ac_agent.parameters(), learning_rate)
@@ -377,26 +345,19 @@ def main():
         torch.from_numpy, envs.reset(difficulty)
     )
 
-    spatial_obs = spatial_obs.float().to(device)
-    non_spatial_obs = non_spatial_obs.float().to(device)
-    action_masks = action_masks.bool().to(device)
-
     # Add first obs to memory
     non_spatial_obs = torch.unsqueeze(non_spatial_obs, dim=1)
     memory.spatial_obs[0].copy_(spatial_obs)
     memory.non_spatial_obs[0].copy_(non_spatial_obs)
     memory.action_masks[0].copy_(action_masks)
 
-    scaler = torch.GradScaler("cuda")
     while all_steps < num_steps:
         for step in range(steps_per_update):
             _, actions = ac_agent.act(
-                Variable(memory.spatial_obs[step].to(device)),
-                Variable(memory.non_spatial_obs[step].to(device)),
-                Variable(memory.action_masks[step].to(device)),
+                Variable(memory.spatial_obs[step]),
+                Variable(memory.non_spatial_obs[step]),
+                Variable(memory.action_masks[step]),
             )
-            # środowisko jest na cpu, a teraz actions są na gpu,ponieważ model jest na gpu
-            actions = actions.cpu()
 
             action_objects = (action[0] for action in actions.numpy())
 
@@ -439,9 +400,7 @@ def main():
                     proc_tds_opp[i] = 0
 
             # insert the step taken into memory
-            masks = torch.tensor(
-                [[0.0] if done_ else [1.0] for done_ in done], device=device
-            )
+            masks = torch.FloatTensor([[0.0] if done_ else [1.0] for done_ in done])
 
             memory.insert(
                 step,
@@ -457,46 +416,47 @@ def main():
 
         # bootstrap next value
         next_value = ac_agent(
-            Variable(memory.spatial_obs[-1].to(device), requires_grad=False),
-            Variable(memory.non_spatial_obs[-1].to(device), requires_grad=False),
+            Variable(memory.spatial_obs[-1], requires_grad=False),
+            Variable(memory.non_spatial_obs[-1], requires_grad=False),
         )[0].data
 
         # Compute returns
         memory.compute_returns(next_value, gamma)
 
         spatial = Variable(memory.spatial_obs[:-1])
-        spatial = spatial.view(-1, *spatial_obs_space).to(device)
+        spatial = spatial.view(-1, *spatial_obs_space)
         non_spatial = Variable(memory.non_spatial_obs[:-1])
-        non_spatial = non_spatial.view(-1, non_spatial.shape[-1]).to(device)
+        non_spatial = non_spatial.view(-1, non_spatial.shape[-1])
 
-        actions = Variable(memory.actions.view(-1, 1)).to(device)
-        actions_mask = Variable(memory.action_masks[:-1]).to(device)
+        actions = Variable(torch.LongTensor(memory.actions.view(-1, 1)))
+        actions_mask = Variable(memory.action_masks[:-1])
 
-        optimizer.zero_grad(set_to_none=True)
-        with torch.amp.autocast("cuda"):
-            # Evaluate the actions taken
-            action_log_probs, values, dist_entropy = ac_agent.evaluate_actions(
-                spatial, non_spatial, actions, actions_mask
-            )
-            values = values.view(steps_per_update, num_processes, 1)
-            action_log_probs = action_log_probs.view(steps_per_update, num_processes, 1)
-            advantages = Variable(memory.returns[:-1]).to(device) - values
-            value_loss = advantages.pow(2).mean()
-            # value_losses.append(value_loss)
-            # Compute loss
-            action_loss = -(advantages.detach() * action_log_probs).mean()
-            # policy_losses.append(action_loss)
+        # Evaluate the actions taken
+        action_log_probs, values, dist_entropy = ac_agent.evaluate_actions(
+            spatial, non_spatial, actions, actions_mask
+        )
 
-            total_loss = (
-                value_loss * value_loss_coef + action_loss - dist_entropy * entropy_coef
-            )
-        # total_loss.backward()
+        values = values.view(steps_per_update, num_processes, 1)
+        action_log_probs = action_log_probs.view(steps_per_update, num_processes, 1)
 
-        scaler.scale(total_loss).backward()
-        scaler.unscale_(optimizer)
+        advantages = Variable(memory.returns[:-1]) - values
+        value_loss = advantages.pow(2).mean()
+        # value_losses.append(value_loss)
+
+        # Compute loss
+        action_loss = -(Variable(advantages.data) * action_log_probs).mean()
+        # policy_losses.append(action_loss)
+
+        optimizer.zero_grad()
+
+        total_loss = (
+            value_loss * value_loss_coef + action_loss - dist_entropy * entropy_coef
+        )
+        total_loss.backward()
+
         nn.utils.clip_grad_norm_(ac_agent.parameters(), max_grad_norm)
-        scaler.step(optimizer)
-        scaler.update()
+
+        optimizer.step()
 
         memory.non_spatial_obs[0].copy_(memory.non_spatial_obs[-1])
         memory.spatial_obs[0].copy_(memory.spatial_obs[-1])
@@ -515,13 +475,10 @@ def main():
             selfplay_next_save = max(
                 all_steps + 1, selfplay_next_save + selfplay_save_steps
             )
-            model_cpu = deepcopy(ac_agent).to("cpu")
             model_name = f"{exp_id}_selfplay_{selfplay_models}.nn"
             model_path = os.path.join(model_dir, model_name)
             print(f"Saving {model_path}")
-            torch.save(model_cpu.state_dict(), model_path)
-            # wczytuje model za pomocą poniższje linii
-            # ac_agent.load_state_dict(torch.load(model_path, map_location = device))
+            torch.save(ac_agent, model_path)
             selfplay_models += 1
 
         # Self-play swap
@@ -593,9 +550,7 @@ def main():
             # Save model
             model_name = f"{exp_id}.nn"
             model_path = os.path.join(model_dir, model_name)
-            model_cpu = deepcopy(ac_agent).to("cpu")
-            print(f"Saving {model_path}")
-            torch.save(model_cpu.state_dict(), model_path)
+            torch.save(ac_agent, model_path)
 
             # plot
             n = 3
