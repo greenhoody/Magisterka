@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  7 SEP 2025 00:50
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  7 NOV 2025 21:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1732,6 +1732,10 @@ File: tikzlibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
 tex
 File: pgflibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
 
 Package fontspec Info: 
 (fontspec)             Font family 'LatinModernSans(1)' created for font
@@ -1754,26 +1758,26 @@ Package fontspec Info:
  (./EE-dyplom.aux)
 \openout1 = `EE-dyplom.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1830,7 +1834,7 @@ Package biblatex Info: ... file 'latin.lbx' not found.
 
 
 Package biblatex Warning: Language 'latin' not supported.
-(biblatex)                Using dummy definitions on input line 74.
+(biblatex)                Using dummy definitions on input line 75.
 
 Package biblatex Info: Trying to load language 'polish'...
 Package biblatex Info: ... file 'polish.lbx' found.
@@ -1847,13 +1851,13 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'EE-dyplom.bbl' not found.
 
 No file EE-dyplom.bbl.
-Package biblatex Info: Reference section=0 on input line 74.
-Package biblatex Info: Reference segment=0 on input line 74.
+Package biblatex Info: Reference section=0 on input line 75.
+Package biblatex Info: Reference segment=0 on input line 75.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 74.
+Package hyperref Info: Link coloring ON on input line 75.
 (./EE-dyplom.out) (./EE-dyplom.out)
 \@outlinefile=\write9
 \openout9 = `EE-dyplom.out'.
@@ -1950,147 +1954,174 @@ LaTeX Warning: Citation 'McCulloch1943' on page 11 undefined on input line 1.
 
 
 LaTeX Warning: Citation 'minsky1969perceptrons' on page 11 undefined on input l
-ine 13.
+ine 16.
 
 
 
 [11]
-Missing character: There is no ⁡ (U+2061) in font Latin Modern Sans 10 Regular/
-OT:script=latn;language=PLK;mapping=tex-text;!
-LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 65.
-LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 5.0pt on input line 65.
-LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 65.
+Missing character: There is no 𝑥 (U+1D465) in font Latin Modern Sans 10 Regular
+/OT:script=latn;language=PLK;mapping=tex-text;!
+Missing character: There is no − ("2212) in font cmr10!
 
 
 [12]
+Missing character: There is no 𝑥 (U+1D465) in font Latin Modern Sans 10 Regular
+/OT:script=latn;language=PLK;mapping=tex-text;!
+LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
+(Font)              scaled to size 5.0pt on input line 109.
+LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
+(Font)              scaled to size 5.0pt on input line 109.
+LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
+(Font)              scaled to size 10.95pt on input line 109.
+
 
 [13]
-Overfull \hbox (19.92926pt too wide) in paragraph at lines 257--258
- [][] 
- []
+
+LaTeX Font Warning: Font shape `TU/LatinModernMath(0)/bx/n' undefined
+(Font)              using `TU/LatinModernMath(0)/m/n' instead on input line 226
+.
 
 
 
 [14]
 
-LaTeX Warning: Citation 'Cybenko1989' on page 15 undefined on input line 272.
+LaTeX Warning: Citation 'Cybenko1989' on page 15 undefined on input line 249.
 
 
-LaTeX Warning: Citation 'HORNIK1989359' on page 15 undefined on input line 272.
+LaTeX Warning: Citation 'HORNIK1989359' on page 15 undefined on input line 249.
 
 
 
 LaTeX Warning: Citation 'RolnickTegmark2017' on page 15 undefined on input line
- 275.
-
-
-LaTeX Warning: Citation 'H.N.Mhaskar2020' on page 15 undefined on input line 28
-0.
+ 258.
 
 
 LaTeX Warning: Citation 'telgarsky2016benefits' on page 15 undefined on input l
-ine 282.
+ine 258.
+
+
+LaTeX Warning: Citation 'H.N.Mhaskar2020' on page 15 undefined on input line 25
+8.
+
+
+Overfull \hbox (19.92926pt too wide) in paragraph at lines 336--337
+ [][] 
+ []
 
 ) (./tekst/Uczenie_sieci_neuronowych_bez_RL.tex
 
 [15]
-
-LaTeX Font Warning: Font shape `TU/LatinModernMath(0)/bx/n' undefined
-(Font)              using `TU/LatinModernMath(0)/m/n' instead on input line 16.
-
-
+Missing character: There is no 𝐿 ("1D43F) in font cmmi10!
+Missing character: There is no 𝑦 ("1D466) in font cmmi10!
 
 LaTeX Warning: Citation 'Goodfellow-et-al-2016' on page 16 undefined on input l
-ine 16.
-
-
-LaTeX Warning: Citation 'Rumelhart1986' on page 16 undefined on input line 28.
-
-
-LaTeX Warning: Citation 'Kingma2014' on page 16 undefined on input line 29.
+ine 22.
 
 
 
 [16]
 
 LaTeX Warning: Citation 'Goodfellow-et-al-2016' on page 17 undefined on input l
-ine 36.
+ine 34.
 
 
-LaTeX Warning: Citation 'Kohonen1990' on page 17 undefined on input line 40.
+LaTeX Warning: Citation 'Kohonen1990' on page 17 undefined on input line 38.
 
 
 LaTeX Warning: Citation 'GoodfellowGAN2014' on page 17 undefined on input line 
-42.
-
-
-LaTeX Warning: Citation 'Goodfellow-et-al-2016' on page 17 undefined on input l
-ine 57.
+40.
 
 
 
 [17]
 
 LaTeX Warning: Citation 'Goodfellow-et-al-2016' on page 18 undefined on input l
-ine 85.
+ine 57.
 
 
 
 [18]
 
-LaTeX Warning: Citation 'Nesterov1983' on page 19 undefined on input line 116.
-
-
-LaTeX Warning: Citation 'Hinton2012' on page 19 undefined on input line 129.
-
-
-LaTeX Warning: Citation 'MediumRMSProp' on page 19 undefined on input line 129.
-
+LaTeX Warning: Citation 'Goodfellow-et-al-2016' on page 19 undefined on input l
+ine 85.
 
 
 
 [19]
 
+LaTeX Warning: Citation 'Nesterov1983' on page 20 undefined on input line 127.
+
+
+LaTeX Warning: Citation 'Hinton2012' on page 20 undefined on input line 142.
+
+
+LaTeX Warning: Citation 'MediumRMSProp' on page 20 undefined on input line 142.
+
+
+
+
 [20]
-
-LaTeX Warning: Citation 'kingma2015adam' on page 21 undefined on input line 217
-.
-
-)
 
 [21]
 
-[22
+LaTeX Warning: Citation 'kingma2015adam' on page 22 undefined on input line 230
+.
 
-]
+
+
+[22]
+Missing character: There is no 𝐿 ("1D43F) in font cmmi10!
+
+
+[23])
+
+[24]
 Rozdział 3.
 (./tekst/Sieci_Splotowe.tex
 
-LaTeX Warning: Citation 'lecun1998gradient' on page 23 undefined on input line 
+LaTeX Warning: Citation 'lecun1998gradient' on page 25 undefined on input line 
 7.
 
-))
-
-[23]
-
-[24
-
-]
-
-LaTeX Warning: Empty bibliography on input line 85.
-
-No file EE-dyplom.acr.
-No file EE-dyplom.sls.
 
 
 [25
 
 ]
 
-[26
+[26])
+
+[27]
+
+[28
+
+]
+Rozdział 4.
+(./tekst/BloodBowl.tex
+File: rysunki/Botbowl_board.jpg Graphic file (type bmp)
+<rysunki/Botbowl_board.jpg>
+
+Overfull \hbox (14.22636pt too wide) in paragraph at lines 3--4
+[][] 
+ []
+
+))
+
+[29]
+
+[30]
+
+LaTeX Warning: Empty bibliography on input line 86.
+
+No file EE-dyplom.acr.
+No file EE-dyplom.sls.
+
+
+[31
+
+
+]
+
+[32
 
 ] (./EE-dyplom.lof)
 \tf@lof=\write11
@@ -2098,9 +2129,9 @@ No file EE-dyplom.sls.
 
 
 
-[27]
+[33]
 
-[28
+[34
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2108,7 +2139,7 @@ No file EE-dyplom.sls.
 
 
 
-[29] (./EE-dyplom.aux)
+[35] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2120,14 +2151,8 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-Package rerunfilecheck Warning: File `EE-dyplom.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `EE-dyplom.out':
-(rerunfilecheck)             Before: F636D9E656F60B2CFE14A021D3E0C571;1488
-(rerunfilecheck)             After:  CCB3A2B56D272C17F6289F55DFBC2477;1632.
+Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
+(rerunfilecheck)             Checksum: 10BD77419D575FB4870DB7526CB3584F;2650.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                EE-dyplom
@@ -2138,12 +2163,12 @@ Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 57553 strings out of 468529
- 1322960 string characters out of 5451399
- 2580333 words of memory out of 5000000
- 85010 multiletter control sequences out of 15000+600000
- 633706 words of font info for 129 fonts, out of 8000000 for 9000
+ 57612 strings out of 468529
+ 1324584 string characters out of 5451399
+ 2581525 words of memory out of 5000000
+ 85059 multiletter control sequences out of 15000+600000
+ 633714 words of font info for 130 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 114i,17n,131p,2506b,5174s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 114i,17n,131p,2506b,5158s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (29 pages).
+Output written on EE-dyplom.pdf (35 pages).

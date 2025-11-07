@@ -2379,23 +2379,21 @@
     <bcf:citekey order="1" intorder="1">McCulloch1943</bcf:citekey>
     <bcf:citekey order="2" intorder="1">minsky1969perceptrons</bcf:citekey>
     <bcf:citekey order="3" intorder="1">Cybenko1989</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">HORNIK1989359</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">RolnickTegmark2017</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">H.N.Mhaskar2020</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">telgarsky2016benefits</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">Rumelhart1986</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">Kingma2014</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">Kohonen1990</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">GoodfellowGAN2014</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">Nesterov1983</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">Hinton2012</bcf:citekey>
-    <bcf:citekey order="17" intorder="2">MediumRMSProp</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">kingma2015adam</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">lecun1998gradient</bcf:citekey>
+    <bcf:citekey order="3" intorder="2">HORNIK1989359</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">RolnickTegmark2017</bcf:citekey>
+    <bcf:citekey order="4" intorder="2">telgarsky2016benefits</bcf:citekey>
+    <bcf:citekey order="4" intorder="3">H.N.Mhaskar2020</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">Kohonen1990</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">GoodfellowGAN2014</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">Nesterov1983</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">Hinton2012</bcf:citekey>
+    <bcf:citekey order="12" intorder="2">MediumRMSProp</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">kingma2015adam</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">lecun1998gradient</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">
