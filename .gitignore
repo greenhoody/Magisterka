@@ -1,0 +1,76 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Python build artifacts
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Virtual environments
+.env
+.venv/
+venv/
+env/
+
+# Test and tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+
+# Experiment outputs and checkpoints
+log/
+logs/
+*/log/
+*/logs/
+log.txt
+*.log
+models/
+*/models/
+checkpoints/
+runs/
+tensorboard/
+*.pth
+*.pt
+*.pkl
+*.ckpt
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+*.ipynb
+
+# LaTeX build artifacts
+*.aux
+*.bcf
+*.blg
+*.bbl
+*.fdb_latexmk
+*.fls
+*.glo
+*.gls
+*.ist
+*.lof
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.acn
+*.acr
+*.alg
+*.glg
+*.glsdefs
+*.slo
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+*.tmp
+*~
+*.swp
+*.swo
