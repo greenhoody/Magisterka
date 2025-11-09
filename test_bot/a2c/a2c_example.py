@@ -18,7 +18,7 @@ from botbowl.ai.env import (
     BotBowlWrapper,
     PPCGWrapper,
 )
-from a2c_agent import A2CAgent, CNNPolicy
+from a2c_residual_spatial_inception_agent import A2CAgent, CNNPolicy
 from a2c_env import A2C_Reward, a2c_scripted_actions
 from botbowl.ai.layers import *
 
