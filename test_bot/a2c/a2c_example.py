@@ -47,9 +47,11 @@ num_processes = 8
 steps_per_update = 20
 learning_rate = 0.001
 gamma = 0.99
-entropy_coef = 0.01
+#entropy_coef = 0.01
+entropy_coef = 0.04
 value_loss_coef = 0.5
-max_grad_norm = 0.05
+#max_grad_norm = 0.05
+max_grad_norm = 0.5
 log_interval = 50
 save_interval = 10
 ppcg = True
@@ -442,11 +444,16 @@ def main():
         action_log_probs = action_log_probs.view(steps_per_update, num_processes, 1)
 
         advantages = Variable(memory.returns[:-1]) - values
+        
+        # Normalizacja Do stestowania czy się nie wywali
+        # advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
+
+
         value_loss = advantages.pow(2).mean()
         # value_losses.append(value_loss)
 
         # Compute loss
-        action_loss = -(Variable(advantages.data) * action_log_probs).mean()
+        action_loss = -(advantages * action_log_probs).mean()
         # policy_losses.append(action_loss)
 
         optimizer.zero_grad()
@@ -454,6 +461,9 @@ def main():
         total_loss = (
             value_loss * value_loss_coef + action_loss - dist_entropy * entropy_coef
         )
+        #dodane z sugestii GPT
+        total_loss = total_loss / num_processes
+        
         total_loss.backward()
 
         nn.utils.clip_grad_norm_(ac_agent.parameters(), max_grad_norm)
