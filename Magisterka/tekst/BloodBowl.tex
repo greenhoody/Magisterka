@@ -1,0 +1,27 @@
+W celu porównania rozwiązań uczenia ze wzmocnieniem, użyję jako środowiska testowego gry BloodBowl. Jest to strategiczna gra planszowa, łącząca elementy footballu amerykańskiego i gier bitewnychw której dwa zespoły rywalizują o zdobycie większej liczby przyłożeń (touchdowns) w ograniczonej liczbie tur. Gra posiada ściśle zdefiniowane reguły, pełne stany gry oraz jasno określone cele, co czyni ją doskonałym środowiskiem do badań nad uczeniem ze wzmocnieniem. 
+
+Z punktu widzenia teorii RL, Blood Bowl można modelować jako proces decyzyjny w formie MDP (Markov Decision Process), w którym agent (trener drużyny) obserwuje stan planszy, wybiera działania dla zawodników, otrzymuje nagrody za skuteczne decyzje oraz ponosi kary za błędy. 
+
+
+ChatGPT said:
+
+Oto syntetyczny opis przebiegu pojedynczego meczu Blood Bowl (edycja 2016) – opracowany na podstawie zasad z Blood Bowl Rulebook 2016 (Games Workshop, 2016) oraz dokumentu, który przesłałeś. Tekst mieści się w objętości około ½ strony A4 i nadaje się bezpośrednio do umieszczenia w Twojej pracy (np. w części dotyczącej charakterystyki środowiska RL).
+
+Przebieg pojedynczego meczu Blood Bowl
+
+Pojedynczy mecz Blood Bowl rozgrywany jest pomiędzy dwiema drużynami po jedenastu zawodników na planszy o wymiarach 26 × 15 pól, podzielonej na strefy – połowy, linie skrimmage oraz strefy punktowe. Celem gry jest zdobycie większej liczby przyłożeń (touchdowns) niż przeciwnik w ciągu meczu składającego się z dwóch połówek po osiem tur na drużynę.
+
+Przed rozpoczęciem meczu obaj trenerzy wystawiają zawodników na swojej połowie boiska, zgodnie z ograniczeniami pozycji i zasadami ustawienia na linii środkowej. Następnie wybierany jest zespół rozpoczynający kopnięciem (kick-off), a zespół przyjmujący ustawia się tak, aby przechwycić piłkę. Po rzucie kostkami określającym trajektorię piłki i efekt z tabeli Kick-off, gra rozpoczyna się pierwszą turą zespołu przyjmującego.
+
+Każda tura drużyny składa się z serii akcji zawodników, które gracz wykonuje w dowolnej kolejności, jednak każdy zawodnik może podjąć tylko jedno działanie na turę. Dostępne akcje to m.in. ruch (Move), blokowanie przeciwnika (Block), bieg z piłką (Blitz), podanie (Pass), złapanie (Catch), podniesienie piłki (Pick-up), czy faul (Foul). Wiele z nich wymaga rzutów kostkami, a nieudane działanie mogące prowadzić do utraty piłki lub powalenia zawodnika kończy natychmiast turę zespołu (tzw. turnover). Po zakończeniu tury pierwszego gracza rozpoczyna się tura przeciwnika, a znacznik tury (turn marker) przesuwany jest na planszy.
+
+Gra toczy się naprzemiennie według tur, dopóki nie zostanie zdobyte przyłożenie lub upłynie osiem tur połowy. Po zdobyciu punktu następuje restart meczu – zawodnicy wracają na swoje pozycje, a drużyna strzelająca kopie piłkę przeciwnikowi. Po zakończeniu pierwszej połowy następuje zamiana stron, a rozegranie drugiej połowy przebiega według tej samej procedury.
+
+Mecz kończy się po osiągnięciu pełnych szesnastu tur (osiem na drużynę w każdej połowie) lub w momencie, gdy jedna z drużyn poddaje spotkanie. Zwycięża zespół, który zdobędzie więcej przyłożeń. W przypadku remisu wynik pozostaje nierozstrzygnięty. Choć mechanika gry opiera się na rzutach kostkami, strategiczne planowanie kolejności akcji, pozycjonowanie zawodników i zarządzanie ryzykiem stanowią o głębi decyzyjnej Blood Bowl, co czyni grę znakomitym środowiskiem do analizy i testowania algorytmów uczenia ze wzmocnieniem.
+ 
+\vspace{6mm}
+
+\includegraphics[width=\textwidth]{rysunki/Botbowl_board.jpg}
+
+
+\section{Just in case}

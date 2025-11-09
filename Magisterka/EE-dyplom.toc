@@ -8,14 +8,16 @@
 \contentsline {section}{\numberline {2.3}Techniki uczenia sieci neuronowych}{16}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Funkcje kosztu (straty)}{18}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Algorytmy optymalizacji}{19}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Problemy gradientowe i usprawnienia}{22}{section.2.6}%
-\contentsline {chapter}{\numberline {3}Sieci Konwolucyjne}{25}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Geneza}{25}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Sposób działania}{25}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Warstwy wspierające}{27}{subsection.3.2.1}%
-\contentsline {chapter}{\numberline {4}Środowisko testowe}{29}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Just in case}{30}{section.4.1}%
-\contentsline {chapter}{Bibliografia}{31}{section*.18}%
-\contentsline {chapter}{Wykaz skrótów i symboli}{31}{chapter*.19}%
-\contentsline {chapter}{Spis rysunków}{33}{chapter*.20}%
-\contentsline {chapter}{Spis tabel}{35}{chapter*.21}%
+\contentsline {section}{\numberline {2.6}Problemy gradientowe}{22}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Techniki stabilizacji i usprawnienia procesu uczenia}{24}{section.2.7}%
+\contentsline {chapter}{\numberline {3}Sieci Konwolucyjne}{27}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Geneza}{27}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Sposób działania}{27}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Środowisko testowe}{31}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Just in case}{32}{section.4.1}%
+\contentsline {chapter}{\numberline {5}Zestawienie użytych rozwiązań}{33}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Wyniki}{35}{chapter.6}%
+\contentsline {chapter}{Bibliografia}{37}{section*.22}%
+\contentsline {chapter}{Wykaz skrótów i symboli}{37}{chapter*.23}%
+\contentsline {chapter}{Spis rysunków}{39}{chapter*.24}%
+\contentsline {chapter}{Spis tabel}{41}{chapter*.25}%
