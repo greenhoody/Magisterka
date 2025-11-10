@@ -1,0 +1,3 @@
+python run_tournament.py --models-dir ../models --model A:botbowl-
+    3/foo.nn:a2c --model B:botbowl-3/bar.nn:ppo --games-per-pair 6 --output
+    results/tournament.json.
