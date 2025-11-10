@@ -18,7 +18,7 @@ from botbowl.ai.env import (
     BotBowlWrapper,
     PPCGWrapper,
 )
-from a2c_residual_spatial_inception_agent import A2CAgent, CNNPolicy
+from ppo_residual_spatial_inception_agent import CNNPolicy, PPOAgent, ppo_update
 from a2c_env import A2C_Reward, a2c_scripted_actions
 from botbowl.ai.layers import *
 
@@ -28,7 +28,7 @@ env_name = f"botbowl-{env_size}"
 env_conf = EnvConf(size=env_size, pathfinding=False)
 
 make_agent_from_model = partial(
-    A2CAgent, env_conf=env_conf, scripted_func=a2c_scripted_actions
+    PPOAgent, env_conf=env_conf, scripted_func=a2c_scripted_actions
 )
 
 
@@ -47,17 +47,22 @@ num_processes = 8
 steps_per_update = 20
 learning_rate = 0.001
 gamma = 0.99
-#entropy_coef = 0.01
+# entropy_coef = 0.01
 entropy_coef = 0.04
 value_loss_coef = 0.5
-#max_grad_norm = 0.05
+# max_grad_norm = 0.05
 max_grad_norm = 0.5
 log_interval = 50
 save_interval = 10
 ppcg = True
 
-
 reset_steps = 5000  # The environment is reset after this many steps it gets stuck
+
+# PPO settings
+ppo_clip = 0.2
+ppo_epochs = 4
+ppo_minibatches = 4
+gae_lambda = 0.95
 
 # Self-play
 selfplay = False  # Use this to enable/disable self-play
@@ -70,7 +75,7 @@ num_hidden_nodes = 128
 num_residual_blocks = 2
 num_cnn_kernels = [(18, 3), (18, 5), (8, 7)]
 
-# When using A2CAgent, remember to set exclude_pathfinding_moves = False if you train with pathfinding_enabled = True
+# When using PPOAgent, remember to set exclude_pathfinding_moves = False if you train with pathfinding_enabled = True
 
 
 # Make directories
@@ -293,7 +298,7 @@ def main():
     )
 
     # OPTIMIZER
-    optimizer = optim.RMSprop(ac_agent.parameters(), learning_rate)
+    optimizer = optim.Adam(ac_agent.parameters(), lr=3e-4)
 
     # MEMORY STORE
     memory = Memory(
@@ -418,57 +423,22 @@ def main():
 
         # -- TRAINING -- #
 
-        # bootstrap next value
-        next_value = ac_agent(
-            Variable(memory.spatial_obs[-1], requires_grad=False),
-            Variable(memory.non_spatial_obs[-1], requires_grad=False),
-        )[0].data
-
-        # Compute returns
-        memory.compute_returns(next_value, gamma)
-
-        spatial = Variable(memory.spatial_obs[:-1])
-        spatial = spatial.view(-1, *spatial_obs_space)
-        non_spatial = Variable(memory.non_spatial_obs[:-1])
-        non_spatial = non_spatial.view(-1, non_spatial.shape[-1])
-
-        actions = Variable(torch.LongTensor(memory.actions.view(-1, 1)))
-        actions_mask = Variable(memory.action_masks[:-1])
-
-        # Evaluate the actions taken
-        action_log_probs, values, dist_entropy = ac_agent.evaluate_actions(
-            spatial, non_spatial, actions, actions_mask
+        vl, pl, ent = ppo_update(
+            policy=ac_agent,
+            optimizer=optimizer,
+            memory=memory,
+            clip_param=ppo_clip,
+            ppo_epochs=ppo_epochs,
+            num_mini_batch=ppo_minibatches,
+            value_loss_coef=value_loss_coef,
+            entropy_coef=entropy_coef,
+            max_grad_norm=max_grad_norm,
+            gamma=gamma,
+            gae_lambda=gae_lambda,
         )
-
-        values = values.view(steps_per_update, num_processes, 1)
-        action_log_probs = action_log_probs.view(steps_per_update, num_processes, 1)
-
-        advantages = Variable(memory.returns[:-1]) - values
-        
-        # Normalizacja Do stestowania czy się nie wywali
-        # advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
-
-
-        value_loss = advantages.pow(2).mean()
-        # value_losses.append(value_loss)
-
-        # Compute loss
-        action_loss = -(advantages * action_log_probs).mean()
-        # policy_losses.append(action_loss)
-
-        optimizer.zero_grad()
-
-        total_loss = (
-            value_loss * value_loss_coef + action_loss - dist_entropy * entropy_coef
-        )
-        #dodane z sugestii GPT
-        total_loss = total_loss / num_processes
-        
-        total_loss.backward()
-
-        nn.utils.clip_grad_norm_(ac_agent.parameters(), max_grad_norm)
-
-        optimizer.step()
+        value_losses.append(vl)
+        policy_losses.append(pl)
+        dist_entropy = torch.tensor(ent)
 
         memory.non_spatial_obs[0].copy_(memory.non_spatial_obs[-1])
         memory.spatial_obs[0].copy_(memory.spatial_obs[-1])
