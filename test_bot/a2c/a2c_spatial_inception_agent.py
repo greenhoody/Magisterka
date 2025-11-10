@@ -20,70 +20,33 @@ log_filename = f"logs/{env_name}/{env_name}.dat"
 
 
 class SpatialInceptionBlock(nn.Module):
-    def __init__(self, in_ch: int, kernels):
-        super().__init__()
+    def __init__(self, spatial_shape, kernels):
+        super(SpatialInceptionBlock, self).__init__()
         branches = []
-        for out_ch, ks in kernels:
-            p = ks // 2
-            branches.append(nn.Sequential(
-                nn.Conv2d(in_ch, out_ch, kernel_size=ks, stride=1, padding=p, bias=False),
-                nn.BatchNorm2d(out_ch),
-                nn.PReLU(num_parameters=out_ch),
-            ))
+        # kernels pairs (number of kernels, size of kernels)
+        for out_channels, kernel_s in kernels:
+            p = kernel_s // 2
+            branches.append(
+                nn.Sequential(
+                    nn.Conv2d(
+                        spatial_shape[0],
+                        out_channels,
+                        kernel_size=kernel_s,
+                        stride=1,
+                        padding=p,
+                        bias=False,
+                    ),
+                    nn.BatchNorm2d(out_channels),
+                    nn.PReLU(num_parameters=out_channels),
+                )
+            )
         self.branches = nn.ModuleList(branches)
 
     def forward(self, x):
-        return torch.cat([b(x) for b in self.branches], dim=1)
+        outputs = [branch(x) for branch in self.branches]
+        # konkatenacja po kanale
+        return torch.cat(outputs, dim=1)
 
-
-# class SpatialInceptionBlock(nn.Module):
-#     def __init__(self, spatial_shape, kernels):
-#         super(SpatialInceptionBlock, self).__init__()
-#         branches = []
-#         # kernels pairs (number of kernels, size of kernels)
-#         for out_channels, kernel_s in kernels:
-#             p = kernel_s // 2
-#             branches.append(
-#                 nn.Sequential(
-#                     nn.Conv2d(
-#                         spatial_shape[0],
-#                         out_channels,
-#                         kernel_size=kernel_s,
-#                         stride=1,
-#                         padding=p,
-#                         bias=False,
-#                     ),
-#                     nn.BatchNorm2d(out_channels),
-#                     nn.PReLU(num_parameters=out_channels),
-#                 )
-#             )
-#         self.branches = nn.ModuleList(branches)
-
-#     def forward(self, x):
-#         outputs = [branch(x) for branch in self.branches]
-#         # konkatenacja po kanale
-#         return torch.cat(outputs, dim=1)
-
-
-class InceptionResidualBlock(nn.Module):
-    def __init__(self, in_ch: int, kernels):
-        super().__init__()
-        self.inception = SpatialInceptionBlock(in_ch, kernels)
-        self.out_ch = sum(o for o, _ in kernels)
-        self.proj = None
-        if self.out_ch != in_ch:
-            self.proj = nn.Sequential(
-                nn.Conv2d(in_ch, self.out_ch, kernel_size=1, bias=False),
-                nn.BatchNorm2d(self.out_ch),
-            )
-        self.bn = nn.BatchNorm2d(self.out_ch)
-
-    def forward(self, x):
-        y = self.inception(x)                     # [B, C_out, H, W]
-        skip = x if self.proj is None else self.proj(x)  # dopasuj kanały
-        y = y + skip
-        y = self.bn(y)
-        return F.relu(y, inplace=True)
 
 class CNNPolicy(nn.Module):
     def __init__(
@@ -97,15 +60,12 @@ class CNNPolicy(nn.Module):
     ):
         super(CNNPolicy, self).__init__()
         # My Spatial input
+        # Spatial inception-res
+        inception_blocks = []
 
-        ch = spatial_shape[0]
-        blocks = []
-        for _ in range(residual_blocks):
-            block = InceptionResidualBlock(ch, kernels)
-            blocks.append(block)
-            ch = block.out_ch  # aktualizuj licznik kanałów
-        self.inception_blocks = nn.ModuleList(blocks)
-        self.out_ch = ch
+        for i in range(residual_blocks):
+            inception_blocks.append(SpatialInceptionBlock(spatial_shape, kernels))
+        self.inception_blocks = nn.ModuleList(inception_blocks)
         # My Non-spatial
         self.linear0 = nn.Linear(non_spatial_inputs, hidden_nodes)
 
@@ -113,11 +73,9 @@ class CNNPolicy(nn.Module):
 
         # po zbudowaniu self.inception_blocks
         # kernels to teraz [(out1,k1), (out2,k2), ..., (outN,kN)]
-        # total_out_ch = sum(out_ch for out_ch, _ in kernels)
-        # # teraz policz rozmiar strumienia przestrzennego
-        # stream_size = total_out_ch * spatial_shape[1] * spatial_shape[2]
-        
-        stream_size = self.out_ch * spatial_shape[1] * spatial_shape[2]
+        total_out_ch = sum(out_ch for out_ch, _ in kernels)
+        # teraz policz rozmiar strumienia przestrzennego
+        stream_size = total_out_ch * spatial_shape[1] * spatial_shape[2]
         # dodaj wymiar nie-przestrzenny
         stream_size += hidden_nodes
         # old
@@ -161,16 +119,11 @@ class CNNPolicy(nn.Module):
         # My Forward
         #
         # 1) Spatial → Inception-Res blocks
-        # x = spatial_input  # shape [B, C, H, W]
-        # for block in self.inception_blocks:
-        #     residual = x
-        #     out = block(x)
-        #     x = out + residual  # dalej [B, C_out, H, W]
-
-
-        x = spatial_input
+        x = spatial_input  # shape [B, C, H, W]
         for block in self.inception_blocks:
-            x = block(x)   
+            residual = x
+            out = block(x)
+            x = out + residual  # dalej [B, C_out, H, W]
 
         x = x.flatten(start_dim=1)  # → [B, C_out*H*W]
 
