@@ -14,10 +14,12 @@
 \contentsline {section}{\numberline {3.1}Geneza}{27}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Sposób działania}{27}{section.3.2}%
 \contentsline {chapter}{\numberline {4}Środowisko testowe}{31}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Just in case}{32}{section.4.1}%
-\contentsline {chapter}{\numberline {5}Zestawienie użytych rozwiązań}{33}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Wyniki}{35}{chapter.6}%
-\contentsline {chapter}{Bibliografia}{37}{section*.22}%
-\contentsline {chapter}{Wykaz skrótów i symboli}{37}{chapter*.23}%
-\contentsline {chapter}{Spis rysunków}{39}{chapter*.24}%
-\contentsline {chapter}{Spis tabel}{41}{chapter*.25}%
+\contentsline {section}{\numberline {4.1}Bloodbowl jako benchmark dla uczenia ze wzmocnieniem.}{32}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Środowisko BotBowl}{33}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Zestawienie użytych rozwiązań}{35}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Ogólna struktura agentów A2C i PPO}{35}{section.5.1}%
+\contentsline {chapter}{\numberline {6}Wyniki}{37}{chapter.6}%
+\contentsline {chapter}{Bibliografia}{39}{section*.23}%
+\contentsline {chapter}{Wykaz skrótów i symboli}{39}{chapter*.24}%
+\contentsline {chapter}{Spis rysunków}{41}{chapter*.25}%
+\contentsline {chapter}{Spis tabel}{43}{chapter*.26}%

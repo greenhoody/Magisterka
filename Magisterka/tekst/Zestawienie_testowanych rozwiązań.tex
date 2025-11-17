@@ -1,0 +1,27 @@
+W kolejnej części pracy analizie poddano kilka wybranych architektur sieci neuronowych zastosowanych w agentach uczonych metodami A2C oraz PPO. Zastosowanie zaawansowanych modeli głębokiego uczenia jest uzasadnione specyfiką problemu, która została omówiona w poprzednich rozdziałach: agent działający w środowisku Blood Bowl musi przetwarzać złożone, bogate w informacje stany gry, składające się zarówno z danych przestrzennych (układ zawodników na planszy, strefy zagrożeń, pozycja piłki), jak i danych nieprzestrzennych (liczba tur, dostępne przerzuty, aktywne procedury gry). Złożoność decyzyjna tej gry – obejmująca zmienne drzewo decyzyjne, ogromny branching factor oraz liczne zależności wieloetapowe – wymaga zastosowania modeli zdolnych do skutecznego wydobywania informacji z reprezentacji wielowymiarowych.
+
+W tym kontekście sieci konwolucyjne (CNN) stanowią naturalny wybór jako moduły ekstrakcji cech przestrzennych. Umożliwiają one analizę map cech o wysokiej rozdzielczości i wykrywanie lokalnych oraz globalnych wzorców. W celu zwiększenia efektywności przetwarzania przestrzennego oraz stabilności uczenia, w pracy zastosowano trzy odmienne podejścia architektoniczne:
+
+\begin{itemize}
+	\item ResNet-CNN – klasyczna architektura rezydualna oparta na blokach ResNet o stałej liczbie kanałów, znana z doskonałej stabilności i efektywnej reprezentacji w zadaniach wizji komputerowej.
+	\item CNN z blokiem Inception – upraszczając, równoległe operacje konwolucyjne o różnych rozmiarach filtrów umożliwiają analizę cech w wielu skalach jednocześnie (inspiracja GoogLeNet).
+	\item Inception z połączeniami rezydualnymi – dodanie tzw. skip connections ułatwia propagację gradientu i pozwala stabilnie trenować głębsze sieci.
+\end{itemize}
+
+\section{Ogólna struktura agentów A2C i PPO}
+
+\subsection*{Polityka i wartość (Actor–Critic)}
+Zarówno A2C, jak i PPO są algorytmami typu actor–critic, co oznacza, że model sieci neuronowej posiada dwie odrębne głowy wyjściowe:
+
+\begin{itemize}
+	\item politykę (actor), która generuje rozkład prawdopodobieństwa akcji,
+	\item wartość (critic), która ocenia jakość aktualnego stanu.
+\end{itemize}
+
+Formalnie polityka jest funkcją:
+\[\pi_\theta(a|s)\]
+gdzie $\theta$ oznacza parametry sieci, $s$ jest stanem, a $a$ - akcją. Krytyk aproksymuje wartość stanu:
+\[V_\theta(s)\]
+czyli oczekiwaną zdyskontowaną sumę przyszłych nagród przy stosowaniu polityki $\pi_\theta$. Takie rozdzielenia funkcji decyzyjnej i oceniającej poprawia stabilność uczenia, ponieważ błędy krytyka dostarczają dodatkowego sygnału uczącego dla aktora.
+
+\subsection*{Współdzielenie części konwolucyjnej}

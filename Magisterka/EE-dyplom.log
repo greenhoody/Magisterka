@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  9 NOV 2025 14:41
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  17 NOV 2025 21:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2116,34 +2116,38 @@ LaTeX Warning: Citation 'lecun1998gradient' on page 27 undefined on input line
 ]
 Rozdział 4.
 (./tekst/BloodBowl.tex
-
-[31]
 File: rysunki/Botbowl_board.jpg Graphic file (type bmp)
 <rysunki/Botbowl_board.jpg>
 
-Overfull \hbox (14.22636pt too wide) in paragraph at lines 24--25
+Overfull \hbox (14.22636pt too wide) in paragraph at lines 7--8
 [][] 
  []
 
-)
+
+
+[31]
 
 [32]
+
+[33])
+
+[34]
 Rozdział 5.
-(./tekst/Zestawienie_testowanych rozwiązań.tex)
+(./tekst/Zestawienie_testowanych rozwiązań.tex
 
-[33
+[35
 
-]
+])
 
-[34
-
-]
+[36]
 Rozdział 6.
 )
 
-[35]
+[37
 
-[36
+]
+
+[38
 
 ]
 
@@ -2153,11 +2157,11 @@ No file EE-dyplom.acr.
 No file EE-dyplom.sls.
 
 
-[37
+[39
 
 ]
 
-[38
+[40
 
 ] (./EE-dyplom.lof)
 \tf@lof=\write11
@@ -2165,9 +2169,9 @@ No file EE-dyplom.sls.
 
 
 
-[39]
+[41]
 
-[40
+[42
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2175,7 +2179,7 @@ No file EE-dyplom.sls.
 
 
 
-[41] (./EE-dyplom.aux)
+[43] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2187,14 +2191,8 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-Package rerunfilecheck Warning: File `EE-dyplom.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `EE-dyplom.out':
-(rerunfilecheck)             Before: 5C786A22E2400C16C842908FEE47F732;2736
-(rerunfilecheck)             After:  29E65B73E7FB5CF4E9FEC87CC8DD6F05;3014.
+Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
+(rerunfilecheck)             Checksum: 4886D8FCB9C515EB73C931614AC2AA0A;3628.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                EE-dyplom
@@ -2205,12 +2203,12 @@ Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 57619 strings out of 468529
- 1324949 string characters out of 5451399
+ 57624 strings out of 468529
+ 1325068 string characters out of 5451399
  2581645 words of memory out of 5000000
- 85063 multiletter control sequences out of 15000+600000
+ 85068 multiletter control sequences out of 15000+600000
  633714 words of font info for 130 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  114i,17n,131p,2506b,5158s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (41 pages).
+Output written on EE-dyplom.pdf (43 pages).
