@@ -140,7 +140,7 @@ W praktyce metoda Nesterova jest bardziej stabilna od klasycznego momentum i cz�
 
 RMSProp to metoda optymalizacji z adaptacyjnym współczynnikami uczenia. Jest ona modyfikacją optymalizatora AdaGrad(Adaptive Gradient).
 Algorytmy tego typu dostosowują tępo uczenia dla każdego parametru indywidualnie. 
-\cite{Hinton2012,MediumRMSProp}.
+\cite{Hinton2012}.
 
 Aktualizacje w RMSProp zapisuje się jako:
 \[
@@ -304,7 +304,7 @@ a następnie normalizuje się wejście:
 gdzie $\epsilon$ to mała stała zapobiegająca dzieleniu przez zero.
 Taka normalizacja sprawia, że aktywacje w każdej warstwie mają średnią równą zero i wariancję równą jeden, co stabilizuje propagację gradientów wstecz i zapobiega zarówno ich zanikaniu, jak i eksplozji.
 
-Jednakże, całkowite znormalizowanie aktywacji mogłoby ograniczyć zdolność sieci do reprezentacji nieliniowych przekształceń. Dlatego w Batch Normalization wprowadza się dodatkowe parametry skalujące i przesuwające, oznaczane odpowiednio jako $\gamma$ (skala) i $\Beta$ (przesunięcie). Ostateczna postać wyjścia warstwy po normalizacji to:
+Jednakże, całkowite znormalizowanie aktywacji mogłoby ograniczyć zdolność sieci do reprezentacji nieliniowych przekształceń. Dlatego w Batch Normalization wprowadza się dodatkowe parametry skalujące i przesuwające, oznaczane odpowiednio jako $\gamma$ (skala) i $\beta$ (przesunięcie). Ostateczna postać wyjścia warstwy po normalizacji to:
 
 \[y_i = \gamma \hat{x}_i + \beta\]
 

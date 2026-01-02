@@ -4,22 +4,27 @@
 \contentsline {chapter}{\numberline {2}Sieci Neuronowe}{11}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Funkcja aktywacji}{12}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Architektura sieci neuronowej}{14}{section.2.2}%
-\contentsline {subsubsection}{Głębokość i zdolność reprezentacyjna}{15}{section*.2}%
-\contentsline {section}{\numberline {2.3}Techniki uczenia sieci neuronowych}{16}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Funkcje kosztu (straty)}{18}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Algorytmy optymalizacji}{19}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Problemy gradientowe}{22}{section.2.6}%
-\contentsline {section}{\numberline {2.7}Techniki stabilizacji i usprawnienia procesu uczenia}{24}{section.2.7}%
-\contentsline {chapter}{\numberline {3}Sieci Konwolucyjne}{27}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Geneza}{27}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Sposób działania}{27}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Środowisko testowe}{31}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Bloodbowl jako benchmark dla uczenia ze wzmocnieniem.}{32}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Środowisko BotBowl}{33}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Zestawienie użytych rozwiązań}{35}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Ogólna struktura agentów A2C i PPO}{35}{section.5.1}%
-\contentsline {chapter}{\numberline {6}Wyniki}{37}{chapter.6}%
-\contentsline {chapter}{Bibliografia}{39}{section*.23}%
-\contentsline {chapter}{Wykaz skrótów i symboli}{39}{chapter*.24}%
-\contentsline {chapter}{Spis rysunków}{41}{chapter*.25}%
-\contentsline {chapter}{Spis tabel}{43}{chapter*.26}%
+\contentsline {subsubsection}{Głębokość i zdolność reprezentacyjna}{14}{section*.3}%
+\contentsline {section}{\numberline {2.3}Sieci Splotowe}{15}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Geneza}{15}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Sposób działania}{16}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Techniki uczenia sieci neuronowych}{18}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Funkcje kosztu (straty)}{20}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Algorytmy optymalizacji}{20}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Problemy gradientowe}{24}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Techniki stabilizacji i usprawnienia procesu uczenia}{26}{section.2.8}%
+\contentsline {chapter}{\numberline {3}Zestawienie użytych rozwiązań}{29}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Ogólna struktura agentów A2C i PPO}{29}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Reprezentacja danych wejściowych}{31}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Architektura typu CNN z blokiem Inception}{33}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Resnet}{34}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Inception-Residual}{35}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Rozszerzenia architektury sieci i techniki stabilizacji uczenia}{36}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Techniki specyficzne dla uczenia ze wzmocnieniem}{39}{section.3.7}%
+\contentsline {chapter}{\numberline {4}Środowisko testowe}{41}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Bloodbowl jako benchmark dla uczenia ze wzmocnieniem.}{42}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Środowisko BotBowl}{43}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Wyniki}{45}{chapter.5}%
+\contentsline {chapter}{Wykaz skrótów i symboli}{51}{chapter*.39}%
+\contentsline {chapter}{Spis rysunków}{53}{chapter*.40}%
+\contentsline {chapter}{Spis tabel}{55}{chapter*.41}%

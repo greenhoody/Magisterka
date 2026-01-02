@@ -2374,6 +2374,7 @@
   <!-- SECTION 0 -->
   <bcf:bibdata section="0">
     <bcf:datasource type="file" datatype="bibtex" glob="false">EE-dyplom.bib</bcf:datasource>
+    <bcf:datasource type="file" datatype="bibtex" glob="false">EE-dyplom.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1" intorder="1">McCulloch1943</bcf:citekey>
@@ -2383,21 +2384,24 @@
     <bcf:citekey order="4" intorder="1">RolnickTegmark2017</bcf:citekey>
     <bcf:citekey order="4" intorder="2">telgarsky2016benefits</bcf:citekey>
     <bcf:citekey order="4" intorder="3">H.N.Mhaskar2020</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">Bishop2006</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">lecun1998gradient</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">Bishop2006</bcf:citekey>
     <bcf:citekey order="7" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">Kohonen1990</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">GoodfellowGAN2014</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">Kohonen1990</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">GoodfellowGAN2014</bcf:citekey>
     <bcf:citekey order="11" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">Nesterov1983</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">Hinton2012</bcf:citekey>
-    <bcf:citekey order="13" intorder="2">MediumRMSProp</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">kingma2015adam</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">Dai2019</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">Ioffe2015BatchNorm</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">Srivastava2014Dropout</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">lecun1998gradient</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">Goodfellow-et-al-2016</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">Nesterov1983</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">Hinton2012</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">kingma2015adam</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">Dai2019</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">Ioffe2015BatchNorm</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">Srivastava2014Dropout</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">ba2016layernormalization</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">he2015</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">he2015</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">he2015</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

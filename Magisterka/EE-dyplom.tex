@@ -4,6 +4,7 @@
 
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Wybierz rodzaj pracy dyplomowej oraz wydział
 % Pick thesis type and faculty
@@ -26,12 +27,23 @@
 %	]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% comment block
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\mycomment}[1]{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Konfiguracja - do personalizacji
 % Configuration - to be personalized
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{array}
+\usepackage{float}
 \usepackage{pgfplots}
-\usetikzlibrary{positioning}
+\usepackage{biblatex}
+\usepackage{contour}
+\addbibresource{EE-dyplom.bib}
+
+\usetikzlibrary{positioning, arrows.meta}
 \pgfplotsset{compat=1.18}
 
 
@@ -80,10 +92,11 @@ This is abstract. This one is a little too short as it should occupy the whole p
     % Właściwa treść jest w pliku tekst/main.tex
     % Real contents is in tekst/main.tex
     \input{tekst/main}
-
+6
     % Bibliografia - musi być
     % Bibliography - must exist
-    \bibliografia
+    \printbibliography
+    %\bibliografia
 
     % Strony końcowe - można zakomentować, jeśli zbędne
     % Additional pages - comment out if not needed

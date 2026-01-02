@@ -25,3 +25,245 @@ gdzie $\theta$ oznacza parametry sieci, $s$ jest stanem, a $a$ - akcją. Krytyk 
 czyli oczekiwaną zdyskontowaną sumę przyszłych nagród przy stosowaniu polityki $\pi_\theta$. Takie rozdzielenia funkcji decyzyjnej i oceniającej poprawia stabilność uczenia, ponieważ błędy krytyka dostarczają dodatkowego sygnału uczącego dla aktora.
 
 \subsection*{Współdzielenie części konwolucyjnej}
+
+We wszystkich analizowanych architekturach zastosowano wspólną część konwolucyjną (ang. \textit{trunk}), która przetwarza przestrzenne wejście sieci. Dopiero po ekstrakcji cech następuje rozdzielenie na dwie głowy: polityki i wartości. Takie podejście ma kilka istotnych zalet:
+\begin{itemize}
+	\item redukuje liczbę parametrów modelu
+	\item pozwala obu głowom korzystać z tej samej reprezentacji stanu,
+	\item znacząco obniża koszty obliczeniowe w porównaniu do tworzenia dwóch oddzielnych sieci.
+\end{itemize}
+
+W praktyce trunk CNN odpowiada za mapowanie danych przestrzennych na wektor cech, który następnie jest łączony z danymi nieprzestrzennymi i przekazywany do końcowych warstw gęstych obu głów.
+
+\subsection*{Obsługa maskowania akcji}
+
+W algorytmach typu actor-critic kluczowe jest zapewnienie, aby przestrzeń akcji dostępna dla agenta była zgodna z formalnymi ograniczeniami środowiska. W grze Blood Bowl liczba wszystkich możliwych do zakodowania akcji jest bardzo wysoka, lecz w danym stanie jedynie niewielki ich podzbiór stanowi akcje legalne. Pozostałe działania są strukturalnie niedozwolone (np. ruch na zajęte pole, podniesienie nieistniejącej piłki, wykonanie blitzu przez zawodnika, który wykonał już akcję w danej turze).
+
+Aby zapewnić zgodność polityki z regułami środowiska oraz poprawić stabilność procesu uczenia, zastosowano formalny mechanizm \emph{maskowania akcji} (ang. \emph{action masking}). Mechanizm ten polega na modyfikacji wektora logitów polityki poprzez przypisanie logitom odpowiadającym akcjom nielegalnym wartości ujemnej nieskończoności:
+\begin{equation}
+	\text{logit}_i = -\infty \qquad \text{dla każdej akcji } i \text{ nielegalnej w stanie } s.
+\end{equation}
+
+Po zastosowaniu funkcji softmax
+\begin{equation}
+	\pi_{\theta}(a_i \mid s) = \frac{\exp(\text{logit}_i)}{\sum_{j} \exp(\text{logit}_j)},
+\end{equation}
+otrzymujemy w sposób bezpośredni
+\begin{equation}
+	\pi_{\theta}(a_i \mid s) = 0 \qquad \text{jeśli akcja } i \text{ jest nielegalna.}
+\end{equation}
+
+Maskowanie można interpretować jako projekcję rozkładu polityki na zbiór akcji dopuszczalnych:
+\begin{equation}
+	\pi_\theta(\cdot \mid s) \longrightarrow \pi_\theta(\cdot \mid s)\big|_{\mathcal{A}(s)},
+\end{equation}
+gdzie \( \mathcal{A}(s) \subseteq \mathcal{A} \) oznacza zbiór akcji legalnych w stanie \( s \).
+
+Formalnie mechanizm ten można również zapisać jako dodanie wektora maski:
+\begin{equation}
+	\tilde{z}_i = z_i + m_i,
+\end{equation}
+gdzie
+\begin{equation}
+	m_i =
+	\begin{cases}
+		0, & i \in \mathcal{A}(s), \\
+		-\infty, & i \notin \mathcal{A}(s),
+	\end{cases}
+\end{equation}
+a \( z_i \) oznacza oryginalne logity polityki.
+
+Tak zdefiniowana transformacja zapewnia, że wartość prawdopodobieństwa każdej akcji spoza zbioru \( \mathcal{A}(s) \) równa jest zero, przy jednoczesnym braku wpływu na rozkład prawdopodobieństwa wśród akcji legalnych. W konsekwencji maskowanie poprawia efektywność eksploracji, redukuje wariancję gradientów oraz zapobiega generowaniu trajektorii niezgodnych z regułami gry. Mechanizm ten został zaimplementowany analogicznie do praktyk stosowanych w środowisku BotBowl.
+
+\section{Reprezentacja danych wejściowych}
+
+W przypadku gry Blood Bowl stan gry ma charakter złożony i heterogeniczny: zawiera zarówno informacje przestrzenne (układ zawodników, lokalizacja piłki, strefy zagrożeń), jak i nieprzestrzenne (licznik tur, aktywny etap procedury gry, dostępne przerzuty). Dlatego konieczne jest zastosowanie reprezentacji umożliwiającej jednoczesne efektywne przetwarzanie danych o różnych charakterystykach strukturalnych.
+
+W pracy przyjęto podział reprezentacji danych wejściowych na dwa niezależne strumienie: strumień przestrzenny, przetwarzany przez konwolucyjne sieci neuronowe, oraz strumień nieprzestrzenny, analizowany za pomocą klasycznych warstw w pełni połączonych.
+
+\subsection*{Strumień Przestrzenny}
+Strumień przestrzenny stanowi tensor opisujący układ gry na planszy w formie wielowarstwowej mapy cech. Tensor wejściowy ma postać:
+\[X \in R^{C \times H \times W}\]
+
+gdzie
+\begin{itemize}
+	\item $C$ oznacz liczbę kanałów cech,
+	\item $HxW$ odpowiada wymiarom planszy.
+\end{itemize}
+
+Botbowl w formule turniejowej udostępnia 44 kanały. Kanały te zawierają między innymi informacje o 
+\begin{itemize}
+	\item położenie zawodników drużyny gracza
+	\item położenie zawodników przeciwnika
+	\item parametry zawodników (siła, zwinności, prędkość)
+	\item położenie piłki
+	\item strefa punktowa własnej drużyny
+	\item strefa punktowa przeciwnej drużyny
+	\item pozycje na których można wykonać akcję push
+	\item pozycja wybranego zawodnika
+	\item stany zawodników(ogłuszony, po ruchu)
+	\item szanse na wykonanie bloku
+\end{itemize}
+
+\subsection*{strumień nie przestrzenny}
+Drugim komponentem reprezentacji danych jest strumień nieprzestrzenny, zawierający wszystkie informacje dotyczące gry, których nie da się w sposób naturalny odwzorować jako mapę dwuwymiarową. Są to np. numer aktualnej tury, flagi opisujące możliwe operacje w danej chwili, dostępne ponowne rzuty obydwu drużyn. Jest on zapisywany w postaci wektora.
+\[ y \in \mathbb{R}^d\]
+gdzie $d$ oznacza liczbę cech.
+
+Strumień nieprzestrzenny jest przetwarzany przez warstwy gęste, które mapują go na reprezentacje ukrytą
+\[h = \sigma(W y +b)\]
+
+\subsection*{Integracja strumieni danych}
+Po przetworzeniu oddzielnych strumieni następuje ich agregacja:
+\[
+	z=[flatten(f_{CNN}(X)), h]
+\]
+gdzie
+\begin{itemize}
+	\item $f_{CNN}(\cdot)$ oznacza działanie trzonu konwolucji
+	\item $h$ jest przetworzonym wektorem cech skalarnych
+	\item operator $[\cdot]$ oznacza konkatenacje wektorową.
+\end{itemize}
+
+Powstały wektor $z$ stanowi skondensowaną reprezentację stanu gry zawierającą zarówno informacje przestrzenne, jak i skalarne. W tej formie trafia on do kolejnych warstw sieci, które generują:
+\begin{itemize}
+	\item wartości polityki (logity akcji)
+	\item estymatę funkcji wartości $V_\theta(s)$
+\end{itemize}
+
+\section{Architektura typu CNN z blokiem Inception}
+W wersji podstawowej sieci konwolucyjne posiadają stałe rozmiary filtrów (np. 3×3), co ogranicza ich zdolność do równoczesnego wychwytywania cech lokalnych i bardziej globalnych. Aby zwiększyć elastyczność i reprezentatywność ekstraktora cech, w niniejszej pracy zastosowano rozszerzenie w postaci bloku Inception, inspirowanego architekturą GoogLeNet
+
+Blok Inception został zaprojektowany tak, aby umożliwić równoległe przetwarzanie tych samych danych za pomocą operatorów konwolucyjnych o różnych rozmiarach filtrów. Każdy z filtrów bada dane w innej skali przestrzennej, co pozwala na lepsze uchwycenie wieloskalowych zależności obecnych na planszy Blood Bowl, takich jak:
+\begin{itemize}
+	\item lokalne konfiguracje zawodników(bloki, strefy ataku, pojedyncze zagrożenia)
+	\item średnie struktury pozycyjne (np. zagęszczenia w centrum, formacje ofensywne)
+	\item zależności dalekiego zasięgu (np ścieżki podań, ustawienia defensywne)
+\end{itemize}
+Formalnie, niech wejście do bloku oznaczone będzie jako tensor:
+\[X \in \mathbb{R}^{C\times H\times W}\]
+Blok inception składa się z zestawu równoległych ścieżek konwolucyjnych, z których każda operuje na filtrach o innym rozmiarze jądra:
+\[Y_k = f_k(X),  k = 1,2,3,\ldots,K\]
+gdzie $f_k(\cdot)$ to operacja konwolucji o jądrze $k\times k$, Następnie wszystkie przetworzone reprezentacje są łączone wzdłuż wymiaru kanałów:
+\[Y = concat(Y_1,Y_2,\ldots,Y_k)\]
+Tak powstała cecha końcowa łączy informacje wieloskalowe w jednym tensorze.
+
+Zastosowanie bloków Inception w sieci konwolucyjnej daje kilka istotnych korzyści.
+
+Decyzje podejmowane przez agenta w Blood Bowl zależą zaówno od lokalnych interakcji (np. możliwości bloku), jak i globalnych struktur (np. ustawienie do biegu po przyłożeniu). Architektura Inception pozwala modelować oba rodzaje zależności w ramach jednej warstwy.
+
+Blok Inception jest modularny i dobrze współpracuje z pozostałymi elementami architektur A2C i PPO. 
+
+Może być on nakładany sekwencyjnie, zwiększając głębokość modelu. W praktyce zastosowano od kilku do kilkunastu takich bloków w zalezności od rozmiaru planszy i dostępnych zasobów obliczeniowych.
+
+\subsection*{Ograniczenia}
+Mimo licznych zalet, klasyczny Inception stosowany jako wielowarstwowy trunk ma pewne ograniczenia:
+\begin{itemize}
+	\item brak mechanizmu kompensacji zanikania gradientu przy głębokich sieciach,
+	\item możliwe zwiększenie kosztów obliczeń przy dużej liczbie kanałów wyjściowych,
+	\item brak informacji rezydualnej, co utrudnia stabilne uczenie w głębokich modelach.
+\end{itemize}
+
+Z tego względu w kolejnych architekturach wprowadzono połączenia rezydualne oraz klasyczną strukturę ResNet, co pozwala poprawić stabilność i jakość ekstrakcji cech.
+
+\section{Resnet}
+Kolejna analizowaną architekturą jest sieć konwolucyjna oparta na klasycznym modelu ResNet, charakteryzującym się zastosowaniem bloków rezydualnych o stałej liczbie kanałów. Architektura ta jest uznawana za jedną z najbardziej stabilnych struktur CNN do głębokiej ekstrakcji cech. 
+W przeciwieństwie do bloku Inception, blok rezydualny w ResNet wykorzystuje konwolucje o stałym rozmiarze (zwykle 3×3), jednak równoważy brak wieloskalarności większą głębokością i stabilnością gradientu.
+Podstawowy blok ResNet składa się z dwóch konwolucji $3 \times 3$ z normalizacją i nieliniowością:
+
+\[F(X) = \sigma(BN(W_2 * \sigma(BN(W_1*X))))\]
+
+gdzie,
+\begin{itemize}
+	\item $W_1, W_2$ są filtrami konwolucyjnymi
+	\item $BN$ oznacza normalizację BatchNorm
+	\item $\sigma$ jest funckją aktywcji
+\end{itemize}
+
+Wyjście bloku powstaje poprzez dodanie wejścia do przetworzonej reprezentacji:
+\[Y = X + F(X)\]
+
+\subsection*{Zalety ResNet}
+ResNety zostały zaprojektowane specjalnie w celu umożliwienia trenowania bardzo głębokich sieci, nawet powyżej 100 warstw. Połączenia rezydualne stabilizują gradient, co istotnie poprawia możliwości ekstrapolacyjne sieci.
+
+Bloki ResNet dobrze radzą sobie z wykrywaniem średniego i globalnego kontekstu przestrzennego, co jest istotne w ocenie pozycji zawodników, wyznaczaniu ścieżek ruchu i szacowaniu zagrożeń.
+
+
+\subsection*{Wady ResNet}
+
+Choć ResNet jest stabilny i prosty w implementacji, brak mechanizma wieloskalarności może prowadzić do utraty informacji istotnych dla niektórych sytuacji taktycznych, np. jednoczesnej oceny bloków lokalnych i formacji globalnych. W praktyce jednak jego stabilność i przewidywalność czynią go doskonałą bazą do porównania z bardziej złożonymi architekturami.
+
+\section{Inception-Residual}
+Trzecią z analizowanych architektur jest model oparty na blokach Inception, wzbogacony o mechanizm połączeń rezydualnych (residual connections). Rozwiązanie to stanowi połączenie wieloskalowej analizy cech, charakterystycznej dla modułu Inception, z właściwościami stabilizującymi proces uczenia, typowymi dla sieci ResNet. Architektura ta została zaprojektowana w celu zwiększenia głębokości sieci oraz poprawy jakości gradientu podczas optymalizacji, co jest szczególnie istotne w środowiskach o dużej złożoności, takich jak Blood Bowl.
+
+W klasycznym bloku Inception wykorzystuje się równoległe konwolucje o różnych rozmiarach filtrów, które następnie są konkatencjowane. W obecnej architekturze wynik działania bloku Inception oznaczamy jako:
+
+\[F(X)=concat(f_1(X),f_3(X),f_5(X))\]
+
+Aby zwiększyć stabilność uczenia i umożliwić efektywne propagowanie gradientu, wprowadzono połączenie rezydualne, które dodaje wejście bloku do jego wyjścia:
+
+\[Y = F(X) + R(X)\]
+gdzie $R(X)$ jest transformacją dopasowującą wymiar kanałów wejściowych i wyjściowych. W przypadku zgodnej liczby kanałów stosuje się połączenie tożsamościowe $R(X) = X$. W przypadku rozbieżności stosuje się projekcję:
+\[R(X) = W_s*X\],
+gdzie $W_s$ oznacza konwolucję $1\times1$ dopasowującą wymiar kanałów. Zabieg ten jest analogiczny do rozwiązań stosowanych w ResNet.
+
+Architektura Residual Inception Network łączy komplementarne zalety modułów Inception oraz bloków rezydualnych ResNet, tworząc model o wysokiej zdolności reprezentacyjnej przy jednoczesnej stabilności uczenia. Zastosowanie wielu równoległych filtrów o różnych rozmiarach w bloku Inception umożliwia wydobywanie cech wieloskalowych – od lokalnych interakcji po bardziej globalne wzorce pozycyjne – co jest szczególnie istotne w złożonych środowiskach przestrzennych. Dodanie połączeń rezydualnych znacząco poprawia przepływ gradientu, eliminując problem zanikania sygnału i umożliwiając trenowanie głębszych modeli bez degradacji jakości reprezentacji. Połączenie tych dwóch podejść pozwala sieci zachować elastyczność i ekspresyjność architektury Inception, a jednocześnie wykorzystać właściwości stabilizujące charakterystyczne dla ResNet, prowadząc do skuteczniejszej i bardziej odpornej ekstrakcji cech w złożonych zadaniach decyzyjnych.
+
+\section{Rozszerzenia architektury sieci i techniki stabilizacji uczenia}
+
+\subsection*{Layer Normalization}
+
+Normalizacja warstwowa (ang. Layer Normalization, LN) to technika normalizacji zaproponowana przez Ba i wsp. (2016) jako alternatywa dla normalizacji wsadowej (BN). \cite{ba2016layernormalization} W przeciwieństwie do BN, która wykorzystuje statystyki z mini-batcha, LN oblicza statystyki normalizacji dla każdej próbki osobno, uwzględniając wszystkie neurony danej warstwy w próbce. Formalnie, dla wektora aktywacji $\mathbf{a}^{(l)} = (a_1^{(l)}, a_2^{(l)}, \dots, a_H^{(l)})$ w warstwie $l$, normalizacja warstwowa oblicza średnią $\mu^{(l)} = \frac{1}{H}\sum_{i=1}^{H}a_{i}^{(l)}$ oraz wariancję $\sigma^{2(l)} = \frac{1}{H}\sum_{i=1}^{H}(a_{i}^{(l)} - \mu^{(l)})^2$. Następnie każda aktywacja zostaje przeskalowana do postaci znormalizowanej:
+\[\hat{a}_i^{(l)} = \frac{a_i^{(l)}-\mu^{(l)}}{\sqrt{\sigma^{2(l)}+\epsilon}}\],
+
+gdzie $\epsilon$ to niewielka stała zapobiegająca dzieleniu przez zero. Po normalizacji, dla każdego neuronu stosuje się jeszcze parametry adaptacyjne: skalowanie $\gamma_i$ oraz przesunięcie $\beta_i$, analogiczne jak w BN, co daje wyjście $y_{i}^{(l)} = \gamma_i,\hat{a}_{i}^{(l)} + \beta_i$. Takie podejście powoduje, że wszystkie neurony w warstwie mają jednakowe wartości średniej i wariancji dla danej próbki, ale każda próbka (każdy element batcha) jest normalizowana względem własnych statystyk. W rezultacie znika zależność od rozmiaru batcha – LN działa poprawnie nawet przy batch size = 1, czyli w trybie online. Co więcej, algorytm normalizacji jest identyczny podczas trenowania i testowania modelu, gdyż statystyki liczone są lokalnie dla próbki (nie ma potrzeby utrzymywania średnich z bieżącej partii czy populacji)
+
+Normalizację warstwową stosuje się zazwyczaj bezpośrednio po warstwie liniowej lub konwolucyjnej, a przed funkcją aktywacji, analogicznie do sposobu użycia Batch Normalization. W testowanych architekturach agentów A2C – takich jak warianty z blokami Inception oraz ich warianty rezydualne – warstwy LayerNorm mogą być stosowana zarówno w trunku konwolucyjnym, jak i w częściach gęstych. W przeciwieństwie do BatchNorm, LN oblicza średnią i wariancję osobno dla każdej próbki, niezależnie od innych elementów batcha. Dzięki temu działa poprawnie nawet przy batch size = 1, co jest szczególnie przydatne w algorytmach on-policy, takich jak PPO i A2C. 
+LN jest także odporny na niestacjonarność rozkładów – nie bazuje na statystykach historycznych, lecz zawsze normalizuje względem bieżącej próbki. Ułatwia to adaptację do zmieniającej się przestrzeni stanów oraz upraszcza implementację, ponieważ nie wymaga przełączania między trybem treningu i ewaluacji. LN lepiej sprawdza się również przy korelowanych danych, typowych dla trajektorii w RL – normalizacja odbywa się niezależnie dla każdej próbki, co zapobiega mieszaniu informacji pomiędzy krokami czasowymi. Badania pokazują, że sieci z LN osiągają stabilniejsze i skuteczniejsze uczenie niż z BatchNorm, zwłaszcza w warunkach zmiennych i silnie skorelowanych danych.
+
+W architekturach głębokich, takich jak Inception-Residual, LN dodatkowo stabilizuje propagację sygnału przez ścieżki rezydualne i przeciwdziała problemom z gradientami. Choć w klasycznej wizji komputerowej preferuje się inne metody, LN okazuje się szczególnie użyteczna w RL, gdzie małe batch size i niestacjonarne dane utrudniają skuteczne użycie BatchNorm.
+
+\subsection*{Parametric Relu}
+Parametric ReLU (PReLU) to uogólnienie klasycznej funkcji aktywacji ReLU, w którym nachylenie dla ujemnych wartości wejścia nie jest stałe, lecz jest parametryczne (uczony podczas trenowania sieci). Formalnie funkcja PReLU jest zdefiniowana wzorem:
+
+
+\begin{equation}
+		f(x)=
+		\left  \{ \begin{aligned} 
+		&x, &x > 0 \\
+		&ax, &x \leq 0
+		\end{aligned} \right.
+\end{equation}
+
+gdzie $x$ oznacza wejście neuronu, zaś $a$ (często oznaczane też $\alpha$) to współczynnik kontrolujący nachylenie dla ujemnych wartości \cite{he2015}. W odróżnieniu od zwykłego ReLU (dla którego $a=0$) wartość $a$ w PReLU jest uczonym parametrem modelu (stąd nazwa Parametric ReLU) i może przyjmować różne wartości w różnych kanałach lub neuronach.
+
+W trakcie przepływu wstecznego (backpropagation) wyznaczane są gradienty zarówno względem wejścia $x$, jak i względem parametru $a$. Parametr $a$ jest więc dostosowywany wraz z wagami sieci metodami optymalizacji gradientowej – podczas treningu sieć uczy się optymalnej wartości nachylenia dla ujemnych wartości każdej funkcji aktywacji. W praktyce uczenie parametru $a$ odbywa się standardowo za pomocą algorytmu wstecznej propagacji błędu (np. z zastosowaniem optymalizatora z momentum). Ważne jest, że nie stosuje się zwykle regularizacji $L_2$ (tzw. weight decay) na parametr $a$, aby nie biasować go w kierunku zera (co sprowadziłoby PReLU do zwykłego ReLU). Zamiast tego pozwala się wartości $a$ swobodnie dostosować – badania wskazują, że nawet bez ograniczania zakresu $a$ jego wartości rzadko przekraczają 1 (współczynniki pozostają umiarkowane). Typową inicjalizacją jest nadanie $a$ małej dodatniej wartości (np. 0.25) przed treningiem
+
+\subsection*{He Initialization}
+
+Inicjalizacja He (znana też jako Kaiming initialization) to metoda losowego ustawiania początkowych wag sieci neuronowej zaproponowana przez Kaiminga He i wsp. \cite{he2015} specjalnie z myślą o sieciach z aktywacją ReLU. Wagi każdej warstwy są inicjalizowane jako niezależne zmienne losowe o średniej zero i odpowiednio dobranej wariancji. Formalnie dla wariantu normalnego (rozkład Gaussa) przyjmuje się: 
+
+\[w_{ij}^(l) \sim N(0, \sigma^2), gdzie \sigma^2=\frac{2}{n_in}\],
+czyli wagi pochodzą z rozkładu normalnego o średniej 0 i wariancji $2/n_{\text{in}}$ (tu $n_{\text{in}}$ oznacza liczbę wejściowych połączeń neuronu, tzw. fan-in danej warstwy). Istnieje też wariant z rozkładu jednostajnego – wówczas wagi losuje się z przedziału symetrycznego:
+
+\[w_{ij}^(l) \sim U(-a, +a), gdzie a=\sqrt{\frac{6}{n_in}}\],
+
+tak aby wariancja była równa $2/n_{\text{in}}$ (ponieważ dla $U(-a,a)$ wariancja wynosi $a^2/3$, stąd $a=\sqrt{6/n_{\text{in}}}$). Metoda He bywa nazywana również MSRA initialization (od Microsoft Research Asia) albo Kaiming initialization, od imienia głównego autora pracy. Celem inicjalizacji He jest zachowanie odpowiedniej skali sygnału (wariancji aktywacji) przy propagacji przez bardzo głęboką sieć. W sieciach głębokich niewłaściwe skalowanie wag może skutkować zanikaniem sygnału albo eksplozją sygnału w kolejnych warstwach.
+
+He i wsp. analizowali wariancję aktywacji warstwa po warstwie i wymagali, by iloczyn wariancji sygnału przez kolejne warstwy pozostawał stały (w przybliżeniu równy 1). Warunek ten prowadzi do doboru wariancji wag $Var(w) \approx 2/n_{\text{in}}$, co odpowiada powyższym wzorom. Intuicyjnie, współczynnik $2$ wynika z faktu, że aktywacja ReLU zeruje średnio połowę wejść – aby utrzymać stałą wariancję sygnału na wyjściu neuronu ReLU, wariancja wag musi być dwa razy większa niż w przypadku funkcji liniowej
+\cite{he2015}. Dzięki temu rozwiązaniu amplituda sygnałów nie zanika wraz z głębokością sieci, co ułatwia trenowanie bardzo głębokich modeli.
+
+\subsubsection*{Inicjalizacja He, a Glorot}
+Inicjalizacja He została zaprojektowana z myślą o architekturach wykorzystujących niesymetryczne funkcje aktywacji, takie jak ReLU oraz jej rozszerzenia, w szczególności PReLU. W przeciwieństwie do wcześniejszych metod – jak inicjalizacja Glorota (znana też jako Xavier), która była dostosowana do aktywacji o symetrycznym rozkładzie wyjść (np. funkcji $\tanh$ lub sigmoidalnej) – inicjalizacja He uwzględnia fakt, że funkcje typu ReLU przekazują tylko część dodatnich sygnałów do kolejnych warstw. To asymetryczne zachowanie aktywacji czyni wcześniejsze strategie inicjalizacji mniej skutecznymi w kontekście głębokich modeli wykorzystujących rektyfikację.
+
+W przypadku metody Glorota wagi warstw są dobierane tak, aby równoważyć propagację sygnału do przodu i gradientów wstecz. Wariancja wag zależy od średniej liczby połączeń wejściowych i wyjściowych danego neuronu (fan-in i fan-out), przez co inicjalizacja ta bywa niewystarczająca w sytuacji, gdy aktywacja istotnie zmniejsza amplitudę sygnału. W rezultacie może dojść do szybkiego wygaszenia aktywacji w głębokich warstwach, co utrudnia efektywne trenowanie modelu.
+
+Inicjalizacja He, poprzez skupienie się wyłącznie na liczbie wejść do neuronu, lepiej dopasowuje skalę wag do rektyfikowanych funkcji aktywacji, zachowując stabilność propagowanego sygnału nawet w bardzo głębokich sieciach. Empiryczne wyniki autorów metody potwierdzają, że zastosowanie tej strategii umożliwia skuteczne trenowanie modeli złożonych z wielu warstw, które przy klasycznej inicjalizacji nie zbiegały lub zbiegały bardzo wolno. Ponadto, mimo że metoda He nie została zaprojektowana z myślą o kontroli przepływu gradientu wstecznego, w praktyce pozwala ona również uniknąć problemów eksplodujących lub zanikających gradientów, szczególnie w sieciach wykorzystujących ReLU lub PReLU.
+
+
+\section{Techniki specyficzne dla uczenia ze wzmocnieniem}
+Metody aktor–krytyk (actor–critic) stanowią fundamentalne podejście w uczeniu ze wzmocnieniem, łącząc algorytmy strategii (aktor) z algorytmami wartości (krytyk)
+
+
+\subsection*{Użyta funkcja straty (A2C/PPO)}
+\subsection*{Stabilizacja uczenia}
