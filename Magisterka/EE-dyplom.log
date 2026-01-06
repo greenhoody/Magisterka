@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  2 JAN 2026 16:22
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  5 JAN 2026 19:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1764,6 +1764,10 @@ File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgfarrowwidth=\dimen361
 \pgfarrowlinewidth=\dimen362
 )
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryfit.code.tex
+File: tikzlibraryfit.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
 
 Package fontspec Info: 
 (fontspec)             Font family 'LatinModernSans(1)' created for font
@@ -2066,14 +2070,58 @@ Rozdział 3.
 (./tekst/Zestawienie_testowanych rozwiązań.tex
 
 [29]
+Overfull \hbox (20.25615pt too wide) in paragraph at lines 87--88
+[][] 
+ []
+
+
 
 [30]
 
+LaTeX Warning: Citation 'mnih2016' on page 31 undefined on input line 121.
+
+
+
 [31]
+
+LaTeX Warning: Citation 'SuttonBarto2018' on page 32 undefined on input line 18
+6.
+
+
+LaTeX Warning: Citation 'Schulman2016GAE' on page 32 undefined on input line 20
+5.
+
+
+LaTeX Warning: Citation 'mnih2016' on page 32 undefined on input line 216.
+
+
+LaTeX Warning: Citation 'openai_baselines_a2c' on page 32 undefined on input li
+ne 216.
+
+
 
 [32]
 
+LaTeX Warning: Citation 'mnih2016' on page 33 undefined on input line 234.
+
+
+LaTeX Warning: Citation 'openai_baselines_a2c' on page 33 undefined on input li
+ne 234.
+
+
+LaTeX Warning: Citation 'mnih2016' on page 33 undefined on input line 251.
+
+
+
 [33]
+
+LaTeX Warning: Citation 'sutton2018tempora' on page 34 undefined on input line 
+260.
+
+
+LaTeX Warning: Citation 'mnih2016' on page 34 undefined on input line 270.
+
+
 
 [34]
 
@@ -2083,11 +2131,19 @@ Rozdział 3.
 
 [37]
 
-[38])
+[38]
 
 [39]
 
-[40
+[40]
+
+[41]
+
+[42])
+
+[43]
+
+[44
 
 ]
 Rozdział 4.
@@ -2101,21 +2157,21 @@ Overfull \hbox (14.22636pt too wide) in paragraph at lines 7--8
 
 
 
-[41]
+[45]
 
-[42]
+[46]
 
-[43])
+[47])
 
-[44]
+[48]
 Rozdział 5.
 )
 
-[45
+[49
 
 ]
 
-[46
+[50
 
 ]
 Underfull \hbox (badness 1478) in paragraph at lines 100--100
@@ -2129,7 +2185,7 @@ Package biblatex Warning: No driver for 'unknown'.
 
 
 
-[47]
+[51]
 
 Package biblatex Warning: No driver for 'articleinfo'.
 (biblatex)                Using fallback driver on input line 98.
@@ -2155,20 +2211,20 @@ my insertion and my current dilemma will both disappear.
 
 
 
-[48]
+[52]
 
-[49]
+[53]
 
-[50
+[54
 
 ]
 No file EE-dyplom.acr.
 No file EE-dyplom.sls.
 
 
-[51]
+[55]
 
-[52
+[56
 
 ] (./EE-dyplom.lof)
 \tf@lof=\write11
@@ -2176,9 +2232,9 @@ No file EE-dyplom.sls.
 
 
 
-[53]
+[57]
 
-[54
+[58
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2186,7 +2242,7 @@ No file EE-dyplom.sls.
 
 
 
-[55] (./EE-dyplom.aux)
+[59] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2199,7 +2255,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
-(rerunfilecheck)             Checksum: C99574172BF86447B8D229A2C7DAAE29;4954.
+(rerunfilecheck)             Checksum: E3E24719E9F96C84131CE5544F8BAD01;5364.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                EE-dyplom
@@ -2210,12 +2266,12 @@ Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 58288 strings out of 468529
- 1343104 string characters out of 5451399
- 2595687 words of memory out of 5000000
- 85708 multiletter control sequences out of 15000+600000
- 635048 words of font info for 141 fonts, out of 8000000 for 9000
+ 58371 strings out of 468529
+ 1344816 string characters out of 5451399
+ 2596507 words of memory out of 5000000
+ 85787 multiletter control sequences out of 15000+600000
+ 635056 words of font info for 142 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  114i,19n,131p,2506b,5158s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (55 pages).
+Output written on EE-dyplom.pdf (59 pages).

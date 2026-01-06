@@ -14,17 +14,20 @@
 \contentsline {section}{\numberline {2.7}Problemy gradientowe}{24}{section.2.7}%
 \contentsline {section}{\numberline {2.8}Techniki stabilizacji i usprawnienia procesu uczenia}{26}{section.2.8}%
 \contentsline {chapter}{\numberline {3}Zestawienie użytych rozwiązań}{29}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Ogólna struktura agentów A2C i PPO}{29}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Reprezentacja danych wejściowych}{31}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Architektura typu CNN z blokiem Inception}{33}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Resnet}{34}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Inception-Residual}{35}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Rozszerzenia architektury sieci i techniki stabilizacji uczenia}{36}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Techniki specyficzne dla uczenia ze wzmocnieniem}{39}{section.3.7}%
-\contentsline {chapter}{\numberline {4}Środowisko testowe}{41}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Bloodbowl jako benchmark dla uczenia ze wzmocnieniem.}{42}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Środowisko BotBowl}{43}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Wyniki}{45}{chapter.5}%
-\contentsline {chapter}{Wykaz skrótów i symboli}{51}{chapter*.39}%
-\contentsline {chapter}{Spis rysunków}{53}{chapter*.40}%
-\contentsline {chapter}{Spis tabel}{55}{chapter*.41}%
+\contentsline {section}{\numberline {3.1}Algorytmy aktor--krytyk}{29}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Advanced Actor Critic}{33}{section.3.2}%
+\contentsline {section}{\numberline {3.3}PPO}{34}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Współdzielenie części konwolucyjnej}{34}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Reprezentacja danych wejściowych}{36}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Architektura typu CNN z blokiem Inception}{37}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Resnet}{38}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Inception-Residual}{39}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Rozszerzenia architektury sieci i techniki stabilizacji uczenia}{40}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Techniki specyficzne dla uczenia ze wzmocnieniem}{43}{section.3.10}%
+\contentsline {chapter}{\numberline {4}Środowisko testowe}{45}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Bloodbowl jako benchmark dla uczenia ze wzmocnieniem.}{46}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Środowisko BotBowl}{47}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Wyniki}{49}{chapter.5}%
+\contentsline {chapter}{Wykaz skrótów i symboli}{55}{chapter*.43}%
+\contentsline {chapter}{Spis rysunków}{57}{chapter*.44}%
+\contentsline {chapter}{Spis tabel}{59}{chapter*.45}%

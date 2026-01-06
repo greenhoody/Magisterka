@@ -1,30 +1,292 @@
-W kolejnej części pracy analizie poddano kilka wybranych architektur sieci neuronowych zastosowanych w agentach uczonych metodami A2C oraz PPO. Zastosowanie zaawansowanych modeli głębokiego uczenia jest uzasadnione specyfiką problemu, która została omówiona w poprzednich rozdziałach: agent działający w środowisku Blood Bowl musi przetwarzać złożone, bogate w informacje stany gry, składające się zarówno z danych przestrzennych (układ zawodników na planszy, strefy zagrożeń, pozycja piłki), jak i danych nieprzestrzennych (liczba tur, dostępne przerzuty, aktywne procedury gry). Złożoność decyzyjna tej gry – obejmująca zmienne drzewo decyzyjne, ogromny branching factor oraz liczne zależności wieloetapowe – wymaga zastosowania modeli zdolnych do skutecznego wydobywania informacji z reprezentacji wielowymiarowych.
+W niniejszym rozdziale przedstawiono zestawienie rozwiązań wykorzystanych w badaniach
+eksperymentalnych przeprowadzonych w ramach tej pracy. Celem rozdziału jest jednoznaczne
+zdefiniowanie architektur sieci neuronowych oraz technik uczenia zastosowanych w agentach
+uczących się gry w Blood Bowl przy użyciu algorytmów uczenia ze wzmocnieniem.
 
-W tym kontekście sieci konwolucyjne (CNN) stanowią naturalny wybór jako moduły ekstrakcji cech przestrzennych. Umożliwiają one analizę map cech o wysokiej rozdzielczości i wykrywanie lokalnych oraz globalnych wzorców. W celu zwiększenia efektywności przetwarzania przestrzennego oraz stabilności uczenia, w pracy zastosowano trzy odmienne podejścia architektoniczne:
+Analizie poddano agentów opartych na algorytmach typu actor--critic, w szczególności A2C oraz PPO,
+które stanowią wspólną podstawę metod uczenia we wszystkich rozważanych wariantach. W celu
+zapewnienia porównywalności wyników, algorytmy uczenia, sposób reprezentacji stanu oraz
+mechanizmy interakcji ze środowiskiem zostały w maksymalnym stopniu ujednolicone.
+Zmienną badawczą są algorytmy oraz architektury sieci neuronowych.
 
-\begin{itemize}
-	\item ResNet-CNN – klasyczna architektura rezydualna oparta na blokach ResNet o stałej liczbie kanałów, znana z doskonałej stabilności i efektywnej reprezentacji w zadaniach wizji komputerowej.
-	\item CNN z blokiem Inception – upraszczając, równoległe operacje konwolucyjne o różnych rozmiarach filtrów umożliwiają analizę cech w wielu skalach jednocześnie (inspiracja GoogLeNet).
-	\item Inception z połączeniami rezydualnymi – dodanie tzw. skip connections ułatwia propagację gradientu i pozwala stabilnie trenować głębsze sieci.
-\end{itemize}
+W kolejnych podrozdziałach opisano ogólną strukturę agentów A2C i PPO, sposób reprezentacji
+danych wejściowych, a następnie szczegółowo omówiono zastosowane architektury konwolucyjne,
+w tym warianty oparte na blokach ResNet, Inception oraz ich kombinacjach. Rozdział obejmuje
+również opis technik stabilizacji i usprawnień procesu uczenia, które okazały się istotne w kontekście
+złożonego środowiska decyzyjnego gry Blood Bowl.
 
-\section{Ogólna struktura agentów A2C i PPO}
 
-\subsection*{Polityka i wartość (Actor–Critic)}
-Zarówno A2C, jak i PPO są algorytmami typu actor–critic, co oznacza, że model sieci neuronowej posiada dwie odrębne głowy wyjściowe:
 
-\begin{itemize}
-	\item politykę (actor), która generuje rozkład prawdopodobieństwa akcji,
-	\item wartość (critic), która ocenia jakość aktualnego stanu.
-\end{itemize}
+\section{Algorytmy aktor--krytyk}
+Algorytmy typu aktor--krytyk (ang. \textit{actor--critic}) stanowią klasę metod uczenia
+ze wzmocnieniem, w których architektura modelu składa się z dwóch współdziałających
+komponentów: aktora oraz krytyka. Aktor odpowiada za podejmowanie decyzji poprzez
+aproksymację polityki decyzyjnej, natomiast krytyk pełni rolę oceniającą, aproksymując
+funkcję wartości stanów.
 
-Formalnie polityka jest funkcją:
-\[\pi_\theta(a|s)\]
-gdzie $\theta$ oznacza parametry sieci, $s$ jest stanem, a $a$ - akcją. Krytyk aproksymuje wartość stanu:
-\[V_\theta(s)\]
-czyli oczekiwaną zdyskontowaną sumę przyszłych nagród przy stosowaniu polityki $\pi_\theta$. Takie rozdzielenia funkcji decyzyjnej i oceniającej poprawia stabilność uczenia, ponieważ błędy krytyka dostarczają dodatkowego sygnału uczącego dla aktora.
+Tak zdefiniowana struktura umożliwia jednoczesne stosowanie bezpośredniej optymalizacji
+polityki oraz aproksymacji funkcji wartości. Celem algorytmów aktor--krytyk jest stabilne
+i efektywne uczenie strategii decyzyjnej w środowiskach o dużej przestrzeni stanów i akcji,
+takich jak gra Blood Bowl.
 
-\subsection*{Współdzielenie części konwolucyjnej}
+Algorytmy aktor--krytyk, w tym A2C oraz PPO, należą do klasy metod \textit{on-policy}.
+Oznacza to, że dane wykorzystywane do aktualizacji parametrów polityki pochodzą
+bezpośrednio z interakcji środowiska z aktualnie uczoną polityką.
+Trajektorie stan--akcja--nagroda są generowane przez tę samą politykę, która następnie
+jest optymalizowana w procesie uczenia.
+
+Konsekwencją podejścia on-policy jest brak możliwości wielokrotnego, dowolnego
+wykorzystania zgromadzonych danych po każdej aktualizacji parametrów polityki,
+ponieważ zmiana polityki powoduje, że starsze trajektorie przestają być zgodne z jej
+aktualnym rozkładem.
+Z jednej strony ogranicza to efektywność wykorzystania próbek,
+z drugiej jednak zapewnia stabilność procesu uczenia oraz spójność pomiędzy
+zachowaniem agenta a funkcją celu, co ma kluczowe znaczenie w złożonych,
+dynamicznych środowiskach decyzyjnych.
+
+
+\begin{tikzpicture}[
+	font=\small,
+	>=Latex,
+	node distance=10mm and 14mm,
+	box/.style={draw, rounded corners, align=center, inner sep=6pt},
+	arrow/.style={->, thick},
+	dashedbox/.style={draw, rounded corners, dashed, inner sep=6pt},
+	]
+	
+	% --- Wejście ---
+	\node[box] (state) {$s_t$\\(stan gry)};
+	
+	% --- Wspólna reprezentacja ---
+	\node[box, right=of state] (trunk) {Trunk\\ekstrakcja cech\\$\phi(s_t)$};
+	
+	% --- Głowy ---
+	\node[box, above right=of trunk] (actor) {Aktor\\$\pi_\theta(a \mid s_t)$};
+	\node[box, below right=of trunk] (critic) {Krytyk\\$V_\theta(s_t)$};
+	
+	% --- Wyjścia ---
+	\node[box, right=of actor] (action) {Wybór akcji\\$a_t$};
+	\node[box, right=of action] (env) {Środowisko\\$s_{t+1},\, r_t$};
+	
+	\node[box, right=of critic] (value) {Funkcja wartości stanu
+		\\$V_\theta(s_t)$};
+	
+	% --- Połączenia ---
+	\draw[arrow] (state) -- (trunk);
+	\draw[arrow] (trunk) -- (actor);
+	\draw[arrow] (trunk) -- (critic);
+	
+	\draw[arrow] (actor) -- (action);
+	\draw[arrow] (action) -- (env);
+	
+	\draw[arrow] (critic) -- (value);
+	
+	% --- Grupowanie ---
+	\node[dashedbox, fit=(trunk)(actor)(critic), label=above:{Sieć actor--critic}] {};
+	
+\end{tikzpicture}
+
+
+\subsection*{Architektura aktor--krytyk (\textit{Actor--Critic})}
+
+Algorytmy A2C oraz PPO należą do klasy metod typu \textit{aktor--krytyk} (actor--critic),
+które łączą podejście oparte na polityce z estymacją funkcji wartości.
+W takim podejściu model sieci neuronowej posiada dwie wyspecjalizowane składowe,
+określane jako \emph{aktor} oraz \emph{krytyk}.
+
+Aktor (ang. \textit{actor}) reprezentuje politykę decyzyjną agenta i odpowiada za wybór akcji
+na podstawie aktualnego stanu środowiska. Formalnie polityka opisana jest rozkładem
+prawdopodobieństwa
+\[
+\pi_\theta(a \mid s),
+\]
+gdzie $s$ oznacza stan środowiska, $a$ – akcję, natomiast $\theta$ to wektor parametrów sieci.
+W przypadku przestrzeni akcji dyskretnej, wyjściem aktora jest wektor prawdopodobieństw,
+z którego próbkuje się akcję wykonywaną przez agenta.
+
+Krytyk (ang. \textit{critic}) pełni rolę funkcji oceniającej i aproksymuje wartość stanu,
+czyli oczekiwaną zdyskontowaną sumę przyszłych nagród, jaką agent uzyska, startując
+ze stanu $s$ i postępując zgodnie z aktualną polityką:
+\[
+V_\theta(s) = \mathbb{E}_{\pi_\theta} \left[ \sum_{k=0}^{\infty} \gamma^k r_{t+k} \,\middle|\, s_t = s \right],
+\]
+gdzie $r_{t+k}$ oznacza nagrodę otrzymaną w kroku $t+k$, a $\gamma \in (0,1)$ jest współczynnikiem
+dyskontowania. W praktycznych implementacjach krytyk realizowany jest jako druga głowa
+tej samej sieci neuronowej, współdzieląca część warstw z aktorem.
+
+Rozdzielenie funkcji decyzyjnej i oceniającej znacząco poprawia stabilność procesu uczenia.
+Krytyk dostarcza aktorowi dodatkowego sygnału uczącego, redukując wariancję estymacji gradientu
+w porównaniu do metod czysto politycznych, takich jak REINFORCE.
+Dzięki temu aktualizacje polityki są bardziej stabilne i efektywne, co ma kluczowe znaczenie
+w środowiskach o dużej przestrzeni stanów i akcji \cite{mnih2016}.
+
+\subsection*{Funkcja przewagi (\textit{Advantage Function})}
+
+W algorytmach typu aktor--krytyk aktualizacja parametrów polityki opiera się nie na samej
+sumie nagród, lecz na funkcji przewagi (ang. \textit{advantage function}).
+Jej zadaniem jest określenie, na ile dana akcja była lepsza lub gorsza od przeciętnego
+zachowania polityki w danym stanie.
+
+Formalnie funkcja przewagi definiowana jest jako różnica pomiędzy wartością funkcji akcji
+a wartością stanu:
+\[
+A(s,a) = Q(s,a) - V(s),
+\]
+gdzie $Q(s,a)$ oznacza wartość wykonania akcji $a$ w stanie $s$, a $V(s)$ jest wartością stanu.
+Interpretacyjnie $A(s,a) > 0$ oznacza, że akcja $a$ była lepsza od średniej oczekiwanej w stanie $s$,
+natomiast $A(s,a) < 0$ wskazuje, że była gorsza.
+
+W praktycznych algorytmach $Q(s,a)$ nie jest obliczane jawnie, ponieważ jego estymacja jest
+kosztowna i obarczona dużą wariancją. Zamiast tego funkcja przewagi jest aproksymowana
+na podstawie obserwowanych nagród oraz estymaty krytyka. Typowym przybliżeniem jest
+n-krokowy zwrot:
+\[
+A_t \approx R_t^{(n)} - V(s_t),
+\]
+gdzie $R_t^{(n)}$ oznacza zdyskontowaną sumę $n$ kolejnych nagród z doszacowaniem wartości
+stanu końcowego przez krytyka. Bardziej zaawansowanym podejściem jest uogólniona estymacja
+przewagi (GAE), która wykorzystuje ważoną sumę błędów TD z wielu kroków czasowych.
+
+Zastosowanie funkcji przewagi pełni rolę tzw. \emph{baseline} i prowadzi do istotnego zmniejszenia
+wariancji estymatora gradientu. W rezultacie polityka uczona jest nie na podstawie surowych nagród,
+lecz informacji o tym, czy dana decyzja była lepsza czy gorsza od oczekiwań w danym stanie.
+Mechanizm ten stanowi kluczowy element stabilności i efektywności algorytmów A2C oraz PPO.
+
+\subsection*{Błąd różnicy czasowej (Temporal Difference Error)}
+
+Kluczowym pojęciem w algorytmach aktor--krytyk jest błąd różnicy czasowej
+(ang. \textit{Temporal Difference error}, TD error), który stanowi lokalną miarę
+niedokładności estymacji funkcji wartości przez krytyka.
+Błąd TD łączy w sobie idee metod Monte Carlo oraz dynamicznego programowania,
+umożliwiając aktualizację wartości stanu na podstawie pojedynczego kroku interakcji
+ze środowiskiem.
+
+Dla jednego kroku czasowego błąd TD definiuje się jako:
+\[
+\delta_t
+= r_t + \gamma V_\theta(s_{t+1}) - V_\theta(s_t),
+\]
+gdzie $r_t$ jest nagrodą otrzymaną po wykonaniu akcji $a_t$ w stanie $s_t$,
+a $\gamma$ to współczynnik dyskontowania.
+Wartość $\delta_t$ informuje, czy rzeczywista nagroda oraz przewidywana wartość
+następnego stanu były większe czy mniejsze od oczekiwań krytyka.
+
+Błąd TD pełni podwójną rolę w algorytmach aktor--krytyk.
+Po pierwsze, stanowi bezpośredni sygnał uczący dla krytyka, prowadząc do aktualizacji
+funkcji wartości w kierunku:
+\[
+V_\theta(s_t) \leftarrow V_\theta(s_t) + \alpha \delta_t,
+\]
+gdzie $\alpha$ oznacza współczynnik uczenia.
+Po drugie, błąd TD jest naturalnym przybliżeniem funkcji przewagi:
+\[
+A_t \approx \delta_t,
+\]
+co pozwala wykorzystać go bezpośrednio w aktualizacji polityki aktora
+\cite{SuttonBarto2018}.
+
+Uogólnieniem jednoskokowego błędu TD jest estymacja n-krokowa, w której docelowa
+wartość stanu uwzględnia kilka kolejnych nagród:
+\[
+\delta_t^{(n)}
+= \sum_{k=0}^{n-1} \gamma^k r_{t+k}
++ \gamma^n V_\theta(s_{t+n})
+- V_\theta(s_t).
+\]
+Takie podejście redukuje obciążenie estymatora kosztem wzrostu wariancji.
+
+W algorytmach PPO oraz nowoczesnych wariantach A2C często stosuje się
+uogólnioną estymację przewagi (GAE), która wykorzystuje ważoną sumę błędów TD:
+\[
+A_t^{\text{GAE}(\gamma,\lambda)}
+= \sum_{l=0}^{\infty} (\gamma \lambda)^l \delta_{t+l},
+\]
+gdzie parametr $\lambda \in [0,1]$ pozwala płynnie kontrolować kompromis
+pomiędzy obciążeniem a wariancją estymatora \cite{Schulman2016GAE}.
+
+Zastosowanie błędu TD umożliwia uczenie online, niską wariancję aktualizacji
+oraz efektywne wykorzystanie długich trajektorii decyzyjnych,
+co jest szczególnie istotne w środowiskach o dużej złożoności i rzadkich nagrodach,
+takich jak Blood Bowl.
+
+\section{Advanced Actor Critic}
+
+\subsection*{A2C, a A3C}
+
+Różnica pomiędzy A2C i A3C dotyczy przede wszystkim sposobu równoległego zbierania doświadczeń i aktualizacji parametrów sieci. W A3C (\textit{Asynchronous Advantage Actor--Critic}) wiele niezależnych procesów (aktorów-uczących) równolegle oddziałuje ze środowiskiem i wyznacza gradienty, które są następnie stosowane do wspólnego modelu w sposób asynchroniczny (bez globalnej synchronizacji kroków), co prowadzi do mniej skorelowanych próbek i może stabilizować uczenie \cite{mnih2016}. Z kolei A2C (\textit{Advantage Actor--Critic}) stanowi wariant synchroniczny tego podejścia: próbki z wielu równoległych środowisk są agregowane w jedną paczkę (batch), po czym wykonywana jest pojedyncza, wspólna aktualizacja parametrów, co upraszcza implementację oraz czyni przebieg uczenia bardziej deterministycznym przy zachowaniu tej samej ogólnej struktury aktor--krytyk \cite{openai_baselines_a2c}.
+
+\subsection*{Generowanie danych uczących: rollout i długość trajektorii w A2C}
+
+W algorytmie A2C dane uczące powstają w sposób iteracyjny poprzez równoległe
+generowanie doświadczeń w wielu instancjach środowiska. W każdej iteracji uruchamia się
+$N$ środowisk działających równolegle (ang. \textit{vectorized environments}), które
+wykorzystują tę samą, aktualną politykę $\pi_\theta$. Następnie z każdego środowiska
+zbierany jest fragment trajektorii (rollout) o stałej długości $T$ kroków, często oznaczanej
+jako $t_{\max}$. Otrzymana paczka danych składa się z obserwacji, akcji i nagród:
+\[
+\mathcal{B} = \left\{ \left(s_t^{(i)}, a_t^{(i)}, r_t^{(i)}, s_{t+1}^{(i)}\right) \;:\;
+i=1,\dots,N,\; t=0,\dots,T-1 \right\}.
+\]
+Po zebraniu paczki $\mathcal{B}$ wyznacza się na jej podstawie wielkości wymagane do uczenia,
+w szczególności przybliżone zwroty (np. n-krokowe) oraz estymaty przewagi $A_t$,
+a następnie wykonuje się jedną synchroniczną aktualizację parametrów sieci na całej paczce.
+Dopiero po tej aktualizacji generowana jest kolejna paczka danych, już z użyciem zaktualizowanej
+polityki, co jest zgodne z charakterem on-policy A2C \cite{mnih2016,openai_baselines_a2c}.
+
+Wzory zawierające operator wartości oczekiwanej $\mathbb{E}_t[\cdot]$ interpretowane są w praktyce
+jako uśrednienie po wszystkich próbkach z paczki rollout:
+\[
+\mathbb{E}_t[f_t] \approx \frac{1}{NT}\sum_{i=1}^{N}\sum_{t=0}^{T-1} f_t^{(i)}.
+\]
+Takie ujęcie jednoznacznie określa, że estymacja gradientu oraz wartości strat aktora i krytyka
+opiera się na skończonej próbce doświadczeń zebranych w bieżącej iteracji uczenia.
+
+
+\subsection*{Funkcja straty w A2C}
+
+Uczenie w algorytmie A2C realizowane jest poprzez minimalizację funkcji straty złożonej
+z komponentów odpowiadających aktorowi (polityce) oraz krytykowi (funkcji wartości),
+często uzupełnionej o składnik entropii wspierający eksplorację.
+Taka konstrukcja umożliwia jednoczesne doskonalenie polityki oraz estymację wartości stanu,
+co stabilizuje proces uczenia w środowiskach o dużej złożoności decyzyjnej \cite{mnih2016}.
+
+Składnik aktora wynika z twierdzenia o gradiencie polityki i przyjmuje postać ujemnej
+logarytmicznej wiarygodności wybranej akcji, ważonej estymowaną funkcją przewagi:
+\[
+\mathcal{L}^{\text{A2C}}_{\text{actor}}(\theta)
+= - \mathbb{E}_t \left[ \log \pi_\theta(a_t \mid s_t)\, A_t \right].
+\]
+Postać ta wzmacnia decyzje przynoszące wyniki ponadprzeciętne ($A_t>0$) oraz tłumi decyzje
+gorsze od oczekiwanych ($A_t<0$) \cite{sutton2018tempora}.
+
+Składnik krytyka odpowiada za aproksymację funkcji wartości stanu i najczęściej definiowany jest
+jako błąd średniokwadratowy względem przybliżonej wartości docelowej:
+\[
+\mathcal{L}^{\text{A2C}}_{\text{critic}}(\theta)
+= \mathbb{E}_t \left[ \left( V_\theta(s_t) - \hat{V}_t \right)^2 \right],
+\]
+gdzie $\hat{V}_t$ może oznaczać np. n-krokowy zwrot lub wartość opartą na błędzie TD.
+Krytyk pełni rolę funkcji bazowej (baseline), zmniejszając wariancję estymatora gradientu aktora
+i poprawiając stabilność uczenia \cite{mnih2016}.
+
+W wielu implementacjach A2C stosuje się również bonus entropijny:
+\[
+\mathcal{L}^{\text{A2C}}_{\text{entropy}}(\theta)
+= - \mathbb{E}_t \left[ \mathcal{H}(\pi_\theta(\cdot \mid s_t)) \right].
+\]
+
+Całkowita funkcja straty może być zapisana jako:
+\[
+\mathcal{L}^{\text{A2C}}(\theta)
+= \mathcal{L}^{\text{A2C}}_{\text{actor}}
++ c_v \mathcal{L}^{\text{A2C}}_{\text{critic}}
+- c_e \mathcal{L}^{\text{A2C}}_{\text{entropy}},
+\]
+gdzie $c_v$ oraz $c_e$ są współczynnikami wagowymi regulującymi wpływ krytyka i entropii.
+
+\section{PPO}
+
+\section{Współdzielenie części konwolucyjnej}
 
 We wszystkich analizowanych architekturach zastosowano wspólną część konwolucyjną (ang. \textit{trunk}), która przetwarza przestrzenne wejście sieci. Dopiero po ekstrakcji cech następuje rozdzielenie na dwie głowy: polityki i wartości. Takie podejście ma kilka istotnych zalet:
 \begin{itemize}

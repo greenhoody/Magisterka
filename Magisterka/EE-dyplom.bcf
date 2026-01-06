@@ -2398,10 +2398,20 @@
     <bcf:citekey order="16" intorder="1">Dai2019</bcf:citekey>
     <bcf:citekey order="17" intorder="1">Ioffe2015BatchNorm</bcf:citekey>
     <bcf:citekey order="18" intorder="1">Srivastava2014Dropout</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">ba2016layernormalization</bcf:citekey>
-    <bcf:citekey order="20" intorder="1">he2015</bcf:citekey>
-    <bcf:citekey order="21" intorder="1">he2015</bcf:citekey>
-    <bcf:citekey order="22" intorder="1">he2015</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">mnih2016</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">SuttonBarto2018</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">Schulman2016GAE</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">mnih2016</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">openai_baselines_a2c</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">mnih2016</bcf:citekey>
+    <bcf:citekey order="24" intorder="2">openai_baselines_a2c</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">mnih2016</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">sutton2018tempora</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">mnih2016</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">ba2016layernormalization</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">he2015</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">he2015</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">he2015</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">
