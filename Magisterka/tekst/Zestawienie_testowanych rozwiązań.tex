@@ -286,6 +286,87 @@ gdzie $c_v$ oraz $c_e$ są współczynnikami wagowymi regulującymi wpływ kryty
 
 \section{PPO}
 
+Proximal Policy Optimization (PPO) jest algorytmem typu actor--critic zaproponowanym jako
+praktyczna alternatywa dla metod z ograniczeniem kroku aktualizacji polityki, takich jak TRPO.
+Główna idea PPO polega na wykonywaniu kilku kroków optymalizacji na tej samej paczce trajektorii,
+ale w taki sposób, aby nowa polityka nie odsunęła się zbyt gwałtownie od polityki, która wygenerowała dane.
+Osiąga się to przez zastosowanie funkcji celu opartej na ilorazie prawdopodobieństw (importance sampling ratio)
+oraz mechanizmie \emph{clippingu}, który ogranicza wpływ zbyt dużych zmian polityki \cite{Schulman2017PPO,Schulman2015TRPO}.
+
+\subsection*{Funkcja celu PPO (clipped surrogate objective)}
+
+Niech $\theta_{\text{old}}$ oznacza parametry polityki użytej do wygenerowania danych (rolloutu),
+a $\theta$ -- parametry aktualizowanej polityki. Definiuje się iloraz:
+\[
+r_t(\theta) =
+\frac{\pi_\theta(a_t \mid s_t)}{\pi_{\theta_{\text{old}}}(a_t \mid s_t)}.
+\]
+W PPO maksymalizuje się tzw. \emph{surrogate objective} z obcięciem (clipping):
+\[
+\mathcal{L}^{\text{CLIP}}(\theta)
+=
+\mathbb{E}_t\left[
+\min\left(
+r_t(\theta) A_t,\;
+\text{clip}\left(r_t(\theta),\, 1-\epsilon,\, 1+\epsilon\right) A_t
+\right)\right],
+\]
+gdzie $A_t$ jest estymatą przewagi (np. z GAE), a $\epsilon$ jest hiperparametrem
+ograniczającym dopuszczalną zmianę polityki w pojedynczej aktualizacji.
+Mechanizm $\min(\cdot)$ wraz z \text{clip} powoduje, że gdy $r_t(\theta)$ wychodzi poza przedział
+$[1-\epsilon,\,1+\epsilon]$, dalsze zwiększanie $r_t(\theta)$ nie przynosi już korzyści w funkcji celu,
+co stabilizuje uczenie i zapobiega destrukcyjnym, zbyt agresywnym krokom optymalizacji \cite{Schulman2017PPO}.
+
+W praktycznych implementacjach PPO optymalizuje się łączną funkcję straty, zawierającą również
+komponent krytyka (aproksymacja wartości) oraz bonus entropijny:
+\[
+\mathcal{L}^{\text{PPO}}(\theta)
+=
+-\,\mathcal{L}^{\text{CLIP}}(\theta)
++ c_v\,\mathbb{E}_t\left[\left(V_\theta(s_t)-\hat{V}_t\right)^2\right]
+- c_e\,\mathbb{E}_t\left[\mathcal{H}\!\left(\pi_\theta(\cdot\mid s_t)\right)\right],
+\]
+gdzie $\hat{V}_t$ oznacza wartość docelową (np. zwrot $R_t$), a $c_v, c_e$ są wagami
+części krytyka i entropii. Taka postać odpowiada standardowej praktyce w actor--critic, natomiast
+różnica PPO polega na zastosowaniu członu $\mathcal{L}^{\text{CLIP}}$ zamiast klasycznej straty polityki
+bez ograniczenia kroku \cite{Schulman2017PPO}.
+
+\subsection*{Algorytm PPO w ujęciu praktycznym (pętla uczenia)}
+
+W odróżnieniu od A2C, w którym po zebraniu rolloutu wykonuje się zwykle pojedynczą aktualizację,
+PPO wykorzystuje tę samą paczkę danych przez kilka epok optymalizacji (mini-batche).
+Typowy schemat jest następujący:
+\begin{enumerate}
+	\item Zbierz rollout o długości $T$ w $N$ równoległych środowiskach, używając polityki $\pi_{\theta_{\text{old}}}$.
+	Zapisz m.in. $(s_t,a_t,r_t)$ oraz $\log \pi_{\theta_{\text{old}}}(a_t\mid s_t)$ i estymaty $V_{\theta_{\text{old}}}(s_t)$.
+	\item Wyznacz $\hat{V}_t$ (zwroty) oraz $A_t$ (np. z GAE) na podstawie zebranej trajektorii \cite{Schulman2016GAE}.
+	\item Przez $K$ epok wykonuj optymalizację SGD/Adam na losowanych mini-batchach z tej samej paczki,
+	minimalizując $\mathcal{L}^{\text{PPO}}(\theta)$.
+	\item Ustaw $\theta_{\text{old}} \leftarrow \theta$ i powtórz proces dla kolejnego rolloutu.
+\end{enumerate}
+Dzięki ilorazowi $r_t(\theta)$ PPO pozostaje metodą bliską on-policy, ale efektywniej wykorzystuje próbki,
+ponieważ dopuszcza kilka przejść optymalizacyjnych po tych samych danych przy jednoczesnym
+ograniczeniu odchylenia polityki.
+
+\subsection*{Rodzaj sieci neuronowej w PPO}
+
+PPO nie wymaga odrębnego typu sieci względem ogólnej architektury actor--critic: najczęściej stosuje się
+jedną sieć z \emph{współdzielonym trzonem} (np. CNN przetwarzające wejście przestrzenne),
+a następnie dwie głowy:
+\begin{itemize}
+	\item \textbf{głowa polityki (aktor)}: generuje parametry rozkładu $\pi_\theta(a\mid s)$ (w Blood Bowl zwykle logity dla akcji dyskretnych),
+	\item \textbf{głowa wartości (krytyk)}: generuje skalar $V_\theta(s)$.
+\end{itemize}
+Kluczowa różnica implementacyjna względem prostszych wariantów actor--critic polega na tym,
+że podczas uczenia PPO potrzebuje stabilnego odniesienia do polityki zbierającej dane,
+czyli przechowywania $\log \pi_{\theta_{\text{old}}}(a_t\mid s_t)$ (lub równoważnie $\pi_{\theta_{\text{old}}}(a_t\mid s_t)$),
+aby obliczać $r_t(\theta)$. Pozostałe elementy (np. maskowanie akcji w przestrzeni dyskretnej) mogą być
+zastosowane analogicznie jak w innych agentach actor--critic, ponieważ wpływają jedynie na postać
+$\pi_\theta(\cdot\mid s)$, a nie na samą konstrukcję PPO.
+
+
+
+
 \section{Współdzielenie części konwolucyjnej}
 
 We wszystkich analizowanych architekturach zastosowano wspólną część konwolucyjną (ang. \textit{trunk}), która przetwarza przestrzenne wejście sieci. Dopiero po ekstrakcji cech następuje rozdzielenie na dwie głowy: polityki i wartości. Takie podejście ma kilka istotnych zalet:
@@ -296,46 +377,6 @@ We wszystkich analizowanych architekturach zastosowano wspólną część konwol
 \end{itemize}
 
 W praktyce trunk CNN odpowiada za mapowanie danych przestrzennych na wektor cech, który następnie jest łączony z danymi nieprzestrzennymi i przekazywany do końcowych warstw gęstych obu głów.
-
-\subsection*{Obsługa maskowania akcji}
-
-W algorytmach typu actor-critic kluczowe jest zapewnienie, aby przestrzeń akcji dostępna dla agenta była zgodna z formalnymi ograniczeniami środowiska. W grze Blood Bowl liczba wszystkich możliwych do zakodowania akcji jest bardzo wysoka, lecz w danym stanie jedynie niewielki ich podzbiór stanowi akcje legalne. Pozostałe działania są strukturalnie niedozwolone (np. ruch na zajęte pole, podniesienie nieistniejącej piłki, wykonanie blitzu przez zawodnika, który wykonał już akcję w danej turze).
-
-Aby zapewnić zgodność polityki z regułami środowiska oraz poprawić stabilność procesu uczenia, zastosowano formalny mechanizm \emph{maskowania akcji} (ang. \emph{action masking}). Mechanizm ten polega na modyfikacji wektora logitów polityki poprzez przypisanie logitom odpowiadającym akcjom nielegalnym wartości ujemnej nieskończoności:
-\begin{equation}
-	\text{logit}_i = -\infty \qquad \text{dla każdej akcji } i \text{ nielegalnej w stanie } s.
-\end{equation}
-
-Po zastosowaniu funkcji softmax
-\begin{equation}
-	\pi_{\theta}(a_i \mid s) = \frac{\exp(\text{logit}_i)}{\sum_{j} \exp(\text{logit}_j)},
-\end{equation}
-otrzymujemy w sposób bezpośredni
-\begin{equation}
-	\pi_{\theta}(a_i \mid s) = 0 \qquad \text{jeśli akcja } i \text{ jest nielegalna.}
-\end{equation}
-
-Maskowanie można interpretować jako projekcję rozkładu polityki na zbiór akcji dopuszczalnych:
-\begin{equation}
-	\pi_\theta(\cdot \mid s) \longrightarrow \pi_\theta(\cdot \mid s)\big|_{\mathcal{A}(s)},
-\end{equation}
-gdzie \( \mathcal{A}(s) \subseteq \mathcal{A} \) oznacza zbiór akcji legalnych w stanie \( s \).
-
-Formalnie mechanizm ten można również zapisać jako dodanie wektora maski:
-\begin{equation}
-	\tilde{z}_i = z_i + m_i,
-\end{equation}
-gdzie
-\begin{equation}
-	m_i =
-	\begin{cases}
-		0, & i \in \mathcal{A}(s), \\
-		-\infty, & i \notin \mathcal{A}(s),
-	\end{cases}
-\end{equation}
-a \( z_i \) oznacza oryginalne logity polityki.
-
-Tak zdefiniowana transformacja zapewnia, że wartość prawdopodobieństwa każdej akcji spoza zbioru \( \mathcal{A}(s) \) równa jest zero, przy jednoczesnym braku wpływu na rozkład prawdopodobieństwa wśród akcji legalnych. W konsekwencji maskowanie poprawia efektywność eksploracji, redukuje wariancję gradientów oraz zapobiega generowaniu trajektorii niezgodnych z regułami gry. Mechanizm ten został zaimplementowany analogicznie do praktyk stosowanych w środowisku BotBowl.
 
 \section{Reprezentacja danych wejściowych}
 
@@ -523,9 +564,48 @@ W przypadku metody Glorota wagi warstw są dobierane tak, aby równoważyć prop
 Inicjalizacja He, poprzez skupienie się wyłącznie na liczbie wejść do neuronu, lepiej dopasowuje skalę wag do rektyfikowanych funkcji aktywacji, zachowując stabilność propagowanego sygnału nawet w bardzo głębokich sieciach. Empiryczne wyniki autorów metody potwierdzają, że zastosowanie tej strategii umożliwia skuteczne trenowanie modeli złożonych z wielu warstw, które przy klasycznej inicjalizacji nie zbiegały lub zbiegały bardzo wolno. Ponadto, mimo że metoda He nie została zaprojektowana z myślą o kontroli przepływu gradientu wstecznego, w praktyce pozwala ona również uniknąć problemów eksplodujących lub zanikających gradientów, szczególnie w sieciach wykorzystujących ReLU lub PReLU.
 
 
-\section{Techniki specyficzne dla uczenia ze wzmocnieniem}
-Metody aktor–krytyk (actor–critic) stanowią fundamentalne podejście w uczeniu ze wzmocnieniem, łącząc algorytmy strategii (aktor) z algorytmami wartości (krytyk)
 
 
-\subsection*{Użyta funkcja straty (A2C/PPO)}
-\subsection*{Stabilizacja uczenia}
+\subsection*{Obsługa maskowania akcji}
+
+W algorytmach typu actor-critic kluczowe jest zapewnienie, aby przestrzeń akcji dostępna dla agenta była zgodna z formalnymi ograniczeniami środowiska. W grze Blood Bowl liczba wszystkich możliwych do zakodowania akcji jest bardzo wysoka, lecz w danym stanie jedynie niewielki ich podzbiór stanowi akcje legalne. Pozostałe działania są strukturalnie niedozwolone (np. ruch na zajęte pole, podniesienie nieistniejącej piłki, wykonanie blitzu przez zawodnika, który wykonał już akcję w danej turze).
+
+Aby zapewnić zgodność polityki z regułami środowiska oraz poprawić stabilność procesu uczenia, zastosowano formalny mechanizm \emph{maskowania akcji} (ang. \emph{action masking}). Mechanizm ten polega na modyfikacji wektora logitów polityki poprzez przypisanie logitom odpowiadającym akcjom nielegalnym wartości ujemnej nieskończoności:
+\begin{equation}
+	\text{logit}_i = -\infty \qquad \text{dla każdej akcji } i \text{ nielegalnej w stanie } s.
+\end{equation}
+
+Po zastosowaniu funkcji softmax
+\begin{equation}
+	\pi_{\theta}(a_i \mid s) = \frac{\exp(\text{logit}_i)}{\sum_{j} \exp(\text{logit}_j)},
+\end{equation}
+otrzymujemy w sposób bezpośredni
+\begin{equation}
+	\pi_{\theta}(a_i \mid s) = 0 \qquad \text{jeśli akcja } i \text{ jest nielegalna.}
+\end{equation}
+
+Maskowanie można interpretować jako projekcję rozkładu polityki na zbiór akcji dopuszczalnych:
+\begin{equation}
+	\pi_\theta(\cdot \mid s) \longrightarrow \pi_\theta(\cdot \mid s)\big|_{\mathcal{A}(s)},
+\end{equation}
+gdzie \( \mathcal{A}(s) \subseteq \mathcal{A} \) oznacza zbiór akcji legalnych w stanie \( s \).
+
+Formalnie mechanizm ten można również zapisać jako dodanie wektora maski:
+\begin{equation}
+	\tilde{z}_i = z_i + m_i,
+\end{equation}
+gdzie
+\begin{equation}
+	m_i =
+	\begin{cases}
+		0, & i \in \mathcal{A}(s), \\
+		-\infty, & i \notin \mathcal{A}(s),
+	\end{cases}
+\end{equation}
+a \( z_i \) oznacza oryginalne logity polityki.
+
+Tak zdefiniowana transformacja zapewnia, że wartość prawdopodobieństwa każdej akcji spoza zbioru \( \mathcal{A}(s) \) równa jest zero, przy jednoczesnym braku wpływu na rozkład prawdopodobieństwa wśród akcji legalnych. W konsekwencji maskowanie poprawia efektywność eksploracji, redukuje wariancję gradientów oraz zapobiega generowaniu trajektorii niezgodnych z regułami gry. Mechanizm ten został zaimplementowany analogicznie do praktyk stosowanych w środowisku BotBowl.
+
+
+% Funkcja aktywacji
+% Metody stabilizacji

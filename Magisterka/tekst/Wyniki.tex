@@ -1,0 +1,82 @@
+Wyniki treningów agentów uczonych metodami A2C oraz PPO w środowisku BotBowl. Celem eksperymentów było porównanie wpływu dwóch czynników: (i) algorytmu uczenia ze wzmocnieniem (A2C vs PPO) oraz (ii) architektury ekstraktora cech przestrzennych (wariant bazowy CNN, ResNet, oraz wariant z blokiem Spatial-Inception).
+Analiza opiera się na przebiegach trzech miar rejestrowanych w trakcie treningu: średniej nagrody (\textit{Reward}), liczbie przyłożeń na epizod (\textit{TD/Episode}) oraz odsetku zwycięstw (\textit{Win rate}).
+
+\section{Zastosowane miary jakości}
+\label{sec:metryki}
+
+Wykres \textit{Reward} przedstawia średnią (lub uśrednianą w oknie) nagrodę uzyskiwaną przez agenta w trakcie treningu. Ponieważ w Blood Bowl nagrody są w dużej mierze rzadkie i silnie zależne od długoterminowych konsekwencji decyzji, sama wartość \textit{Reward} może charakteryzować się dużą wariancją i nie zawsze wprost przekłada się na poprawę jakości gry.
+
+Wykres \textit{TD/Episode} raportuje liczbę przyłożeń na epizod osobno dla uczącego się agenta (\textit{Learner}) oraz przeciwnika (\textit{Opponent}). Miara ta jest bardziej bezpośrednio związana z przebiegiem meczu niż \textit{Reward}, jednak również bywa rzadka (w wielu partiach liczba przyłożeń jest niska), przez co pojawiają się skoki zamiast gładkich trendów.
+
+Najbardziej interpretowalną miarą porównawczą jest \textit{Win rate}, tj. odsetek zwycięstw w rozgrywkach ewaluacyjnych. Wartość około $0.5$ oznacza poziom zbliżony do przeciwnika (w przybliżeniu ``remis'' sił), natomiast wartości istotnie wyższe od $0.5$ wskazują na realną poprawę skuteczności agenta.
+
+\section{Wyniki dla PPO}
+\label{sec:ppo-wyniki}
+
+\subsection{PPO z architekturą bazową CNN}
+W wariancie PPO z bazowym ekstraktorem cech obserwowana jest wyraźna poprawa jakości gry po przekroczeniu około $3\cdot 10^{6}$ kroków środowiska. Do tego momentu \textit{Win rate} utrzymuje się blisko $0.5$, co sugeruje zachowanie zbliżone do losowego bądź brak skutecznego wykorzystania informacji ze stanu.
+Po tej fazie następuje wzrost \textit{Reward} (z poziomu ok. $0.5$--$0.7$ do ok. $1.2$--$1.5$), a jednocześnie \textit{Win rate} rośnie w okolice $0.6$--$0.65$ (z krótkotrwałymi skokami wyżej). W miarze \textit{TD/Episode} widać, że agent zaczyna częściej zdobywać przyłożenia (pojawiają się częste skoki oraz rosnąca amplituda), podczas gdy przeciwnik pozostaje na ogół blisko zera, z pojedynczymi skokami w końcowej fazie treningu.
+
+Interpretacyjnie, taki przebieg jest spójny z charakterystyką środowiska o rzadkich nagrodach oraz dużej przestrzeni decyzji: początkowy okres uczenia może być zdominowany przez eksplorację oraz uczenie zachowań ``bezpiecznych'', dopiero później prowadząc do stabilniejszej strategii punktowania.
+
+\subsection{PPO z architekturą ResNet}
+W wariancie PPO--ResNet w początkowej fazie widoczny jest szybszy wzrost \textit{Reward} oraz umiarkowany wzrost \textit{Win rate} (z ok. $0.5$ do ok. $0.58$--$0.62$). Jednocześnie przebiegi są wyraźnie bardziej niestabilne: zarówno \textit{Reward}, jak i \textit{Win rate} wykazują dużą wariancję, a pod koniec treningu pojawia się gwałtowny spadek jakości (spadek \textit{Win rate} w okolice $\approx 0.42$ oraz silny spadek \textit{Reward}).
+
+Taki ``collapse'' może wskazywać na wrażliwość konfiguracji PPO na hiperparametry (np. zbyt agresywne aktualizacje polityki, zbyt wysokie tempo uczenia lub niewłaściwe skalowanie składników straty) w połączeniu z większą pojemnością modelu ResNet. W praktyce oznacza to, że sama architektura może dawać potencjał szybszego uczenia, lecz wymaga bardziej rygorystycznej stabilizacji treningu, aby uniknąć degradacji strategii.
+
+\subsection{PPO z architekturą Spatial-Inception}
+W wariancie PPO--Spatial-Inception przebieg \textit{Reward} stabilizuje się relatywnie szybko na poziomie ok. $0.6$--$0.8$ i utrzymuje się tam przez długi horyzont treningu, jednak nie przekłada się to na poprawę \textit{Win rate}, który pozostaje praktycznie stały w pobliżu $0.5$ przez cały czas.
+Również \textit{TD/Episode} pozostaje niskie i ma charakter sporadycznych skoków o małej amplitudzie, podobnych do zachowania przeciwnika.
+
+Rozbieżność pomiędzy wzrostem/plateau \textit{Reward} a brakiem wzrostu \textit{Win rate} sugeruje, że agent nie nauczył się strategii skuteczniej wygrywającej mecze, a wzrost nagrody może wynikać z optymalizacji składowych nagrody pośredniej (jeśli były stosowane) lub z poprawy zachowań, które nie determinują wyniku meczu (np. lokalnie ``rozsądne'' ruchy bez przełożenia na przyłożenia i kontrolę tempa gry). Z perspektywy oceny jakości agenta kluczowe jest zatem traktowanie \textit{Win rate} jako miary nadrzędnej.
+
+\section{Wyniki dla A2C}
+\label{sec:a2c-wyniki}
+
+We wszystkich trzech wariantach architektury (bazowy, ResNet, Spatial-Inception) trening A2C nie wykazuje poprawy jakości gry w długim horyzoncie. Charakterystyczne obserwacje są następujące:
+\begin{itemize}
+	\item \textit{Win rate} pozostaje blisko $0.5$ przez cały czas treningu (brak trendu wzrostowego),
+	\item \textit{TD/Episode} ma postać rzadkich skoków o małej amplitudzie i nie wskazuje na systematyczny wzrost przewagi uczącego się agenta nad przeciwnikiem,
+	\item \textit{Reward} utrzymuje się na wartościach ujemnych (około $-1.0$) z dużą wariancją, bez wyraźnej tendencji rosnącej.
+\end{itemize}
+
+Taki rezultat sugeruje, że w rozważanej konfiguracji środowiska i parametrów uczenia algorytm A2C nie uzyskał stabilnego sygnału prowadzącego do poprawy polityki. Jest to zgodne z intuicją, że w środowisku o wysokim branching factor i silnie stochastycznych konsekwencjach akcji (rzuty kośćmi, turnover) metody o wyższej wariancji estymatora gradientu mogą wymagać bardziej starannego doboru parametrów (np. większych batchy z wielu środowisk równoległych, innego skalowania entropii, regularyzacji, bądź modyfikacji funkcji nagrody) w porównaniu do PPO.
+
+\section{Porównanie algorytmów i architektur}
+\label{sec:porownanie}
+
+Najważniejsze wnioski porównawcze można ująć w trzech punktach:
+
+\paragraph{(1) PPO wyraźnie przewyższa A2C w badanych eksperymentach.}
+Tylko PPO (szczególnie z architekturą bazową CNN) osiągnęło stabilny wzrost \textit{Win rate} powyżej $0.5$, co oznacza realną poprawę zdolności do wygrywania meczów. A2C w żadnym wariancie nie wykazało mierzalnej poprawy w tej metryce.
+
+\paragraph{(2) Złożoność architektury nie gwarantuje lepszych wyników bez dostrojenia uczenia.}
+Wariant PPO--ResNet wykazał potencjał szybszej poprawy, ale jednocześnie ujawnił silną niestabilność i spadek jakości pod koniec treningu. Wariant PPO--Spatial-Inception nie przełożył większej złożoności modelu na wzrost \textit{Win rate}, co może wskazywać na trudniejszą optymalizację lub niedopasowanie hiperparametrów do architektury.
+
+\paragraph{(3) Metryki pośrednie (Reward) należy interpretować ostrożnie.}
+W szczególności w PPO--Spatial-Inception obserwowany jest względnie wysoki i stabilny \textit{Reward} przy braku poprawy \textit{Win rate}. Oznacza to, że ocena jakości agenta nie może opierać się wyłącznie na nagrodzie treningowej; konieczne jest uwzględnienie miar bezpośrednio związanych z wynikiem meczu, takich jak odsetek zwycięstw oraz (pomocniczo) liczba przyłożeń.
+
+\section{Podsumowanie jakościowe}
+\label{sec:podsumowanie-jakosciowe}
+
+Dla ułatwienia interpretacji Tabela~\ref{tab:wyniki-jakosciowe} zestawia jakościowo rezultaty poszczególnych konfiguracji.
+
+\begin{table}[h]
+	\centering
+	\caption{Jakościowe porównanie wyników uczenia (na podstawie przebiegów Reward/TD/Win rate).}
+	\label{tab:wyniki-jakosciowe}
+	\begin{tabular}{lccc}
+		\hline
+		Konfiguracja & Trend Reward & Trend TD/Episode & Trend Win rate \\
+		\hline
+		PPO + CNN (bazowy) & wyraźny wzrost po $\sim 3\cdot10^{6}$ & wzrost (częstsze skoki) & wzrost do $\sim 0.6$--$0.65$ \\
+		PPO + ResNet & wzrost, duża wariancja & wzrost z niestabilnością & wzrost, następnie spadek (collapse) \\
+		PPO + Spatial-Inception & plateau na dodatnim poziomie & brak trendu & brak trendu (okolice $0.5$) \\
+		A2C + CNN (bazowy) & brak trendu (ujemne) & brak trendu & brak trendu (okolice $0.5$) \\
+		A2C + ResNet & brak trendu (ujemne) & brak trendu & brak trendu (okolice $0.5$) \\
+		A2C + Spatial-Inception & brak trendu (ujemne) & brak trendu & brak trendu (okolice $0.5$) \\
+		\hline
+	\end{tabular}
+\end{table}
+
+W kolejnych etapach badań uzasadnione jest dalsze rozwijanie konfiguracji PPO (w szczególności wariantu bazowego lub ResNet po stabilizacji hiperparametrów), natomiast dla A2C konieczne byłoby wprowadzenie zmian w konfiguracji uczenia (m.in. zwiększenie liczby równoległych środowisk i wielkości batcha, modyfikacja wag składowych funkcji straty oraz ewentualne dostrojenie funkcji nagrody), aby metoda miała szansę konwergować w środowisku o tak wysokiej złożoności decyzyjnej.
