@@ -1,18 +1,16 @@
 \section{Techniki uczenia sieci neuronowych}
-Uczenie sieci neuronowych to proces, podczas którego model dopasowuje swoje parametry w taki sposób, aby minimalizować błąd predykcji. Efektywność tego procesu decyduje o zdolności modelu do generalizacji, czyli poprawnego działania na podstawie danych, których nie widział podczas treningu. W praktyce, uczenie polega na iteracyjnym modyfikowaniu parametrów na podstawie informacji zwrotnej wyrażonej za pomocą funkcji kosztu (straty), której wartość wskazuje, jak bardzo przewidywania modelu odbiegają od pożądanych wyników.
+Uczenie sieci neuronowych to proces, podczas którego model dopasowuje swoje parametry w taki sposób, aby minimalizować błąd predykcji. Efektywność tego procesu decyduje o zdolności modelu do generalizacji, czyli poprawnego działania na podstawie danych, których nie widział podczas treningu.
 
-Uczenie odbywa się iteracyjnie poprzez modyfikację wag modelu w kierunku przeciwnym do gradientu funkcji kosztu. Każdy cykl uczenia (epoka) obejmuje cztery główne etapy:
+Uczenie odbywa się w sposób iteracyjny poprzez modyfikację wag modelu w kierunku przeciwnym do gradientu funkcji kosztu. Każdy cykl uczenia (epoka) obejmuje cztery główne etapy:
 
 \begin{itemize}
-	\item Propagacja w przód (forward pass) – dane wejściowe przechodzą przez kolejne warstwy modelu, aż do uzyskania przewidywania $\hat{y}$.
-	\item Obliczenie błędu (loss) – funkcja kosztu 
+	\item Propagacja w przód (\textit{forward pass}) – dane wejściowe przechodzą przez kolejne warstwy modelu, aż do uzyskania przewidywania $\hat{y}$.
+	\item Obliczenie błędu (\textit{loss}) – funkcja kosztu 
 	$𝐿(𝑦,\hat{y})$ mierzy różnicę między wartością przewidywaną a oczekiwaną.
-	\item Propagacja wsteczna (backpropagation) – na podstawie reguły łańcuchowej obliczane są gradienty funkcji kosztu względem wag.
-	\item Aktualizacja wag (update) – parametry są modyfikowane zgodnie z wybranym algorytmem optymalizacji, np. SGD lub Adamem.
+	\item Propagacja wsteczna (\textit{backpropagation}) – na podstawie reguły łańcuchowej obliczane są gradienty funkcji kosztu względem wag.
+	\item Aktualizacja wag (\textit{update}) – parametry są modyfikowane zgodnie z wybranym algorytmem optymalizacji, np. SGD lub Adamem.
 	
 \end{itemize}
-
-
 
 Na podstawie sposobu pozyskiwania informacji zwrotnej i dostępności danych uczących wyróżnia się trzy główne paradygmaty uczenia:
 uczenie nadzorowane, uczenie nienadzorowane oraz uczenie ze wzmocnieniem.
@@ -28,7 +26,7 @@ W ramach uczenia nadzorowanego wyróżnia się dwa główne typy zadań:
 	\item \textbf{Regresja} – gdy etykieta $y$ jest wartością liczbową, a celem jest przewidzenie wartości ciągłej. Do typowych przykładów należą prognozowanie cen, przewidywanie popytu czy estymacja parametrów fizycznych w eksperymentach naukowych.
 \end{itemize}
 
-Dzięki swojej uniwersalności, uczenie nadzorowane jest stosowane w szerokim zakresie dziedzin, od rozpoznawania mowy i analizy obrazu, przez systemy rekomendacyjne, aż po prognozowanie finansowe i modelowanie procesów przemysłowych.
+Dzięki swojej uniwersalności, uczenie nadzorowane jest stosowane w szerokim zakresie dziedzin, od rozpoznawania mowy i analizy obrazu, przez systemy rekomendacyjne, aż po prognozy finansowe i modelowanie procesów przemysłowych.
 
 \subsection*{Uczenie nienadzorowane}
 
@@ -36,8 +34,8 @@ Uczenie nienadzorowane (\textit{unsupervised learning}) obejmuje metody, w któr
 
 W ramach uczenia nienadzorowanego wyróżnić można kilka głównych typów zadań:
 \begin{itemize}
-	\item \textbf{Grupowanie (clustering)} – podział zbioru danych na zbiory (klastry) w taki sposób, aby przykłady w tym samym klastrze były do siebie możliwie podobne, a między klastrami występowały wyraźne różnice. Przykładami algorytmów są \textit{k-means}, DBSCAN czy sieci Kohonena (SOM) \cite{Kohonen1990}.
-	\item \textbf{Redukcja wymiarów} – przekształcenie danych do przestrzeni o mniejszej liczbie wymiarów przy zachowaniu jak największej ilości istotnej informacji. Popularne metody to analiza głównych składowych (PCA) czy autoenkodery.
+	\item \textbf{Grupowanie (\textit{clustering})} – podział zbioru danych na zbiory w taki sposób, aby przykłady w tym samym zbiorze były do siebie możliwie podobne, a między nimi różnice jak najbardziej wyraźne. Przykładami takich algorytmów są \textit{k-means}, DBSCAN czy sieci Kohonena (SOM) \cite{Kohonen1990}.
+	\item \textbf{Redukcja wymiarów} – przekształcenie danych do przestrzeni o mniejszej liczbie wymiarów przy zachowaniu jak największej ilości informacji. Popularne metody to analiza głównych składowych (PCA) czy autoenkodery.
 	\item \textbf{Uczenie reprezentacji} – poszukiwanie wewnętrznych opisów danych (tzw. reprezentacji ukrytych), które mogą ułatwić dalsze zadania, np. klasyfikację lub generowanie nowych przykładów. Przykładem są modele generatywne, takie jak \textit{Variational Autoencoder} (VAE) czy \textit{Generative Adversarial Networks} (GAN) \cite{GoodfellowGAN2014}.
 \end{itemize}
 
@@ -51,11 +49,18 @@ Celem jest maksymalizacja zdyskontowanej sumy nagród:
 R_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k}
 \]
 gdzie $\gamma \in (0,1)$ to współczynnik dyskontowania, który określa znaczenie przyszłych nagród.
-Uczenie ze wzmocnieniem znajduje zastosowanie w problemach decyzyjnych – w tym w robotyce, sterowaniu i grach strategicznych, takich jak BloodBowl, Go czy StarCraft, gdzie sieci neuronowe pełnią rolę polityki decyzyjnej (policy network).
+Uczenie ze wzmocnieniem znajduje zastosowanie w problemach decyzyjnych – w tym w robotyce, sterowaniu i grach strategicznych, takich jak BloodBowl, Go czy StarCraft, gdzie sieci neuronowe pełnią rolę polityki decyzyjnej (\textit{policy network}).
 
 \section{Funkcje kosztu (straty)}
 
-Funkcja kosztu (ang. \textit{loss function}, \textit{cost function}) pełni kluczową rolę w procesie uczenia sieci neuronowych, ponieważ stanowi ilościową miarę różnicy pomiędzy przewidywaniami modelu $\hat{y}$ a wartościami oczekiwanymi $y$. To właśnie na podstawie wartości funkcji kosztu algorytm optymalizacji oblicza gradienty, które następnie służą do modyfikacji wag modelu w kierunku minimalizacji błędu \cite{Goodfellow-et-al-2016}. Dobór odpowiedniej funkcji straty jest ściśle związany z charakterem problemu i typem danych wyjściowych.  
+Funkcja kosztu (ang. \textit{loss function}, \textit{cost function}) pełni kluczową rolę w procesie uczenia sieci neuronowych, ponieważ stanowi ilościową miarę różnicy pomiędzy przewidywaniami modelu $\hat{y}$ a wartościami oczekiwanymi $y$. Jej wartość stanowi miarę jakości działania modelu dla danych uczących
+
+Na podstawie funkcji kosztu algorytm optymalizacji wyznacza gradienty, które
+informują, w jaki sposób należy modyfikować wagi sieci, aby stopniowo
+zmniejszać popełniany błąd. Proces ten prowadzi do iteracyjnego
+dostosowywania parametrów modelu w kierunku minimalizacji wartości funkcji
+straty \cite{Goodfellow-et-al-2016}. Dobór odpowiedniej funkcji kosztu zależy
+od rodzaju rozwiązywanego problemu oraz charakteru danych wyjściowych.
 
 W praktyce można wyróżnić dwie główne grupy funkcji kosztu:  
 \begin{itemize}
@@ -328,9 +333,7 @@ h^{(l)}_{\text{test}} = p \, h^{(l)}_{\text{train}}
 \]
 
 aby zachować oczekiwaną wartość wyjść.
-Dropout można interpretować jako rodzaj losowego „ensemble learning” — w każdej iteracji trenowany jest inny podzbiór sieci, a końcowy model działa jak uśrednienie wielu słabszych klasyfikatorów. W efekcie sieć staje się bardziej odporna na szum w danych i lepiej generalizuje na zbiorze testowym
-
-\cite{Srivastava2014Dropout}
+Dropout można interpretować jako rodzaj losowego „ensemble learning” — w każdej iteracji trenowany jest inny podzbiór sieci, a końcowy model działa jak uśrednienie wielu słabszych klasyfikatorów. W efekcie sieć staje się bardziej odporna na szum w danych i lepiej generalizuje na zbiorze testowym \cite{Srivastava2014Dropout}.
 
 \subsection*{Learning Rate Scheduling}
 

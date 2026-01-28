@@ -213,7 +213,7 @@ takich jak Blood Bowl.
 
 \subsection*{A2C, a A3C}
 
-Różnica pomiędzy A2C i A3C dotyczy przede wszystkim sposobu równoległego zbierania doświadczeń i aktualizacji parametrów sieci. W A3C (\textit{Asynchronous Advantage Actor--Critic}) wiele niezależnych procesów (aktorów-uczących) równolegle oddziałuje ze środowiskiem i wyznacza gradienty, które są następnie stosowane do wspólnego modelu w sposób asynchroniczny (bez globalnej synchronizacji kroków), co prowadzi do mniej skorelowanych próbek i może stabilizować uczenie \cite{mnih2016}. Z kolei A2C (\textit{Advantage Actor--Critic}) stanowi wariant synchroniczny tego podejścia: próbki z wielu równoległych środowisk są agregowane w jedną paczkę (batch), po czym wykonywana jest pojedyncza, wspólna aktualizacja parametrów, co upraszcza implementację oraz czyni przebieg uczenia bardziej deterministycznym przy zachowaniu tej samej ogólnej struktury aktor--krytyk \cite{openai_baselines_a2c}.
+Różnica pomiędzy A2C i A3C dotyczy przede wszystkim sposobu równoległego zbierania doświadczeń i aktualizacji parametrów sieci. W A3C (\textit{Asynchronous Advantage Actor--Critic}) wiele niezależnych procesów (aktorów-uczących) równolegle oddziałuje ze środowiskiem i wyznacza gradienty, które są następnie stosowane do wspólnego modelu w sposób asynchroniczny (bez globalnej synchronizacji kroków), co prowadzi do mniej skorelowanych próbek i może stabilizować uczenie \cite{mnih2016}. Z kolei A2C (\textit{Advantage Actor--Critic}) stanowi wariant synchroniczny tego podejścia: próbki z wielu równoległych środowisk są agregowane w jedną paczkę (batch), po czym wykonywana jest pojedyncza, wspólna aktualizacja parametrów, co upraszcza implementację oraz czyni przebieg uczenia bardziej deterministycznym przy zachowaniu tej samej ogólnej struktury aktor--krytyk \cite{openaiBaselinesA2C}.
 
 \subsection*{Generowanie danych uczących: rollout i długość trajektorii w A2C}
 
@@ -257,7 +257,7 @@ logarytmicznej wiarygodności wybranej akcji, ważonej estymowaną funkcją prze
 = - \mathbb{E}_t \left[ \log \pi_\theta(a_t \mid s_t)\, A_t \right].
 \]
 Postać ta wzmacnia decyzje przynoszące wyniki ponadprzeciętne ($A_t>0$) oraz tłumi decyzje
-gorsze od oczekiwanych ($A_t<0$) \cite{sutton2018tempora}.
+gorsze od oczekiwanych ($A_t<0$) \cite{sutton2018temporal}.
 
 Składnik krytyka odpowiada za aproksymację funkcji wartości stanu i najczęściej definiowany jest
 jako błąd średniokwadratowy względem przybliżonej wartości docelowej:
@@ -570,9 +570,9 @@ Inicjalizacja He, poprzez skupienie się wyłącznie na liczbie wejść do neuro
 
 W algorytmach typu actor-critic kluczowe jest zapewnienie, aby przestrzeń akcji dostępna dla agenta była zgodna z formalnymi ograniczeniami środowiska. W grze Blood Bowl liczba wszystkich możliwych do zakodowania akcji jest bardzo wysoka, lecz w danym stanie jedynie niewielki ich podzbiór stanowi akcje legalne. Pozostałe działania są strukturalnie niedozwolone (np. ruch na zajęte pole, podniesienie nieistniejącej piłki, wykonanie blitzu przez zawodnika, który wykonał już akcję w danej turze).
 
-Aby zapewnić zgodność polityki z regułami środowiska oraz poprawić stabilność procesu uczenia, zastosowano formalny mechanizm \emph{maskowania akcji} (ang. \emph{action masking}). Mechanizm ten polega na modyfikacji wektora logitów polityki poprzez przypisanie logitom odpowiadającym akcjom nielegalnym wartości ujemnej nieskończoności:
+Aby zapewnić zgodność polityki z regułami środowiska oraz poprawić stabilność procesu uczenia, zastosowano formalny mechanizm \emph{maskowania akcji} (ang. \emph{action masking}). Mechanizm ten polega na modyfikacji wektora logitów polityki poprzez przypisanie logitom odpowiadającym nielegalnym akcjom w stanie $s$ wartości nieskończenie ujemnej.
 \begin{equation}
-	\text{logit}_i = -\infty \qquad \text{dla każdej akcji } i \text{ nielegalnej w stanie } s.
+	\text{logit}_i = -\infty 
 \end{equation}
 
 Po zastosowaniu funkcji softmax
