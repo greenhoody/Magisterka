@@ -1,7 +1,5 @@
 """
-Train PPO with spatial inception residual policy that first learns against the
-scripted `random` bot and swaps the opponent to the latest checkpoint whenever
-the configured performance thresholds are satisfied.
+Train the A2C Hyper-Connection Spatial Inception policy with the random→checkpoint schedule.
 """
 
 from functools import partial
@@ -28,12 +26,13 @@ from botbowl.ai.env import (
     BotBowlWrapper,
     PPCGWrapper,
 )
-from ppo_residual_spatial_inception_agent import (
+from a2c_hyper_spatial_inception_agent import (
+    A2CAgent,
     CNNPolicy,
-    PPOAgent,
+    HyperConnection,
+    HyperConnectionStack,
+    InceptionBlock,
     SpatialInceptionBlock,
-    InceptionResidualBlock,
-    ppo_update,
 )
 from a2c_env import A2C_Reward, a2c_scripted_actions
 from botbowl.ai.layers import *
@@ -42,9 +41,12 @@ from training_env import resolve_env_size
 from layer_norm import LayerNorm2d
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# Allow torch.load to reconstruct policies saved from this process.
 add_safe_globals(
     [
         CNNPolicy,
+        InceptionBlock,
+        SpatialInceptionBlock,
         nn.Sequential,
         nn.Conv2d,
         LayerNorm2d,
@@ -54,8 +56,8 @@ add_safe_globals(
         nn.AdaptiveAvgPool2d,
         nn.PReLU,
         nn.LayerNorm,
-        SpatialInceptionBlock,
-        InceptionResidualBlock,
+        HyperConnection,
+        HyperConnectionStack,
     ]
 )
 
@@ -64,7 +66,7 @@ def timestamp_now() -> str:
     return datetime.utcnow().strftime("%Y%m%d-%H%M%S")
 
 
-MODEL_KIND = "ppo-random-checkpoint"
+MODEL_KIND = "a2c-hyper-random-checkpoint"
 
 # Environment
 env_size = resolve_env_size(5)  # Options are 1,3,5,7,11
@@ -72,7 +74,7 @@ env_name = f"botbowl-{env_size}"
 env_conf = EnvConf(size=env_size, pathfinding=False)
 
 make_agent_from_model = partial(
-    PPOAgent, env_conf=env_conf, scripted_func=a2c_scripted_actions
+    A2CAgent, env_conf=env_conf, scripted_func=a2c_scripted_actions
 )
 
 
@@ -97,11 +99,10 @@ value_loss_coef = 0.5
 # max_grad_norm = 0.05
 max_grad_norm = 0.5
 log_interval = 50
-# Model checkpoints are now controlled independently of logging cadence.
+# Model checkpoints are saved independently from log cadence to avoid disk spam.
 save_interval = 1000
-# Disable PPCG during training so saved models play under the same rules that
-# are used later during tournaments/evaluation.
 ppcg = False
+
 
 reset_steps = 5000  # The environment is reset after this many steps it gets stuck
 
@@ -110,24 +111,12 @@ min_updates_before_checkpoint = 1000
 difficulty_threshold = 1.0
 win_rate_threshold = 0.70
 
-# PPO settings
-ppo_clip = 0.2
-ppo_epochs = 4
-ppo_minibatches = 4
-gae_lambda = 0.95
-
-# Self-play
-selfplay = False  # Use this to enable/disable self-play
-selfplay_window = 1
-selfplay_save_steps = int(num_steps / 10)
-selfplay_swap_steps = selfplay_save_steps
-
 # Architecture
 num_hidden_nodes = 128
 num_residual_blocks = 6
 num_cnn_kernels = [(18, 3), (18, 5), (18, 7)]
 
-# When using PPOAgent, remember to set exclude_pathfinding_moves = False if you train with pathfinding_enabled = True
+# When using A2CAgent, remember to set exclude_pathfinding_moves = False if you train with pathfinding_enabled = True
 
 
 # Make directories
@@ -358,7 +347,7 @@ def main():
     ac_agent.to(DEVICE)
 
     # OPTIMIZER
-    optimizer = optim.Adam(ac_agent.parameters(), lr=3e-4)
+    optimizer = optim.RMSprop(ac_agent.parameters(), learning_rate)
 
     # MEMORY STORE
     memory = Memory(
@@ -496,22 +485,56 @@ def main():
 
         # -- TRAINING -- #
 
-        vl, pl, ent = ppo_update(
-            policy=ac_agent,
-            optimizer=optimizer,
-            memory=memory,
-            clip_param=ppo_clip,
-            ppo_epochs=ppo_epochs,
-            num_mini_batch=ppo_minibatches,
-            value_loss_coef=value_loss_coef,
-            entropy_coef=entropy_coef,
-            max_grad_norm=max_grad_norm,
-            gamma=gamma,
-            gae_lambda=gae_lambda,
+        # bootstrap next value
+        next_value = ac_agent(
+            Variable(memory.spatial_obs[-1], requires_grad=False),
+            Variable(memory.non_spatial_obs[-1], requires_grad=False),
+        )[0].data
+
+        # Compute returns
+        memory.compute_returns(next_value, gamma)
+
+        spatial = Variable(memory.spatial_obs[:-1])
+        spatial = spatial.view(-1, *spatial_obs_space)
+        non_spatial = Variable(memory.non_spatial_obs[:-1])
+        non_spatial = non_spatial.view(-1, non_spatial.shape[-1])
+
+        actions = Variable(memory.actions.view(-1, 1))
+        actions_mask = Variable(memory.action_masks[:-1])
+
+        # Evaluate the actions taken
+        action_log_probs, values, dist_entropy = ac_agent.evaluate_actions(
+            spatial, non_spatial, actions, actions_mask
         )
-        value_losses.append(vl)
-        policy_losses.append(pl)
-        dist_entropy = torch.tensor(ent)
+
+        values = values.view(steps_per_update, num_processes, 1)
+        action_log_probs = action_log_probs.view(steps_per_update, num_processes, 1)
+
+        advantages = Variable(memory.returns[:-1]) - values
+
+        # Normalizacja Do stestowania czy się nie wywali
+        # advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
+
+        value_loss = advantages.pow(2).mean()
+        # value_losses.append(value_loss)
+
+        # Compute loss
+        action_loss = -(advantages * action_log_probs).mean()
+        # policy_losses.append(action_loss)
+
+        optimizer.zero_grad()
+
+        total_loss = (
+            value_loss * value_loss_coef + action_loss - dist_entropy * entropy_coef
+        )
+        # dodane z sugestii GPT
+        total_loss = total_loss / num_processes
+
+        total_loss.backward()
+
+        nn.utils.clip_grad_norm_(ac_agent.parameters(), max_grad_norm)
+
+        optimizer.step()
 
         memory.non_spatial_obs[0].copy_(memory.non_spatial_obs[-1])
         memory.spatial_obs[0].copy_(memory.spatial_obs[-1])
