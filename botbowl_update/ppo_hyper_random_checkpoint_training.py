@@ -1,7 +1,6 @@
 """
-Train PPO with spatial inception residual policy that first learns against the
-scripted `random` bot and swaps the opponent to the latest checkpoint whenever
-the configured performance thresholds are satisfied.
+Train PPO with the Hyper-Connection Spatial Inception policy using the random→checkpoint schedule
+triggered by performance thresholds instead of fixed intervals.
 """
 
 from functools import partial
@@ -28,13 +27,15 @@ from botbowl.ai.env import (
     BotBowlWrapper,
     PPCGWrapper,
 )
-from ppo_residual_spatial_inception_agent import (
+from ppo_hyper_spatial_inception_agent import (
     CNNPolicy,
     PPOAgent,
+    HyperConnection,
+    HyperConnectionStack,
+    InceptionBlock,
     SpatialInceptionBlock,
-    InceptionResidualBlock,
-    ppo_update,
 )
+from ppo_residual_spatial_inception_agent import ppo_update
 from a2c_env import A2C_Reward, a2c_scripted_actions
 from botbowl.ai.layers import *
 from checkpoint_scheduler import CheckpointOpponentScheduler
@@ -45,6 +46,8 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 add_safe_globals(
     [
         CNNPolicy,
+        InceptionBlock,
+        SpatialInceptionBlock,
         nn.Sequential,
         nn.Conv2d,
         LayerNorm2d,
@@ -54,17 +57,10 @@ add_safe_globals(
         nn.AdaptiveAvgPool2d,
         nn.PReLU,
         nn.LayerNorm,
-        SpatialInceptionBlock,
-        InceptionResidualBlock,
+        HyperConnection,
+        HyperConnectionStack,
     ]
 )
-
-
-def timestamp_now() -> str:
-    return datetime.utcnow().strftime("%Y%m%d-%H%M%S")
-
-
-MODEL_KIND = "ppo-random-checkpoint"
 
 # Environment
 env_size = resolve_env_size(5)  # Options are 1,3,5,7,11
@@ -97,10 +93,8 @@ value_loss_coef = 0.5
 # max_grad_norm = 0.05
 max_grad_norm = 0.5
 log_interval = 50
-# Model checkpoints are now controlled independently of logging cadence.
+# Model checkpoints are saved independently from log cadence to avoid disk spam.
 save_interval = 1000
-# Disable PPCG during training so saved models play under the same rules that
-# are used later during tournaments/evaluation.
 ppcg = False
 
 reset_steps = 5000  # The environment is reset after this many steps it gets stuck
@@ -136,6 +130,12 @@ def ensure_dir(file_path):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
+
+def timestamp_now() -> str:
+    return datetime.utcnow().strftime("%Y%m%d-%H%M%S")
+
+
+MODEL_KIND = "ppo-hyper-random-checkpoint"
 
 ensure_dir("logs/")
 ensure_dir("models/")

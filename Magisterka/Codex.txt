@@ -1,0 +1,102 @@
+• Przejrzałem modele PyTorch w repo. Wspólny człon aktora i krytyka to zawsze
+  „trunk” wyliczający wektor cech z, a dopiero potem dwie osobne głowy liniowe
+  (policy/actor i value/critic). Poniżej, gdzie i jak to jest zrobione.
+
+  Wspólny trunk (koncepcja wspólna dla A2C i PPO)
+
+  - Najpierw tor przestrzenny: stem (Conv 1×1 + LayerNorm + ReLU), potem bloki
+    (ResNet lub Inception), potem GAP (AdaptiveAvgPool2d(1)) i spłaszczenie.
+  - Równolegle tor nie‑przestrzenny: MLP nonspatial mapuje wektor stanu do tej
+    samej szerokości co tor przestrzenny.
+  - Złączenie: torch.cat([x, y], dim=1) i wspólny MLP trunk → wektor z.
+  - Dopiero z z wychodzą osobne głowy: actor/policy i critic/value.
+
+  ResNet trunk
+
+  - a2c_resNet_agent.py – CNNPolicyResNet._trunk_features buduje z z stem ->
+    ResidualBlock* -> GAP + nonspatial + trunk. Głowy: self.actor, self.critic.
+    Ścieżka: a2c_resNet_agent.py
+  - ppo_resNet_agent.py – analogicznie, CNNPolicy._trunk_features + głowy
+    self.policy i self.value.
+    Ścieżka: ppo_resNet_agent.py
+
+  Spatial Inception trunk (bez skipów)
+
+  - a2c_spatial_inception_agent.py – CNNPolicy._trunk_features: stem ->
+    InceptionBlock* -> GAP, non_spatial → trunk, a potem self.actor /
+    self.critic.
+    Ścieżka: a2c_spatial_inception_agent.py
+  - ppo_spatial_inception_agent.py – identyczny schemat, głowy self.policy /
+    self.value.
+    Ścieżka: ppo_spatial_inception_agent.py
+
+  Residual Spatial Inception trunk (ze skipami)
+
+  - a2c_residual_spatial_inception_agent.py – InceptionResidualBlock ma skip (z
+    projekcją 1×1, gdy zmienia się liczba kanałów). CNNPolicy._trunk_features
+    łączy wynik stem -> residual inception -> GAP z non_spatial, potem trunk →
+    z, następnie actor i critic.
+    Ścieżka: a2c_residual_spatial_inception_agent.py
+  - ppo_residual_spatial_inception_agent.py – to samo podejście w PPO.
+    Ścieżka: ppo_residual_spatial_inception_agent.py
+
+  Najkrótsza odpowiedź na pytanie „jak jest stworzony wspólny człon”:
+  W każdym z tych modeli jest jawnie wydzielona funkcja/sekcja _trunk_features,
+  która łączy cechy przestrzenne (Conv/ResNet/Inception + GAP) i
+  nie‑przestrzenne (MLP), skleja je i przepuszcza przez trunk (Linear + ReLU).
+  Wynik z jest wspólny dla obu głów: policy/actor i value/critic.
+
+  Jeśli chcesz, mogę dorysować schemat blokowy dla konkretnego modelu (np.
+  ResNet vs Inception) albo policzyć konkretne wymiary dla Twojej konfiguracji
+  kernels/hidden_nodes.
+
+
+• W kodzie klasy modeli są parametryczne, a konkretne liczby bloków i filtry są
+  ustawione w skryptach treningowych. Poniżej aktualne wartości z repo, rozbite
+  na sieci/entry‑pointy.
+
+  Residual Spatial Inception (A2C/PPO – wersje „example”)
+
+  - a2c_example.py: num_residual_blocks = 2, num_cnn_kernels = [(18, 3), (18,
+    5), (8, 7)]
+  - ppo_example.py: num_residual_blocks = 2, num_cnn_kernels = [(18, 3), (18,
+    5), (8, 7)]
+  - Filtry w bloku: trzy gałęzie Conv2d o kernelach 3/5/7 i kanałach 18/18/8 →
+    output łącznie 44 kanały.
+    Pierwszy blok ma wejście base_ch = max(32, 18) = 32, więc używa projekcji
+    1×1 na skipie (32→44), potem kolejne bloki pracują już na 44 kanałach.
+
+  Residual Spatial Inception (A2C/PPO – random checkpoint training)
+
+  - a2c_random_checkpoint_training.py: num_residual_blocks = 6, num_cnn_kernels
+    = [(18, 3), (18, 5), (18, 7)]
+  - ppo_random_checkpoint_training.py: num_residual_blocks = 6, num_cnn_kernels
+    = [(18, 3), (18, 5), (18, 7)]
+  - Filtry w bloku: 3 gałęzie Conv2d 3/5/7 po 18 kanałów → output 54 kanały.
+    Pierwszy blok: wejście base_ch=32 → projekcja na skipie (32→54), potem stałe
+    54 kanały.
+
+  Spatial Inception bez skipów (A2C/PPO – random checkpoint training)
+
+  - a2c_spatial_inception_random_checkpoint_training.py: num_residual_blocks =
+    6, num_cnn_kernels = [(18, 3), (18, 5), (18, 7)]
+  - ppo_spatial_inception_random_checkpoint_training.py: num_residual_blocks =
+    6, num_cnn_kernels = [(18, 3), (18, 5), (18, 7)]
+  - Filtry w bloku: identycznie jak wyżej (18/18/18 dla 3/5/7) → output 54
+    kanały.
+    Brak skipów, więc bloki tylko „przemielają” i rozszerzają kanały.
+
+  ResNet (A2C/PPO – random checkpoint training)
+
+  - a2c_resnet_random_checkpoint_training.py: num_residual_blocks = 6,
+    num_cnn_kernels = [(18, 3), (18, 5), (18, 7)]
+  - ppo_resnet_random_checkpoint_training.py: num_residual_blocks = 6,
+    num_cnn_kernels = [(18, 3), (18, 5), (18, 7)]
+  - Filtry w bloku: ResNetowe bloki mają dwa Conv2d 3×3 z kanałami base_ch.
+    base_ch = max(32, kernels[0][0]) = 32, więc każdy residual block ma
+    2×Conv3×3 z 32 filtrami.
+
+  Jeśli chcesz, mogę dopisać tabelę „sieć → liczba bloków → kanały” albo
+  policzyć dokładne kształty tensorów dla konkretnej konfiguracji env.
+
+
