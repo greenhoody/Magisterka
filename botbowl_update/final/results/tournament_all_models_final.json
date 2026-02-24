@@ -1,0 +1,1967 @@
+{
+  "generated_at": "2026-02-24T00:18:50Z",
+  "env_size": 3,
+  "pathfinding": false,
+  "games_per_pair": 4,
+  "models_count": 8,
+  "models": [
+    {
+      "name": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp/botbowl-3/small_network_a2c_mp_final.pt",
+      "algo": "a2c",
+      "policy_module": "small_network_dynamic_hyperconnection_inception_block",
+      "policy_class": "CustomPolicy",
+      "env_size": 3
+    },
+    {
+      "name": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp/botbowl-3/small_network_ppo_mp_final.pt",
+      "algo": "ppo",
+      "policy_module": "small_network_dynamic_hyperconnection_inception_block",
+      "policy_class": "CustomPolicy",
+      "env_size": 3
+    },
+    {
+      "name": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_hyperconnection_inception_block__train_small_a2c_mp/botbowl-3/small_network_a2c_mp_final.pt",
+      "algo": "a2c",
+      "policy_module": "small_network_hyperconnection_inception_block",
+      "policy_class": "CustomPolicy",
+      "env_size": 3
+    },
+    {
+      "name": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_hyperconnection_inception_block__train_small_ppo_mp/botbowl-3/small_network_ppo_mp_final.pt",
+      "algo": "ppo",
+      "policy_module": "small_network_hyperconnection_inception_block",
+      "policy_class": "CustomPolicy",
+      "env_size": 3
+    },
+    {
+      "name": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_inception_block__train_small_a2c_mp/botbowl-3/small_network_a2c_mp_final.pt",
+      "algo": "a2c",
+      "policy_module": "small_network_inception_block",
+      "policy_class": "CustomPolicy",
+      "env_size": 3
+    },
+    {
+      "name": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_inception_block__train_small_ppo_mp/botbowl-3/small_network_ppo_mp_final.pt",
+      "algo": "ppo",
+      "policy_module": "small_network_inception_block",
+      "policy_class": "CustomPolicy",
+      "env_size": 3
+    },
+    {
+      "name": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_inception_residual_block__train_small_a2c_mp/botbowl-3/small_network_a2c_mp_final.pt",
+      "algo": "a2c",
+      "policy_module": "small_network_inception_residual_block",
+      "policy_class": "CustomPolicy",
+      "env_size": 3
+    },
+    {
+      "name": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_inception_residual_block__train_small_ppo_mp/botbowl-3/small_network_ppo_mp_final.pt",
+      "algo": "ppo",
+      "policy_module": "small_network_inception_residual_block",
+      "policy_class": "CustomPolicy",
+      "env_size": 3
+    }
+  ],
+  "ranking": [
+    {
+      "name": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "wins": 7,
+      "draws": 20,
+      "losses": 1,
+      "games": 28,
+      "touchdowns_for": 10,
+      "touchdowns_against": 3,
+      "algo": "ppo",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp/botbowl-3/small_network_ppo_mp_final.pt",
+      "points": 41
+    },
+    {
+      "name": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "wins": 6,
+      "draws": 19,
+      "losses": 3,
+      "games": 28,
+      "touchdowns_for": 6,
+      "touchdowns_against": 4,
+      "algo": "ppo",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_hyperconnection_inception_block__train_small_ppo_mp/botbowl-3/small_network_ppo_mp_final.pt",
+      "points": 37
+    },
+    {
+      "name": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "wins": 6,
+      "draws": 18,
+      "losses": 4,
+      "games": 28,
+      "touchdowns_for": 8,
+      "touchdowns_against": 6,
+      "algo": "ppo",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_inception_block__train_small_ppo_mp/botbowl-3/small_network_ppo_mp_final.pt",
+      "points": 36
+    },
+    {
+      "name": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "wins": 0,
+      "draws": 27,
+      "losses": 1,
+      "games": 28,
+      "touchdowns_for": 0,
+      "touchdowns_against": 1,
+      "algo": "a2c",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_inception_residual_block__train_small_a2c_mp/botbowl-3/small_network_a2c_mp_final.pt",
+      "points": 27
+    },
+    {
+      "name": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "wins": 0,
+      "draws": 26,
+      "losses": 2,
+      "games": 28,
+      "touchdowns_for": 0,
+      "touchdowns_against": 2,
+      "algo": "a2c",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_inception_block__train_small_a2c_mp/botbowl-3/small_network_a2c_mp_final.pt",
+      "points": 26
+    },
+    {
+      "name": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "wins": 0,
+      "draws": 26,
+      "losses": 2,
+      "games": 28,
+      "touchdowns_for": 0,
+      "touchdowns_against": 2,
+      "algo": "ppo",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_inception_residual_block__train_small_ppo_mp/botbowl-3/small_network_ppo_mp_final.pt",
+      "points": 26
+    },
+    {
+      "name": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "wins": 0,
+      "draws": 25,
+      "losses": 3,
+      "games": 28,
+      "touchdowns_for": 0,
+      "touchdowns_against": 3,
+      "algo": "a2c",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp/botbowl-3/small_network_a2c_mp_final.pt",
+      "points": 25
+    },
+    {
+      "name": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "wins": 0,
+      "draws": 25,
+      "losses": 3,
+      "games": 28,
+      "touchdowns_for": 0,
+      "touchdowns_against": 3,
+      "algo": "a2c",
+      "path": "/home/greenhoody/Magisterka/botbowl_update/final/runs/small_network_hyperconnection_inception_block__train_small_a2c_mp/botbowl-3/small_network_a2c_mp_final.pt",
+      "points": 25
+    }
+  ],
+  "series": [
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 2
+      },
+      "draws": 2,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 2
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1
+      },
+      "draws": 3,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 2,
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      },
+      "draws": 2,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 3,
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1,
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 3,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1,
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 2,
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1
+      },
+      "draws": 1,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 4,
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 3
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 2
+      },
+      "draws": 2,
+      "touchdowns": {
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 2
+      }
+    },
+    {
+      "pair": [
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1
+      },
+      "draws": 3,
+      "touchdowns": {
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1
+      }
+    },
+    {
+      "pair": [
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 2,
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1
+      },
+      "draws": 1,
+      "touchdowns": {
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 2,
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1
+      }
+    },
+    {
+      "pair": [
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 3,
+      "touchdowns": {
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1
+      },
+      "draws": 3,
+      "touchdowns": {
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 1
+      }
+    },
+    {
+      "pair": [
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 0,
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 2,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      },
+      "draws": 2,
+      "touchdowns": {
+        "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final": 2,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      }
+    },
+    {
+      "pair": [
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final"
+      ],
+      "games": 4,
+      "wins": {
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      },
+      "draws": 4,
+      "touchdowns": {
+        "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final": 0,
+        "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final": 0
+      }
+    }
+  ],
+  "games": [
+    {
+      "game_id": 1000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 1001,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 1002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 1,
+      "winner": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 1003,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 1,
+      "away_score": 0,
+      "winner": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 2000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 2001,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 2002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 2003,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 3000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 3001,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 1,
+      "away_score": 0,
+      "winner": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 3002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 3003,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 4000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 4001,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 4002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 4003,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 5000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 5001,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 5002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 5003,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 6000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 6001,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 6002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 6003,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 7000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 7001,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 7002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 7003,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 8000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 8001,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 8002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 8003,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 9000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 9001,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 2,
+      "winner": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 9002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 9003,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 1,
+      "winner": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 10000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 1,
+      "away_score": 0,
+      "winner": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 10001,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 10002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 10003,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 11000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 1,
+      "winner": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 11001,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 1,
+      "away_score": 1,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 11002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 2,
+      "away_score": 1,
+      "winner": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 11003,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 1,
+      "winner": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 12000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 12001,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 12002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 12003,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 13000,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 13001,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 13002,
+      "home": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 13003,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_dynamic_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 14000,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 1,
+      "winner": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 14001,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 1,
+      "away_score": 0,
+      "winner": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 14002,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 14003,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 15000,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 15001,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 15002,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 15003,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 16000,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 16001,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 16002,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 16003,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 1,
+      "away_score": 0,
+      "winner": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 17000,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 17001,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 17002,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 17003,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 18000,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 18001,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 18002,
+      "home": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 18003,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 19000,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 19001,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 19002,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 19003,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 20000,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 1,
+      "winner": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 20001,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 1,
+      "winner": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 20002,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 1,
+      "away_score": 0,
+      "winner": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 7,
+      "away_turns": 8
+    },
+    {
+      "game_id": 20003,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 21000,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 1,
+      "away_score": 0,
+      "winner": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 21001,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 21002,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 21003,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 22000,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 22001,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 22002,
+      "home": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 22003,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_hyperconnection_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 23000,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 23001,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 23002,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 23003,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 1,
+      "away_score": 0,
+      "winner": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 24000,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 24001,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 24002,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 24003,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 25000,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 25001,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 25002,
+      "home": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 25003,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 26000,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 26001,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 26002,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 26003,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 27000,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 1,
+      "away_score": 0,
+      "winner": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 27001,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 27002,
+      "home": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 27003,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 1,
+      "winner": "small_network_inception_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 28000,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 28001,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 28002,
+      "home": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "away": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    },
+    {
+      "game_id": 28003,
+      "home": "small_network_inception_residual_block__train_small_ppo_mp__small_network_ppo_mp_final",
+      "away": "small_network_inception_residual_block__train_small_a2c_mp__small_network_a2c_mp_final",
+      "home_score": 0,
+      "away_score": 0,
+      "winner": null,
+      "seed": null,
+      "rounds": 8,
+      "home_turns": 8,
+      "away_turns": 8
+    }
+  ]
+}
