@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  26 JAN 2026 20:13
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  14 MAR 2026 21:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1790,26 +1790,26 @@ Package fontspec Info:
  (./EE-dyplom.aux)
 \openout1 = `EE-dyplom.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1866,7 +1866,7 @@ Package biblatex Info: ... file 'latin.lbx' not found.
 
 
 Package biblatex Warning: Language 'latin' not supported.
-(biblatex)                Using dummy definitions on input line 89.
+(biblatex)                Using dummy definitions on input line 109.
 
 Package biblatex Info: Trying to load language 'polish'...
 Package biblatex Info: ... file 'polish.lbx' found.
@@ -1885,26 +1885,26 @@ Package biblatex Info: ... file 'EE-dyplom.bbl' found.
 
 Package biblatex Warning: The following entry could not be found
 (biblatex)                in the database:
-(biblatex)                Schulman2017TRPO
+(biblatex)                Schulman2015TRPO
 (biblatex)                Please verify the spelling and rerun
 (biblatex)                LaTeX afterwards.
 
 
 Package biblatex Warning: The following entry could not be found
 (biblatex)                in the database:
-(biblatex)                sutton2018tempora
+(biblatex)                openai_baselines_a2c
 (biblatex)                Please verify the spelling and rerun
 (biblatex)                LaTeX afterwards.
 
 )
-Package biblatex Info: Reference section=0 on input line 89.
-Package biblatex Info: Reference segment=0 on input line 89.
+Package biblatex Info: Reference section=0 on input line 109.
+Package biblatex Info: Reference segment=0 on input line 109.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 89.
+Package hyperref Info: Link coloring ON on input line 109.
  (./EE-dyplom.out) (./EE-dyplom.out)
 \@outlinefile=\write9
 \openout9 = `EE-dyplom.out'.
@@ -1932,17 +1932,14 @@ File: gfx/mgrhead.png Graphic file (type bmp)
 
 [3]
 
-[4
-
-]
+[4]
 
 [5
 
+
 ]
 
-[6
-
-] (./EE-dyplom.toc
+[6] (./EE-dyplom.toc
 LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1974,6 +1971,7 @@ LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
 
 
 [7
+
 
 ])
 \tf@toc=\write10
@@ -2083,18 +2081,14 @@ Overfull \hbox (20.25615pt too wide) in paragraph at lines 87--88
 
 [31]
 
-LaTeX Warning: Citation 'openaiBaselinesA2C' on page 32 undefined on input line
- 216.
-
-
-
 [32]
 
+LaTeX Warning: Citation 'openai_baselines_a2c' on page 33 undefined on input li
+ne 234.
+
+
+
 [33]
-
-LaTeX Warning: Citation 'sutton2018temporal' on page 34 undefined on input line
- 260.
-
 
 LaTeX Warning: Citation 'Schulman2015TRPO' on page 34 undefined on input line 2
 94.
@@ -2121,13 +2115,15 @@ LaTeX Warning: Citation 'Schulman2015TRPO' on page 34 undefined on input line 2
 
 [43]
 
-[44])
+[44]
 
 [45]
 
-[46
+[46]
 
-]
+[47])
+
+[48]
 Rozdział 4.
 (./tekst/BloodBowl.tex
 File: rysunki/Botbowl_board.jpg Graphic file (type bmp)
@@ -2139,77 +2135,69 @@ Overfull \hbox (14.22636pt too wide) in paragraph at lines 7--8
 
 
 
-[47]
-
-[48]
-
-LaTeX Warning: Citation 'Vinyals2017SC2LE' on page 49 undefined on input line 1
-8.
-
-
-
-[49])
-
-[50]
-Rozdział 5.
-(./tekst/Wyniki.tex
-File: rysunki/a2c-resnet-random-checkpoint_20251125-230114_checkpoint_win_rate.
-png Graphic file (type bmp)
-<rysunki/a2c-resnet-random-checkpoint_20251125-230114_checkpoint_win_rate.png>
-File: rysunki/ppo-resnet-random-checkpoint_20251126-115902_checkpoint_win_rate.
-png Graphic file (type bmp)
-<rysunki/ppo-resnet-random-checkpoint_20251126-115902_checkpoint_win_rate.png>
-File: rysunki/a2c-spatial-inception-random-checkpoint_20251125-230114_checkpoin
-t_win_rate.png Graphic file (type bmp)
-<rysunki/a2c-spatial-inception-random-checkpoint_20251125-230114_checkpoint_win
-_rate.png>
-File: rysunki/ppo-spatial-inception-random-checkpoint_20251126-120333_checkpoin
-t_win_rate.png Graphic file (type bmp)
-<rysunki/ppo-spatial-inception-random-checkpoint_20251126-120333_checkpoint_win
-_rate.png>
-File: rysunki/a2c-random-checkpoint_20251125-230114_checkpoint_win_rait.png Gra
-phic file (type bmp)
-<rysunki/a2c-random-checkpoint_20251125-230114_checkpoint_win_rait.png>
-File: rysunki/ppo-random-checkpoint_20251126-110614_checkpoint_win_rate.png Gra
-phic file (type bmp)
-<rysunki/ppo-random-checkpoint_20251126-110614_checkpoint_win_rate.png>
-
-Overfull \hbox (18.15154pt too wide) in paragraph at lines 21--38
-[][] 
- []
-
-))
-
-[51
+[49
 
 ]
 
+[50]
+
+[51])
+
 [52]
+Rozdział 5.
+(./tekst/Wyniki.tex
 
 [53
 
 ]
-! Missing $ inserted.
-<inserted text> 
-                $
-l.101 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+File: rysunki/compare_mean_td_for_50_no_legend.png Graphic file (type bmp)
+<rysunki/compare_mean_td_for_50_no_legend.png>
+File: rysunki/compare_win_rate_50_no_legend.png Graphic file (type bmp)
+<rysunki/compare_win_rate_50_no_legend.png>
+File: rysunki/compare_win_rate_total_no_legend.png Graphic file (type bmp)
+<rysunki/compare_win_rate_total_no_legend.png>
+File: rysunki/legend.png Graphic file (type bmp)
+<rysunki/legend.png>
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.101 
-      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
+Overfull \hbox (26.2385pt too wide) in paragraph at lines 22--28
+[][]
+ []
 
 
-Overfull \hbox (2.99629pt too wide) in paragraph at lines 101--101
+
+[54]
+
+[55]
+Underfull \hbox (badness 1033) in paragraph at lines 33--34
+\TU/LatinModernSans(1)/m/n/10.95 długoterminowy trend skuteczności agenta. Wraz
+ z postępem uczenia można zaobserwować
+ []
+
+File: rysunki/compare_mean_td_for_50_log_no_legend.png Graphic file (type bmp)
+<rysunki/compare_mean_td_for_50_log_no_legend.png>
+File: rysunki/compare_win_rate_50_log_no_legend.png Graphic file (type bmp)
+<rysunki/compare_win_rate_50_log_no_legend.png>
+File: rysunki/compare_win_rate_total_log_no_legend.png Graphic file (type bmp)
+<rysunki/compare_win_rate_total_log_no_legend.png>
+File: rysunki/legend.png Graphic file (type bmp)
+<rysunki/legend.png>
+
+Overfull \hbox (26.23253pt too wide) in paragraph at lines 35--41
+[][]
+ []
+
+
+
+[56]
+
+[57]))
+
+[58]
+
+[59
+
+]
+Overfull \hbox (2.99629pt too wide) in paragraph at lines 121--121
 []\TU/LatinModernSans(1)/m/n/10.95 Schulman, J. e. a., „  Proximal Policy Optim
 ization Algorithms”, \TU/LatinModernSans(1)/m/it/10.95 arXiv preprint arXiv:170
 7.06347\TU/LatinModernSans(1)/m/n/10.95 ,
@@ -2217,16 +2205,16 @@ ization Algorithms”, \TU/LatinModernSans(1)/m/it/10.95 arXiv preprint arXiv:17
 
 
 
-[54]
+[60]
 No file EE-dyplom.acr.
 No file EE-dyplom.sls.
 
 
-[55
+[61
 
 ]
 
-[56
+[62
 
 ] (./EE-dyplom.lof)
 \tf@lof=\write11
@@ -2234,9 +2222,9 @@ No file EE-dyplom.sls.
 
 
 
-[57]
+[63]
 
-[58
+[64
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2244,7 +2232,7 @@ No file EE-dyplom.sls.
 
 
 
-[59] (./EE-dyplom.aux)
+[65] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2253,27 +2241,19 @@ L3 programming layer <2025-06-09>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
-(rerunfilecheck)             Checksum: D683EBBD46955E394BFA9ABE4A765A68;5053.
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                EE-dyplom
-(biblatex)                and rerun LaTeX afterwards.
-
+(rerunfilecheck)             Checksum: 815298758B70DA64F2C54172A5FD1A96;5184.
 Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 \openout1 = `EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 58404 strings out of 468529
- 1348708 string characters out of 5451399
- 2596456 words of memory out of 5000000
- 85810 multiletter control sequences out of 15000+600000
+ 58466 strings out of 468529
+ 1348316 string characters out of 5451399
+ 2606209 words of memory out of 5000000
+ 85872 multiletter control sequences out of 15000+600000
  635064 words of font info for 143 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 114i,19n,131p,2506b,5174s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 114i,19n,131p,2506b,5109s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (59 pages).
+Output written on EE-dyplom.pdf (65 pages).

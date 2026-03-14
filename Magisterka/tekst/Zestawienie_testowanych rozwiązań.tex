@@ -512,6 +512,207 @@ gdzie $W_s$ oznacza konwolucję $1\times1$ dopasowującą wymiar kanałów. Zabi
 
 Architektura Residual Inception Network łączy komplementarne zalety modułów Inception oraz bloków rezydualnych ResNet, tworząc model o wysokiej zdolności reprezentacyjnej przy jednoczesnej stabilności uczenia. Zastosowanie wielu równoległych filtrów o różnych rozmiarach w bloku Inception umożliwia wydobywanie cech wieloskalowych – od lokalnych interakcji po bardziej globalne wzorce pozycyjne – co jest szczególnie istotne w złożonych środowiskach przestrzennych. Dodanie połączeń rezydualnych znacząco poprawia przepływ gradientu, eliminując problem zanikania sygnału i umożliwiając trenowanie głębszych modeli bez degradacji jakości reprezentacji. Połączenie tych dwóch podejść pozwala sieci zachować elastyczność i ekspresyjność architektury Inception, a jednocześnie wykorzystać właściwości stabilizujące charakterystyczne dla ResNet, prowadząc do skuteczniejszej i bardziej odpornej ekstrakcji cech w złożonych zadaniach decyzyjnych.
 
+\section{Hyperconncetion}
+
+Jednym z kluczowych elementów współczesnych architektur głębokiego uczenia są połączenia
+rezydualne (ang. residual connections), które umożliwiają stabilne trenowanie bardzo głębokich
+sieci neuronowych. W klasycznej postaci połączenie rezydualne definiowane jest jako suma
+wyjścia warstwy oraz jej wejścia:
+
+\begin{equation}
+	h_{l+1} = F(h_l) + h_l
+\end{equation}
+
+gdzie $h_l$ oznacza reprezentację wejściową warstwy $l$, natomiast $F(\cdot)$ jest transformacją
+realizowaną przez daną warstwę sieci neuronowej.
+
+Mechanizm ten umożliwia bezpośredni przepływ gradientu pomiędzy warstwami oraz ogranicza
+problem zanikającego gradientu. Pomimo swojej skuteczności, klasyczne połączenia rezydualne
+posiadają jednak pewne ograniczenia. W szczególności obserwuje się kompromis pomiędzy
+zanikaniem gradientu a zjawiskiem kolapsu reprezentacji (ang. representation collapse), w którym
+kolejne warstwy generują bardzo podobne reprezentacje cech \cite{hyperconnections2024}.
+
+W celu rozwiązania tego problemu zaproponowano mechanizm \textit{hyper-connections},
+który stanowi uogólnienie klasycznych połączeń rezydualnych. Główną ideą tego podejścia jest
+umożliwienie sieci neuronowej uczenia się siły połączeń pomiędzy reprezentacjami z różnych
+głębokości sieci zamiast stosowania sztywno zdefiniowanej sumy wejścia i wyjścia warstwy.
+
+\subsubsection*{Idea hyperconnections}
+
+W architekturze hyper-connections zamiast pojedynczego wektora reprezentacji utrzymywany jest
+zbiór $n$ reprezentacji ukrytych:
+
+\begin{equation}
+	H_l =
+	\begin{bmatrix}
+		h_l^{(1)} \\
+		h_l^{(2)} \\
+		\vdots \\
+		h_l^{(n)}
+	\end{bmatrix}
+	\in \mathbb{R}^{n \times d}
+\end{equation}
+
+gdzie:
+\begin{itemize}
+	\item $n$ -- współczynnik rozszerzenia reprezentacji,
+	\item $d$ -- wymiar reprezentacji cech.
+\end{itemize}
+
+Początkowe wejście sieci $h_0$ jest kopiowane $n$ razy, tworząc macierz:
+
+\begin{equation}
+	H_0 =
+	\begin{bmatrix}
+		h_0 \\
+		h_0 \\
+		\vdots \\
+		h_0
+	\end{bmatrix}
+\end{equation}
+
+W każdej warstwie sieci reprezentacje są przekształcane przy użyciu macierzy
+hyper-connections określającej zależności pomiędzy poszczególnymi reprezentacjami.
+
+\subsubsection*{Macierz hyper-connections}
+
+Mechanizm hyper-connections można opisać przy pomocy macierzy:
+
+\begin{equation}
+	HC \in \mathbb{R}^{(n+1)\times(n+1)}
+\end{equation}
+
+która określa wagi połączeń pomiędzy reprezentacjami z różnych poziomów sieci.
+
+Macierz ta ma postać:
+
+\begin{equation}
+	HC =
+	\begin{pmatrix}
+		0 & \beta_1 & \beta_2 & \dots & \beta_n \\
+		\alpha_{1,0} & \alpha_{1,1} & \alpha_{1,2} & \dots & \alpha_{1,n} \\
+		\alpha_{2,0} & \alpha_{2,1} & \alpha_{2,2} & \dots & \alpha_{2,n} \\
+		\vdots & \vdots & \vdots & \ddots & \vdots \\
+		\alpha_{n,0} & \alpha_{n,1} & \alpha_{n,2} & \dots & \alpha_{n,n}
+	\end{pmatrix}
+\end{equation}
+
+gdzie:
+\begin{itemize}
+	\item $\beta_i$ określają wpływ wyjścia bieżącej warstwy,
+	\item $\alpha_{i,j}$ określają zależności pomiędzy reprezentacjami.
+\end{itemize}
+
+W przeciwieństwie do klasycznych połączeń rezydualnych wartości te są parametrami
+uczonymi podczas procesu trenowania sieci.
+
+\subsubsection*{Obliczanie reprezentacji warstwy}
+
+Dla warstwy $T$ reprezentacja wejściowa obliczana jest jako ważona suma reprezentacji
+z poprzedniego poziomu:
+
+\begin{equation}
+	h_0 = A_m^T H
+\end{equation}
+
+Następnie transformacja warstwy przyjmuje postać:
+
+\begin{equation}
+	\hat{H} = B^T (T(h_0)) + A_r^T H
+\end{equation}
+
+gdzie:
+\begin{itemize}
+	\item $B$ określa wpływ wyjścia transformacji,
+	\item $A_r$ odpowiada za połączenia rezydualne.
+\end{itemize}
+
+\subsubsection*{Diagram działania}
+
+Poniższy schemat ilustruje przepływ informacji pomiędzy reprezentacjami w architekturze
+hyper-connections.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[
+		block/.style={draw, rectangle, minimum height=1cm, minimum width=2cm},
+		node distance=2cm,
+		]
+		
+		\node (h1) [block] {$h_1^{(l-1)}$};
+		\node (h2) [block, below of=h1] {$h_2^{(l-1)}$};
+		
+		\node (layer) [block, right of=h1, xshift=2cm, yshift=-1cm] {$T(\cdot)$};
+		
+		\node (o1) [block, right of=layer, xshift=2cm, yshift=1cm] {$h_1^{(l)}$};
+		\node (o2) [block, below of=o1] {$h_2^{(l)}$};
+		
+		\draw[->] (h1) -- (layer);
+		\draw[->] (h2) -- (layer);
+		
+		\draw[->] (layer) -- (o1);
+		\draw[->] (layer) -- (o2);
+		
+		\draw[->, dashed] (h1) -- (o1);
+		\draw[->, dashed] (h2) -- (o2);
+		
+	\end{tikzpicture}
+	\caption{Schemat działania mechanizmu hyper-connections.}
+\end{figure}
+
+Mechanizm ten umożliwia jednocześnie integrację informacji pomiędzy różnymi głębokościami
+sieci oraz wymianę informacji pomiędzy równoległymi reprezentacjami.
+
+\subsubsection*{Dynamiczne hyper-connections}
+
+Rozszerzeniem podstawowego mechanizmu są dynamiczne hyper-connections,
+w których wagi połączeń zależą od aktualnego wejścia sieci:
+
+\begin{equation}
+	HC(H) =
+	\begin{pmatrix}
+		0 & B(H) \\
+		A_m(H) & A_r(H)
+	\end{pmatrix}
+\end{equation}
+
+Parametry te mogą być obliczane przy pomocy dodatkowej transformacji liniowej:
+
+\begin{equation}
+	B(H) = s_{\beta}\tanh(HW_{\beta}) + B
+\end{equation}
+
+\begin{equation}
+	A_m(H) = s_{\alpha}\tanh(HW_m) + A_m
+\end{equation}
+
+\begin{equation}
+	A_r(H) = s_{\alpha}\tanh(HW_r) + A_r
+\end{equation}
+
+Takie podejście pozwala sieci dynamicznie dopasowywać siłę połączeń pomiędzy warstwami
+w zależności od danych wejściowych.
+
+\subsubsection*{Znaczenie architektoniczne}
+
+Istotną własnością hyper-connections jest możliwość reprezentowania różnych struktur
+architektury sieci neuronowej w ramach jednego modelu. W zależności od wartości macierzy
+$HC$ sieć może przyjmować charakter:
+
+\begin{itemize}
+	\item sekwencyjny (podobnie jak klasyczna sieć głęboka),
+	\item równoległy (jak w architekturach typu transformer),
+	\item hybrydowy, łączący oba podejścia.
+\end{itemize}
+
+W rezultacie architektura może automatycznie uczyć się optymalnego sposobu organizacji
+przepływu informacji pomiędzy warstwami sieci neuronowej.
+
+Badania eksperymentalne pokazują, że zastosowanie hyper-connections prowadzi do
+szybszej konwergencji procesu uczenia oraz poprawy jakości reprezentacji w głębokich
+modelach \cite{hyperconnections2024}.
+
+
 \section{Rozszerzenia architektury sieci i techniki stabilizacji uczenia}
 
 \subsection*{Layer Normalization}
