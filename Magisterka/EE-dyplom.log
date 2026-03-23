@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  23 MAR 2026 01:38
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  24 MAR 2026 00:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1624,6 +1624,26 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks62
 \@floatcapt=\box132
 )
+(c:/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen345
+\lightrulewidth=\dimen346
+\cmidrulewidth=\dimen347
+\belowrulesep=\dimen348
+\belowbottomsep=\dimen349
+\aboverulesep=\dimen350
+\abovetopsep=\dimen351
+\cmidrulesep=\dimen352
+\cmidrulekern=\dimen353
+\defaultaddspace=\dimen354
+\@cmidla=\count558
+\@cmidlb=\count559
+\@aboverulesep=\dimen355
+\@belowrulesep=\dimen356
+\@thisruleclass=\count560
+\@lastruleclass=\count561
+\@thisrulewidth=\dimen357
+)
 (c:/texlive/2025/texmf-dist/tex/latex/pgfplots/pgfplots.sty
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
 Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
@@ -1633,9 +1653,9 @@ Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
 \t@pgfplots@toka=\toks63
 \t@pgfplots@tokb=\toks64
 \t@pgfplots@tokc=\toks65
-\pgfplots@tmpa=\dimen345
-\c@pgfplots@coordindex=\count558
-\c@pgfplots@scanlineindex=\count559
+\pgfplots@tmpa=\dimen358
+\c@pgfplots@coordindex=\count562
+\c@pgfplots@scanlineindex=\count563
 
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.te
 x))
@@ -1658,13 +1678,13 @@ cture.code.tex)
 ctureext.code.tex)
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray.co
 de.tex
-\c@pgfplotsarray@tmp=\count560
+\c@pgfplotsarray@tmp=\count564
 )
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatrix.c
 ode.tex)
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshared.c
 ode.tex
-\c@pgfplotstable@counta=\count561
+\c@pgfplotstable@counta=\count565
 \t@pgfplotstable@a=\toks69
 )
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque.co
@@ -1676,13 +1696,13 @@ tex))
 x)
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.surfsh
 ading.code.tex
-\c@pgfplotslibrarysurf@no=\count562
+\c@pgfplotslibrarysurf@no=\count566
 
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfsha
 ding.pgfsys-xetex.def
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfsha
 ding.pgfsys-dvipdfmx.def
-\c@pgfplotslibrarysurf@streamlen=\count563
+\c@pgfplotslibrarysurf@streamlen=\count567
 ))))
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex))
@@ -1703,14 +1723,14 @@ ex)
 brarydecorations.code.tex
 (c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.t
 ex
-\pgfdecoratedcompleteddistance=\dimen346
-\pgfdecoratedremainingdistance=\dimen347
-\pgfdecoratedinputsegmentcompleteddistance=\dimen348
-\pgfdecoratedinputsegmentremainingdistance=\dimen349
-\pgf@decorate@distancetomove=\dimen350
-\pgf@decorate@repeatstate=\count564
-\pgfdecorationsegmentamplitude=\dimen351
-\pgfdecorationsegmentlength=\dimen352
+\pgfdecoratedcompleteddistance=\dimen359
+\pgfdecoratedremainingdistance=\dimen360
+\pgfdecoratedinputsegmentcompleteddistance=\dimen361
+\pgfdecoratedinputsegmentremainingdistance=\dimen362
+\pgf@decorate@distancetomove=\dimen363
+\pgf@decorate@repeatstate=\count568
+\pgfdecorationsegmentamplitude=\dimen364
+\pgfdecorationsegmentlength=\dimen365
 )
 \tikz@lib@dec@box=\box133
 )
@@ -1724,13 +1744,13 @@ brarydecorations.pathreplacing.code.tex
 orations.pathreplacing.code.tex))
 (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.conto
 urlua.code.tex)
-\pgfplots@numplots=\count565
-\pgfplots@xmin@reg=\dimen353
-\pgfplots@xmax@reg=\dimen354
-\pgfplots@ymin@reg=\dimen355
-\pgfplots@ymax@reg=\dimen356
-\pgfplots@zmin@reg=\dimen357
-\pgfplots@zmax@reg=\dimen358
+\pgfplots@numplots=\count569
+\pgfplots@xmin@reg=\dimen366
+\pgfplots@xmax@reg=\dimen367
+\pgfplots@ymin@reg=\dimen368
+\pgfplots@ymax@reg=\dimen369
+\pgfplots@zmin@reg=\dimen370
+\pgfplots@zmax@reg=\dimen371
 )
 (c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
 braryplotmarks.code.tex
@@ -1759,10 +1779,10 @@ File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.cod
 e.tex
 File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowinset=\dimen359
-\pgfarrowlength=\dimen360
-\pgfarrowwidth=\dimen361
-\pgfarrowlinewidth=\dimen362
+\pgfarrowinset=\dimen372
+\pgfarrowlength=\dimen373
+\pgfarrowwidth=\dimen374
+\pgfarrowlinewidth=\dimen375
 )
 (c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
 braryfit.code.tex
@@ -1790,26 +1810,26 @@ Package fontspec Info:
  (./EE-dyplom.aux)
 \openout1 = `EE-dyplom.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1866,7 +1886,7 @@ Package biblatex Info: ... file 'latin.lbx' not found.
 
 
 Package biblatex Warning: Language 'latin' not supported.
-(biblatex)                Using dummy definitions on input line 111.
+(biblatex)                Using dummy definitions on input line 103.
 
 Package biblatex Info: Trying to load language 'polish'...
 Package biblatex Info: ... file 'polish.lbx' found.
@@ -1897,19 +1917,19 @@ Package biblatex Warning: The following entry could not be found
 (biblatex)                LaTeX afterwards.
 
 )
-Package biblatex Info: Reference section=0 on input line 111.
-Package biblatex Info: Reference segment=0 on input line 111.
+Package biblatex Info: Reference section=0 on input line 103.
+Package biblatex Info: Reference segment=0 on input line 103.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 111.
+Package hyperref Info: Link coloring ON on input line 103.
  (./EE-dyplom.out) (./EE-dyplom.out)
 \@outlinefile=\write9
 \openout9 = `EE-dyplom.out'.
 
-\c@lstlisting=\count566
+\c@lstlisting=\count570
 
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
@@ -1932,14 +1952,17 @@ File: gfx/mgrhead.png Graphic file (type bmp)
 
 [3]
 
-[4]
-
-[5
-
+[4
 
 ]
 
-[6] (./EE-dyplom.toc
+[5
+
+]
+
+[6
+
+] (./EE-dyplom.toc
 LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1971,7 +1994,6 @@ LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
 
 
 [7
-
 
 ])
 \tf@toc=\write10
@@ -2170,11 +2192,10 @@ Overfull \hbox (14.22636pt too wide) in paragraph at lines 7--8
 
 [56]
 
-[57])
+[57]) (./tekst/Wyniki.tex
 
 [58]
 Rozdział 5.
-(./tekst/Wyniki.tex
 File: rysunki/compare_mean_td_for_50_no_legend.png Graphic file (type bmp)
 <rysunki/compare_mean_td_for_50_no_legend.png>
 File: rysunki/compare_win_rate_50_no_legend.png Graphic file (type bmp)
@@ -2182,7 +2203,7 @@ File: rysunki/compare_win_rate_50_no_legend.png Graphic file (type bmp)
 File: rysunki/compare_win_rate_total_no_legend.png Graphic file (type bmp)
 <rysunki/compare_win_rate_total_no_legend.png>
 
-Overfull \hbox (12.01213pt too wide) in alignment at lines 7--11
+Overfull \hbox (12.01213pt too wide) in alignment at lines 9--13
  [] 
  []
 
@@ -2192,7 +2213,7 @@ Overfull \hbox (12.01213pt too wide) in alignment at lines 7--11
 File: rysunki/legend.png Graphic file (type bmp)
 <rysunki/legend.png>
 
-Overfull \hbox (14.2385pt too wide) in paragraph at lines 12--13
+Overfull \hbox (14.2385pt too wide) in paragraph at lines 14--15
 [][] 
  []
 
@@ -2203,7 +2224,7 @@ File: rysunki/compare_win_rate_50_log_no_legend.png Graphic file (type bmp)
 File: rysunki/compare_win_rate_total_log_no_legend.png Graphic file (type bmp)
 <rysunki/compare_win_rate_total_log_no_legend.png>
 
-Overfull \hbox (12.00616pt too wide) in alignment at lines 14--18
+Overfull \hbox (12.00616pt too wide) in alignment at lines 16--20
  [] 
  []
 
@@ -2211,20 +2232,29 @@ Overfull \hbox (12.00616pt too wide) in alignment at lines 14--18
 File: rysunki/legend.png Graphic file (type bmp)
 <rysunki/legend.png>
 
-Overfull \hbox (14.2385pt too wide) in paragraph at lines 19--20
+Overfull \hbox (14.2385pt too wide) in paragraph at lines 21--22
 [][] 
  []
 
 
 
-[61]))
+[61]
 
 [62]
 
-[63
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 122.
+
+))
+
+[63]
+
+[64
 
 ]
-Overfull \hbox (2.99629pt too wide) in paragraph at lines 123--123
+
+[65]
+Overfull \hbox (2.99629pt too wide) in paragraph at lines 115--115
 []\TU/LatinModernSans(1)/m/sc/10.95 Schulman, J. e. a., „  Proximal Policy Opti
 mization Algorithms”, \TU/LatinModernSans(1)/m/it/10.95 arXiv preprint arXiv:17
 07.06347\TU/LatinModernSans(1)/m/sc/10.95 ,
@@ -2232,16 +2262,16 @@ mization Algorithms”, \TU/LatinModernSans(1)/m/it/10.95 arXiv preprint arXiv:1
 
 
 
-[64]
+[66]
 No file EE-dyplom.acr.
 No file EE-dyplom.sls.
 
 
-[65
+[67
 
 ]
 
-[66
+[68
 
 ] (./EE-dyplom.lof
 Underfull \hbox (badness 2452) in paragraph at lines 8--8
@@ -2255,9 +2285,9 @@ stosowanego w wariancie residualnym dla
 
 
 
-[67]
+[69]
 
-[68
+[70
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2265,7 +2295,7 @@ stosowanego w wariancie residualnym dla
 
 
 
-[69] (./EE-dyplom.aux)
+[71] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2278,7 +2308,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
-(rerunfilecheck)             Checksum: 078F13749F133E84EA8B8CAB57CC7A5F;5871.
+(rerunfilecheck)             Checksum: 3243567A040BA5B981550D8919B8A505;6121.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                EE-dyplom
@@ -2289,12 +2319,12 @@ Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 58612 strings out of 468529
- 1350639 string characters out of 5451399
- 2606736 words of memory out of 5000000
- 86015 multiletter control sequences out of 15000+600000
+ 58682 strings out of 468529
+ 1351787 string characters out of 5451399
+ 2603586 words of memory out of 5000000
+ 86081 multiletter control sequences out of 15000+600000
  635088 words of font info for 146 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  114i,19n,131p,2506b,5109s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (69 pages).
+Output written on EE-dyplom.pdf (71 pages).

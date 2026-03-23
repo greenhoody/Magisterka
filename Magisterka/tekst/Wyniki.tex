@@ -1,8 +1,10 @@
-Na poniższych wykresach przedstawiono porównanie wyników dla wszystkich analizowanych
-konfiguracji architektur sieci neuronowych. Wykresy prezentują zmiany rozpatrywanych
-metryk w funkcji liczby iteracji treningowych. Dla każdej z metryk przedstawiono zarówno
-przebiegi w skali liniowej, jak i logarytmicznej, co umożliwia jednoczesną analizę
-zarówno końcowych efektów uczenia, jak i jego wczesnej dynamiki.
+\chapter{Wyniki}
+
+Na poniższych wykresach przedstawiono porównanie przebiegów uczenia dla wszystkich analizowanych
+konfiguracji architektur sieci neuronowych. Wykresy pokazują zmiany rozpatrywanych metryk
+w funkcji liczby iteracji treningowych. Dla każdej metryki zaprezentowano zarówno przebieg
+w skali liniowej, jak i logarytmicznej. Umożliwia to jednoczesną ocenę końcowych efektów uczenia
+oraz różnic widocznych we wczesnej fazie treningu, gdy wartości metryk są jeszcze bardzo małe.
 
 \begin{longtable}{l}
 	\includegraphics[width=\linewidth,height=6.2cm,keepaspectratio]{rysunki/compare_mean_td_for_50_no_legend.png}\\
@@ -18,50 +20,119 @@ zarówno końcowych efektów uczenia, jak i jego wczesnej dynamiki.
 \end{longtable}
 \includegraphics[width=\linewidth,height=6.2cm,keepaspectratio]{rysunki/legend.png}
 
-Pierwszy z wykresów przedstawia średnią liczbę przyłożeń na epizod
-(\textit{TD/Episode}) obliczaną w oknie obejmującym ostatnie 50 epizodów.
-Miara ta bezpośrednio odzwierciedla zdolność agenta do skutecznego prowadzenia
-akcji ofensywnych.
+Pierwszy wykres przedstawia średnią liczbę przyłożeń na epizod
+(\textit{TD/Episode}) obliczaną w oknie obejmującym ostatnie 50 epizodów,
+natomiast drugi przedstawia wskaźnik zwycięstw wyznaczany w analogicznym oknie.
+Przez epizod rozumiany jest tutaj pojedynczy pełny mecz rozegrany przez agenta
+w środowisku BotBowl, od stanu początkowego do zakończenia rozgrywki.
+Obie miary są ze sobą silnie powiązane, ponieważ w analizowanym środowisku
+o wyniku wielu meczów decydowało pojedyncze przyłożenie. Wzrost liczby przyłożeń
+na epizod zwykle przekładał się więc bezpośrednio na wzrost odsetka zwycięstw.
 
-Dla części analizowanych architektur obserwowany jest wyraźny wzrost tej wartości
-wraz z postępem treningu, szczególnie w jego późniejszych fazach. Najlepsze
-konfiguracje osiągają istotnie wyższe wartości końcowe, co wskazuje na wykształcenie
-strategii prowadzących do regularnego zdobywania punktów. W przypadku słabszych
-architektur metryka ta pozostaje przez większość treningu na poziomie bliskim zeru,
-co sugeruje brak skutecznego wykorzystania doświadczenia.
+Analiza pierwszych dwóch wykresów pokazuje wyraźną przewagę modeli trenowanych
+algorytmem PPO nad wariantami uczonymi z użyciem A2C. Najlepsze przebiegi
+uzyskują przede wszystkim modele \textit{Dynamic HC + Inception PPO} oraz
+\textit{HC + Inception PPO}. Model \textit{HC + Inception PPO} osiąga istotną
+poprawę już w środkowej fazie treningu i przez długi czas utrzymuje wysokie
+wartości obu metryk. Z kolei \textit{Dynamic HC + Inception PPO} początkowo
+uczy się nieco wolniej, lecz w dalszej części treningu uzyskuje najwyższe wartości
+zarówno \textit{TD/Episode}, jak i okiennego wskaźnika zwycięstw. Jednocześnie
+w końcowej fazie dla tego modelu widoczny jest wyraźny spadek metryk okiennych,
+co może wskazywać na częściową utratę stabilności wyuczonej polityki.
 
-Drugi wykres przedstawia średnią wartość wskaźnika \textit{Win rate}
-obliczaną w oknie 50 epizodów. Miara ta umożliwia obserwację bieżącej jakości
-wyuczonej polityki i jest szczególnie wrażliwa na krótkoterminowe zmiany.
+Model \textit{Inception PPO} przez większość treningu pozostaje słabszy od dwóch
+najlepszych wariantów PPO, jednak w końcowej fazie uczenia notuje wyraźną poprawę.
+Oznacza to, że architektura ta uczyła się wolniej, ale ostatecznie wypracowała
+konkurencyjną politykę. Odmienny przebieg obserwowany jest dla wariantów A2C.
+Spośród nich jedynie \textit{Inception-Residual A2C} wykazuje istotny postęp
+w pierwszej połowie treningu, osiągając najwyższe wartości metryk w grupie modeli
+A2C. Poprawa ta nie okazuje się jednak trwała, ponieważ w dalszej części uczenia
+następuje systematyczny spadek skuteczności, a końcowe wartości obu miar zbliżają
+się do zera. Pozostałe warianty A2C przez większość czasu utrzymują się na bardzo
+niskim poziomie, co wskazuje na brak stabilnego i skutecznego uczenia. Wariant
+\textit{Inception-Residual PPO} osiąga umiarkowane wyniki na początku treningu,
+jednak nie przechodzi w fazę wyraźnej poprawy i ostatecznie również traci skuteczność.
 
-Przebiegi \textit{Win rate} cechują się dużą zmiennością, co wynika z losowego
-charakteru środowiska oraz wysokiego współczynnika rozgałęzienia decyzji.
-Pomimo tego można zaobserwować wyraźną przewagę części architektur, które
-systematycznie osiągają wyższe wartości tej metryki. Warto zauważyć, że przebieg
-tej miary jest silnie powiązany z liczbą przyłożeń, co wskazuje na istotną rolę
-skuteczności ofensywnej w budowaniu przewagi w grze.
+Trzeci wykres przedstawia skumulowany wskaźnik zwycięstw w funkcji liczby iteracji
+treningowych. W odróżnieniu od miary okiennej ma on charakter narastający,
+dlatego lepiej odzwierciedla całkowity przebieg procesu uczenia niż aktualną
+jakość polityki w końcowej fazie treningu.
 
-Trzeci wykres przedstawia całkowity wskaźnik zwycięstw w funkcji liczby iteracji
-treningowych. W odróżnieniu od miary okiennej ma on charakter skumulowany,
-dzięki czemu lepiej odzwierciedla długoterminowy trend uczenia.
+Na wykresie skumulowanego wskaźnika zwycięstw najwyższą wartość końcową osiąga
+model \textit{Dynamic HC + Inception PPO}, natomiast drugą pozycję zajmuje
+\textit{HC + Inception PPO}. Potwierdza to, że połączenie architektury Inception
+z mechanizmem hyper-connections było najbardziej efektywne w badanym środowisku.
+Warto jednak zauważyć, że model \textit{Inception-Residual A2C}, mimo silnego
+spadku metryk okiennych pod koniec treningu, przez długi czas utrzymuje stosunkowo
+wysoką wartość skumulowanego wskaźnika zwycięstw. Wynika to z faktu, że miara
+skumulowana zachowuje efekt wcześniejszej, relatywnie dobrej fazy uczenia.
+Z kolei model \textit{Inception PPO} przez większą część treningu ma niższą
+wartość skumulowanego wskaźnika zwycięstw, mimo że pod koniec osiąga lepsze
+wyniki w metrykach okiennych.
 
-Na tym wykresie szczególnie dobrze widoczna jest przewaga najlepszych architektur,
-które systematycznie zwiększają swoją skuteczność w trakcie całego procesu treningu.
-Różnice pomiędzy konfiguracjami narastają wraz z czasem, co wskazuje, że wybrane
-rozwiązania architektoniczne wpływają nie tylko na tempo uczenia, ale również
-na jego końcową jakość.
+Zestawienie wszystkich trzech wykresów prowadzi do dwóch głównych wniosków.
+Po pierwsze, algorytm PPO zdecydowanie lepiej wykorzystywał potencjał badanych
+architektur niż A2C. Po drugie, najlepsze rezultaty uzyskano dla modeli łączących
+PPO z blokami Inception oraz mechanizmem hyper-connections. Jednocześnie przebiegi
+uczenia pokazują, że nawet najlepsze warianty nie były całkowicie wolne od
+niestabilności, co jest zgodne z wysoką wariancją i dużą losowością środowiska
+Blood Bowl.
 
-Zastosowanie skali logarytmicznej pozwala uzupełnić powyższą analizę o wgląd
-w początkową fazę uczenia. W tej reprezentacji wyraźnie widać, że niektóre
-architektury już na wczesnym etapie zaczynają osiągać przewagę nad pozostałymi,
-mimo że w skali liniowej różnice te są jeszcze słabo widoczne.
+Po zakończeniu procesu uczenia przeprowadzono rozgrywki pomiędzy wszystkimi
+wytrenowanymi modelami. Każda sieć rozegrała z każdą inną po 4 mecze.
 
-Dodatkowo skala logarytmiczna umożliwia lepszą ocenę dynamiki wzrostu metryk.
-Pozwala odróżnić modele, które uczą się stopniowo i stabilnie, od tych, które przez
-długi czas nie wykazują postępu, a następnie osiągają jedynie sporadyczne poprawy.
-Wskazuje to, że najlepsze architektury są nie tylko skuteczniejsze, ale również
-bardziej efektywne próbkosciowo, co ma szczególne znaczenie w środowisku
-o rzadkich nagrodach.
+\begin{table}[H]
+	\centering
+	\caption{Końcowa tabela ligi wytrenowanych modeli}
+	\label{tab:liga-ranking}
+	\begin{tabular}{clcccccc}
+		\toprule
+		Miejsce & Model & Alg. & Zwyc. & Rem. & Por. & Punkty & TD \\
+		\midrule
+		1 & Dynamic HC + Inception & PPO & 7 & 20 & 1 & 41 & 10:3 \\
+		2 & HC + Inception         & PPO & 6 & 19 & 3 & 37 & 6:4 \\
+		3 & Inception              & PPO & 6 & 18 & 4 & 36 & 8:6 \\
+		4 & Inception-Residual     & A2C & 0 & 27 & 1 & 27 & 0:1 \\
+		5 & Inception              & A2C & 0 & 26 & 2 & 26 & 0:2 \\
+		6 & Inception-Residual     & PPO & 0 & 26 & 2 & 26 & 0:2 \\
+		7 & Dynamic HC + Inception & A2C & 0 & 25 & 3 & 25 & 0:3 \\
+		8 & HC + Inception         & A2C & 0 & 25 & 3 & 25 & 0:3 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
 
-Legenda przedstawiona powyżej umożliwia jednoznaczną identyfikację
-poszczególnych konfiguracji architektur analizowanych w eksperymentach.
+Wyniki ligi potwierdzają przewagę modeli uczonych algorytmem PPO. Trzy pierwsze
+miejsca zajęły kolejno konfiguracje \textit{Dynamic HC + Inception PPO},
+\textit{HC + Inception PPO} oraz \textit{Inception PPO}, które uzyskały odpowiednio
+41, 37 i 36 punktów. Najlepszy model osiągnął bilans 7 zwycięstw, 20 remisów
+i 1 porażki oraz najwyższy dodatni bilans przyłożeń równy 10:3. Oznacza to,
+że połączenie bloków Inception z dynamicznymi hyper-connections okazało się
+najskuteczniejszym rozwiązaniem spośród wszystkich analizowanych wariantów.
+
+Na uwagę zasługuje fakt, że żaden z modeli A2C nie odniósł ani jednego zwycięstwa.
+Jednocześnie duża liczba remisów pokazuje, że modele te nie były w stanie wypracować żadnej formy przewagi, i zapewne wykonywały losowe ruchy bez analizy stanu gry. Wyjątkiem jest model \textit{Inception-Residual A2C}, który zakończył ligę z bilansem
+0 zwycięstw, 27 remisów i 1 porażki. Oznacza to, że pomimo braku umiejętności ofensywnych, w jakimś stopniu umiał się bronić przed innymi sieciami.
+
+Całość wyników wskazuje więc, że kluczowe znaczenie miał zarówno dobór architektury,
+jak i algorytmu uczenia. W badanym środowisku najlepiej sprawdziły się rozwiązania
+oparte na PPO oraz blokach Inception rozszerzonych o mechanizm hyper-connections,
+natomiast warianty A2C okazały się zbyt słabe, aby skutecznie konkurować
+z najlepszymi modelami.
+
+\subsection{Możliwości dalszych prac badawczych}
+
+Uzyskane wyniki pokazują, że skuteczność agenta w środowisku Blood Bowl zależy
+zarówno od zastosowanego algorytmu uczenia, jak i od budowy sieci neuronowej.
+W dalszych badaniach warto więc dokładniej sprawdzić, które elementy architektury
+najbardziej wpływają na końcowy wynik. Można to zrobić poprzez porównanie większej
+liczby wariantów sieci, przeprowadzenie większej liczby niezależnych treningów
+oraz testy dla różnych wartości hiperparametrów. Zasadne byłoby także rozszerzenie
+ewaluacji o grę przeciwko innym przeciwnikom oraz o trening \textit{self-play}.
+
+Interesującym kierunkiem jest również dalszy rozwój mechanizmu hyper-connections.
+W nowszych pracach, takich jak \textit{mHC: Manifold-Constrained Hyper-Connections},
+proponowane są zmiany mające poprawić stabilność uczenia i działanie tego typu
+połączeń. Może to być inspiracją do sprawdzenia, czy podobne rozwiązania
+przyniosłyby korzyści także w uczeniu ze wzmocnieniem. Warto również zbadać
+zaproponowane architektury w innych grach o dużej liczbie możliwych decyzji,
+aby ocenić, czy uzyskane wnioski są ogólne, czy głównie związane ze środowiskiem Blood Bowl.

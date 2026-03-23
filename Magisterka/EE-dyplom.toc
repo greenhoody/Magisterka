@@ -30,6 +30,7 @@
 \contentsline {section}{\numberline {4.1}Bloodbowl jako benchmark dla uczenia ze wzmocnieniem.}{56}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Środowisko BotBowl}{57}{section.4.2}%
 \contentsline {chapter}{\numberline {5}Wyniki}{59}{chapter.5}%
-\contentsline {chapter}{Wykaz skrótów i symboli}{65}{chapter*.58}%
-\contentsline {chapter}{Spis rysunków}{67}{chapter*.59}%
-\contentsline {chapter}{Spis tabel}{69}{chapter*.60}%
+\contentsline {subsection}{\numberline {5.0.1}Możliwości dalszych prac badawczych}{63}{subsection.5.0.1}%
+\contentsline {chapter}{Wykaz skrótów i symboli}{67}{chapter*.59}%
+\contentsline {chapter}{Spis rysunków}{69}{chapter*.60}%
+\contentsline {chapter}{Spis tabel}{71}{chapter*.61}%
