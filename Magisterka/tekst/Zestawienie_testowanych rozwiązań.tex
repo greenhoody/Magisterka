@@ -1,48 +1,43 @@
 W niniejszym rozdziale przedstawiono zestawienie rozwiązań wykorzystanych w badaniach
 eksperymentalnych przeprowadzonych w ramach tej pracy. Celem rozdziału jest jednoznaczne
 zdefiniowanie architektur sieci neuronowych oraz technik uczenia zastosowanych w agentach
-uczących się gry w Blood Bowl przy użyciu algorytmów uczenia ze wzmocnieniem.
+uczących się gry Blood Bowl z wykorzystaniem metod uczenia ze wzmocnieniem.
 
-Analizie poddano agentów opartych na algorytmach typu actor--critic, w szczególności A2C oraz PPO,
-które stanowią wspólną podstawę metod uczenia we wszystkich rozważanych wariantach. W celu
-zapewnienia porównywalności wyników, algorytmy uczenia, sposób reprezentacji stanu oraz
-mechanizmy interakcji ze środowiskiem zostały w maksymalnym stopniu ujednolicone.
-Zmienną badawczą są algorytmy oraz architektury sieci neuronowych.
+Analizie poddano agentów opartych na algorytmach A2C oraz PPO, które stanowią podstawę
+zastosowanych metod uczenia we wszystkich rozważanych wariantach. W celu zapewnienia
+porównywalności wyników algorytmy uczenia, sposób reprezentacji stanu oraz mechanizmy
+interakcji ze środowiskiem zostały w maksymalnym stopniu ujednolicone. Zmienną badawczą
+pozostają zastosowane algorytmy oraz architektury sieci neuronowych.
 
-W kolejnych podrozdziałach opisano ogólną strukturę agentów A2C i PPO, sposób reprezentacji
-danych wejściowych, a następnie szczegółowo omówiono zastosowane architektury konwolucyjne,
-w tym warianty oparte na blokach ResNet, Inception oraz ich kombinacjach. Rozdział obejmuje
-również opis technik stabilizacji i usprawnień procesu uczenia, które okazały się istotne w kontekście
-złożonego środowiska decyzyjnego gry Blood Bowl.
+W kolejnych podrozdziałach opisano strukturę badanych agentów, sposób reprezentacji
+danych wejściowych, a następnie szczegółowo omówiono zastosowane architektury
+konwolucyjne, w tym warianty oparte na blokach ResNet, Inception oraz ich kombinacjach.
+Rozdział obejmuje również opis technik stabilizacji i usprawnień procesu uczenia, które
+okazały się istotne w kontekście złożonego środowiska decyzyjnego gry Blood Bowl.
 
 
 
 \section{Algorytmy aktor--krytyk}
+
 Algorytmy typu aktor--krytyk (ang. \textit{actor--critic}) stanowią klasę metod uczenia
-ze wzmocnieniem, w których architektura modelu składa się z dwóch współdziałających
-komponentów: aktora oraz krytyka. Aktor odpowiada za podejmowanie decyzji poprzez
-aproksymację polityki decyzyjnej, natomiast krytyk pełni rolę oceniającą, aproksymując
-funkcję wartości stanów.
+ze wzmocnieniem, w których agent uczy się jednocześnie polityki decyzyjnej oraz funkcji
+wartości. Podejście to łączy zalety metod opartych bezpośrednio na polityce z metodami
+wykorzystującymi estymację jakości stanów, dzięki czemu umożliwia bardziej stabilne
+i efektywne uczenie w środowiskach o dużej przestrzeni stanów i akcji, takich jak gra Blood Bowl.
 
-Tak zdefiniowana struktura umożliwia jednoczesne stosowanie bezpośredniej optymalizacji
-polityki oraz aproksymacji funkcji wartości. Celem algorytmów aktor--krytyk jest stabilne
-i efektywne uczenie strategii decyzyjnej w środowiskach o dużej przestrzeni stanów i akcji,
-takich jak gra Blood Bowl.
+Do tej klasy należą między innymi algorytmy A2C oraz PPO, wykorzystane w niniejszej pracy.
+Oba podejścia są metodami \textit{on-policy}, co oznacza, że aktualizacja parametrów polityki
+odbywa się na podstawie trajektorii wygenerowanych przez bieżącą wersję tej polityki.
+Innymi słowy, agent uczy się bezpośrednio na danych pochodzących z własnej, aktualnie
+stosowanej strategii działania.
 
-Algorytmy aktor--krytyk, w tym A2C oraz PPO, należą do klasy metod \textit{on-policy}.
-Oznacza to, że dane wykorzystywane do aktualizacji parametrów polityki pochodzą
-bezpośrednio z interakcji środowiska z aktualnie uczoną polityką.
-Trajektorie stan--akcja--nagroda są generowane przez tę samą politykę, która następnie
-jest optymalizowana w procesie uczenia.
-
-Konsekwencją podejścia on-policy jest brak możliwości wielokrotnego, dowolnego
-wykorzystania zgromadzonych danych po każdej aktualizacji parametrów polityki,
-ponieważ zmiana polityki powoduje, że starsze trajektorie przestają być zgodne z jej
-aktualnym rozkładem.
-Z jednej strony ogranicza to efektywność wykorzystania próbek,
-z drugiej jednak zapewnia stabilność procesu uczenia oraz spójność pomiędzy
-zachowaniem agenta a funkcją celu, co ma kluczowe znaczenie w złożonych,
-dynamicznych środowiskach decyzyjnych.
+Podejście \textit{on-policy} ma istotne konsekwencje praktyczne. Po każdej aktualizacji
+parametrów polityki wcześniej zebrane trajektorie przestają w pełni odpowiadać nowemu
+rozkładowi decyzji, dlatego nie mogą być wykorzystywane w dowolny sposób przez wiele
+kolejnych iteracji uczenia. Ogranicza to efektywność wykorzystania próbek, ale jednocześnie
+zwiększa spójność między zachowaniem agenta a optymalizowaną funkcją celu, co sprzyja
+stabilności uczenia w złożonych, dynamicznych środowiskach decyzyjnych
+\cite{SuttonBarto2018,mnih2016}.
 
 
 \begin{tikzpicture}[
@@ -89,36 +84,38 @@ dynamicznych środowiskach decyzyjnych.
 
 \subsection*{Architektura aktor--krytyk (\textit{Actor--Critic})}
 
-Algorytmy A2C oraz PPO należą do klasy metod typu \textit{aktor--krytyk} (actor--critic),
-które łączą podejście oparte na polityce z estymacją funkcji wartości.
-W takim podejściu model sieci neuronowej posiada dwie wyspecjalizowane składowe,
-określane jako \emph{aktor} oraz \emph{krytyk}.
+W architekturze aktor--krytyk model składa się z dwóch współpracujących komponentów:
+aktora oraz krytyka. Aktor odpowiada za wybór akcji na podstawie aktualnego stanu środowiska,
+natomiast krytyk ocenia jakość danego stanu z punktu widzenia oczekiwanych przyszłych nagród.
 
-Aktor (ang. \textit{actor}) reprezentuje politykę decyzyjną agenta i odpowiada za wybór akcji
-na podstawie aktualnego stanu środowiska. Formalnie polityka opisana jest rozkładem
-prawdopodobieństwa
+Aktor reprezentuje politykę decyzyjną agenta, opisaną rozkładem prawdopodobieństwa
 \[
 \pi_\theta(a \mid s),
 \]
-gdzie $s$ oznacza stan środowiska, $a$ – akcję, natomiast $\theta$ to wektor parametrów sieci.
-W przypadku przestrzeni akcji dyskretnej, wyjściem aktora jest wektor prawdopodobieństw,
-z którego próbkuje się akcję wykonywaną przez agenta.
+gdzie $s$ oznacza stan środowiska, $a$ -- akcję, a $\theta$ -- parametry polityki.
+W przypadku dyskretnej przestrzeni akcji wyjściem aktora jest wektor prawdopodobieństw,
+na podstawie którego wybierana lub próbkowana jest akcja wykonywana przez agenta.
 
-Krytyk (ang. \textit{critic}) pełni rolę funkcji oceniającej i aproksymuje wartość stanu,
-czyli oczekiwaną zdyskontowaną sumę przyszłych nagród, jaką agent uzyska, startując
-ze stanu $s$ i postępując zgodnie z aktualną polityką:
+Krytyk aproksymuje funkcję wartości stanu, czyli oczekiwaną zdyskontowaną sumę przyszłych
+nagród przy założeniu, że agent będzie postępował zgodnie z bieżącą polityką:
 \[
-V_\theta(s) = \mathbb{E}_{\pi_\theta} \left[ \sum_{k=0}^{\infty} \gamma^k r_{t+k} \,\middle|\, s_t = s \right],
+V_\phi(s) \approx V^{\pi_\theta}(s)
+= \mathbb{E}_{\pi_\theta}\!\left[
+\sum_{k=0}^{\infty} \gamma^k r_{t+k}
+\,\middle|\, s_t = s
+\right],
 \]
-gdzie $r_{t+k}$ oznacza nagrodę otrzymaną w kroku $t+k$, a $\gamma \in (0,1)$ jest współczynnikiem
-dyskontowania. W praktycznych implementacjach krytyk realizowany jest jako druga głowa
-tej samej sieci neuronowej, współdzieląca część warstw z aktorem.
+gdzie $r_{t+k}$ oznacza nagrodę otrzymaną w kroku $t+k$, $\gamma \in (0,1)$ jest współczynnikiem
+dyskontowania, a $\phi$ oznacza parametry krytyka. W praktycznych implementacjach aktor i krytyk
+często współdzielą część warstw sieci odpowiedzialnych za ekstrakcję cech, a następnie rozdzielają się
+na dwie odrębne głowy wyjściowe.
 
-Rozdzielenie funkcji decyzyjnej i oceniającej znacząco poprawia stabilność procesu uczenia.
-Krytyk dostarcza aktorowi dodatkowego sygnału uczącego, redukując wariancję estymacji gradientu
-w porównaniu do metod czysto politycznych, takich jak REINFORCE.
-Dzięki temu aktualizacje polityki są bardziej stabilne i efektywne, co ma kluczowe znaczenie
-w środowiskach o dużej przestrzeni stanów i akcji \cite{mnih2016}.
+Zastosowanie krytyka pozwala ograniczyć wariancję estymacji gradientu polityki w porównaniu
+z metodami czysto politycznymi, takimi jak \textsc{REINFORCE}. Krytyk dostarcza bowiem
+dodatkowego sygnału uczącego, który informuje aktora, czy wynik uzyskany po wykonaniu danej
+akcji był lepszy, czy gorszy od oczekiwań. Dzięki temu aktualizacje polityki są bardziej stabilne
+i skuteczniejsze, co ma szczególne znaczenie w środowiskach o wysokiej złożoności decyzyjnej
+\cite{mnih2016}.
 
 \subsection*{Funkcja przewagi (\textit{Advantage Function})}
 
@@ -143,16 +140,16 @@ n-krokowy zwrot:
 \[
 A_t \approx R_t^{(n)} - V(s_t),
 \]
-gdzie $R_t^{(n)}$ oznacza zdyskontowaną sumę $n$ kolejnych nagród z doszacowaniem wartości
+gdzie $R_t^{(n)}$ oznacza zdyskontowaną sumę $n$ kolejnych nagród z oszacowaniem wartości
 stanu końcowego przez krytyka. Bardziej zaawansowanym podejściem jest uogólniona estymacja
 przewagi (GAE), która wykorzystuje ważoną sumę błędów TD z wielu kroków czasowych.
 
 Zastosowanie funkcji przewagi pełni rolę tzw. \emph{baseline} i prowadzi do istotnego zmniejszenia
 wariancji estymatora gradientu. W rezultacie polityka uczona jest nie na podstawie surowych nagród,
 lecz informacji o tym, czy dana decyzja była lepsza czy gorsza od oczekiwań w danym stanie.
-Mechanizm ten stanowi kluczowy element stabilności i efektywności algorytmów A2C oraz PPO.
+Mechanizm ten stanowi kluczowy element stabilności i efektywności algorytmów A2C oraz PPO. \cite{mnih2016,Schulman2017PPO, sutton2018tempora}.
 
-\subsection*{Błąd różnicy czasowej (Temporal Difference Error)}
+\subsection*{Błąd różnicy czasowej}
 
 Kluczowym pojęciem w algorytmach aktor--krytyk jest błąd różnicy czasowej
 (ang. \textit{Temporal Difference error}, TD error), który stanowi lokalną miarę
@@ -161,53 +158,54 @@ Błąd TD łączy w sobie idee metod Monte Carlo oraz dynamicznego programowania
 umożliwiając aktualizację wartości stanu na podstawie pojedynczego kroku interakcji
 ze środowiskiem.
 
-Dla jednego kroku czasowego błąd TD definiuje się jako:
+Dla pojedynczego kroku czasowego błąd TD ma postać:
 \[
-\delta_t
-= r_t + \gamma V_\theta(s_{t+1}) - V_\theta(s_t),
+\delta_t = r_t + \gamma V_\theta(s_{t+1}) - V_\theta(s_t),
 \]
-gdzie $r_t$ jest nagrodą otrzymaną po wykonaniu akcji $a_t$ w stanie $s_t$,
-a $\gamma$ to współczynnik dyskontowania.
-Wartość $\delta_t$ informuje, czy rzeczywista nagroda oraz przewidywana wartość
-następnego stanu były większe czy mniejsze od oczekiwań krytyka.
 
-Błąd TD pełni podwójną rolę w algorytmach aktor--krytyk.
-Po pierwsze, stanowi bezpośredni sygnał uczący dla krytyka, prowadząc do aktualizacji
-funkcji wartości w kierunku:
-\[
-V_\theta(s_t) \leftarrow V_\theta(s_t) + \alpha \delta_t,
-\]
-gdzie $\alpha$ oznacza współczynnik uczenia.
-Po drugie, błąd TD jest naturalnym przybliżeniem funkcji przewagi:
-\[
-A_t \approx \delta_t,
-\]
-co pozwala wykorzystać go bezpośrednio w aktualizacji polityki aktora
-\cite{SuttonBarto2018}.
+\begin{itemize}
+	\item $s_t$ --- stan środowiska w chwili $t$,
+	\item $a_t$ --- akcja wykonana w stanie $s_t$,
+	\item $r_t$ --- nagroda otrzymana po wykonaniu akcji $a_t$,
+	\item $s_{t+1}$ --- stan osiągnięty po przejściu środowiska,
+	\item $V_\theta(s_t)$ --- estymowana przez krytyka wartość stanu $s_t$,
+	\item $\gamma \in [0,1]$ --- współczynnik dyskontowania,
+	\item $\delta_t$ --- błąd różnicy czasowej.
+\end{itemize}
 
-Uogólnieniem jednoskokowego błędu TD jest estymacja n-krokowa, w której docelowa
-wartość stanu uwzględnia kilka kolejnych nagród:
-\[
-\delta_t^{(n)}
-= \sum_{k=0}^{n-1} \gamma^k r_{t+k}
-+ \gamma^n V_\theta(s_{t+n})
-- V_\theta(s_t).
-\]
-Takie podejście redukuje obciążenie estymatora kosztem wzrostu wariancji.
+Wartość $\delta_t$ informuje, czy rzeczywisty rezultat przejścia
+był lepszy czy gorszy od przewidywania krytyka.
+Jeżeli $\delta_t > 0$, to uzyskany wynik okazał się korzystniejszy od oczekiwanego,
+natomiast gdy $\delta_t < 0$, przejście było gorsze niż wskazywała bieżąca estymacja
+funkcji wartości.
 
-W algorytmach PPO oraz nowoczesnych wariantach A2C często stosuje się
-uogólnioną estymację przewagi (GAE), która wykorzystuje ważoną sumę błędów TD:
+W praktyce błąd TD pełni w metodach aktor--krytyk dwie podstawowe funkcje.
+Po pierwsze, stanowi sygnał uczący dla krytyka, którego parametry są aktualizowane
+tak, aby zmniejszać różnicę pomiędzy przewidywaną wartością stanu a wartością docelową.
+Po drugie, może służyć jako najprostsze przybliżenie funkcji przewagi:
 \[
-A_t^{\text{GAE}(\gamma,\lambda)}
-= \sum_{l=0}^{\infty} (\gamma \lambda)^l \delta_{t+l},
+A_t \approx \delta_t.
 \]
-gdzie parametr $\lambda \in [0,1]$ pozwala płynnie kontrolować kompromis
-pomiędzy obciążeniem a wariancją estymatora \cite{Schulman2016GAE}.
+Takie przybliżenie jest szczególnie naturalne w jednoskokowych metodach
+aktor--krytyk \cite{SuttonBarto2018}.
 
-Zastosowanie błędu TD umożliwia uczenie online, niską wariancję aktualizacji
-oraz efektywne wykorzystanie długich trajektorii decyzyjnych,
-co jest szczególnie istotne w środowiskach o dużej złożoności i rzadkich nagrodach,
-takich jak Blood Bowl.
+
+Wartość $\delta_t$ informuje, czy rzeczywisty rezultat przejścia
+był lepszy czy gorszy od przewidywania krytyka.
+Jeżeli $\delta_t > 0$, to uzyskany wynik okazał się korzystniejszy od oczekiwanego,
+natomiast gdy $\delta_t < 0$, przejście było gorsze niż wskazywała bieżąca estymacja
+funkcji wartości.
+
+W praktyce błąd TD pełni w metodach aktor--krytyk dwie podstawowe funkcje.
+Po pierwsze, stanowi sygnał uczący dla krytyka, którego parametry są aktualizowane
+tak, aby zmniejszać różnicę pomiędzy przewidywaną wartością stanu a wartością docelową.
+Po drugie, może służyć jako najprostsze przybliżenie funkcji przewagi:
+\[
+A_t \approx \delta_t.
+\]
+Takie przybliżenie jest szczególnie naturalne w jednoskokowych metodach
+aktor--krytyk \cite{SuttonBarto2018}.
+
 
 \section{Advanced Actor Critic}
 
@@ -512,125 +510,149 @@ gdzie $W_s$ oznacza konwolucję $1\times1$ dopasowującą wymiar kanałów. Zabi
 
 Architektura Residual Inception Network łączy komplementarne zalety modułów Inception oraz bloków rezydualnych ResNet, tworząc model o wysokiej zdolności reprezentacyjnej przy jednoczesnej stabilności uczenia. Zastosowanie wielu równoległych filtrów o różnych rozmiarach w bloku Inception umożliwia wydobywanie cech wieloskalowych – od lokalnych interakcji po bardziej globalne wzorce pozycyjne – co jest szczególnie istotne w złożonych środowiskach przestrzennych. Dodanie połączeń rezydualnych znacząco poprawia przepływ gradientu, eliminując problem zanikania sygnału i umożliwiając trenowanie głębszych modeli bez degradacji jakości reprezentacji. Połączenie tych dwóch podejść pozwala sieci zachować elastyczność i ekspresyjność architektury Inception, a jednocześnie wykorzystać właściwości stabilizujące charakterystyczne dla ResNet, prowadząc do skuteczniejszej i bardziej odpornej ekstrakcji cech w złożonych zadaniach decyzyjnych.
 
-\section{Hyperconncetion}
+\section{Hyper-Connections}
 
-Jednym z kluczowych elementów współczesnych architektur głębokiego uczenia są połączenia
-rezydualne (ang. residual connections), które umożliwiają stabilne trenowanie bardzo głębokich
-sieci neuronowych. W klasycznej postaci połączenie rezydualne definiowane jest jako suma
-wyjścia warstwy oraz jej wejścia:
+\textit{Hyper-Connections}, zaproponowane przez Zhu i~in.~\cite{hyperconnections2024},
+rozszerzają klasyczne połączenia rezydualne poprzez wprowadzenie uczonych zależności
+pomiędzy reprezentacjami z różnych głębokości sieci. Mechanizm ten ma na celu ograniczenie
+kompromisu pomiędzy efektywnym przepływem gradientu a ryzykiem kolapsu reprezentacji,
+czyli sytuacji, w której kolejne warstwy generują bardzo podobne reprezentacje cech,
+a wzrost głębokości modelu przestaje prowadzić do istotnego wzbogacania informacji.
 
+W odróżnieniu od klasycznego podejścia, w którym, w każdej warstwie propagowana jest pojedyncza reprezentacja, w mechanizmie \textit{Hyper-Connections} utrzymywany jest zbiór $n$
+równoległych reprezentacji ukrytych:
 \begin{equation}
-	h_{l+1} = F(h_l) + h_l
-\end{equation}
-
-gdzie $h_l$ oznacza reprezentację wejściową warstwy $l$, natomiast $F(\cdot)$ jest transformacją
-realizowaną przez daną warstwę sieci neuronowej.
-
-Mechanizm ten umożliwia bezpośredni przepływ gradientu pomiędzy warstwami oraz ogranicza
-problem zanikającego gradientu. Pomimo swojej skuteczności, klasyczne połączenia rezydualne
-posiadają jednak pewne ograniczenia. W szczególności obserwuje się kompromis pomiędzy
-zanikaniem gradientu a zjawiskiem kolapsu reprezentacji (ang. representation collapse), w którym
-kolejne warstwy generują bardzo podobne reprezentacje cech \cite{hyperconnections2024}.
-
-W celu rozwiązania tego problemu zaproponowano mechanizm \textit{hyper-connections},
-który stanowi uogólnienie klasycznych połączeń rezydualnych. Główną ideą tego podejścia jest
-umożliwienie sieci neuronowej uczenia się siły połączeń pomiędzy reprezentacjami z różnych
-głębokości sieci zamiast stosowania sztywno zdefiniowanej sumy wejścia i wyjścia warstwy.
-
-\subsubsection*{Idea hyperconnections}
-
-W architekturze hyper-connections zamiast pojedynczego wektora reprezentacji utrzymywany jest
-zbiór $n$ reprezentacji ukrytych:
-
-\begin{equation}
-	H_l =
+	\mathbf{H}_l =
 	\begin{bmatrix}
-		h_l^{(1)} \\
-		h_l^{(2)} \\
+		\mathbf{h}_l^{(1)} \\
+		\mathbf{h}_l^{(2)} \\
 		\vdots \\
-		h_l^{(n)}
+		\mathbf{h}_l^{(n)}
 	\end{bmatrix}
-	\in \mathbb{R}^{n \times d}
+	\in \mathbb{R}^{n \times d},
 \end{equation}
+gdzie $n$ oznacza współczynnik rozszerzenia, a $d$ jest wymiarem pojedynczej reprezentacji.
 
-gdzie:
-\begin{itemize}
-	\item $n$ -- współczynnik rozszerzenia reprezentacji,
-	\item $d$ -- wymiar reprezentacji cech.
-\end{itemize}
-
-Początkowe wejście sieci $h_0$ jest kopiowane $n$ razy, tworząc macierz:
-
+Dla wejścia sieci $\mathbf{h}_0$ tworzona jest początkowa macierz ukryta:
 \begin{equation}
-	H_0 =
+	\mathbf{H}_0 =
 	\begin{bmatrix}
-		h_0 \\
-		h_0 \\
+		\mathbf{h}_0 \\
+		\mathbf{h}_0 \\
 		\vdots \\
-		h_0
-	\end{bmatrix}
+		\mathbf{h}_0
+	\end{bmatrix}.
 \end{equation}
 
-W każdej warstwie sieci reprezentacje są przekształcane przy użyciu macierzy
-hyper-connections określającej zależności pomiędzy poszczególnymi reprezentacjami.
+\subsubsection*{Sposób działania}
 
-\subsubsection*{Macierz hyper-connections}
-
-Mechanizm hyper-connections można opisać przy pomocy macierzy:
-
+Dla warstwy $l$ mechanizm \textit{Hyper-Connections} opisuje blokowa macierz:
 \begin{equation}
-	HC \in \mathbb{R}^{(n+1)\times(n+1)}
-\end{equation}
-
-która określa wagi połączeń pomiędzy reprezentacjami z różnych poziomów sieci.
-
-Macierz ta ma postać:
-
-\begin{equation}
-	HC =
+	\mathbf{HC}_l =
 	\begin{pmatrix}
-		0 & \beta_1 & \beta_2 & \dots & \beta_n \\
-		\alpha_{1,0} & \alpha_{1,1} & \alpha_{1,2} & \dots & \alpha_{1,n} \\
-		\alpha_{2,0} & \alpha_{2,1} & \alpha_{2,2} & \dots & \alpha_{2,n} \\
-		\vdots & \vdots & \vdots & \ddots & \vdots \\
-		\alpha_{n,0} & \alpha_{n,1} & \alpha_{n,2} & \dots & \alpha_{n,n}
+		\mathbf{0}_{1\times 1} & \mathbf{B}_l \\
+		\mathbf{A}_{m,l} & \mathbf{A}_{r,l}
 	\end{pmatrix}
+	\in \mathbb{R}^{(n+1)\times(n+1)},
 \end{equation}
-
 gdzie:
 \begin{itemize}
-	\item $\beta_i$ określają wpływ wyjścia bieżącej warstwy,
-	\item $\alpha_{i,j}$ określają zależności pomiędzy reprezentacjami.
+	\item $\mathbf{B}_l \in \mathbb{R}^{1\times n}$ określa wpływ wyjścia bieżącej transformacji warstwy,
+	\item $\mathbf{A}_{m,l} \in \mathbb{R}^{n\times 1}$ wyznacza sposób agregacji równoległych reprezentacji do wejścia bieżącej warstwy,
+	\item $\mathbf{A}_{r,l} \in \mathbb{R}^{n\times n}$ odpowiada za przenoszenie oraz mieszanie wcześniejszych reprezentacji.
 \end{itemize}
 
-W przeciwieństwie do klasycznych połączeń rezydualnych wartości te są parametrami
-uczonymi podczas procesu trenowania sieci.
-
-\subsubsection*{Obliczanie reprezentacji warstwy}
-
-Dla warstwy $T$ reprezentacja wejściowa obliczana jest jako ważona suma reprezentacji
-z poprzedniego poziomu:
-
+Najpierw wyznaczane jest wejście do bieżącej transformacji warstwy:
 \begin{equation}
-	h_0 = A_m^T H
+	\tilde{\mathbf{h}}_l^{\top} = \mathbf{A}_{m,l}^{\top}\mathbf{H}_{l-1}.
 \end{equation}
 
-Następnie transformacja warstwy przyjmuje postać:
-
+Następnie obliczana jest część rezydualna:
 \begin{equation}
-	\hat{H} = B^T (T(h_0)) + A_r^T H
+	\mathbf{H}'_l = \mathbf{A}_{r,l}^{\top}\mathbf{H}_{l-1}.
 \end{equation}
 
-gdzie:
+Po zastosowaniu transformacji warstwy $F_l(\cdot)$ otrzymujemy wynik:
+\begin{equation}
+	\hat{\mathbf{H}}_l =
+	\mathbf{B}_l^{\top}\bigl(F_l(\tilde{\mathbf{h}}_l)\bigr)^{\top}
+	+ \mathbf{H}'_l.
+\end{equation}
+
+W przeciwieństwie do klasycznego połączenia rezydualnego, w którym wejście i wyjście warstwy
+są łączone przez sztywno zadaną sumę, tutaj sieć uczy się wag połączeń pomiędzy wieloma
+równoległymi reprezentacjami. Pozwala to modelować bardziej elastyczne zależności pomiędzy
+kolejnymi głębokościami sieci.
+
+\subsubsection*{Depth-connections i width-connections}
+
+W interpretacji autorów mechanizm ten można rozdzielić na dwa typy połączeń:
 \begin{itemize}
-	\item $B$ określa wpływ wyjścia transformacji,
-	\item $A_r$ odpowiada za połączenia rezydualne.
+	\item \textbf{depth-connections} -- odpowiedzialne za integrację informacji pomiędzy wyjściem
+	bieżącej warstwy a reprezentacjami propagowanymi wzdłuż głębokości sieci,
+	\item \textbf{width-connections} -- odpowiedzialne za wymianę informacji pomiędzy równoległymi
+	reprezentacjami w obrębie tej samej warstwy.
 \end{itemize}
 
-\subsubsection*{Diagram działania}
+Dzięki temu jedna warstwa nie operuje na pojedynczym strumieniu informacji, lecz na zbiorze
+strumieni, które mogą wzajemnie na siebie oddziaływać.
 
-Poniższy schemat ilustruje przepływ informacji pomiędzy reprezentacjami w architekturze
-hyper-connections.
+\subsubsection*{Dynamiczne Hyper-Connections}
+
+Rozszerzeniem podstawowego wariantu są dynamiczne \textit{Hyper-Connections}, w których
+wagi połączeń zależą od aktualnego wejścia:
+\begin{equation}
+	\mathbf{HC}_l(\mathbf{H}_{l-1}) =
+	\begin{pmatrix}
+		\mathbf{0}_{1\times 1} & \mathbf{B}_l(\mathbf{H}_{l-1}) \\
+		\mathbf{A}_{m,l}(\mathbf{H}_{l-1}) & \mathbf{A}_{r,l}(\mathbf{H}_{l-1})
+	\end{pmatrix}.
+\end{equation}
+
+W tym celu najpierw normalizuje się wejściową macierz ukrytą:
+\begin{equation}
+	\bar{\mathbf{H}}_{l-1} = \mathrm{norm}(\mathbf{H}_{l-1}),
+\end{equation}
+a następnie oblicza dynamiczne składniki:
+\begin{equation}
+	\mathbf{B}_l(\mathbf{H}_{l-1}) =
+	s_{\beta}\odot\tanh\!\left((\bar{\mathbf{H}}_{l-1}\mathbf{W}_{\beta})^{\top}\right)
+	+ \mathbf{B}_l,
+\end{equation}
+
+\begin{equation}
+	\mathbf{A}_{m,l}(\mathbf{H}_{l-1}) =
+	s_{\alpha}\odot\tanh\!\left(\bar{\mathbf{H}}_{l-1}\mathbf{W}_{m}\right)
+	+ \mathbf{A}_{m,l},
+\end{equation}
+
+\begin{equation}
+	\mathbf{A}_{r,l}(\mathbf{H}_{l-1}) =
+	s_{\alpha}\odot\tanh\!\left(\bar{\mathbf{H}}_{l-1}\mathbf{W}_{r}\right)
+	+ \mathbf{A}_{r,l},
+\end{equation}
+gdzie $\mathbf{W}_{\beta}$, $\mathbf{W}_{m}$ oraz $\mathbf{W}_{r}$ są parametrami uczonymi,
+natomiast $s_{\beta}$ i $s_{\alpha}$ są współczynnikami skalującymi.
+
+Wariant dynamiczny zwiększa elastyczność architektury, ponieważ siła połączeń może być
+dopasowywana do aktualnych danych wejściowych, a nie tylko ustalana raz na etapie treningu.
+
+\subsubsection*{Znaczenie architektoniczne}
+
+Istotną własnością \textit{Hyper-Connections} jest możliwość uczenia różnych wzorców przepływu
+informacji w jednej architekturze. Mechanizm ten nie ogranicza się do sztywnego układu
+sekwencyjnego charakterystycznego dla klasycznych sieci głębokich, lecz pozwala modelowi
+uczyć się zarówno silniejszych zależności sekwencyjnych, jak i częściowo równoległych sposobów
+organizacji przetwarzania.
+
+Autorzy pracy wskazują również, że kluczowe znaczenie ma stosowanie więcej niż jednego
+strumienia reprezentacji, tj. $n > 1$. Dopiero w takim przypadku możliwe jest jednoczesne
+modelowanie różnych wzorców połączeń pomiędzy warstwami oraz ograniczenie kompromisu
+pomiędzy zanikaniem gradientu a kolapsem reprezentacji.
+
+W eksperymentach przedstawionych przez Zhu i~in.~\cite{hyperconnections2024}
+\textit{Hyper-Connections} prowadziły do szybszej konwergencji oraz lepszej jakości reprezentacji
+niż klasyczne połączenia rezydualne, przy niewielkim narzucie dodatkowych parametrów.
 
 \begin{figure}[H]
 	\centering
@@ -665,33 +687,92 @@ sieci oraz wymianę informacji pomiędzy równoległymi reprezentacjami.
 
 \subsubsection*{Dynamiczne hyper-connections}
 
-Rozszerzeniem podstawowego mechanizmu są dynamiczne hyper-connections,
-w których wagi połączeń zależą od aktualnego wejścia sieci:
+Rozszerzeniem podstawowego mechanizmu są dynamiczne \textit{hyper-connections},
+w których macierz połączeń nie jest stała, lecz zależy od aktualnych reprezentacji
+ukrytych. Oznacza to, że sposób agregacji i przekazywania informacji pomiędzy warstwami
+może zmieniać się w zależności od danych przetwarzanych przez sieć.
 
+Dla warstwy $l$ dynamiczną macierz połączeń można zapisać w postaci:
 \begin{equation}
-	HC(H) =
+	\mathbf{HC}_l(\mathbf{H}_{l-1}) =
 	\begin{pmatrix}
-		0 & B(H) \\
-		A_m(H) & A_r(H)
-	\end{pmatrix}
+		\mathbf{0}_{1\times 1} & \mathbf{B}_l(\mathbf{H}_{l-1}) \\
+		\mathbf{A}_{m,l}(\mathbf{H}_{l-1}) & \mathbf{A}_{r,l}(\mathbf{H}_{l-1})
+	\end{pmatrix}.
 \end{equation}
 
-Parametry te mogą być obliczane przy pomocy dodatkowej transformacji liniowej:
+Zapis ten oznacza, że trzy główne składniki mechanizmu, tj. macierz
+$\mathbf{B}_l$, wektor $\mathbf{A}_{m,l}$ oraz macierz $\mathbf{A}_{r,l}$,
+są wyznaczane na podstawie aktualnej macierzy reprezentacji
+$\mathbf{H}_{l-1}$. W rezultacie warstwa może dostosowywać siłę połączeń
+do bieżącego kontekstu wejściowego.
 
+Najpierw wykonywana jest normalizacja reprezentacji z poprzedniej warstwy:
 \begin{equation}
-	B(H) = s_{\beta}\tanh(HW_{\beta}) + B
+	\bar{\mathbf{H}}_{l-1} = \mathrm{norm}(\mathbf{H}_{l-1}).
 \end{equation}
 
+Celem tego kroku jest ustabilizowanie wartości wejściowych przed obliczeniem
+składników dynamicznych. Dzięki temu dalsze transformacje są mniej wrażliwe
+na skalę reprezentacji.
+
+Następnie obliczana jest dynamiczna wersja macierzy $\mathbf{B}_l$:
 \begin{equation}
-	A_m(H) = s_{\alpha}\tanh(HW_m) + A_m
+	\mathbf{B}_l(\mathbf{H}_{l-1}) =
+	s_{\beta}\,\tanh\!\left((\bar{\mathbf{H}}_{l-1}\mathbf{W}_{\beta})^{\top}\right)
+	+ \mathbf{B}_l.
 \end{equation}
 
+Wyrażenie to można interpretować jako sumę dwóch części: statycznej macierzy
+$\mathbf{B}_l$, uczonej podczas treningu, oraz poprawki zależnej od aktualnego
+wejścia. Składnik dynamiczny jest wyznaczany przez transformację liniową
+z wagami $\mathbf{W}_{\beta}$, a następnie ograniczany funkcją $\tanh$.
+Współczynnik $s_{\beta}$ kontroluje siłę tej poprawki. Macierz
+$\mathbf{B}_l(\mathbf{H}_{l-1})$ określa, w jakim stopniu wynik bieżącej
+transformacji warstwy wpływa na poszczególne równoległe reprezentacje.
+
+W analogiczny sposób wyznaczany jest dynamiczny składnik agregujący wejście
+do bieżącej warstwy:
 \begin{equation}
-	A_r(H) = s_{\alpha}\tanh(HW_r) + A_r
+	\mathbf{A}_{m,l}(\mathbf{H}_{l-1}) =
+	s_{\alpha}\,\tanh\!\left(\bar{\mathbf{H}}_{l-1}\mathbf{W}_{m}\right)
+	+ \mathbf{A}_{m,l}.
 \end{equation}
 
-Takie podejście pozwala sieci dynamicznie dopasowywać siłę połączeń pomiędzy warstwami
-w zależności od danych wejściowych.
+Macierz ta określa, w jaki sposób równoległe reprezentacje z poprzedniej warstwy
+są łączone w reprezentację wejściową dla aktualnej transformacji. Innymi słowy,
+decyduje ona o tym, z których strumieni informacji i z jaką siłą zostanie
+zbudowane wejście warstwy.
+
+Ostatnim składnikiem jest dynamiczna macierz odpowiedzialna za część rezydualną:
+\begin{equation}
+	\mathbf{A}_{r,l}(\mathbf{H}_{l-1}) =
+	s_{\alpha}\,\tanh\!\left(\bar{\mathbf{H}}_{l-1}\mathbf{W}_{r}\right)
+	+ \mathbf{A}_{r,l}.
+\end{equation}
+
+Macierz $\mathbf{A}_{r,l}(\mathbf{H}_{l-1})$ opisuje sposób przenoszenia
+oraz mieszania wcześniejszych reprezentacji w ścieżce rezydualnej.
+Pozwala to modelowi dynamicznie decydować, które informacje z poprzednich
+reprezentacji powinny zostać zachowane, a które osłabione.
+
+W powyższych zależnościach:
+\begin{itemize}
+	\item $\mathbf{H}_{l-1} \in \mathbb{R}^{n \times d}$ oznacza macierz reprezentacji
+	ukrytych z poprzedniej warstwy,
+	\item $\bar{\mathbf{H}}_{l-1}$ oznacza jej znormalizowaną postać,
+	\item $\mathbf{W}_{\beta}$, $\mathbf{W}_{m}$, $\mathbf{W}_{r}$ są macierzami wag
+	dodatkowych transformacji liniowych,
+	\item $\mathbf{B}_l$, $\mathbf{A}_{m,l}$, $\mathbf{A}_{r,l}$ są bazowymi,
+	statycznymi parametrami uczonymi w trakcie treningu,
+	\item $s_{\beta}$ oraz $s_{\alpha}$ są współczynnikami skalującymi wpływ
+	składnika dynamicznego.
+\end{itemize}
+
+W rezultacie dynamiczne \textit{hyper-connections} łączą zalety parametrów
+statycznych i adaptacji zależnej od wejścia. Oznacza to, że model nie korzysta
+z jednej, niezmiennej struktury połączeń, lecz może modyfikować przepływ
+informacji pomiędzy warstwami zależnie od aktualnie przetwarzanych reprezentacji.
 
 \subsubsection*{Znaczenie architektoniczne}
 
@@ -808,5 +889,158 @@ a \( z_i \) oznacza oryginalne logity polityki.
 Tak zdefiniowana transformacja zapewnia, że wartość prawdopodobieństwa każdej akcji spoza zbioru \( \mathcal{A}(s) \) równa jest zero, przy jednoczesnym braku wpływu na rozkład prawdopodobieństwa wśród akcji legalnych. W konsekwencji maskowanie poprawia efektywność eksploracji, redukuje wariancję gradientów oraz zapobiega generowaniu trajektorii niezgodnych z regułami gry. Mechanizm ten został zaimplementowany analogicznie do praktyk stosowanych w środowisku BotBowl.
 
 
-% Funkcja aktywacji
-% Metody stabilizacji
+\section{Architektury sieci neuronowych zastosowanych w środowisku}
+
+W eksperymentach przeprowadzonych dla wariantu środowiska \texttt{env\_size=3}
+porównano osiem modeli, odpowiadających czterem architekturom trenowanym
+z użyciem dwóch algorytmów uczenia ze wzmocnieniem: A2C oraz PPO.
+Taki dobór modeli był zgodny z przyjętą konfiguracją turniejową.
+
+Każdy model miał architekturę typu actor--critic i wykorzystywał dwa strumienie wejściowe:
+\[
+\mathbf{x}_s \in \mathbb{R}^{C\times H\times W}, \qquad
+\mathbf{x}_{ns} \in \mathbb{R}^{N}.
+\]
+Strumień przestrzenny $\mathbf{x}_s$ koduje stan planszy, natomiast strumień
+nieprzestrzenny $\mathbf{x}_{ns}$ zawiera cechy wektorowe opisujące bieżący stan gry.
+Po przetworzeniu obu wejść i ich połączeniu otrzymywana jest wspólna reprezentacja
+$\mathbf{z}$, która stanowi wejście dla części aktora i krytyka.
+Na jej podstawie wyznaczane są logity polityki
+$\mathbf{l}\in\mathbb{R}^{|\mathcal{A}_3|}$ oraz estymata wartości stanu
+$V(s)\in\mathbb{R}$.
+
+W implementacji liczba neuronów warstwy ukrytej po etapie fuzji cech była dobierana
+dynamicznie i ustawiana zgodnie z rozmiarem przestrzeni akcji:
+\[
+\texttt{hidden\_nodes = action\_space = } |\mathcal{A}_3|.
+\]
+
+We wszystkich wariantach architektury stosowano mechanizm maskowania akcji nielegalnych:
+\[
+\tilde{l}_i=
+\begin{cases}
+	l_i,& m_i=1,\\
+	-\infty,& m_i=0,
+\end{cases}
+\qquad
+\pi(a_i|s)=\mathrm{softmax}(\tilde{\mathbf{l}})_i.
+\]
+Dzięki temu agent przypisuje niezerowe prawdopodobieństwo wyłącznie akcjom
+dopuszczalnym w danym stanie przez silnik gry.
+
+\subsection{Analizowane warianty architektur}
+
+\begin{enumerate}
+	\item \textbf{Inception Block} -- wariant oparty na równoległych konwolucjach
+	o parametrach $(32,3\times3)$, $(16,5\times5)$, $(16,7\times7)$ oraz $(8,9\times9)$.
+	
+	\item \textbf{Hyperconnection Inception (statyczny)} -- wariant z dwoma blokami
+	Inception połączonymi mechanizmem \texttt{HyperConnectionStack} (\texttt{rate=2}),
+	ze statycznymi wagami mieszania $\alpha$ oraz $\beta$.
+	
+	\item \textbf{Inception Residual Block} -- sekwencja bloków Inception--Residual
+	z połączeniami skrótowymi oraz warstwami \texttt{LayerNorm2d}.
+	
+	\item \textbf{Hyperconnection Inception (dynamiczny)} -- wariant analogiczny
+	do wersji statycznej, lecz z dynamiczną korektą wag $\alpha$ oraz $\beta$,
+	zależną od bieżących cech wejściowych.
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[
+		block/.style={
+			draw,
+			rounded corners,
+			align=center,
+			minimum width=34mm,
+			minimum height=8mm
+		},
+		io/.style={
+			draw,
+			align=center,
+			minimum width=28mm,
+			minimum height=8mm
+		},
+		>={Latex},
+		font=\small
+		]
+		% wejścia
+		\node[io] (sp) at (0,1.2) {Wejście planszy\\$\mathbf{x}_s$};
+		\node[io] (nsp) at (0,-1.2) {Wejście wektorowe\\$\mathbf{x}_{ns}$};
+		
+		% encodery
+		\node[block] (spenc) at (4.2,1.2) {Encoder przestrzenny\\(Inception / HC / Residual)};
+		\node[block] (nspenc) at (4.2,-1.2) {Encoder nieprzestrzenny\\$2\times$ Linear + ReLU};
+		
+		% fuzja i trzon
+		\node[block] (cat) at (8.6,0) {Konkatenacja reprezentacji};
+		\node[block] (trunk) at (8.6,-2.4) {Wspólny trzon MLP\\\texttt{hidden\_nodes = $|\mathcal{A}_3|$}};
+		
+		% wyjścia
+		\node[block] (actor) at (6.0,-4.6) {Actor\\logity $|\mathcal{A}_3|$};
+		\node[block] (critic) at (11.2,-4.6) {Critic\\$V(s)$};
+		
+		% połączenia
+		\draw[->] (sp) -- (spenc);
+		\draw[->] (nsp) -- (nspenc);
+		\draw[->] (spenc) -- (cat);
+		\draw[->] (nspenc) -- (cat);
+		\draw[->] (cat) -- (trunk);
+		\draw[->] (trunk) -- (actor);
+		\draw[->] (trunk) -- (critic);
+	\end{tikzpicture}
+	\caption{Wspólny schemat architektury sieci stosowanej w eksperymentach dla \texttt{env\_size=3}.}
+	\label{fig:ac_env3}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[
+		node distance=7mm and 9mm,
+		block/.style={draw, rounded corners, align=center, minimum width=22mm, minimum height=7mm},
+		>={Latex}
+		]
+		\node[block] (h) {$h$};
+		\node[block, right=of h] (wc) {Width conn.\\$\alpha$};
+		\node[block, right=of wc] (h0) {$h_0$};
+		\node[block, right=of h0] (inc) {Inception\\$3/5/7/9$};
+		\node[block, right=of inc] (dc) {Depth conn.\\$\beta$};
+		\node[block, right=of dc] (hout) {$h'$};
+		
+		\draw[->] (h) -- (wc);
+		\draw[->] (wc) -- (h0);
+		\draw[->] (h0) -- (inc);
+		\draw[->] (inc) -- (dc);
+		\draw[->] (dc) -- (hout);
+	\end{tikzpicture}
+	\caption{Schemat bloku HyperConnection--Inception (wariant statyczny i dynamiczny) stosowanego dla \texttt{env\_size=3}.}
+	\label{fig:hc_env3}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[
+		node distance=8mm and 10mm,
+		block/.style={draw, rounded corners, align=center, minimum width=23mm, minimum height=8mm},
+		sum/.style={draw, circle, inner sep=1pt, minimum size=5mm},
+		>={Latex}
+		]
+		\node[block] (x) {$x$};
+		\node[block, right=of x] (inc) {Inception\\$3/5/7/9$};
+		\node[sum, right=of inc] (plus) {$+$};
+		\node[block, right=of plus] (norm) {LayerNorm2d + ReLU};
+		\node[block, right=of norm] (y) {$y$};
+		
+		\node[block, below=of inc] (skip) {Skip\\(id lub Conv $1\times1$)};
+		
+		\draw[->] (x) -- (inc);
+		\draw[->] (inc) -- (plus);
+		\draw[->] (plus) -- (norm);
+		\draw[->] (norm) -- (y);
+		\draw[->] (x) |- (skip);
+		\draw[->] (skip) -| (plus);
+	\end{tikzpicture}
+	\caption{Schemat bloku Inception--Residual stosowanego w wariancie residualnym dla \texttt{env\_size=3}.}
+	\label{fig:ires_env3}
+\end{figure}

@@ -30,7 +30,7 @@ Do funkcji aktywacji f przekazywana jest ważona suma sygnałów wejściowych, d
 
 \section{Funkcja aktywacji}
 
-Jednym z kluczowych elementów każdego neuronu sztucznego jest funkcja aktywacji, która decyduje o tym, w jaki sposób sygnał wejściowy zostanie przekształcony w sygnał wyjściowy. Od jej właściwości zależy zdolność sieci neuronowej do modelowania złożonych, nieliniowych zależności.
+Jednym z kluczowych elementów sztucznego neuronu jest funkcja aktywacji, która określa, w jaki sposób sygnał wejściowy jest przekształcany w sygnał wyjściowy. Od jej właściwości zależy zdolność sieci neuronowej do modelowania złożonych zależności nieliniowych.
 
 Pierwszym powszechnie stosowanym rozwiązaniem była funkcja skokowa Heaviside’a:
 
@@ -42,11 +42,7 @@ H(x) =
 \end{cases}
 \]
 
-która aktywuje neuron tylko po przekroczeniu określonego progu. Funkcja ta dobrze oddaje ideę neuronu biologicznego, który „uaktywnia się” po przekroczeniu pewnego poziomu pobudzenia, jednak z matematycznego punktu widzenia ma istotną wadę — nie jest różniczkowalna. Jej pochodna jest równa zeru dla wszystkich wartości oprócz punktu 
-𝑥
-=
-0
-x=0, gdzie jest nieokreślona. W konsekwencji uniemożliwia to stosowanie metod uczenia opartych na gradientach, takich jak propagacja wsteczna błędu.
+która aktywuje neuron dopiero po przekroczeniu określonego progu. Funkcja ta stanowi uproszczony model działania neuronu biologicznego, który reaguje po osiągnięciu odpowiedniego poziomu pobudzenia, jednak z matematycznego punktu widzenia ma istotną wadę — nie jest różniczkowalna. Jej pochodna jest równa zeru dla wszystkich wartości oprócz punktu $x=0$, gdzie jest nieokreślona. W konsekwencji uniemożliwia to stosowanie metod uczenia opartych na gradiencie, takich jak propagacja wsteczna błędu.
 
 Aby umożliwić płynne i różniczkowalne przejście między stanami aktywacji, wprowadzono funkcje ciągłe, takie jak sigmoid i tangens hiperboliczny (tanh). Funkcja sigmoidalna ma postać:
 
@@ -60,7 +56,7 @@ a tangens hiperboliczny:
 \tanh(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}
 \]
 
-Obie funkcje zapewniają gładką, różniczkowalną zależność między wejściem a wyjściem neuronu, dzięki czemu możliwe jest stosowanie gradientowych metod optymalizacji. Dodatkowo funkcja $tanh(x)$ ma zakres $(−1,1)$, co czyni ją bardziej symetryczną względem zera i ułatwia uczenie w sieciach głębokich. Ich wadą jest jednak zjawisko nasycenia – dla dużych wartości argumentu pochodna staje się bliska zeru, co prowadzi do problemu zanikającego gradientu.
+Obie funkcje zapewniają gładką i różniczkowalną zależność między sygnałem wejściowym a wyjściem neuronu, co umożliwia stosowanie gradientowych metod optymalizacji. Dodatkową zaletą funkcji $tanh(x)$ jest zakres wartości $(-1,1)$ oraz symetria względem zera, co sprzyja uczeniu głębokich sieci neuronowych. Ich istotną wadą jest jednak zjawisko nasycenia: dla dużych wartości argumentu pochodna tych funkcji przyjmuje wartości bliskie zeru, co prowadzi do problemu zanikającego gradientu.
 
 W odpowiedzi na te ograniczenia opracowano funkcję ReLU (Rectified Linear Unit), definiowaną jako:
 
@@ -73,30 +69,6 @@ W odpowiedzi na te ograniczenia opracowano funkcję ReLU (Rectified Linear Unit)
 \]
 
 Funkcja ta jest ciągła w całej swojej dziedzinie, również w punkcie x=0, lecz nie jest różniczkowalna w tym punkcie — lewa pochodna wynosi 0, a prawa 1. W praktyce jednak przyjmuje się, że funkcja jest „różniczkowalna prawie wszędzie”, co pozwala skutecznie stosować ją w uczeniu sieci metodami gradientowymi. ReLU eliminuje zjawisko zanikającego gradientu dla dodatnich wartości wejść, dzięki czemu znacząco przyspiesza uczenie głębokich modeli. Współczesne warianty, takie jak Leaky ReLU, Parametric ReLU czy ELU (Exponential Linear Unit), pozwalają dodatkowo ograniczyć problem tzw. martwych neuronów, które przestają reagować na sygnał uczący.
-
-W sztucznej sieci neuronowej neurony są zorganizowane w warstwy, z których każda przetwarza sygnały z poprzedniej i przekazuje wynik dalej. Typowa struktura to warstwa wejściowa, jedna lub więcej warstw ukrytych oraz warstwa wyjściowa. Zazwyczaj warstwy są ze sobą w pełni połączone (ang. \textit{fully connected}), co oznacza, że każdy neuron danej warstwy jest połączony z każdym neuronem warstwy następnej.
-
-Z punktu widzenia matematycznego, każda warstwa sieci realizuje pewną funkcję przekształcającą wektor wejściowy w nową reprezentację:
-
-\begin{equation}
-	\mathbf{h}^{(l)} = f^{(l)}\left(\mathbf{W}^{(l)} \mathbf{h}^{(l-1)} + \mathbf{b}^{(l)}\right),
-	\label{eq:layer}
-\end{equation}
-gdzie:
-\begin{itemize}
-	\item $\mathbf{h}^{(l)}$ -- wektor wyjść (aktywacji) z warstwy $l$,
-	\item $\mathbf{W}^{(l)}$ -- macierz wag warstwy $l$,
-	\item $\mathbf{b}^{(l)}$ -- wektor przesunięć (\textit{bias}),
-	\item $f^{(l)}(\cdot)$ -- funkcja aktywacji danej warstwy.
-\end{itemize}
-
-Cała sieć neuronowa może być opisana jako złożenie (kompozycja) takich funkcji:
-\begin{equation}
-	f(\mathbf{x}) = f^{(L)}\!\left(f^{(L-1)}\!\left(\ldots f^{(1)}(\mathbf{x}) \ldots \right)\right),
-	\label{eq:composition}
-\end{equation}
-
-gdzie $L$ oznacza liczbę warstw w sieci, a $\mathbf{x}$ jest wektorem wejściowym.
 
 \begin{table}[H]
 	\centering
@@ -226,7 +198,7 @@ gdzie $L$ oznacza liczbę warstw w sieci, a $\mathbf{x}$ jest wektorem wejściow
 					domain=-6:6
 					]
 					% Pochodna sigmoid
-					\addplot[red, dashed, thick] 	{(1/(1+exp(-x)))*(1-1/(1+exp(-x)))};
+					\addplot[red, thick] 	{(1/(1+exp(-x)))*(1-1/(1+exp(-x)))};
 				\end{axis}
 			\end{tikzpicture}
 			\\
@@ -237,18 +209,41 @@ gdzie $L$ oznacza liczbę warstw w sieci, a $\mathbf{x}$ jest wektorem wejściow
 
 
 \section{Architektura sieci neuronowej}
-\subsubsection{Głębokość i zdolność reprezentacyjna}
 
-Określenie \textit{płytka sieć} (\textit{shallow network}) odnosi się do modeli z jedną warstwą ukrytą, natomiast \textit{głębokie sieci} (\textit{deep networks}) zawierają wiele takich warstw. Głębsza architektura pozwala na hierarchiczne przekształcanie danych wejściowych --- od prostych cech niskiego poziomu po coraz bardziej abstrakcyjne reprezentacje. Dzięki temu kolejne warstwy mogą uczyć się złożonych zależności, które trudno byłoby odwzorować w jednej transformacji.
+\subsubsection{Architektura sieci neuronowej i zdolność reprezentacyjna}
 
-Zależność pomiędzy głębokością sieci a jej zdolnością reprezentacyjną opisuje tzw. \textbf{twierdzenie o uniwersalnej aproksymacji}. Mówi ono, że sieć z jedną warstwą ukrytą i odpowiednią liczbą neuronów jest w stanie przybliżyć dowolną funkcję ciągłą na zwartym zbiorze~\cite{Cybenko1989, HORNIK1989359}. W praktyce jednak takie sieci wymagają ogromnej liczby neuronów i parametrów, co czyni je nieefektywnymi obliczeniowo. Sieci głębokie uzyskują podobną moc aproksymacyjną przy znacznie mniejszej liczbie parametrów, rozkładając złożoność obliczeń na wiele etapów przetwarzania.
+Sieć neuronowa jest modelem obliczeniowym złożonym z kolejnych warstw przetwarzających dane wejściowe w coraz bardziej użyteczne reprezentacje. Typowa architektura obejmuje warstwę wejściową, jedną lub większą liczbę warstw ukrytych oraz warstwę wyjściową. W klasycznych modelach warstwy są zazwyczaj w pełni połączone (ang. \textit{fully connected}), co oznacza, że każdy neuron danej warstwy jest połączony z każdym neuronem warstwy następnej.
 
-Formalnie działanie sieci z jedną warstwą ukrytą można zapisać jako:
+Pojedyncza warstwa sieci realizuje przekształcenie postaci
+\begin{equation}
+	\mathbf{h}^{(l)} = f^{(l)}\left(\mathbf{W}^{(l)} \mathbf{h}^{(l-1)} + \mathbf{b}^{(l)}\right),
+	\label{eq:layer}
+\end{equation}
+gdzie:
+\begin{itemize}
+	\item $\mathbf{h}^{(l)}$ -- wektor aktywacji warstwy $l$,
+	\item $\mathbf{W}^{(l)}$ -- macierz wag warstwy $l$,
+	\item $\mathbf{b}^{(l)}$ -- wektor przesunięć (\textit{bias}),
+	\item $f^{(l)}(\cdot)$ -- funkcja aktywacji stosowana w warstwie $l$.
+\end{itemize}
+
+Cała sieć może być opisana jako złożenie kolejnych transformacji:
+\begin{equation}
+	f(\mathbf{x}) = f^{(L)}\!\left(f^{(L-1)}\!\left(\ldots f^{(1)}(\mathbf{x}) \ldots \right)\right),
+	\label{eq:composition}
+\end{equation}
+gdzie $L$ oznacza liczbę warstw, a $\mathbf{x}$ jest wektorem wejściowym.
+
+Jednym z podstawowych parametrów opisujących architekturę sieci jest jej głębokość. Mianem \textit{płytkiej sieci} (\textit{shallow network}) określa się model zawierający pojedynczą warstwę ukrytą, natomiast \textit{głębokie sieci} (\textit{deep networks}) zawierają wiele warstw ukrytych. Zwiększenie głębokości pozwala przedstawiać złożone zależności za pomocą sekwencji prostszych przekształceń, co w praktyce często prowadzi do bardziej efektywnej reprezentacji niż w przypadku architektur płytszych.
+
+Teoretyczne podstawy zdolności aproksymacyjnych sieci neuronowych opisuje twierdzenie o uniwersalnej aproksymacji. Zgodnie z nim sieć z jedną warstwą ukrytą i odpowiednio dużą liczbą neuronów może przybliżać dowolną funkcję ciągłą na zwartym zbiorze z dowolną zadaną dokładnością~\cite{Cybenko1989, HORNIK1989359}. Działanie takiej sieci można zapisać jako
 \begin{equation}
 	f(\mathbf{x}) = \sum_{i=1}^{N} \alpha_i \, \sigma\!\left(\mathbf{w}_i^{\top}\mathbf{x} + b_i\right),
 	\label{eq:universal}
 \end{equation}
-gdzie $\sigma(\cdot)$ jest nieliniową funkcją aktywacji, a $\alpha_i$, $\mathbf{w}_i$, $b_i$ stanowią parametry uczone w procesie treningu.
+gdzie $\sigma(\cdot)$ oznacza nieliniową funkcję aktywacji, natomiast $\alpha_i$, $\mathbf{w}_i$ oraz $b_i$ są parametrami modelu wyznaczanymi w procesie uczenia.
+
+Choć twierdzenie to potwierdza dużą moc aproksymacyjną sieci płytkich, w praktyce uzyskanie wysokiej jakości odwzorowania może wymagać bardzo szerokiej warstwy ukrytej. Z tego względu architektury głębokie są często korzystniejsze, ponieważ umożliwiają osiągnięcie porównywalnej lub większej zdolności reprezentacyjnej przy bardziej zwartej strukturze modelu.
 
 \begin{figure}[htbp]
 	\centering
@@ -336,70 +331,73 @@ gdzie $k$ oznacza głębokość sieci. Zwiększenie głębokości modelu pozwala
 
 \section{Sieci Splotowe}
 \subsection{Geneza}
-Sieci splotowe (ang. Convolutional Neural Networks, CNN) stanowią jeden z najważniejszych rodzai sieci głębokiego uczenia. Ich powstanie inspirowane było budową kory wzrokowej, w której poszczególne neurony reagują na proste wzorce w ograniczonych fragmentach pola widzenia. W odróżnieniu od klasycznych
-wielowarstwowych perceptronów, sieci splotowe wykorzystują lokalne filtry
-do automatycznego wydobywania cech z danych wejściowych.
+Sieci splotowe (\textit{Convolutional Neural Networks}, CNN) stanowią jedną z podstawowych klas modeli stosowanych w głębokim uczeniu do analizy danych o strukturze przestrzennej. Ich rozwój był inspirowany badaniami nad organizacją kory wzrokowej, w której neurony reagują na bodźce występujące w ograniczonych obszarach pola widzenia. W odróżnieniu od klasycznych sieci w pełni połączonych, CNN wykorzystują lokalne filtry przesuwane po całym wejściu, co umożliwia automatyczne wydobywanie cech przestrzennych przy znacznie mniejszej liczbie parametrów.
 
+Kluczową własnością sieci splotowych jest współdzielenie wag, polegające na stosowaniu tych samych filtrów w różnych położeniach danych wejściowych. Pozwala to wykrywać te same wzorce niezależnie od ich położenia oraz ogranicza złożoność modelu. Dzięki temu sieci splotowe są szczególnie przydatne w zadaniach, w których istotne są lokalne zależności pomiędzy elementami danych.
 
-Każdy filtr przetwarza jedynie lokalny fragment wejścia, co umożliwia
-wykrywanie wzorców przestrzennych, takich jak krawędzie, linie, tekstury
-oraz bardziej złożone struktury. Mechanizm ten pozwala na efektywne
-modelowanie zależności lokalnych, charakterystycznych dla danych
-o strukturze przestrzennej.
+W kontekście gry Blood Bowl sieci splotowe mogą pełnić rolę ekstraktora cech przestrzennych opisujących stan planszy, takich jak położenie zawodników, strefy zagrożenia, pozycja piłki czy układy taktyczne. Umożliwia to przekształcenie surowej reprezentacji stanu w bardziej użyteczne cechy przekazywane następnie do części decyzyjnej agenta. \cite{lecun1998gradient}
 
-Dzięki współdzieleniu wag, te same filtry są stosowane w różnych położeniach
-wejścia, co zapewnia możliwość wykrywania tych samych wzorców w różnych położeniach danych wejściowych oraz znacząco redukuje liczbę parametrów modelu. W rezultacie sieci splotowe wykazują dobrą zdolność generalizacji.
-
-W kontekście gier o dużej złożoności, takich jak BloodBowl, sieci splotowe pełnią rolę ekstraktora cech przestrzennych, przekształcając reprezentację planszy gry w wielopoziomowy zbiór cech o rosnącym stopniu abstrakcji umożliwiającą agentowi lepsze zrozumienie sytuacji na boisku. Tego typu architektury są powszechnie stosowane w algorytmach uczenia ze wzmocnieniem, takich jak A2C czy PPO, gdzie służą do przetwarzania obrazu stanu gry przed podjęciem decyzji przez agenta. \cite{lecun1998gradient}
 
 \subsection{Sposób działania}
 
-Podstawowym elementem sieci splotowej jest warstwa konwolucyjna, oparta na
-operacji splotu. Operacja ta polega na obliczaniu lokalnych sum ważonych
-pomiędzy fragmentami danych wejściowych a wagami filtra, co prowadzi do
-powstania mapy aktywacji uwypuklającej obecność określonych wzorców.
+\subsubsection*{Operacja splotu}
 
+Podstawowym elementem sieci splotowej jest warstwa splotowa. Operacja splotu polega na obliczaniu lokalnych sum ważonych pomiędzy fragmentami danych wejściowych a wagami filtra, co prowadzi do powstania mapy aktywacji uwypuklającej obecność określonych wzorców.
 
 \[
-y(\mathbf{i}) = (x * w)(\mathbf{i}) = 
-\sum_{\mathbf{m} \in \mathcal{M}} 
-x(\mathbf{i} + \mathbf{m}) \, w(\mathbf{m}),
+y(\mathbf{i}) = \sum_{\mathbf{m} \in \mathcal{M}} x(\mathbf{i} + \mathbf{m}) \, w(\mathbf{m}) + b,
 \]
 
-
+gdzie:
 \begin{itemize}
-	\item $\mathbf{i}$ -  wektor indeksów wyjścia
-	\item $\mathbf{m}$ - wektor przesunięć w przestrzeni jądra
-	\item $x(\mathbf{i} + \mathbf{m})$ - fragment danych wejściowych
-	\item $w(\mathbf{m})$ - wagi jądra
-	\item $y(\mathbf{i})$ - wartości wyjsciowe w punkcie i
+	\item $\mathbf{i}$ oznacza wektor indeksów wyjścia,
+	\item $\mathbf{m}$ oznacza wektor przesunięć w obrębie jądra,
+	\item $x(\mathbf{i} + \mathbf{m})$ oznacza fragment danych wejściowych,
+	\item $w(\mathbf{m})$ oznacza wagę filtra,
+	\item $b$ oznacza wyraz wolny,
+	\item $y(\mathbf{i})$ oznacza wartość wyjściową.
 \end{itemize}
 
-W przypadku danych dwuwymiarowych, takich jak plansza gry, stosuje się
-najczęściej filtry dwuwymiarowe, dla których operacja splotu przyjmuje postać.
-
+Dla danych dwuwymiarowych operacja ta przyjmuje postać:
 \[
-y(i, j) = (x * w)(i, j) =
-\sum_{m=0}^{M-1} \sum_{n=0}^{N-1}
-x(i + m, j + n) \, w(m, n),
+y(i,j)=\sum_{m=0}^{M-1}\sum_{n=0}^{N-1}x(i+m,j+n)\,w(m,n)+b.
 \]
 
-Filtr jest przesuwany po danych wejściowych z określonym krokiem
-(\textit{stride}), a wynikiem tej operacji jest mapa cech
-(\textit{feature map}), wskazująca lokalizacje występowania danego wzorca.
+W wyniku przesuwania filtra po wejściu powstaje mapa cech (\textit{feature map}), wskazująca miejsca, w których dany wzorzec został wykryty.
 
-\subsubsection*{Struktura warstwy konwolucyjnej}
+\subsubsection*{Dane wielokanałowe}
 
-Każda warstwa konwolucyjna składa się z:
-\begin{itemize}
-	\item zbioru filtrów (jąder) – niewielkich macierzy uczących się rozpoznawania określonych cech obrazu lub stanu gry,
-	\item kroku przesuwania filtra (stride) – definiuje, co ile pól filtr jest przesuwany
-	\item mechanizmu uzupełniania brzegów (\textit{padding}) – pozwalającego kontrolować
-	rozmiar map cech.,
-\end{itemize}
+W praktyce dane wejściowe mają zwykle wiele kanałów. W klasycznych zadaniach wizji komputerowej kanały te odpowiadają na przykład składowym RGB obrazu, natomiast w analizie stanu gry mogą reprezentować różne cechy planszy, takie jak pozycje zawodników, położenie piłki, zajętość pól czy dodatkowe informacje taktyczne.
 
-Kluczową własnością sieci splotowych jest współdzielenie wag, dzięki czemu każdy filtr jest stosowany identycznie w całej przestrzeni wejścia. Pozwala to na znaczące ograniczenie liczby parametrów w porównaniu z sieciami w pełni połączonymi.
+Jeżeli wejście opisane jest tensorem
+\[
+X \in \mathbb{R}^{C_{\mathrm{in}} \times H \times W},
+\]
+to pojedyncza mapa wyjściowa obliczana jest jako suma splotów po wszystkich kanałach wejściowych:
+\[
+Y_k(i,j)=b_k+\sum_{c=1}^{C_{\mathrm{in}}}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1}
+X_c(i+m,j+n)\,W_{k,c}(m,n),
+\]
+gdzie $k$ oznacza indeks filtra wyjściowego, a $C_{\mathrm{in}}$ liczbę kanałów wejściowych. Każdy filtr wykorzystuje zatem pełną informację zawartą we wszystkich kanałach, tworząc jedną mapę cech opisującą określony typ wzorca.
 
+\subsubsection*{Funkcje aktywacji i normalizacja}
+
+Po wykonaniu operacji splotu wynik jest zazwyczaj przekazywany przez nieliniową funkcję aktywacji, taką jak ReLU. Dzięki temu sieć może modelować zależności nieliniowe i budować bardziej złożone reprezentacje niż modele oparte wyłącznie na przekształceniach liniowych.
+
+W wielu architekturach pomiędzy warstwą splotową a funkcją aktywacji stosuje się również warstwy normalizacyjne, takie jak Batch Normalization lub Layer Normalization. Ich zadaniem jest stabilizacja procesu uczenia poprzez ograniczanie nadmiernych zmian rozkładu aktywacji. W praktyce typowy blok przetwarzania może więc przyjmować postać warstwy splotowej, następnie normalizacji, a na końcu funkcji aktywacji.
+
+\subsubsection*{Stride i padding}
+
+Istotnymi parametrami warstwy splotowej są krok przesuwania filtra (\textit{stride}) oraz sposób uzupełniania brzegów wejścia (\textit{padding}). Parametr \textit{stride} określa, o ile pozycji filtr przesuwa się przy każdym kroku, natomiast \textit{padding} pozwala kontrolować sposób przetwarzania elementów znajdujących się przy krawędziach wejścia.
+
+Parametry te wpływają bezpośrednio na rozmiar mapy cech. Dla wejścia o wysokości $H$ i szerokości $W$, filtra o rozmiarze $K$, kroku $S$ oraz paddingu $P$, rozmiar wyjścia można zapisać jako:
+\[
+H_{\mathrm{out}}=\left\lfloor \frac{H+2P-K}{S} \right\rfloor + 1,
+\qquad
+W_{\mathrm{out}}=\left\lfloor \frac{W+2P-K}{S} \right\rfloor + 1.
+\]
+
+Zwiększenie kroku przesuwania prowadzi do zmniejszenia rozdzielczości mapy cech, natomiast zastosowanie paddingu pozwala zachować większą ilość informacji brzegowej i ograniczyć szybkie zmniejszanie wymiarów reprezentacji.
 
 \begin{tikzpicture}[
 	scale = 1.6,
@@ -409,7 +407,7 @@ Kluczową własnością sieci splotowych jest współdzielenie wag, dzięki czem
 	]
 	% ===== Padding =====
 	\begin{scope}
- 		% --- PADDING (przerywane komórki) ---
+		% --- PADDING (przerywane komórki) ---
 		\foreach \x in {-1,...,6} {
 			\foreach \y in {-1,...,6} {
 				\draw[dashed, gray!70]
@@ -424,7 +422,7 @@ Kluczową własnością sieci splotowych jest współdzielenie wag, dzięki czem
 				(\x*0.5,\y*0.5) rectangle ++(0.5,0.5);
 			}
 		}
-	\node[below=6mm] at (2,-0.5) {\contour{white}{\textcolor{black}{Wejście $6\times 6$}}};
+		\node[below=6mm] at (2,-0.5) {\contour{white}{\textcolor{black}{Wejście $6\times 6$}}};
 	\end{scope}
 	
 	% ===== FILTER POSITION 1 (2x2) =====
@@ -457,36 +455,20 @@ Kluczową własnością sieci splotowych jest współdzielenie wag, dzięki czem
 	\draw[arrow] (4.2,1.0) -- (5.4,1.0);
 	\node[above] at (4.8,1.0) {\contour{white}{splot}};
 	
-	% ===== INPUT + PADDING =====
-
-	
+	% ===== INPUT + PADDING =====	
 \end{tikzpicture}
 
-\subsubsection*{Mapy cech i hierarchia reprezentacji}
+\subsubsection*{Hierarchia reprezentacji}
 
-Każdy filtr w warstwie konwolucyjnej uczy się wykrywać określony wzorzec np pola przez które przechodząc zawodnik może zostać zatrzymany.
+Kolejne warstwy splotowe tworzą hierarchię reprezentacji. Warstwy płytsze uczą się prostych zależności lokalnych, natomiast warstwy głębsze budują na ich podstawie bardziej złożone reprezentacje przestrzenne. W klasycznych zastosowaniach pierwsze warstwy wykrywają proste wzorce, takie jak krawędzie lub tekstury, a dalsze warstwy łączą je w coraz bardziej złożone układy.
 
-Kolejne warstwy CNN tworzą hierarchię reprezentacji:
-\begin{itemize}
-	\item pierwsze warstwy rozpoznają proste cechy lokalne
-	\item środkowe warstwy łączą proste cechy w bardziej złożone struktury
-	\item ostatnie warstwy wydobywają informacje semantyczne - np. pola o niskim ryzyku negatywnych efektów 
-\end{itemize}
-
-Wynik działania ostatnich warstw konwolucyjnych jest często spłaszczany (\textit{flattening}) i przekazywany do klasycznych warstw gęstych, które dokonują końcowej klasyfikacji lub decyzji.
+W zastosowaniach związanych z grami planszowymi hierarchia ta może odpowiadać przejściu od prostych zależności pomiędzy sąsiednimi polami do bardziej złożonych układów pozycyjnych obejmujących większy fragment planszy. Dzięki temu sieć może kodować zarówno lokalne zagrożenia, jak i bardziej globalne zależności taktyczne.
 
 \subsubsection*{Warstwy wspierające}
-W celu zwiększenia efektywności uczenia i zdolność generalizacji, w sieciach konwolucyjnych stosuje się dodatkowe mechanizmy.
 
-\begin{itemize}
-	\item Pooling - redukuje rozdzielczość map cech poprzez agregację lokalnych fragmentów.
-	\item Batch Normalization – normalizuje wartości aktywacji w obrębie mini-batcha, stabilizując proces uczenia i przyspieszając zbieżność.
-	\item Dropout – losowo „wyłącza” część neuronów w czasie treningu, co zapobiega przeuczeniu (\textit{overfitting})
-	
-	Połączenie operacji splotu, nieliniowych funkcji aktywacji oraz warstw
-	wspomagających umożliwia budowę głębokich hierarchii reprezentacji przy
-	zachowaniu efektywności obliczeniowej.
-	
-\end{itemize}
+W sieciach splotowych stosuje się również warstwy wspierające, które uzupełniają działanie samych operacji splotu. Warstwy \textit{pooling} redukują rozdzielczość map cech poprzez lokalną agregację, co zmniejsza koszt obliczeniowy i zwiększa zakres zależności analizowanych przez kolejne warstwy. Warstwy normalizacyjne stabilizują proces uczenia, natomiast \textit{dropout} ogranicza ryzyko przeuczenia przez losowe wyłączanie części aktywacji w trakcie treningu.
 
+Dobór tych mechanizmów zależy od charakteru zadania. W problemach wymagających zachowania precyzyjnej informacji przestrzennej, takich jak analiza planszy gry, nadmierna redukcja rozdzielczości może być niekorzystna. Z tego względu warstwy wspierające powinny być dobierane z uwzględnieniem kompromisu pomiędzy efektywnością obliczeniową a dokładnością reprezentacji.
+
+Wynik działania części splotowej jest następnie przekazywany do dalszych warstw modelu, na przykład warstw gęstych lub głów aktora i krytyka w algorytmach uczenia ze wzmocnieniem.
 

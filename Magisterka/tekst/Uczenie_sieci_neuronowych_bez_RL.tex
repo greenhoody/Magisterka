@@ -5,8 +5,7 @@ Uczenie odbywa się w sposób iteracyjny poprzez modyfikację wag modelu w kieru
 
 \begin{itemize}
 	\item Propagacja w przód (\textit{forward pass}) – dane wejściowe przechodzą przez kolejne warstwy modelu, aż do uzyskania przewidywania $\hat{y}$.
-	\item Obliczenie błędu (\textit{loss}) – funkcja kosztu 
-	$𝐿(𝑦,\hat{y})$ mierzy różnicę między wartością przewidywaną a oczekiwaną.
+	\item Obliczenie błędu (\textit{loss}) – funkcja kosztu $𝐿(y,\hat{y})$ mierzy jakość otrzymanej predykcji. 
 	\item Propagacja wsteczna (\textit{backpropagation}) – na podstawie reguły łańcuchowej obliczane są gradienty funkcji kosztu względem wag.
 	\item Aktualizacja wag (\textit{update}) – parametry są modyfikowane zgodnie z wybranym algorytmem optymalizacji, np. SGD lub Adamem.
 	
@@ -18,12 +17,12 @@ uczenie nadzorowane, uczenie nienadzorowane oraz uczenie ze wzmocnieniem.
 
 \subsection*{Uczenie nadzorowane}
 
-Uczenie nadzorowane (\textit{supervised learning}) jest najczęściej stosowanym paradygmatem uczenia sieci neuronowych. Zakłada ono, że dostępny jest zbiór danych uczących składający się z par $(\mathbf{x}, y)$, gdzie $\mathbf{x}$ reprezentuje wektor cech opisujących przykład, a $y$ jest przypisaną do niego etykietą lub wartością wyjściową. Celem modelu jest nauczenie się odwzorowania $f: \mathbf{x} \rightarrow y$ w taki sposób, aby przewidywane wyjście $\hat{y}$ było jak najbardziej zbliżone do wartości rzeczywistej $y$ \cite{Goodfellow-et-al-2016}.
+Uczenie nadzorowane (\textit{supervised learning}) jest najczęściej stosowanym paradygmatem uczenia sieci neuronowych. Wymaga on zbioru danych uczących składający się z par $(\mathbf{x}, y)$, gdzie $\mathbf{x}$ reprezentuje wektor cech opisujących przykład, a $y$ jest przypisaną do niego etykietą lub wartością wyjściową. Celem modelu jest nauczenie się odwzorowania $f: \mathbf{x} \rightarrow y$ w taki sposób, aby przewidywane wyjście $\hat{y}$ było jak najbardziej zbliżone do wartości rzeczywistej $y$ \cite{Goodfellow-et-al-2016}.
 
 W ramach uczenia nadzorowanego wyróżnia się dwa główne typy zadań:
 \begin{itemize}
 	\item \textbf{Klasyfikacja} – gdy etykiety $y$ należą do skończonego zbioru klas, a model ma za zadanie przypisać dany przykład do jednej z nich. Przykłady zastosowań obejmują rozpoznawanie obrazów, klasyfikację dokumentów tekstowych czy diagnozowanie chorób na podstawie danych medycznych.
-	\item \textbf{Regresja} – gdy etykieta $y$ jest wartością liczbową, a celem jest przewidzenie wartości ciągłej. Do typowych przykładów należą prognozowanie cen, przewidywanie popytu czy estymacja parametrów fizycznych w eksperymentach naukowych.
+	\item \textbf{Regresja} –  gdy etykieta $y$ ma charakter ciągły lub liczbowy, a zadaniem modelu jest oszacowanie jej wartości na podstawie dostępnych danych wejściowych. Przykładami takich zadań są prognozowanie cen, przewidywanie popytu oraz estymacja parametrów fizycznych w eksperymentach naukowych.
 \end{itemize}
 
 Dzięki swojej uniwersalności, uczenie nadzorowane jest stosowane w szerokim zakresie dziedzin, od rozpoznawania mowy i analizy obrazu, przez systemy rekomendacyjne, aż po prognozy finansowe i modelowanie procesów przemysłowych.
@@ -51,40 +50,43 @@ R_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k}
 gdzie $\gamma \in (0,1)$ to współczynnik dyskontowania, który określa znaczenie przyszłych nagród.
 Uczenie ze wzmocnieniem znajduje zastosowanie w problemach decyzyjnych – w tym w robotyce, sterowaniu i grach strategicznych, takich jak BloodBowl, Go czy StarCraft, gdzie sieci neuronowe pełnią rolę polityki decyzyjnej (\textit{policy network}).
 
-\section{Funkcje kosztu (straty)}
+\section{Funkcje straty w uczeniu ze wzmocnieniem}
 
-Funkcja kosztu (ang. \textit{loss function}, \textit{cost function}) pełni kluczową rolę w procesie uczenia sieci neuronowych, ponieważ stanowi ilościową miarę różnicy pomiędzy przewidywaniami modelu $\hat{y}$ a wartościami oczekiwanymi $y$. Jej wartość stanowi miarę jakości działania modelu dla danych uczących
+Funkcja straty (ang. \textit{loss function}) pełni istotną rolę również w uczeniu ze wzmocnieniem, jednak jej znaczenie różni się od roli, jaką pełni w klasycznych zadaniach uczenia nadzorowanego. W przypadku uczenia nadzorowanego funkcja straty opisuje bezpośrednią rozbieżność pomiędzy przewidywaniem modelu $\hat{y}$ a znaną wartością docelową $y$. Natomiast w uczeniu ze wzmocnieniem model nie dysponuje jednoznacznymi etykietami poprawnych odpowiedzi dla poszczególnych przykładów. Zamiast tego agent uczy się na podstawie sygnału nagrody otrzymywanego ze środowiska, którego wpływ może ujawniać się dopiero po wielu kolejnych decyzjach. \cite{SuttonBarto2018}
 
-Na podstawie funkcji kosztu algorytm optymalizacji wyznacza gradienty, które
-informują, w jaki sposób należy modyfikować wagi sieci, aby stopniowo
-zmniejszać popełniany błąd. Proces ten prowadzi do iteracyjnego
-dostosowywania parametrów modelu w kierunku minimalizacji wartości funkcji
-straty \cite{Goodfellow-et-al-2016}. Dobór odpowiedniej funkcji kosztu zależy
-od rodzaju rozwiązywanego problemu oraz charakteru danych wyjściowych.
+W konsekwencji funkcja straty w uczeniu ze wzmocnieniem nie służy wyłącznie do minimalizacji błędu predykcji względem z góry zadanej odpowiedzi, lecz do takiej modyfikacji parametrów modelu, aby zwiększać oczekiwaną skumulowaną nagrodę. Wartości docelowe wykorzystywane podczas optymalizacji są najczęściej estymowane na podstawie obserwowanych przejść, uzyskanych nagród oraz przewidywań samego modelu.
 
-W praktyce można wyróżnić dwie główne grupy funkcji kosztu:  
+Na podstawie funkcji straty algorytm optymalizacji wyznacza gradienty, które informują, w jaki sposób należy modyfikować parametry sieci, aby poprawić jakość podejmowanych decyzji, trafność estymacji wartości stanów lub działań oraz skuteczność całej polityki działania. Proces ten prowadzi do iteracyjnego dostosowywania parametrów modelu w kierunku maksymalizacji oczekiwanego zwrotu, przy czym w praktyce często realizuje się to poprzez minimalizację odpowiednio zdefiniowanej funkcji straty.
+
+W praktyce można wyróżnić kilka głównych grup funkcji straty stosowanych w uczeniu ze wzmocnieniem:
 \begin{itemize}
-	\item \textbf{Funkcje kosztu dla klasyfikacji} – stosowane, gdy zadaniem modelu jest przypisanie przykładu do jednej z klas:
+	\item \textbf{Funkcje straty dla metod opartych na funkcji wartości} -- stosowane, gdy model estymuje wartość stanu $V(s)$ lub wartość akcji $Q(s,a)$:
 	\begin{itemize}
-		\item \textit{Entropia krzyżowa} (\textit{cross-entropy loss}) – powszechnie używana w zadaniach klasyfikacji wieloklasowej i binarnej. Funkcja ta silnie karze błędne przewidywania o wysokim poziomie pewności.
-		\item \textit{Hinge loss} – często stosowana w klasyfikatorach typu SVM, promuje dużą marginesową separację pomiędzy klasami.
+		\item \textit{Mean Squared Error (MSE)} -- używana do minimalizacji różnicy pomiędzy przewidywaną wartością a wartością docelową wyznaczoną na podstawie nagrody i bootstrappingu.
+		\item \textit{Huber loss} -- często stosowana jako bardziej odporna alternatywa dla MSE, ograniczająca wpływ dużych błędów estymacji.
 	\end{itemize}
-	\item \textbf{Funkcje kosztu dla regresji} – używane, gdy przewidywane są wartości ciągłe:
+	
+	\item \textbf{Funkcje straty dla metod gradientu polityki} -- stosowane, gdy model bezpośrednio optymalizuje politykę wyboru działań:
 	\begin{itemize}
-		\item \textit{Mean Squared Error (MSE)} – średnia wartość kwadratu różnic pomiędzy przewidywaniami a wartościami rzeczywistymi; silnie penalizuje duże błędy.
-		\item \textit{Mean Absolute Error (MAE)} – średnia wartość bezwzględna błędów; mniej wrażliwa na wartości odstające niż MSE.
+		\item strata polityki oparta na logarytmie prawdopodobieństwa wybranego działania, ważona estymowanym zwrotem lub przewagą (\textit{advantage}),
+		\item funkcje celu z mechanizmami ograniczającymi zbyt duże zmiany polityki, jak w metodzie PPO.
 	\end{itemize}
 \end{itemize}
 
-Dobór funkcji kosztu powinien uwzględniać:
+Dobór funkcji straty w uczeniu ze wzmocnieniem powinien uwzględniać kilka istotnych czynników:
 \begin{itemize}
-	\item \textbf{Charakter problemu} – np. klasyfikacja binarna vs. wieloklasowa, regresja liniowa vs. nieliniowa.
-	\item \textbf{Wrażliwość na wartości odstające} – MSE jest silnie wrażliwe na anomalie, MAE bardziej odporne.
-	\item \textbf{Interpretowalność} – niektóre funkcje, takie jak log-loss, mają bezpośrednie powiązanie z teorią prawdopodobieństwa.
-	\item \textbf{Stabilność numeryczna} – przy dużej liczbie klas lub ekstremalnych wartościach wyjściowych warto stosować wersje funkcji kosztu zoptymalizowane pod kątem obliczeń numerycznych.
+	\item \textbf{Rodzaj stosowanego algorytmu} -- inna postać funkcji straty jest wykorzystywana w metodach opartych na funkcji wartości, inna w metodach gradientu polityki, a jeszcze inna w podejściach actor--critic.
+	
+	\item \textbf{Sposób wyznaczania celu optymalizacji} -- w uczeniu ze wzmocnieniem wartości docelowe są zwykle estymowane, a nie znane z góry, co wpływa na stabilność uczenia i jakość uzyskiwanych gradientów.
+	
+	\item \textbf{Wariancję i szum sygnału uczącego} -- sygnał nagrody może być rzadki, opóźniony i obarczony dużą losowością, dlatego funkcja straty powinna sprzyjać stabilnemu uczeniu mimo niepewności estymowanych celów.
+	
+	\item \textbf{Równowagę pomiędzy eksploracją a eksploatacją} -- w wielu metodach do funkcji straty dodawany jest składnik entropijny, który zachęca agenta do dalszego badania przestrzeni możliwych działań.
+	
+	\item \textbf{Stabilność optymalizacji} -- ze względu na niestacjonarny charakter danych treningowych oraz zależność kolejnych obserwacji od aktualnej polityki, szczególne znaczenie ma ograniczanie zbyt gwałtownych aktualizacji parametrów.
 \end{itemize}
 
-Ostateczny wybór funkcji straty ma istotny wpływ na przebieg procesu uczenia, tempo konwergencji oraz końcową jakość modelu.
+Ostateczny dobór funkcji straty ma istotny wpływ na stabilność procesu uczenia, szybkość konwergencji oraz końcową skuteczność agenta. W przeciwieństwie do klasycznych zadań nadzorowanych funkcja straty w uczeniu ze wzmocnieniem ma charakter bardziej pośredni, ponieważ nie odnosi się do jawnie zadanej poprawnej odpowiedzi, lecz do estymowanego wpływu działań na przyszłą sumę nagród.
 
 \section{Algorytmy optymalizacji}
 
@@ -122,8 +124,15 @@ Metoda \textit{momentum} to usprawnienie klasycznego spadku gradientu, które wp
 \]
 
 \begin{itemize}
-	\item $\eta$ — learning rate (wielkość kroku).
-	\item $\gamma \in [0,1)$ — momentum coefficient, określa stopień zachowania poprzednich gradientów.  
+	\item $\theta_t$ — wektor parametrów modelu w kroku $t$.
+	\item $\theta_{t+1}$ — wektor parametrów modelu po wykonaniu aktualizacji.
+	\item $L(\theta_t)$ — wartość funkcji straty dla parametrów $\theta_t$.
+	\item $\nabla_{\theta} L(\theta_t)$ — gradient funkcji straty względem parametrów modelu, obliczony w punkcie $\theta_t$.
+	\item $v_t$ — wektor aktualizacji w kroku $t$, uwzględniający zarówno bieżący gradient, jak i wpływ poprzednich aktualizacji.
+	\item $v_{t-1}$ — wektor aktualizacji z poprzedniego kroku.
+	\item $\eta$ — współczynnik uczenia (\textit{learning rate}), określający wielkość kroku aktualizacji.
+	\item $\gamma \in [0,1)$ — współczynnik momentu (\textit{momentum coefficient}), określający stopień zachowania informacji o poprzednich aktualizacjach.
+	\item $t$ — numer iteracji procesu optymalizacji.
 \end{itemize}
 
 Efektem jest filtr wygładzający historię gradientów, co przyspiesza konwergencję i redukuje oscylacje, a także ułatwia przeciskanie przez lokalne minima.
@@ -334,6 +343,24 @@ h^{(l)}_{\text{test}} = p \, h^{(l)}_{\text{train}}
 
 aby zachować oczekiwaną wartość wyjść.
 Dropout można interpretować jako rodzaj losowego „ensemble learning” — w każdej iteracji trenowany jest inny podzbiór sieci, a końcowy model działa jak uśrednienie wielu słabszych klasyfikatorów. W efekcie sieć staje się bardziej odporna na szum w danych i lepiej generalizuje na zbiorze testowym \cite{Srivastava2014Dropout}.
+
+\subsection*{Pooling}
+
+W sieciach splotowych często stosuje się również operację \textit{poolingu}, której celem jest redukcja rozdzielczości map cech przy zachowaniu najważniejszych informacji o lokalnie wykrytych wzorcach. Mechanizm ten polega na agregacji wartości aktywacji w niewielkich obszarach wejścia, co prowadzi do zmniejszenia wymiaru reprezentacji oraz ograniczenia kosztu obliczeniowego kolejnych warstw.
+
+Najczęściej wykorzystywaną odmianą jest \textit{max pooling}, w której z każdego lokalnego obszaru wybierana jest wartość maksymalna. Dla okna o rozmiarze $K \times K$ operację tę można zapisać w postaci:
+
+\[
+y(i,j) = \max_{0 \leq m < K \atop 0 \leq n < K} x(i \cdot S + m,\; j \cdot S + n),
+\]
+
+gdzie $S$ oznacza krok przesuwania okna, natomiast $x$ i $y$ są odpowiednio mapą wejściową i wyjściową. Alternatywę stanowi \textit{average pooling}, w którym zamiast maksimum obliczana jest średnia wartość aktywacji w danym obszarze:
+
+\[
+y(i,j) = \frac{1}{K^2} \sum_{m=0}^{K-1} \sum_{n=0}^{K-1} x(i \cdot S + m,\; j \cdot S + n).
+\]
+
+Zastosowanie poolingu zmniejsza czułość modelu na niewielkie przesunięcia i lokalne zakłócenia danych wejściowych, a także pozwala zwiększyć efektywny zakres zależności analizowanych przez kolejne warstwy. Jednocześnie nadmierna redukcja rozdzielczości może prowadzić do utraty precyzyjnej informacji przestrzennej, dlatego w zadaniach wymagających dokładnej lokalizacji obiektów lub relacji przestrzennych pooling stosuje się ostrożnie albo zastępuje innymi mechanizmami redukcji wymiaru. 
 
 \subsection*{Learning Rate Scheduling}
 

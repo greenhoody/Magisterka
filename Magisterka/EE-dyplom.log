@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  14 MAR 2026 21:59
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  23 MAR 2026 01:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1790,26 +1790,26 @@ Package fontspec Info:
  (./EE-dyplom.aux)
 \openout1 = `EE-dyplom.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1866,7 +1866,7 @@ Package biblatex Info: ... file 'latin.lbx' not found.
 
 
 Package biblatex Warning: Language 'latin' not supported.
-(biblatex)                Using dummy definitions on input line 109.
+(biblatex)                Using dummy definitions on input line 111.
 
 Package biblatex Info: Trying to load language 'polish'...
 Package biblatex Info: ... file 'polish.lbx' found.
@@ -1897,14 +1897,14 @@ Package biblatex Warning: The following entry could not be found
 (biblatex)                LaTeX afterwards.
 
 )
-Package biblatex Info: Reference section=0 on input line 109.
-Package biblatex Info: Reference segment=0 on input line 109.
+Package biblatex Info: Reference section=0 on input line 111.
+Package biblatex Info: Reference segment=0 on input line 111.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 109.
+Package hyperref Info: Link coloring ON on input line 111.
  (./EE-dyplom.out) (./EE-dyplom.out)
 \@outlinefile=\write9
 \openout9 = `EE-dyplom.out'.
@@ -1995,54 +1995,50 @@ Rozdział 2.
 [11
 
 ]
-Missing character: There is no 𝑥 (U+1D465) in font Latin Modern Sans 10 Regular
-/OT:script=latn;language=PLK;mapping=tex-text;!
-Missing character: There is no − ("2212) in font cmr10!
-
 
 [12]
-
-LaTeX Font Warning: Font shape `TU/LatinModernMath(0)/bx/n' undefined
-(Font)              using `TU/LatinModernMath(0)/m/n' instead on input line 82.
-
-
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 127.
+(Font)              scaled to size 5.0pt on input line 99.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 5.0pt on input line 127.
+(Font)              scaled to size 5.0pt on input line 99.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 127.
+(Font)              scaled to size 10.95pt on input line 99.
 
 
 [13]
+
+LaTeX Font Warning: Font shape `TU/LatinModernMath(0)/bx/n' undefined
+(Font)              using `TU/LatinModernMath(0)/m/n' instead on input line 219
+.
+
+
 
 [14]
 
 [15]
 
 [16]
+
+[17]
 contour: Using 16 copies for `\textcolor {black}{Wejście $6\times 6$}' on input
- line 427.
+ line 425.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 427.
+(Font)              scaled to size 10.0pt on input line 425.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 427.
+(Font)              scaled to size 7.0pt on input line 425.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 10.0pt on input line 427.
+(Font)              scaled to size 10.0pt on input line 425.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 427.
-contour: Using 16 copies for `stride $s$' on input line 438.
-contour: Using 16 copies for `filtr $2\times 2$' on input line 439.
-contour: Using 16 copies for `Mapa cech $4\times 4 $' on input line 453.
-contour: Using 16 copies for `splot' on input line 458.
+(Font)              scaled to size 7.0pt on input line 425.
+contour: Using 16 copies for `stride $s$' on input line 436.
+contour: Using 16 copies for `filtr $2\times 2$' on input line 437.
+contour: Using 16 copies for `Mapa cech $4\times 4 $' on input line 451.
+contour: Using 16 copies for `splot' on input line 456.
 
 
-[17]) (./tekst/Uczenie_sieci_neuronowych_bez_RL.tex
+[18]) (./tekst/Uczenie_sieci_neuronowych_bez_RL.tex
 Missing character: There is no 𝐿 ("1D43F) in font cmmi10!
-Missing character: There is no 𝑦 ("1D466) in font cmmi10!
 
-
-[18]
 
 [19]
 
@@ -2055,49 +2051,65 @@ Missing character: There is no 𝑦 ("1D466) in font cmmi10!
 [23]
 
 [24]
-Missing character: There is no 𝐿 ("1D43F) in font cmmi10!
-
 
 [25]
 
-[26]) (./tekst/Sieci_Splotowe.tex)
+[26]
+Missing character: There is no 𝐿 ("1D43F) in font cmmi10!
+
 
 [27]
 
-[28
+[28]
 
-]
+Package amsmath Warning: Foreign command \atop;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 354.
+
+
+
+[29]) (./tekst/Sieci_Splotowe.tex)
+
+[30]
 Rozdział 3.
 (./tekst/Zestawienie_testowanych rozwiązań.tex
 
-[29]
-Overfull \hbox (20.25615pt too wide) in paragraph at lines 87--88
+[31
+
+]
+Overfull \hbox (20.25615pt too wide) in paragraph at lines 82--83
 [][] 
  []
 
 
 
-[30]
-
-[31]
-
 [32]
 
-LaTeX Warning: Citation 'openai_baselines_a2c' on page 33 undefined on input li
-ne 234.
+LaTeX Font Warning: Font shape `TU/LatinModernSans(1)/m/sc' undefined
+(Font)              using `TU/LatinModernSans(1)/m/n' instead on input line 114
+.
+
+
+LaTeX Warning: Citation 'sutton2018tempora' on page 33 undefined on input line 
+150.
 
 
 
 [33]
 
-LaTeX Warning: Citation 'Schulman2015TRPO' on page 34 undefined on input line 2
-94.
-
-
-
 [34]
 
+LaTeX Warning: Citation 'openai_baselines_a2c' on page 35 undefined on input li
+ne 232.
+
+
+
 [35]
+
+LaTeX Warning: Citation 'Schulman2015TRPO' on page 36 undefined on input line 2
+92.
+
+
 
 [36]
 
@@ -2121,9 +2133,28 @@ LaTeX Warning: Citation 'Schulman2015TRPO' on page 34 undefined on input line 2
 
 [46]
 
-[47])
+[47]
 
 [48]
+
+[49]
+
+[50]
+
+[51]
+Overfull \hbox (53.14687pt too wide) in paragraph at lines 1016--1017
+ [][] 
+ []
+
+)
+
+[52]
+
+[53]
+
+[54
+
+]
 Rozdział 4.
 (./tekst/BloodBowl.tex
 File: rysunki/Botbowl_board.jpg Graphic file (type bmp)
@@ -2135,42 +2166,34 @@ Overfull \hbox (14.22636pt too wide) in paragraph at lines 7--8
 
 
 
-[49
+[55]
 
-]
+[56]
 
-[50]
+[57])
 
-[51])
-
-[52]
+[58]
 Rozdział 5.
 (./tekst/Wyniki.tex
-
-[53
-
-]
 File: rysunki/compare_mean_td_for_50_no_legend.png Graphic file (type bmp)
 <rysunki/compare_mean_td_for_50_no_legend.png>
 File: rysunki/compare_win_rate_50_no_legend.png Graphic file (type bmp)
 <rysunki/compare_win_rate_50_no_legend.png>
 File: rysunki/compare_win_rate_total_no_legend.png Graphic file (type bmp)
 <rysunki/compare_win_rate_total_no_legend.png>
+
+Overfull \hbox (12.01213pt too wide) in alignment at lines 7--11
+ [] 
+ []
+
+[59
+
+]
 File: rysunki/legend.png Graphic file (type bmp)
 <rysunki/legend.png>
 
-Overfull \hbox (26.2385pt too wide) in paragraph at lines 22--28
-[][]
- []
-
-
-
-[54]
-
-[55]
-Underfull \hbox (badness 1033) in paragraph at lines 33--34
-\TU/LatinModernSans(1)/m/n/10.95 długoterminowy trend skuteczności agenta. Wraz
- z postępem uczenia można zaobserwować
+Overfull \hbox (14.2385pt too wide) in paragraph at lines 12--13
+[][] 
  []
 
 File: rysunki/compare_mean_td_for_50_log_no_legend.png Graphic file (type bmp)
@@ -2179,52 +2202,62 @@ File: rysunki/compare_win_rate_50_log_no_legend.png Graphic file (type bmp)
 <rysunki/compare_win_rate_50_log_no_legend.png>
 File: rysunki/compare_win_rate_total_log_no_legend.png Graphic file (type bmp)
 <rysunki/compare_win_rate_total_log_no_legend.png>
+
+Overfull \hbox (12.00616pt too wide) in alignment at lines 14--18
+ [] 
+ []
+
+[60]
 File: rysunki/legend.png Graphic file (type bmp)
 <rysunki/legend.png>
 
-Overfull \hbox (26.23253pt too wide) in paragraph at lines 35--41
-[][]
+Overfull \hbox (14.2385pt too wide) in paragraph at lines 19--20
+[][] 
  []
 
 
 
-[56]
+[61]))
 
-[57]))
+[62]
 
-[58]
-
-[59
+[63
 
 ]
-Overfull \hbox (2.99629pt too wide) in paragraph at lines 121--121
-[]\TU/LatinModernSans(1)/m/n/10.95 Schulman, J. e. a., „  Proximal Policy Optim
-ization Algorithms”, \TU/LatinModernSans(1)/m/it/10.95 arXiv preprint arXiv:170
-7.06347\TU/LatinModernSans(1)/m/n/10.95 ,
+Overfull \hbox (2.99629pt too wide) in paragraph at lines 123--123
+[]\TU/LatinModernSans(1)/m/sc/10.95 Schulman, J. e. a., „  Proximal Policy Opti
+mization Algorithms”, \TU/LatinModernSans(1)/m/it/10.95 arXiv preprint arXiv:17
+07.06347\TU/LatinModernSans(1)/m/sc/10.95 ,
  []
 
 
 
-[60]
+[64]
 No file EE-dyplom.acr.
 No file EE-dyplom.sls.
 
 
-[61
+[65
 
 ]
 
-[62
+[66
 
-] (./EE-dyplom.lof)
+] (./EE-dyplom.lof
+Underfull \hbox (badness 2452) in paragraph at lines 8--8
+ [][] [][][]\TU/LatinModernSans(1)/m/sc/10.95 Schemat bloku Inception–Residual 
+stosowanego w wariancie residualnym dla 
+ []
+
+)
 \tf@lof=\write11
 \openout11 = `EE-dyplom.lof'.
 
 
 
-[63]
+[67]
 
-[64
+[68
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2232,7 +2265,7 @@ No file EE-dyplom.sls.
 
 
 
-[65] (./EE-dyplom.aux)
+[69] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2241,19 +2274,27 @@ L3 programming layer <2025-06-09>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
-(rerunfilecheck)             Checksum: 815298758B70DA64F2C54172A5FD1A96;5184.
+(rerunfilecheck)             Checksum: 078F13749F133E84EA8B8CAB57CC7A5F;5871.
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                EE-dyplom
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 \openout1 = `EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 58466 strings out of 468529
- 1348316 string characters out of 5451399
- 2606209 words of memory out of 5000000
- 85872 multiletter control sequences out of 15000+600000
- 635064 words of font info for 143 fonts, out of 8000000 for 9000
+ 58612 strings out of 468529
+ 1350639 string characters out of 5451399
+ 2606736 words of memory out of 5000000
+ 86015 multiletter control sequences out of 15000+600000
+ 635088 words of font info for 146 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  114i,19n,131p,2506b,5109s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (65 pages).
+Output written on EE-dyplom.pdf (69 pages).

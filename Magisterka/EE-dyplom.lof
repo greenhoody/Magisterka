@@ -2,6 +2,9 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {1}{\ignorespaces \xpg@aux {}{polish}Porównanie płytkiej i głębokiej sieci neuronowej z wyrównanym położeniem neuronów wyjściowych.}}{15}{figure.caption.4}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2}{\ignorespaces \xpg@aux {}{polish}Schemat działania mechanizmu hyper-connections.}}{43}{figure.caption.42}%
+\contentsline {figure}{\numberline {2}{\ignorespaces \xpg@aux {}{polish}Schemat działania mechanizmu hyper-connections.}}{45}{figure.caption.46}%
+\contentsline {figure}{\numberline {3}{\ignorespaces \xpg@aux {}{polish}Wspólny schemat architektury sieci stosowanej w eksperymentach dla \texttt {env\_size=3}.}}{52}{figure.caption.54}%
+\contentsline {figure}{\numberline {4}{\ignorespaces \xpg@aux {}{polish}Schemat bloku HyperConnection--Inception (wariant statyczny i dynamiczny) stosowanego dla \texttt {env\_size=3}.}}{52}{figure.caption.55}%
+\contentsline {figure}{\numberline {5}{\ignorespaces \xpg@aux {}{polish}Schemat bloku Inception--Residual stosowanego w wariancie residualnym dla \texttt {env\_size=3}.}}{53}{figure.caption.56}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -4,30 +4,32 @@
 \contentsline {chapter}{\numberline {2}Sieci Neuronowe}{11}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Funkcja aktywacji}{12}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Architektura sieci neuronowej}{14}{section.2.2}%
-\contentsline {subsubsection}{Głębokość i zdolność reprezentacyjna}{14}{section*.3}%
-\contentsline {section}{\numberline {2.3}Sieci Splotowe}{15}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Geneza}{15}{subsection.2.3.1}%
+\contentsline {subsubsection}{Architektura sieci neuronowej i zdolność reprezentacyjna}{14}{section*.3}%
+\contentsline {section}{\numberline {2.3}Sieci Splotowe}{16}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Geneza}{16}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Sposób działania}{16}{subsection.2.3.2}%
-\contentsline {section}{\numberline {2.4}Techniki uczenia sieci neuronowych}{18}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Funkcje kosztu (straty)}{20}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Algorytmy optymalizacji}{20}{section.2.6}%
-\contentsline {section}{\numberline {2.7}Problemy gradientowe}{24}{section.2.7}%
-\contentsline {section}{\numberline {2.8}Techniki stabilizacji i usprawnienia procesu uczenia}{26}{section.2.8}%
-\contentsline {chapter}{\numberline {3}Zestawienie użytych rozwiązań}{29}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Algorytmy aktor--krytyk}{29}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Advanced Actor Critic}{33}{section.3.2}%
-\contentsline {section}{\numberline {3.3}PPO}{34}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Współdzielenie części konwolucyjnej}{36}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Reprezentacja danych wejściowych}{36}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Architektura typu CNN z blokiem Inception}{38}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Resnet}{39}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Inception-Residual}{40}{section.3.8}%
-\contentsline {section}{\numberline {3.9}Hyperconncetion}{41}{section.3.9}%
-\contentsline {section}{\numberline {3.10}Rozszerzenia architektury sieci i techniki stabilizacji uczenia}{44}{section.3.10}%
-\contentsline {chapter}{\numberline {4}Środowisko testowe}{49}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Bloodbowl jako benchmark dla uczenia ze wzmocnieniem.}{50}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Środowisko BotBowl}{51}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Wyniki}{53}{chapter.5}%
-\contentsline {chapter}{Wykaz skrótów i symboli}{61}{chapter*.55}%
-\contentsline {chapter}{Spis rysunków}{63}{chapter*.56}%
-\contentsline {chapter}{Spis tabel}{65}{chapter*.57}%
+\contentsline {section}{\numberline {2.4}Techniki uczenia sieci neuronowych}{19}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Funkcje straty w uczeniu ze wzmocnieniem}{21}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Algorytmy optymalizacji}{22}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Problemy gradientowe}{26}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Techniki stabilizacji i usprawnienia procesu uczenia}{28}{section.2.8}%
+\contentsline {chapter}{\numberline {3}Zestawienie użytych rozwiązań}{31}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Algorytmy aktor--krytyk}{31}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Advanced Actor Critic}{34}{section.3.2}%
+\contentsline {section}{\numberline {3.3}PPO}{36}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Współdzielenie części konwolucyjnej}{38}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Reprezentacja danych wejściowych}{38}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Architektura typu CNN z blokiem Inception}{40}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Resnet}{41}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Inception-Residual}{42}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Hyper-Connections}{43}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Rozszerzenia architektury sieci i techniki stabilizacji uczenia}{47}{section.3.10}%
+\contentsline {section}{\numberline {3.11}Architektury sieci neuronowych zastosowanych w środowisku}{51}{section.3.11}%
+\contentsline {subsection}{\numberline {3.11.1}Analizowane warianty architektur}{52}{subsection.3.11.1}%
+\contentsline {chapter}{\numberline {4}Środowisko testowe}{55}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Bloodbowl jako benchmark dla uczenia ze wzmocnieniem.}{56}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Środowisko BotBowl}{57}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Wyniki}{59}{chapter.5}%
+\contentsline {chapter}{Wykaz skrótów i symboli}{65}{chapter*.58}%
+\contentsline {chapter}{Spis rysunków}{67}{chapter*.59}%
+\contentsline {chapter}{Spis tabel}{69}{chapter*.60}%
