@@ -147,7 +147,7 @@ przewagi (GAE), która wykorzystuje ważoną sumę błędów TD z wielu kroków 
 Zastosowanie funkcji przewagi pełni rolę tzw. \emph{baseline} i prowadzi do istotnego zmniejszenia
 wariancji estymatora gradientu. W rezultacie polityka uczona jest nie na podstawie surowych nagród,
 lecz informacji o tym, czy dana decyzja była lepsza czy gorsza od oczekiwań w danym stanie.
-Mechanizm ten stanowi kluczowy element stabilności i efektywności algorytmów A2C oraz PPO. \cite{mnih2016,Schulman2017PPO, sutton2018tempora}.
+Mechanizm ten stanowi kluczowy element stabilności i efektywności algorytmów A2C oraz PPO. \cite{mnih2016,Schulman2017PPO, sutton2018temporal}.
 
 \subsection*{Błąd różnicy czasowej}
 
@@ -189,25 +189,7 @@ A_t \approx \delta_t.
 Takie przybliżenie jest szczególnie naturalne w jednoskokowych metodach
 aktor--krytyk \cite{SuttonBarto2018}.
 
-
-Wartość $\delta_t$ informuje, czy rzeczywisty rezultat przejścia
-był lepszy czy gorszy od przewidywania krytyka.
-Jeżeli $\delta_t > 0$, to uzyskany wynik okazał się korzystniejszy od oczekiwanego,
-natomiast gdy $\delta_t < 0$, przejście było gorsze niż wskazywała bieżąca estymacja
-funkcji wartości.
-
-W praktyce błąd TD pełni w metodach aktor--krytyk dwie podstawowe funkcje.
-Po pierwsze, stanowi sygnał uczący dla krytyka, którego parametry są aktualizowane
-tak, aby zmniejszać różnicę pomiędzy przewidywaną wartością stanu a wartością docelową.
-Po drugie, może służyć jako najprostsze przybliżenie funkcji przewagi:
-\[
-A_t \approx \delta_t.
-\]
-Takie przybliżenie jest szczególnie naturalne w jednoskokowych metodach
-aktor--krytyk \cite{SuttonBarto2018}.
-
-
-\section{Advanced Actor Critic}
+\section{Advantage Actor-Critic (A2C)}
 
 \subsection*{A2C, a A3C}
 
@@ -229,7 +211,7 @@ Po zebraniu paczki $\mathcal{B}$ wyznacza się na jej podstawie wielkości wymag
 w szczególności przybliżone zwroty (np. n-krokowe) oraz estymaty przewagi $A_t$,
 a następnie wykonuje się jedną synchroniczną aktualizację parametrów sieci na całej paczce.
 Dopiero po tej aktualizacji generowana jest kolejna paczka danych, już z użyciem zaktualizowanej
-polityki, co jest zgodne z charakterem on-policy A2C \cite{mnih2016,openai_baselines_a2c}.
+polityki, co jest zgodne z charakterem on-policy A2C \cite{mnih2016,openaiBaselinesA2C}.
 
 Wzory zawierające operator wartości oczekiwanej $\mathbb{E}_t[\cdot]$ interpretowane są w praktyce
 jako uśrednienie po wszystkich próbkach z paczki rollout:

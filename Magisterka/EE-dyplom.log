@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  24 MAR 2026 00:01
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  24 MAR 2026 01:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1905,14 +1905,14 @@ Package biblatex Info: ... file 'EE-dyplom.bbl' found.
 
 Package biblatex Warning: The following entry could not be found
 (biblatex)                in the database:
-(biblatex)                Schulman2015TRPO
+(biblatex)                openai_baselines_a2c
 (biblatex)                Please verify the spelling and rerun
 (biblatex)                LaTeX afterwards.
 
 
 Package biblatex Warning: The following entry could not be found
 (biblatex)                in the database:
-(biblatex)                openai_baselines_a2c
+(biblatex)                sutton2018tempora
 (biblatex)                Please verify the spelling and rerun
 (biblatex)                LaTeX afterwards.
 
@@ -2112,26 +2112,12 @@ LaTeX Font Warning: Font shape `TU/LatinModernSans(1)/m/sc' undefined
 .
 
 
-LaTeX Warning: Citation 'sutton2018tempora' on page 33 undefined on input line 
-150.
-
-
 
 [33]
 
 [34]
 
-LaTeX Warning: Citation 'openai_baselines_a2c' on page 35 undefined on input li
-ne 232.
-
-
-
 [35]
-
-LaTeX Warning: Citation 'Schulman2015TRPO' on page 36 undefined on input line 2
-92.
-
-
 
 [36]
 
@@ -2164,19 +2150,13 @@ LaTeX Warning: Citation 'Schulman2015TRPO' on page 36 undefined on input line 2
 [50]
 
 [51]
-Overfull \hbox (53.14687pt too wide) in paragraph at lines 1016--1017
+Overfull \hbox (53.14687pt too wide) in paragraph at lines 998--999
  [][] 
  []
 
 )
 
 [52]
-
-[53]
-
-[54
-
-]
 Rozdział 4.
 (./tekst/BloodBowl.tex
 File: rysunki/Botbowl_board.jpg Graphic file (type bmp)
@@ -2188,13 +2168,15 @@ Overfull \hbox (14.22636pt too wide) in paragraph at lines 7--8
 
 
 
-[55]
+[53
+
+]
+
+[54]
+
+[55]) (./tekst/Wyniki.tex
 
 [56]
-
-[57]) (./tekst/Wyniki.tex
-
-[58]
 Rozdział 5.
 File: rysunki/compare_mean_td_for_50_no_legend.png Graphic file (type bmp)
 <rysunki/compare_mean_td_for_50_no_legend.png>
@@ -2207,7 +2189,7 @@ Overfull \hbox (12.01213pt too wide) in alignment at lines 9--13
  [] 
  []
 
-[59
+[57
 
 ]
 File: rysunki/legend.png Graphic file (type bmp)
@@ -2228,7 +2210,7 @@ Overfull \hbox (12.00616pt too wide) in alignment at lines 16--20
  [] 
  []
 
-[60]
+[58]
 File: rysunki/legend.png Graphic file (type bmp)
 <rysunki/legend.png>
 
@@ -2238,22 +2220,17 @@ Overfull \hbox (14.2385pt too wide) in paragraph at lines 21--22
 
 
 
+[59]
+
+[60]))
+
 [61]
 
-[62]
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 122.
-
-))
-
-[63]
-
-[64
+[62
 
 ]
 
-[65]
+[63]
 Overfull \hbox (2.99629pt too wide) in paragraph at lines 115--115
 []\TU/LatinModernSans(1)/m/sc/10.95 Schulman, J. e. a., „  Proximal Policy Opti
 mization Algorithms”, \TU/LatinModernSans(1)/m/it/10.95 arXiv preprint arXiv:17
@@ -2262,14 +2239,18 @@ mization Algorithms”, \TU/LatinModernSans(1)/m/it/10.95 arXiv preprint arXiv:1
 
 
 
-[66]
+[64]
+
+[65]
+
+[66
+
+]
 No file EE-dyplom.acr.
 No file EE-dyplom.sls.
 
 
-[67
-
-]
+[67]
 
 [68
 
@@ -2308,7 +2289,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
-(rerunfilecheck)             Checksum: 3243567A040BA5B981550D8919B8A505;6121.
+(rerunfilecheck)             Checksum: 8D9B3B6797C0B8817F6B05497F34DF26;6157.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                EE-dyplom
@@ -2319,12 +2300,12 @@ Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 58682 strings out of 468529
- 1351787 string characters out of 5451399
- 2603586 words of memory out of 5000000
- 86081 multiletter control sequences out of 15000+600000
+ 58688 strings out of 468529
+ 1352079 string characters out of 5451399
+ 2603604 words of memory out of 5000000
+ 86087 multiletter control sequences out of 15000+600000
  635088 words of font info for 146 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 114i,19n,131p,2506b,5109s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 114i,19n,131p,2506b,5101s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on EE-dyplom.pdf (71 pages).
