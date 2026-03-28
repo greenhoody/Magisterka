@@ -45,6 +45,7 @@
 
 \usepackage{contour}
 \usepackage{graphicx}
+
 \addbibresource{EE-dyplom.bib}
 
 \usetikzlibrary{positioning, arrows.meta, fit}
@@ -71,7 +72,7 @@
 \streszczeniepracy{
 Praca dotyczy zastosowania metod uczenia ze wzmocnieniem oraz głębokich sieci neuronowych do nauki gry w Blood Bowl w środowisku symulacyjnym BotBowl. Blood Bowl stanowi wymagające środowisko badawcze ze względu na bardzo dużą przestrzeń stanów, wysoki współczynnik rozgałęzienia decyzji, losowość wynikającą z mechaniki rzutów kośćmi oraz długoterminowe zależności pomiędzy działaniami agenta. W takich warunkach klasyczne metody przeszukiwania drzew decyzyjnych okazują się niewystarczające, co czyni uczenie ze wzmocnieniem obiecującym podejściem do konstruowania agentów zdolnych do podejmowania skutecznych decyzji.
 
-Celem pracy było porównanie różnych architektur sieci neuronowych stosowanych w agentach uczących się gry w Blood Bowl z wykorzystaniem algorytmów typu actor–critic. W badaniach zastosowano dwa algorytmy uczenia ze wzmocnieniem: Advantage Actor-Critic (A2C) oraz Proximal Policy Optimization (PPO). Analizowano modele oparte na klasycznych warstwach konwolucyjnych, blokach Inception, architekturze ResNet, blokach Inception-Residual oraz mechanizmie hyper-connections. W badanych sieciach wykorzystano również techniki stabilizacji uczenia, takie jak Layer Normalization, inicjalizacja He, funkcja aktywacji PReLU oraz maskowanie niedozwolonych akcji.
+Celem pracy było porównanie różnych architektur sieci neuronowych stosowanych w agentach uczących się gry w Blood Bowl z wykorzystaniem algorytmów typu actor–critic. W badaniach zastosowano dwa algorytmy uczenia ze wzmocnieniem: Advantage Actor-Critic (\acrshort{A2C}) oraz Proximal Policy Optimization ( \acrshort{PPO}). Analizowano modele oparte na klasycznych warstwach konwolucyjnych, blokach Inception, architekturze ResNet, blokach Inception-Residual oraz mechanizmie hyper-connections. W badanych sieciach wykorzystano również techniki stabilizacji uczenia, takie jak Layer Normalization, inicjalizacja He, funkcja aktywacji PReLU oraz maskowanie niedozwolonych akcji.
 
 Reprezentacja stanu gry została podzielona na dwa strumienie: przestrzenny, opisujący układ planszy, oraz nieprzestrzenny, zawierający parametry bieżącego stanu rozgrywki. Dane przestrzenne były przetwarzane przez sieci konwolucyjne, natomiast dane nieprzestrzenne przez warstwy w pełni połączone. Eksperymenty przeprowadzono w środowisku BotBowl implementującym zasady gry Blood Bowl i udostępniającym interfejs zgodny ze standardem OpenAI Gym. Postęp uczenia oceniano na podstawie średniej nagrody, liczby przyłożeń na epizod oraz wskaźnika zwycięstw.
 

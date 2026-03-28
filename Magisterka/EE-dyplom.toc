@@ -31,6 +31,6 @@
 \contentsline {section}{\numberline {4.2}Środowisko BotBowl}{55}{section.4.2}%
 \contentsline {chapter}{\numberline {5}Wyniki}{57}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Możliwości dalszych prac badawczych}{61}{section.5.1}%
-\contentsline {chapter}{Wykaz skrótów i symboli}{67}{chapter*.59}%
-\contentsline {chapter}{Spis rysunków}{69}{chapter*.60}%
-\contentsline {chapter}{Spis tabel}{71}{chapter*.61}%
+\contentsline {chapter}{Wykaz skrótów i symboli}{67}{chapter*.60}%
+\contentsline {chapter}{Spis rysunków}{69}{chapter*.61}%
+\contentsline {chapter}{Spis tabel}{71}{chapter*.62}%

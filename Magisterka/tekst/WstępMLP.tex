@@ -3,12 +3,14 @@ Idea sztucznych sieci neuronowych narodziła się podczas prób modelowaniu prac
 \[N_{i}\left( t+1 \right) = H\left( \sum_{j=1}^{n}w_{ij}(t)N_{j}(t)-\Theta_{i}\left( t \right)\right)\]
 gdzie:
 \begin{itemize}
-	\item N - stan neuronu, może przyjąć wartość 0 lub 1
-	\item H - funkcja skokowa Heaviside'a
+	\item $N$ - stan neuronu, może przyjąć wartość 0 lub 1
+	\item $H()$ - funkcja skokowa Heaviside'a
 	\item $w_{ij}$ - waga połączenia między wektorem j oraz i.
 	\item $\Theta$ - próg wyzwalania, neuron aktywuje się, gdy sygnał wejściowy go przekroczy.
 \end{itemize}
 \medskip
+
+
 
 Sieć złożona z takich neuronów jest nazywana dzisiaj perceptronem. Służy ona do zadań klasyfikacji binarnej. Potrafi określić przynależność badanego obiektu do jednej z klas na podstawie wybranych cech. W 1957 roku Frank Rosenblatt opracował pierwszy uczący się perceptron, który stanowił przełom w rozwoju sztucznych sieci neuronowych. Pomimo swojej innowacyjności, model ten miał istotne ograniczenia – nie potrafił rozwiązywać problemów nieliniowych, takich jak klasyczny przykład funkcji XOR, a jego struktura uniemożliwiała zastosowanie metod uczenia opartych na obliczaniu pochodnych.
 Źródłem tego ograniczenia była funkcja skokowa Heaviside’a, wykorzystywana jako funkcja aktywacji neuronu. Współcześnie zastępuje się ją funkcjami ciągłymi i różniczkowalnymi, takimi jak sigmoid, tangens hiperboliczny czy ReLU (Rectified Linear Unit) wraz z jej modyfikacjami (np. Leaky ReLU, Parametric ReLU), które umożliwiają skuteczne stosowanie algorytmów gradientowych, takich jak propagacja wsteczna błędu.
@@ -205,6 +207,7 @@ Funkcja ta jest ciągła w całej swojej dziedzinie, również w punkcie x=0, le
 			\hline
 		\end{tabular}
 	\caption{Porównanie funkcji aktywacji oraz ich pochodnych}
+	\label{Funkcja aktywacji}
 \end{table}
 
 
@@ -316,6 +319,7 @@ Choć twierdzenie to potwierdza dużą moc aproksymacyjną sieci płytkich, w pr
 		
 	\end{tikzpicture}
 	\caption{Porównanie płytkiej i głębokiej sieci neuronowej z wyrównanym położeniem neuronów wyjściowych.}
+	\label{Głębokość sieic neuronowej.}
 \end{figure}
 
 Badania~\cite{RolnickTegmark2017, telgarsky2016benefits, H.N.Mhaskar2020} wykazały istnienie tzw. \textbf{hierarchii głębokości}, zgodnie z którą zwiększanie liczby warstw jest znacznie bardziej efektywne niż ich poszerzanie. Dla pewnych klas funkcji ograniczenie głębokości prowadzi do wykładniczego wzrostu liczby neuronów wymaganych do osiągnięcia tej samej jakości aproksymacji. Zależność tę można opisać asymptotycznie:
