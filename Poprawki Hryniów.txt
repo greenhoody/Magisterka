@@ -1,0 +1,23 @@
+Proszę się upewnić że skróty są rozwinięte przy pierwszym użyciu. 
+Na str. 54 rysunek nie ma numeru ani podpisu. Współczynnik rozgałęzienia zamiast "rozgałęźnik". 
+Rozdział 5 lepiej nazwać "Eksperymenty" i powinien zacząć się od opisu przypadków testowych a dopiero potem powinny być przedstawiane i omawiane wyniki. Znowu mamy nie podpisane rysunki - każdy rysunek musi mieć podpis w postaci Rys. X Tu opis rysunku. Do rysunków odnosimy się przez \ref{} tak żeby uniknąć konstrukcji "pierwszy rysunek" czy "powyższy rysunek". Podobnie z tabelami. Eksperymenty powinny być konkretnie opisane, żeby czytelnik rozumiał co zostało zrobione, przed pokazaniem mu wyników, w tym jak były liczone zwycięstwa (przeciwko czemu). 
+Powinna być przy opisie tabeli informacja, że punkty były liczone metodą 3-1-0. 
+ 
+Zazwyczaj dajemy jakieś znane modele jako baseline - randombota (wiadomo że każdy z nim powinien wygrać) oraz oskryptowane warianty - powinno się też porównać uzyskane wyniki z znanymi implementacjami botów do BB i uwzględnić je w turnieju, bez tego wyniki nic nie mówią. Oprócz Tabeli 4 powinna być macierz pokazująca jak konkretne modele radziły sobie z innymi modelami. Spodziewam się że dla najprostszych będą znośne wyniki (choć nie wyglądają jakby miały za bardzo wygrywać) i tragiczne wobec najlepszego oskryptowanego.
+ 
+Implementacje popularnych botów - grodbot - https://github.com/p-d-moore/ffai/blob/master/examples/grodbot.py
+
+minigrod - https://github.com/Roguelichen/minigrod/blob/master/minigrod.py
+
+drefsante - https://drefsante.blogspot.com/2024/?fbclid=IwY2xjawJKHElleHRuA2FlbQIxMAABHYpQwmj8hBbze-YWiRXysw5YCo_kOyv5j3DhpTU0gZBFR4ffuj_PypSC1w_aem_qxv5z6UTJxGkvAR-WccdKA
+ 
+Powinny być zresztą te boty i mimicbot omówione przy state-of-the-art dla uczenia w BotBowlu
+ 
+Wyników nie ma zbyt dużo w chwili obecnej, nie ma też analiz wpływu parametrów przy uczeniu modeli. 
+Powinien być osobny rozdział podsumowanie, na co najmniej dwie strony, omawiający co było celem, co uzyskano i jakie są wyniki, tam na końcu rozdziału powinny być możliwości dalszych prac. 
+Wykaz skrótów i symboli pusty usuwamy. 
+Kod / modele powinny być udostępnione na jakimś repo.
+ 
+Z racji na losowość być może liczba gier w turnieju powinna być też podniesiona, żeby pokazać że nie wpływa to istotnie na wynik (druga runda turnieju, ale tu już lepiej z kompletem botów). 
+Przy treningach też przydałyby się powtórzenia żeby się upewnić że tak zasadniczo zawsze działa - ile Pan podejść robił dla każdej sieci? Przydałaby się też analiza wpływu hiperparametrów i rozmiaru sieci - bo od tego też może dużo zależeć. Tam gdzieś Pan dokładnie opisał parametry dla eksperymentów, bo nie mogłem znaleźć? Czy pokazał Pan gdzieś jak wpływa hyper-connection sam w sobie? 
+We wnioskach przydałoby się zaznaczyć, dlaczego dane architektury działały lepiej a inne gorzej. 
