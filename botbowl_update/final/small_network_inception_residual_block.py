@@ -99,7 +99,7 @@ class CustomPolicy(nn.Module):
         residual_blocks: int = 3,
     ) -> None:
         super().__init__()
-        c, _, _ = spatial_shape
+        c, h, w = spatial_shape
 
         base_ch = max(32, kernels[0][0] if kernels else c)
         self.stem = nn.Sequential(
@@ -115,7 +115,6 @@ class CustomPolicy(nn.Module):
             blocks.append(block)
             spatial_ch = block.out_ch
         self.inception_residual = nn.Sequential(*blocks)
-        self.gap = nn.AdaptiveAvgPool2d(1)
 
         self.non_spatial = nn.Sequential(
             nn.Linear(non_spatial_size, hidden_nodes),
@@ -124,7 +123,7 @@ class CustomPolicy(nn.Module):
             nn.ReLU(inplace=True),
         )
 
-        trunk_in = spatial_ch * 2
+        trunk_in = spatial_ch * h * w + spatial_ch
         self.trunk = nn.Sequential(
             nn.Linear(trunk_in, hidden_nodes),
             nn.ReLU(),
@@ -133,10 +132,8 @@ class CustomPolicy(nn.Module):
         # Actor head
         self.actor = nn.Sequential(
             nn.Linear(hidden_nodes, hidden_nodes),
-            nn.BatchNorm1d(hidden_nodes),
             nn.ReLU(),
             nn.Linear(hidden_nodes, hidden_nodes),
-            nn.BatchNorm1d(hidden_nodes),
             nn.ReLU(),
             nn.Linear(hidden_nodes, action_space),
         )
@@ -144,10 +141,8 @@ class CustomPolicy(nn.Module):
         # Critic head
         self.critic = nn.Sequential(
             nn.Linear(hidden_nodes, hidden_nodes),
-            nn.BatchNorm1d(hidden_nodes),
             nn.ReLU(),
             nn.Linear(hidden_nodes, 256),
-            nn.BatchNorm1d(256),
             nn.ReLU(),
             nn.Linear(256, 1),
         )
@@ -170,7 +165,7 @@ class CustomPolicy(nn.Module):
     def _spatial_features(self, spatial: torch.Tensor) -> torch.Tensor:
         x = self.stem(spatial)
         x = self.inception_residual(x)
-        return self.gap(x).flatten(1)
+        return x.flatten(1)
 
     def forward(self, spatial: torch.Tensor, non_spatial: torch.Tensor):
         # spatial: [B, C, H, W], non_spatial: [B, 1, N] or [B, N]

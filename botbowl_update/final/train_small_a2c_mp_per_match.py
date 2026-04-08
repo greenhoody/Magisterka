@@ -4,6 +4,7 @@ import csv
 import importlib
 import inspect
 import random
+import time
 from collections import deque
 from dataclasses import asdict, dataclass
 from multiprocessing import Pipe, Process
@@ -44,6 +45,13 @@ def set_seed(seed: int) -> None:
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
+
+
+def format_duration(seconds: float) -> str:
+    total_seconds = max(0, int(seconds))
+    hours, remainder = divmod(total_seconds, 3600)
+    minutes, secs = divmod(remainder, 60)
+    return f"{hours:02d}:{minutes:02d}:{secs:02d}"
 
 
 def make_env(env_size: int) -> BotBowlEnv:
@@ -275,6 +283,10 @@ def init_metrics_file(path: Path) -> None:
         "update",
         "total_updates",
         "timesteps",
+        "progress_pct",
+        "elapsed_sec",
+        "eta_sec",
+        "timesteps_per_sec",
         "episodes_finished_total",
         "wins_total",
         "losses_total",
@@ -359,6 +371,7 @@ def main():
     init_metrics_file(metrics_path)
 
     total_updates = cfg.num_steps // (cfg.rollout_len * cfg.num_envs)
+    training_started_at = time.time()
 
     episode_returns = np.zeros(cfg.num_envs, dtype=np.float32)
     episode_td_for = np.zeros(cfg.num_envs, dtype=np.float32)
@@ -529,30 +542,26 @@ def main():
 
             if update % cfg.log_interval == 0:
                 timesteps = update * cfg.rollout_len * cfg.num_envs
+                progress_pct = 100.0 * update / total_updates if total_updates > 0 else 100.0
+                elapsed_sec = time.time() - training_started_at
+                avg_update_time = elapsed_sec / update if update > 0 else 0.0
+                eta_sec = avg_update_time * max(total_updates - update, 0)
+                timesteps_per_sec = timesteps / max(elapsed_sec, 1e-8)
                 print(
                     f"update={update}/{total_updates} "
-                    f"timesteps={timesteps} "
-                    f"episodes_finished_total={episodes_finished_total} "
-                    f"value_loss={value_loss_mean:.4f} "
-                    f"policy_loss={policy_loss_mean:.4f} "
-                    f"policy_entropy={policy_entropy_mean:.4f} "
-                    f"explained_variance={explained_variance:.4f} "
-                    f"action_unique_frac={action_diag['action_unique_frac']:.3f} "
-                    f"action_top1_frac={action_diag['action_top1_frac']:.3f} "
-                    f"mean_valid_actions={action_diag['mean_valid_actions']:.1f} "
-                    f"mean_episode_return_50={mean_episode_return_50:.3f} "
-                    f"td_for_50={mean_td_for_50:.3f} "
-                    f"td_opponent_50={mean_td_opponent_50:.3f} "
-                    f"wins/losses/draws_50={wins_50}/{losses_50}/{draws_50} "
-                    f"win_rate_50={win_rate_50:.3f} "
-                    f"wins/losses/draws_total={wins_total}/{losses_total}/{draws_total} "
-                    f"win_rate_total={win_rate_total:.3f}"
+                    f"progress={progress_pct:.1f}% "
+                    f"elapsed={format_duration(elapsed_sec)} "
+                    f"eta={format_duration(eta_sec)}"
                 )
 
                 row = {
                     "update": update,
                     "total_updates": total_updates,
                     "timesteps": timesteps,
+                    "progress_pct": progress_pct,
+                    "elapsed_sec": elapsed_sec,
+                    "eta_sec": eta_sec,
+                    "timesteps_per_sec": timesteps_per_sec,
                     "episodes_finished_total": episodes_finished_total,
                     "wins_total": wins_total,
                     "losses_total": losses_total,

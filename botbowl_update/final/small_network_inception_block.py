@@ -74,13 +74,12 @@ class CustomPolicy(nn.Module):
     ) -> None:
         super().__init__()
         c, h, w = spatial_shape
+        kernels = [(32, 3), (16, 5), (16, 7), (8, 9)]
+        spatial_ch = sum(out_ch for out_ch, _ in kernels)
 
-        # Example trunk: replace with your own.
         self.spatial = nn.Sequential(
-            SpatialInceptionBlock(c, kernels=[(32, 3), (16, 5), (16, 7), (8, 9)]),
-            nn.AdaptiveAvgPool2d(1),
-            SpatialInceptionBlock(c, kernels=[(32, 3), (16, 5), (16, 7), (8, 9)]),
-            nn.AdaptiveAvgPool2d(1),
+            SpatialInceptionBlock(c, kernels=kernels),
+            SpatialInceptionBlock(spatial_ch, kernels=kernels),
         )
         self.non_spatial = nn.Sequential(
             nn.Linear(non_spatial_size, non_spatial_size),
@@ -89,7 +88,7 @@ class CustomPolicy(nn.Module):
             nn.ReLU(),
         )
 
-        trunk_in = 32 + 16 + 16 + 8 + non_spatial_size
+        trunk_in = spatial_ch * h * w + non_spatial_size
         self.trunk = nn.Sequential(
             nn.Linear(trunk_in, hidden_nodes),
             nn.ReLU(),
@@ -98,10 +97,8 @@ class CustomPolicy(nn.Module):
         # Actor head
         self.actor = nn.Sequential(
             nn.Linear(hidden_nodes, hidden_nodes),
-            nn.BatchNorm1d(hidden_nodes),
             nn.ReLU(),
             nn.Linear(hidden_nodes, hidden_nodes),
-            nn.BatchNorm1d(hidden_nodes),
             nn.ReLU(),
             nn.Linear(hidden_nodes, action_space),
         )
@@ -109,10 +106,8 @@ class CustomPolicy(nn.Module):
         # Critic head
         self.critic = nn.Sequential(
             nn.Linear(hidden_nodes, hidden_nodes),
-            nn.BatchNorm1d(hidden_nodes),
             nn.ReLU(),
             nn.Linear(hidden_nodes, 256),
-            nn.BatchNorm1d(256),
             nn.ReLU(),
             nn.Linear(256, 1),
         )
