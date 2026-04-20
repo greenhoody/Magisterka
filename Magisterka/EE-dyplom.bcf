@@ -2418,14 +2418,12 @@
     <bcf:citekey order="31" intorder="1">Schulman2017PPO</bcf:citekey>
     <bcf:citekey order="32" intorder="1">Schulman2016GAE</bcf:citekey>
     <bcf:citekey order="33" intorder="1">hyperconnections2024</bcf:citekey>
-    <bcf:citekey order="34" intorder="1">hyperconnections2024</bcf:citekey>
-    <bcf:citekey order="35" intorder="1">hyperconnections2024</bcf:citekey>
-    <bcf:citekey order="36" intorder="1">ba2016layernormalization</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">ba2016layernormalization</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">he2015</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">he2015</bcf:citekey>
     <bcf:citekey order="37" intorder="1">he2015</bcf:citekey>
-    <bcf:citekey order="38" intorder="1">he2015</bcf:citekey>
-    <bcf:citekey order="39" intorder="1">he2015</bcf:citekey>
-    <bcf:citekey order="40" intorder="1">Vinyals2017SC2LE</bcf:citekey>
-    <bcf:citekey order="41" intorder="1">botbowl_docs</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">Vinyals2017SC2LE</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">botbowl_docs</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

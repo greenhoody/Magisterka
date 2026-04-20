@@ -1,11 +1,14 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {1}{\ignorespaces \xpg@aux {}{polish}Porównanie płytkiej i głębokiej sieci neuronowej z wyrównanym położeniem neuronów wyjściowych.}}{15}{figure.caption.4}%
+\contentsline {figure}{\numberline {2}{\ignorespaces \xpg@aux {}{polish}Padding i Stride}}{18}{figure.caption.9}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2}{\ignorespaces \xpg@aux {}{polish}Schemat działania mechanizmu hyper-connections.}}{45}{figure.caption.46}%
-\contentsline {figure}{\numberline {3}{\ignorespaces \xpg@aux {}{polish}Wspólny schemat architektury sieci stosowanej w eksperymentach dla \texttt {env\_size=3}.}}{52}{figure.caption.54}%
-\contentsline {figure}{\numberline {4}{\ignorespaces \xpg@aux {}{polish}Schemat bloku HyperConnection--Inception (wariant statyczny i dynamiczny) stosowanego dla \texttt {env\_size=3}.}}{52}{figure.caption.55}%
-\contentsline {figure}{\numberline {5}{\ignorespaces \xpg@aux {}{polish}Schemat bloku Inception--Residual stosowanego w wariancie residualnym.}}{52}{figure.caption.56}%
+\contentsline {figure}{\numberline {3}{\ignorespaces \xpg@aux {}{polish}Schemat sieci actor-critic}}{32}{figure.caption.28}%
+\contentsline {figure}{\numberline {4}{\ignorespaces \xpg@aux {}{polish} \textit {\textit {Połączenia Hyper-Connections}. } }}{44}{figure.caption.46}%
+\contentsline {figure}{\numberline {5}{\ignorespaces \xpg@aux {}{polish}Wspólny schemat architektury agenta typu actor--critic stosowanej w eksperymentach. Encoder przestrzenny składa się z trzech kolejnych bloków, natomiast po fuzji cech wspólna reprezentacja jest kierowana do części aktora i krytyka.}}{53}{figure.caption.54}%
+\contentsline {figure}{\numberline {6}{\ignorespaces \xpg@aux {}{polish}Schemat pojedynczego bloku Inception używanego jako podstawowy moduł części przestrzennej.}}{53}{figure.caption.55}%
+\contentsline {figure}{\numberline {7}{\ignorespaces \xpg@aux {}{polish}Schemat bloku Inception z połączeniem rezydualnym. Wejście bloku jest łączone ze ścieżką główną przez sumowanie, a wynik trafia dalej do następnego bloku encodera.}}{54}{figure.caption.56}%
+\contentsline {figure}{\numberline {8}{\ignorespaces \xpg@aux {}{polish}Schemat bloku Inception z mechanizmem Hyper-Connections. Mechanizm HC stanowi część pojedynczego bloku przestrzennego i łączy wejście bloku z rdzeniem Inception oraz jego wyjściem.}}{54}{figure.caption.57}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6}{\ignorespaces \xpg@aux {}{polish}Plansza Bloodbowl}}{54}{figure.caption.57}%
+\contentsline {figure}{\numberline {9}{\ignorespaces \xpg@aux {}{polish}Plansza Blood Bowl}}{56}{figure.caption.58}%
 \addvspace {10\p@ }

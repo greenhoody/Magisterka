@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  28 MAR 2026 21:16
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  21 APR 2026 00:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1830,7 +1830,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 104.
 LaTeX Font Info:    ... okay on input line 104.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 104.
 LaTeX Font Info:    ... okay on input line 104.
- (./EE-dyplom.glsdefs)
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1901,22 +1901,7 @@ Package biblatex Info: Automatic encoding selection.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'EE-dyplom.bbl' found.
- (./EE-dyplom.bbl
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                openai_baselines_a2c
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                sutton2018tempora
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-)
+ (./EE-dyplom.bbl)
 Package biblatex Info: Reference section=0 on input line 104.
 Package biblatex Info: Reference segment=0 on input line 104.
 Package caption Info: Begin \AtBeginDocument code.
@@ -2043,23 +2028,32 @@ LaTeX Font Warning: Font shape `TU/LatinModernMath(0)/bx/n' undefined
 
 [17]
 contour: Using 16 copies for `\textcolor {black}{Wejście $6\times 6$}' on input
- line 429.
+ line 431.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 429.
+(Font)              scaled to size 10.0pt on input line 431.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 429.
+(Font)              scaled to size 7.0pt on input line 431.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 10.0pt on input line 429.
+(Font)              scaled to size 10.0pt on input line 431.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 429.
-contour: Using 16 copies for `stride $s$' on input line 440.
-contour: Using 16 copies for `filtr $2\times 2$' on input line 441.
-contour: Using 16 copies for `Mapa cech $4\times 4 $' on input line 455.
-contour: Using 16 copies for `splot' on input line 460.
+(Font)              scaled to size 7.0pt on input line 431.
+contour: Using 16 copies for `stride $s$' on input line 442.
+contour: Using 16 copies for `filtr $2\times 2$' on input line 443.
+contour: Using 16 copies for `Mapa cech $4\times 4 $' on input line 457.
+contour: Using 16 copies for `splot' on input line 462.
 
 
 [18]) (./tekst/Uczenie_sieci_neuronowych_bez_RL.tex
 Missing character: There is no 𝐿 ("1D43F) in font cmmi10!
+! Undefined control sequence.
+l.10 ...ym algorytmem optymalizacji, np. \scrshort
+                                                  {Stochastyczny spadek grad...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
 
 
 [19]
@@ -2077,10 +2071,23 @@ Missing character: There is no 𝐿 ("1D43F) in font cmmi10!
 [25]
 
 [26]
-Missing character: There is no 𝐿 ("1D43F) in font cmmi10!
+
+! Package glossaries Error: Glossary entry `(' has not been defined.
+
+See the glossaries package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.276 ... (LeakyReLU, Parametric ReLU (\acrshort(P
+                                                  ReLU), ELU). Dodatkowo sto...
+
+You need to define a glossary entry before you can use it.
+
 
 
 [27]
+Missing character: There is no 𝐿 ("1D43F) in font cmmi10!
+
 
 [28]
 
@@ -2099,7 +2106,7 @@ Rozdział 3.
 [31
 
 ]
-Overfull \hbox (20.25615pt too wide) in paragraph at lines 82--83
+Overfull \hbox (6.02979pt too wide) in paragraph at lines 82--83
 [][] 
  []
 
@@ -2108,7 +2115,7 @@ Overfull \hbox (20.25615pt too wide) in paragraph at lines 82--83
 [32]
 
 LaTeX Font Warning: Font shape `TU/LatinModernSans(1)/m/sc' undefined
-(Font)              using `TU/LatinModernSans(1)/m/n' instead on input line 114
+(Font)              using `TU/LatinModernSans(1)/m/n' instead on input line 117
 .
 
 
@@ -2148,84 +2155,74 @@ LaTeX Font Warning: Font shape `TU/LatinModernSans(1)/m/sc' undefined
 [49]
 
 [50]
+Underfull \hbox (badness 1097) in paragraph at lines 947--952
+[]\TU/LatinModernSans(1)/m/n/10.95 W pokazanej implementacji interfejs sieci wy
+maga, aby metoda \TU/LatinModernMono(0)/m/n/10.95 forward \TU/LatinModernSans(1
+)/m/n/10.95 zwracała parę
+ []
+
+
 
 [51]
-Overfull \hbox (53.14687pt too wide) in paragraph at lines 999--1000
+Overfull \hbox (41.24438pt too wide) in paragraph at lines 1083--1084
+ [][] 
+ []
+
+
+
+[52]
+
+[53]
+Overfull \hbox (3.24495pt too wide) in paragraph at lines 1277--1278
  [][] 
  []
 
 )
 
-[52]
+[54]
 Rozdział 4.
 (./tekst/BloodBowl.tex
 File: rysunki/Botbowl_board.jpg Graphic file (type bmp)
 <rysunki/Botbowl_board.jpg>
 
 
-[53
+[55
 
 ]
-
-[54]
-
-[55]) (./tekst/Wyniki.tex
 
 [56]
-Rozdział 5.
-File: rysunki/compare_mean_td_for_50_no_legend.png Graphic file (type bmp)
-<rysunki/compare_mean_td_for_50_no_legend.png>
-File: rysunki/compare_win_rate_50_no_legend.png Graphic file (type bmp)
-<rysunki/compare_win_rate_50_no_legend.png>
-File: rysunki/compare_win_rate_total_no_legend.png Graphic file (type bmp)
-<rysunki/compare_win_rate_total_no_legend.png>
 
-Overfull \hbox (12.01213pt too wide) in alignment at lines 9--13
- [] 
- []
-
-[57
-
-]
-File: rysunki/legend.png Graphic file (type bmp)
-<rysunki/legend.png>
-
-Overfull \hbox (14.2385pt too wide) in paragraph at lines 14--15
-[][] 
- []
-
-File: rysunki/compare_mean_td_for_50_log_no_legend.png Graphic file (type bmp)
-<rysunki/compare_mean_td_for_50_log_no_legend.png>
-File: rysunki/compare_win_rate_50_log_no_legend.png Graphic file (type bmp)
-<rysunki/compare_win_rate_50_log_no_legend.png>
-File: rysunki/compare_win_rate_total_log_no_legend.png Graphic file (type bmp)
-<rysunki/compare_win_rate_total_log_no_legend.png>
-
-Overfull \hbox (12.00616pt too wide) in alignment at lines 16--20
- [] 
- []
+[57]) (./tekst/Wyniki.tex
 
 [58]
-File: rysunki/legend.png Graphic file (type bmp)
-<rysunki/legend.png>
+Rozdział 5.
 
-Overfull \hbox (14.2385pt too wide) in paragraph at lines 21--22
-[][] 
+
+[59
+
+]
+Overfull \hbox (39.51099pt too wide) in paragraph at lines 23--42
+ [][] 
  []
 
 
 
-[59]
-
-[60]))
+[60]
 
 [61]
+Missing character: There is no ϵ (U+03F5) in font Latin Modern Sans 10 Regular/
+OT:script=latn;language=PLK;mapping=tex-text;!
+)
 
-[62
+[62])
+
+[63]
+
+[64
 
 ]
 
-[63]
+[65]
 Overfull \hbox (2.99629pt too wide) in paragraph at lines 116--116
 []\TU/LatinModernSans(1)/m/sc/10.95 Schulman, J. e. a., „  Proximal Policy Opti
 mization Algorithms”, \TU/LatinModernSans(1)/m/it/10.95 arXiv preprint arXiv:17
@@ -2234,16 +2231,7 @@ mization Algorithms”, \TU/LatinModernSans(1)/m/it/10.95 arXiv preprint arXiv:1
 
 
 
-[64]
-
-[65]
-
-[66
-
-]
-No file EE-dyplom.acr.
-No file EE-dyplom.sls.
-
+[66]
 
 [67]
 
@@ -2265,6 +2253,12 @@ No file EE-dyplom.sls.
 
 
 
+Package glossaries Warning: No \printglossary or \printglossaries found. 
+(Remove \makeglossaries if you don't want any glossaries.) 
+This document will not have a glossary.
+
+
+
 [71] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
@@ -2274,26 +2268,18 @@ L3 programming layer <2025-06-09>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
-(rerunfilecheck)             Checksum: DA917669018D39A53EBAE453AD74C45D;6157.
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                EE-dyplom
-(biblatex)                and rerun LaTeX afterwards.
-
+(rerunfilecheck)             Checksum: 5B67372BD789BF719C3DE8C237751111;5774.
 Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 \openout1 = `EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 58786 strings out of 468529
- 1353733 string characters out of 5451399
- 2606246 words of memory out of 5000000
- 86182 multiletter control sequences out of 15000+600000
- 635088 words of font info for 146 fonts, out of 8000000 for 9000
+ 58907 strings out of 468529
+ 1353487 string characters out of 5451399
+ 2646049 words of memory out of 5000000
+ 86313 multiletter control sequences out of 15000+600000
+ 635080 words of font info for 145 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  114i,19n,131p,2506b,5099s stack positions out of 10000i,1000n,20000p,200000b,200000s
 

@@ -1,138 +1,373 @@
 \chapter{Eksperymenty}
 
-Na poniższych wykresach przedstawiono porównanie przebiegów uczenia dla wszystkich analizowanych
-konfiguracji architektur sieci neuronowych. Wykresy pokazują zmiany rozpatrywanych metryk
-w funkcji liczby iteracji treningowych. Dla każdej metryki zaprezentowano zarówno przebieg
-w skali liniowej, jak i logarytmicznej. Umożliwia to jednoczesną ocenę końcowych efektów uczenia
-oraz różnic widocznych we wczesnej fazie treningu, gdy wartości metryk są jeszcze bardzo małe.
+Niniejszy rozdział przedstawia eksperymenty przeprowadzone w środowisku BotBowl, których celem
+było porównanie skuteczności architektur sieci neuronowych opisanych w rozdziale 3.11.
+Analizie poddano sześć wariantów modeli: IN, IN-C, IR, IR-C, IR-LN, HC oraz DHC.
+Wszystkie porównywane modele zachowują wspólny schemat agenta typu actor--critic,
+różniąc się przede wszystkim budową encodera przestrzennego, liczbą bloków, sposobem
+skalowania liczby kanałów, obecnością połączeń rezydualnych, zastosowaniem normalizacji
+warstwowej oraz wykorzystaniem mechanizmu hyper-connections.
 
-\begin{longtable}{l}
-	\includegraphics[width=\linewidth,height=6.2cm,keepaspectratio]{rysunki/compare_mean_td_for_50_no_legend.png}\\
-	\includegraphics[width=\linewidth,height=6.2cm,keepaspectratio]{rysunki/compare_win_rate_50_no_legend.png}\\
-	\includegraphics[width=\linewidth,height=6.2cm,keepaspectratio]{rysunki/compare_win_rate_total_no_legend.png}
-\end{longtable}
-\includegraphics[width=\linewidth,height=6.2cm,keepaspectratio]{rysunki/legend.png}
+W celu końcowej oceny jakości wytrenowanych agentów przeprowadzono turniej ligowy obejmujący wszystkie analizowane modele oraz boty referencyjne. Rozgrywki zorganizowano w formule „każdy z każdym”, co oznacza, że każda para uczestników rozegrała pomiędzy sobą po 10 meczów. Za zwycięstwo przyznawano 3 punkty, za remis 1 punkt, natomiast za porażkę 0 punktów. Taka forma ewaluacji pozwoliła ograniczyć wpływ pojedynczych losowych przebiegów meczu i uzyskać bardziej reprezentatywną ocenę rzeczywistej skuteczności poszczególnych agentów.
 
-\begin{longtable}{l}
-	\includegraphics[width=\linewidth,height=6.2cm,keepaspectratio]{rysunki/compare_mean_td_for_50_log_no_legend.png}\\
-	\includegraphics[width=\linewidth,height=6.2cm,keepaspectratio]{rysunki/compare_win_rate_50_log_no_legend.png}\\
-	\includegraphics[width=\linewidth,height=6.2cm,keepaspectratio]{rysunki/compare_win_rate_total_log_no_legend.png}
-\end{longtable}
-\includegraphics[width=\linewidth,height=6.2cm,keepaspectratio]{rysunki/legend.png}
+Do porównania włączono również dwa boty referencyjne, pełniące funkcję modeli kontrolnych. \textit{RandomBot} stanowił dolny punkt odniesienia, ponieważ wybierał akcje w sposób losowy w granicach działań dopuszczalnych przez środowisko. Z kolei \textit{Drefsante AI v.0.7} pełnił rolę silniejszego bota porównawczego, pozwalającego ocenić, w jakim stopniu wytrenowane sieci są w stanie zbliżyć się do poziomu bardziej zaawansowanego, ręcznie zaprojektowanego agenta. Uwzględnienie obu tych botów umożliwiło osadzenie wyników badanych architektur pomiędzy bardzo prostym punktem odniesienia a przeciwnikiem reprezentującym wyższy poziom gry, co ułatwia interpretację uzyskanych rezultatów.
 
-Pierwszy wykres przedstawia średnią liczbę przyłożeń na epizod
-(\textit{TD/Episode}) obliczaną w oknie obejmującym ostatnie 50 epizodów,
-natomiast drugi przedstawia wskaźnik zwycięstw wyznaczany w analogicznym oknie.
-Przez epizod rozumiany jest tutaj pojedynczy pełny mecz rozegrany przez agenta
-w środowisku BotBowl, od stanu początkowego do zakończenia rozgrywki.
-Obie miary są ze sobą silnie powiązane, ponieważ w analizowanym środowisku
-o wyniku wielu meczów decydowało pojedyncze przyłożenie. Wzrost liczby przyłożeń
-na epizod zwykle przekładał się więc bezpośrednio na wzrost odsetka zwycięstw.
+Ze względu na ograniczenia zasobów obliczeniowych oraz czasu eksperymenty przeprowadzono w środowisku o rozmiarze 3. Ograniczenie to miało charakter praktyczny — wytrenowanie pojedynczej sieci do poziomu umożliwiającego podstawową grę zajmowało około 1,5 godziny nawet w tak zmniejszonym środowisku, podczas gdy dla pełnowymiarowej planszy czas ten można szacować co najmniej na około tydzień. Należy również uwzględnić, że bot Drefsante był pierwotnie projektowany do gry na planszy o pełnym rozmiarze, przez co w zastosowanym wariancie środowiska znajdował się w mniej korzystnych warunkach niż w swoim docelowym ustawieniu. Mimo to jego obecność w lidze stanowiła wartościowy punkt odniesienia dla oceny jakości wytrenowanych modeli. W kontekście środowiska BotBowl warto też podkreślić, że legalność działań zależy od aktualnego stanu gry, a dostępne akcje są ograniczane maską akcji, co dodatkowo uzasadnia ocenę modeli na podstawie większej liczby meczów, a nie pojedynczych partii.
 
-Analiza pierwszych dwóch wykresów pokazuje wyraźną przewagę modeli trenowanych
-algorytmem PPO nad wariantami uczonymi z użyciem A2C. Najlepsze przebiegi
-uzyskują przede wszystkim modele \textit{Dynamic HC + Inception PPO} oraz
-\textit{HC + Inception PPO}. Model \textit{HC + Inception PPO} osiąga istotną
-poprawę już w środkowej fazie treningu i przez długi czas utrzymuje wysokie
-wartości obu metryk. Z kolei \textit{Dynamic HC + Inception PPO} początkowo
-uczy się nieco wolniej, lecz w dalszej części treningu uzyskuje najwyższe wartości
-zarówno \textit{TD/Episode}, jak i okiennego wskaźnika zwycięstw. Jednocześnie
-w końcowej fazie dla tego modelu widoczny jest wyraźny spadek metryk okiennych,
-co może wskazywać na częściową utratę stabilności wyuczonej polityki.
 
-Model \textit{Inception PPO} przez większość treningu pozostaje słabszy od dwóch
-najlepszych wariantów PPO, jednak w końcowej fazie uczenia notuje wyraźną poprawę.
-Oznacza to, że architektura ta uczyła się wolniej, ale ostatecznie wypracowała
-konkurencyjną politykę. Odmienny przebieg obserwowany jest dla wariantów A2C.
-Spośród nich jedynie \textit{Inception-Residual A2C} wykazuje istotny postęp
-w pierwszej połowie treningu, osiągając najwyższe wartości metryk w grupie modeli
-A2C. Poprawa ta nie okazuje się jednak trwała, ponieważ w dalszej części uczenia
-następuje systematyczny spadek skuteczności, a końcowe wartości obu miar zbliżają
-się do zera. Pozostałe warianty A2C przez większość czasu utrzymują się na bardzo
-niskim poziomie, co wskazuje na brak stabilnego i skutecznego uczenia. Wariant
-\textit{Inception-Residual PPO} osiąga umiarkowane wyniki na początku treningu,
-jednak nie przechodzi w fazę wyraźnej poprawy i ostatecznie również traci skuteczność.
-
-Trzeci wykres przedstawia skumulowany wskaźnik zwycięstw w funkcji liczby iteracji
-treningowych. W odróżnieniu od miary okiennej ma on charakter narastający,
-dlatego lepiej odzwierciedla całkowity przebieg procesu uczenia niż aktualną
-jakość polityki w końcowej fazie treningu.
-
-Na wykresie skumulowanego wskaźnika zwycięstw najwyższą wartość końcową osiąga
-model \textit{Dynamic HC + Inception PPO}, natomiast drugą pozycję zajmuje
-\textit{HC + Inception PPO}. Potwierdza to, że połączenie architektury Inception
-z mechanizmem hyper-connections było najbardziej efektywne w badanym środowisku.
-Warto jednak zauważyć, że model \textit{Inception-Residual A2C}, mimo silnego
-spadku metryk okiennych pod koniec treningu, przez długi czas utrzymuje stosunkowo
-wysoką wartość skumulowanego wskaźnika zwycięstw. Wynika to z faktu, że miara
-skumulowana zachowuje efekt wcześniejszej, relatywnie dobrej fazy uczenia.
-Z kolei model \textit{Inception PPO} przez większą część treningu ma niższą
-wartość skumulowanego wskaźnika zwycięstw, mimo że pod koniec osiąga lepsze
-wyniki w metrykach okiennych.
-
-Zestawienie wszystkich trzech wykresów prowadzi do dwóch głównych wniosków.
-Po pierwsze, algorytm PPO zdecydowanie lepiej wykorzystywał potencjał badanych
-architektur niż A2C. Po drugie, najlepsze rezultaty uzyskano dla modeli łączących
-PPO z blokami Inception oraz mechanizmem hyper-connections. Jednocześnie przebiegi
-uczenia pokazują, że nawet najlepsze warianty nie były całkowicie wolne od
-niestabilności, co jest zgodne z wysoką wariancją i dużą losowością środowiska
-Blood Bowl.
-
-Po zakończeniu procesu uczenia przeprowadzono rozgrywki pomiędzy wszystkimi
-wytrenowanymi modelami. Każda sieć rozegrała z każdą inną po 4 mecze.
 
 \begin{table}[H]
 	\centering
-	\caption{Końcowa tabela ligi wytrenowanych modeli}
-	\label{tab:liga-ranking}
+	\caption{Końcowa tabela rankingowa modeli z turnieju}
+	\label{tab:liga-ranking-env3}
 	\begin{tabular}{clcccccc}
-		\toprule
-		Miejsce & Model & Alg. & Zwyc. & Rem. & Por. & Punkty & TD \\
-		\midrule
-		1 & Dynamic HC + Inception & PPO & 7 & 20 & 1 & 41 & 10:3 \\
-		2 & HC + Inception         & PPO & 6 & 19 & 3 & 37 & 6:4 \\
-		3 & Inception              & PPO & 6 & 18 & 4 & 36 & 8:6 \\
-		4 & Inception-Residual     & A2C & 0 & 27 & 1 & 27 & 0:1 \\
-		5 & Inception              & A2C & 0 & 26 & 2 & 26 & 0:2 \\
-		6 & Inception-Residual     & PPO & 0 & 26 & 2 & 26 & 0:2 \\
-		7 & Dynamic HC + Inception & A2C & 0 & 25 & 3 & 25 & 0:3 \\
-		8 & HC + Inception         & A2C & 0 & 25 & 3 & 25 & 0:3 \\
-		\bottomrule
+		\hline
+		Miejsce & Model & Alg. & Zwyc. & Rem. & Por. & Punkty & Prz. \\
+		\hline
+		1 & Inception-Residual Constant & A2C & 80 & 12 & 28 & 252 & 367:184 \\
+		2 & Inception-Residual & A2C & 78 & 14 & 28 & 248 & 343:191 \\
+		3 & Inception & A2C & 78 & 13 & 29 & 247 & 370:225 \\
+		4 & Drefsante AI v.0.7 & bot & 76 & 18 & 26 & 246 & 264:104 \\
+		5 & HC + Inception & A2C & 73 & 18 & 29 & 237 & 311:184 \\
+		6 & Dynamic HC + Inception & A2C & 72 & 12 & 36 & 228 & 318:183 \\
+		7 & Inception & PPO & 70 & 15 & 35 & 225 & 322:212 \\
+		8 & Dynamic HC + Inception & PPO & 48 & 19 & 53 & 163 & 208:219 \\
+		9 & Inception-Residual & PPO & 44 & 20 & 56 & 152 & 203:254 \\
+		10 & HC + Inception & PPO & 44 & 12 & 64 & 144 & 156:237 \\
+		11 & Inception Constant with Layer Normalization & A2C & 0 & 31 & 89 & 31 & 0:276 \\
+		12 & RandomBot & bot & 0 & 28 & 92 & 28 & 0:294 \\
+		13 & Inception-Residual with Layer Normalization & A2C & 0 & 22 & 98 & 22 & 0:299 \\
+		\hline
 	\end{tabular}
 \end{table}
 
-Wyniki ligi potwierdzają przewagę modeli uczonych algorytmem PPO. Trzy pierwsze
-miejsca zajęły kolejno konfiguracje \textit{Dynamic HC + Inception PPO},
-\textit{HC + Inception PPO} oraz \textit{Inception PPO}, które uzyskały odpowiednio
-41, 37 i 36 punktów. Najlepszy model osiągnął bilans 7 zwycięstw, 20 remisów
-i 1 porażki oraz najwyższy dodatni bilans przyłożeń równy 10:3. Oznacza to,
-że połączenie bloków Inception z dynamicznymi hyper-connections okazało się
-najskuteczniejszym rozwiązaniem spośród wszystkich analizowanych wariantów.
+% Zmieniono sposób rysowania linii w tabeli trójkątnej, aby pionowe linie
+% występowały tylko w zapełnionej części tabeli, analogicznie do linii poziomych.
 
-Na uwagę zasługuje fakt, że żaden z modeli A2C nie odniósł ani jednego zwycięstwa.
-Jednocześnie duża liczba remisów pokazuje, że modele te nie były w stanie wypracować żadnej formy przewagi, i zapewne wykonywały losowe ruchy bez analizy stanu gry. Wyjątkiem jest model \textit{Inception-Residual A2C}, który zakończył ligę z bilansem
-0 zwycięstw, 27 remisów i 1 porażki. Oznacza to, że pomimo braku umiejętności ofensywnych, w jakimś stopniu umiał się bronić przed innymi sieciami.
+\begin{table}[H]
+	\centering
+	\caption{Wyniki meczów bezpośrednich pomiędzy modelami z turnieju}
+	\label{tab:league-head2head-env3}
+	\scriptsize
+	\setlength{\tabcolsep}{3pt}
+	\renewcommand{\arraystretch}{1.15}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{cccccccccccccc}
+			\hline
+			\multicolumn{1}{|c|}{} &
+			\multicolumn{1}{c|}{\shortstack{IR-LN\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{Random\\Bot}} &
+			\multicolumn{1}{c|}{\shortstack{IN-C\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{HC\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{IR-LN\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{DHC\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{IN\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{DHC\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{HC\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{Drefsante\\bot}} &
+			\multicolumn{1}{c|}{\shortstack{IN\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{IR\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{IR-C\\A2C}} \\
+			\hline
+			\multicolumn{1}{|c|}{\shortstack{IR-C\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\35:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\37:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\40:0}} &
+			\multicolumn{1}{c|}{\shortstack{7-0-3\\27:10}} &
+			\multicolumn{1}{c|}{\shortstack{6-2-2\\35:16}} &
+			\multicolumn{1}{c|}{\shortstack{7-0-3\\27:18}} &
+			\multicolumn{1}{c|}{\shortstack{5-2-3\\31:28}} &
+			\multicolumn{1}{c|}{\shortstack{5-3-2\\29:18}} &
+			\multicolumn{1}{c|}{\shortstack{6-3-1\\29:20}} &
+			\multicolumn{1}{c|}{\shortstack{6-0-4\\17:18}} &
+			\multicolumn{1}{c|}{\shortstack{3-1-6\\27:29}} &
+			\multicolumn{1}{c|}{\shortstack{5-1-4\\33:27}} &
+			\multicolumn{1}{c|}{--} \\
+			\hline
+			\multicolumn{1}{|c|}{\shortstack{IR\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\38:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\31:0}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\28:0}} &
+			\multicolumn{1}{c|}{\shortstack{9-0-1\\28:8}} &
+			\multicolumn{1}{c|}{\shortstack{9-0-1\\37:13}} &
+			\multicolumn{1}{c|}{\shortstack{5-1-4\\23:24}} &
+			\multicolumn{1}{c|}{\shortstack{3-5-2\\31:26}} &
+			\multicolumn{1}{c|}{\shortstack{5-0-5\\24:24}} &
+			\multicolumn{1}{c|}{\shortstack{5-3-2\\23:21}} &
+			\multicolumn{1}{c|}{\shortstack{3-1-6\\18:20}} &
+			\multicolumn{1}{c|}{\shortstack{6-2-2\\35:22}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-13}
+			\multicolumn{1}{|c|}{\shortstack{IN\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\29:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\38:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\38:0}} &
+			\multicolumn{1}{c|}{\shortstack{8-0-2\\34:16}} &
+			\multicolumn{1}{c|}{\shortstack{6-3-1\\33:17}} &
+			\multicolumn{1}{c|}{\shortstack{8-2-0\\36:15}} &
+			\multicolumn{1}{c|}{\shortstack{6-0-4\\37:25}} &
+			\multicolumn{1}{c|}{\shortstack{6-0-4\\31:28}} &
+			\multicolumn{1}{c|}{\shortstack{4-2-4\\33:30}} &
+			\multicolumn{1}{c|}{\shortstack{2-3-5\\10:32}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-12}
+			\multicolumn{1}{|c|}{\shortstack{Drefsante\\bot}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\31:0}} &
+			\multicolumn{1}{c|}{\shortstack{7-3-0\\18:0}} &
+			\multicolumn{1}{c|}{\shortstack{8-2-0\\27:0}} &
+			\multicolumn{1}{c|}{\shortstack{6-2-2\\18:6}} &
+			\multicolumn{1}{c|}{\shortstack{7-2-1\\28:5}} &
+			\multicolumn{1}{c|}{\shortstack{5-3-2\\15:7}} &
+			\multicolumn{1}{c|}{\shortstack{6-1-3\\19:20}} &
+			\multicolumn{1}{c|}{\shortstack{6-1-3\\15:11}} &
+			\multicolumn{1}{c|}{\shortstack{6-0-4\\23:10}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-11}
+			\multicolumn{1}{|c|}{\shortstack{HC\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\35:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\31:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\29:0}} &
+			\multicolumn{1}{c|}{\shortstack{9-0-1\\34:13}} &
+			\multicolumn{1}{c|}{\shortstack{7-3-0\\27:10}} &
+			\multicolumn{1}{c|}{\shortstack{5-3-2\\23:14}} &
+			\multicolumn{1}{c|}{\shortstack{6-1-3\\28:17}} &
+			\multicolumn{1}{c|}{\shortstack{5-3-2\\23:22}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-10}
+			\multicolumn{1}{|c|}{\shortstack{DHC\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\28:0}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\35:0}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\34:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\34:8}} &
+			\multicolumn{1}{c|}{\shortstack{8-1-1\\30:10}} &
+			\multicolumn{1}{c|}{\shortstack{8-0-2\\31:15}} &
+			\multicolumn{1}{c|}{\shortstack{3-1-6\\23:28}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-9}
+			\multicolumn{1}{|c|}{\shortstack{IN\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\35:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\39:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\28:0}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\31:10}} &
+			\multicolumn{1}{c|}{\shortstack{5-1-4\\21:20}} &
+			\multicolumn{1}{c|}{\shortstack{5-3-2\\24:13}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-8}
+			\multicolumn{1}{|c|}{\shortstack{DHC\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\22:0}} &
+			\multicolumn{1}{c|}{\shortstack{8-2-0\\22:0}} &
+			\multicolumn{1}{c|}{\shortstack{8-2-0\\18:0}} &
+			\multicolumn{1}{c|}{\shortstack{4-1-5\\17:17}} &
+			\multicolumn{1}{c|}{\shortstack{4-1-5\\23:23}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-7}
+			\multicolumn{1}{|c|}{\shortstack{IR\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\24:0}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\27:0}} &
+			\multicolumn{1}{c|}{\shortstack{8-2-0\\24:0}} &
+			\multicolumn{1}{c|}{\shortstack{2-4-4\\14:20}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-6}
+			\multicolumn{1}{|c|}{\shortstack{HC\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\22:0}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\16:0}} &
+			\multicolumn{1}{c|}{\shortstack{7-3-0\\10:0}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-5}
+			\multicolumn{1}{|c|}{\shortstack{IN-C\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{0-10-0\\0:0}} &
+			\multicolumn{1}{c|}{\shortstack{0-10-0\\0:0}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-4}
+			\multicolumn{1}{|c|}{\shortstack{Random\\Bot}} &
+			\multicolumn{1}{c|}{\shortstack{0-10-0\\0:0}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-3}
+			\multicolumn{1}{|c|}{\shortstack{IR-LN\\A2C}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-2}
+		\end{tabular}%
+	}
+\end{table}
 
-Całość wyników wskazuje więc, że kluczowe znaczenie miał zarówno dobór architektury,
-jak i algorytmu uczenia. W badanym środowisku najlepiej sprawdziły się rozwiązania
-oparte na PPO oraz blokach Inception rozszerzonych o mechanizm hyper-connections,
-natomiast warianty A2C okazały się zbyt słabe, aby skutecznie konkurować
-z najlepszymi modelami.
+Na podstawie wyników przedstawionych w tabeli 2 można zauważyć, że jedynymi architekturami, które nie wykształciły skutecznej polityki gry, były warianty wykorzystujące \textit{Layer Normalization}. Obydwa modele zakończyły turniej bez ani jednego zwycięstwa, uzyskując odpowiednio 31 i 22 punkty wyłącznie dzięki remisom, przy bardzo słabych bilansach przyłożeń 0:276 oraz 0:299, podczas gdy wszystkie pozostałe wytrenowane sieci osiągnęły co najmniej kilkadziesiąt zwycięstw. Można wywnioskować, że polityka wykonywała losowe ruchy zważając na fakt, że Random Bot zdobył podobną ilość punktów, tzn. 28. Wynik ten sugeruje, że w rozpatrywanym zadaniu zastosowanie normalizacji warstwowej nie tylko nie poprawiło procesu uczenia, ale mogło wręcz utrudnić propagację użytecznego sygnału uczącego. Taka interpretacja jest zgodna z faktem, że \textit{Layer Normalization} normalizuje aktywacje osobno dla każdej próbki, zmieniając ich skalę i rozkład na każdym etapie przetwarzania. Nie musi to jednak oznaczać wyłącznie zaburzenia przepływu gradientu. Możliwą przyczyną mogła być także utrata informacji zawartej w bezwzględnej skali aktywacji, nadmierne wygładzenie reprezentacji, niekorzystna interakcja z połączeniami rezydualnymi albo zbyt silna zmiana charakterystyki cech przy zachowaniu tych samych hiperparametrów co w wariantach bez normalizacji.
 
-\section{Możliwości dalszych prac badawczych}
 
-Uzyskane wyniki pokazują, że skuteczność agenta w środowisku Blood Bowl zależy
-zarówno od zastosowanego algorytmu uczenia, jak i od budowy sieci neuronowej.
-W dalszych badaniach warto więc dokładniej sprawdzić, które elementy architektury
-najbardziej wpływają na końcowy wynik. Można to zrobić poprzez porównanie większej
-liczby wariantów sieci, przeprowadzenie większej liczby niezależnych treningów
-oraz testy dla różnych wartości hiperparametrów. Zasadne byłoby także rozszerzenie
-ewaluacji o grę przeciwko innym przeciwnikom oraz o trening \textit{self-play}.
+PPO
 
-Interesującym kierunkiem jest również dalszy rozwój mechanizmu hyper-connections.
-W nowszych pracach, takich jak \textit{mHC: Manifold-Constrained Hyper-Connections},
-proponowane są zmiany mające poprawić stabilność uczenia i działanie tego typu
-połączeń. Może to być inspiracją do sprawdzenia, czy podobne rozwiązania
-przyniosłyby korzyści także w uczeniu ze wzmocnieniem. Warto również zbadać
-zaproponowane architektury w innych grach o dużej liczbie możliwych decyzji,
-aby ocenić, czy uzyskane wnioski są ogólne, czy głównie związane ze środowiskiem Blood Bowl.
+% W każdej komórce tabeli meczów bezpośrednich pierwszy wiersz oznacza bilans
+% Z-R-P (zwycięstwa-remisy-porażki) z perspektywy modelu z wiersza względem modelu z kolumny,
+% a drugi wiersz przedstawia łączny bilans przyłożeń.
+
+\begin{table}[H]
+	\centering
+	\caption{Końcowa tabela rankingowa ograniczona do grupy modeli PPO i botów}
+	\label{tab:liga-ranking-ppo-boty-wewnatrz-grupy}
+	\begin{tabular}{clcccccc}
+		\hline
+		Miejsce & Model & Alg. & Zwyc. & Rem. & Por. & Punkty & Prz. \\
+		\hline
+		1 & Drefsante AI v.0.7 & bot & 31 & 11 & 8 & 104 & 98:38 \\
+		2 & Inception & PPO & 32 & 6 & 12 & 102 & 135:62 \\
+		3 & Inception-Residual & PPO & 21 & 9 & 20 & 72 & 89:92 \\
+		4 & Dynamic HC + Inception & PPO & 20 & 10 & 20 & 70 & 82:79 \\
+		5 & HC + Inception & PPO & 20 & 9 & 21 & 69 & 69:80 \\
+		6 & RandomBot & bot & 0 & 7 & 43 & 7 & 0:122 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Wyniki meczów bezpośrednich w grupie modeli PPO i botów}
+	\label{tab:league-head2head-ppo-boty-wewnatrz-grupy}
+	\scriptsize
+	\setlength{\tabcolsep}{4pt}
+	\renewcommand{\arraystretch}{1.0}{%
+		\begin{tabular}{ccccccc}
+			\hline
+			\multicolumn{1}{|c|}{} &
+			\multicolumn{1}{c|}{\shortstack{Random\\bot}} &
+			\multicolumn{1}{c|}{\shortstack{HC\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{DHC\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{IR\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{IN\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{Drefsante\\bot}} \\
+			\hline
+			\multicolumn{1}{|c|}{\shortstack{Drefsante\\bot}} &
+			\multicolumn{1}{c|}{\shortstack{7-3-0\\18:0}} &
+			\multicolumn{1}{c|}{\shortstack{6-2-2\\18:6}} &
+			\multicolumn{1}{c|}{\shortstack{5-3-2\\15:7}} &
+			\multicolumn{1}{c|}{\shortstack{7-2-1\\28:5}} &
+			\multicolumn{1}{c|}{\shortstack{6-1-3\\19:20}} &
+			\multicolumn{1}{c|}{--} \\
+			\hline
+			\multicolumn{1}{|c|}{\shortstack{IN\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\39:0}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\31:10}} &
+			\multicolumn{1}{c|}{\shortstack{5-3-2\\24:13}} &
+			\multicolumn{1}{c|}{\shortstack{5-1-4\\21:20}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-6}
+			\multicolumn{1}{|c|}{\shortstack{IR\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\27:0}} &
+			\multicolumn{1}{c|}{\shortstack{2-4-4\\14:20}} &
+			\multicolumn{1}{c|}{\shortstack{5-1-4\\23:23}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-5}
+			\multicolumn{1}{|c|}{\shortstack{DHC\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{8-2-0\\22:0}} &
+			\multicolumn{1}{c|}{\shortstack{4-1-5\\17:17}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-4}
+			\multicolumn{1}{|c|}{\shortstack{HC\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\16:0}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-3}
+			\multicolumn{1}{|c|}{\shortstack{Random\\bot}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-2}
+		\end{tabular}%
+	}
+\end{table}
+
+Zestawienie wyników z tabeli 2 prowadzi do jednoznacznego wniosku: w badanej konfiguracji algorytm PPO okazał się mniej skuteczny od A2C dla każdej architektury, dla której możliwe było bezpośrednie porównanie obu metod uczenia. Wariant \textit{Inception} osiągnął przy uczeniu A2C 247 punktów, podczas gdy jego odpowiednik PPO uzyskał 225 punktów. Analogiczna zależność wystąpiła dla architektury \textit{Inception-Residual}, która zdobyła 248 punktów w wersji A2C i jedynie 152 punkty w wersji PPO, a także dla modeli \textit{HC + Inception} oraz \textit{Dynamic HC + Inception}, gdzie wyniki A2C wyniosły odpowiednio 237 i 228 punktów, wobec 144 i 163 punktów dla PPO. Jedynym pozornym odstępstwem od tej prawidłowości są warianty wykorzystujące \textit{Layer Normalization}, jednak nie wynika to z przewagi PPO, lecz z faktu, że modele A2C z tą techniką nie wykształciły skutecznej polityki i zakończyły ligę odpowiednio z 31 oraz 22 punktami, bez ani jednego zwycięstwa. Oznacza to, że w przeprowadzonych eksperymentach o jakości końcowej agentów decydowała nie tylko architektura sieci, lecz również sposób jej współdziałania z wybranym algorytmem uczenia i zastosowanymi technikami stabilizacji.
+
+Takie wyniki można interpretować na kilka sposobów. Po pierwsze, PPO wykorzystuje mechanizm ograniczania zbyt dużych zmian polityki poprzez \textit{clipping}, co z założenia ma stabilizować uczenie, ale w środowisku o dużej losowości, wysokim współczynniku rozgałęzienia decyzji i rzadkim sygnale nagrody mogło jednocześnie nadmiernie spowalniać odejście od słabej polityki początkowej. Po drugie, w pracy przyjęto możliwie ujednoliconą konfigurację badawczą dla wszystkich modeli, co zwiększa porównywalność wyników, ale jednocześnie mogło faworyzować A2C kosztem PPO, które zwykle jest bardziej wrażliwe na dobór hiperparametrów, takich jak współczynnik uczenia, liczba epok optymalizacji, wartość parametru ϵ w \textit{clippingu} czy siła bonusu entropijnego. Po trzecie, PPO wykonuje kilka kroków optymalizacji na tej samej paczce trajektorii, natomiast A2C aktualizuje parametry na podstawie świeżo zebranych rolloutów; przy ograniczonym budżecie obliczeniowym i krótkim czasie treningu prostszy schemat A2C mógł w praktyce lepiej dopasować się do badanego środowiska. Wreszcie, bardzo słabe wyniki wariantów z \textit{Layer Normalization} sugerują, że istotną rolę odgrywała tu także sama interakcja pomiędzy algorytmem, architekturą oraz technikami stabilizacji, a nie wyłącznie wybór A2C lub PPO. Z tego względu uzyskanych rezultatów nie należy interpretować jako ogólnej przewagi A2C nad PPO, lecz raczej jako przewagę A2C w konkretnej konfiguracji eksperymentalnej zastosowanej w niniejszej pracy.
+
+Po wyłączeniu z analizy wariantów wykorzystujących \textit{Layer Normalization} widać, że w grupie modeli uczonych algorytmem A2C najwyższą skuteczność osiągnęły architektury oparte na połączeniach rezydualnych. Najlepszy wynik końcowy uzyskał model \textit{Inception-Residual Constant A2C}, który zdobył 252 punkty przy bilansie 80 zwycięstw, 12 remisów i 28 porażek oraz stosunku przyłożeń 367:184. Bezpośrednio za nim uplasował się \textit{Inception-Residual A2C} z 248 punktami i bilansem 343:191, natomiast trzecie miejsce zajął bazowy \textit{Inception A2C}, który zdobył 247 punktów, ale jednocześnie osiągnął najwyższą liczbę zdobytych przyłożeń w tej grupie, równą 370, przy wyraźnie słabszym bilansie defensywnym 370:225. Słabiej od tych trzech wariantów wypadły architektury wykorzystujące \textit{Hyper-Connections}: \textit{HC + Inception A2C} uzyskał 237 punktów, a \textit{Dynamic HC + Inception A2C} 228 punktów. Oznacza to, że w badanej konfiguracji A2C najlepiej współpracowało z architekturami rezydualnymi, podczas gdy dodanie mechanizmu \textit{Hyper-Connections} nie przełożyło się na poprawę wyników względem prostszych wariantów.
+
+Wyniki meczów bezpośrednich doprecyzowują ten obraz. \textit{Inception-Residual Constant A2C} okazał się lepszy od \textit{Inception-Residual A2C} (5−1−4), od \textit{HC + Inception A2C} (6−3−1) oraz od \textit{Dynamic HC + Inception A2C} (5−3−2), co potwierdza jego przewagę w obrębie modeli A2C. Z kolei \textit{Inception-Residual A2C} wygrał z \textit{Inception A2C} (6−2−2) i z \textit{HC + Inception A2C} (5−3−2), ale zremisował bilans zwycięstw i porażek z \textit{Dynamic HC + Inception A2C} (5−0−5). Interesujący jest przypadek modelu \textit{Inception A2C}, który mimo trzeciego miejsca w klasyfikacji ogólnej bezpośrednio pokonał \textit{Dynamic HC + Inception A2C} (6−0−4), lecz nie uzyskał przewagi nad \textit{HC + Inception A2C} (4−2−4). Sugeruje to, że o końcowej pozycji w lidze decydowała nie tylko siła w pojedynkach z najbliższymi konkurentami, ale również większa stabilność wyników przeciwko całemu przekrojowi przeciwników.

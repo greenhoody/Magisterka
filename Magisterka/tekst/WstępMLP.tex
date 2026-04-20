@@ -319,7 +319,7 @@ Choć twierdzenie to potwierdza dużą moc aproksymacyjną sieci płytkich, w pr
 		
 	\end{tikzpicture}
 	\caption{Porównanie płytkiej i głębokiej sieci neuronowej z wyrównanym położeniem neuronów wyjściowych.}
-	\label{Głębokość sieic neuronowej.}
+	\label{Głębokość sieci neuronowej.}
 \end{figure}
 
 Badania~\cite{RolnickTegmark2017, telgarsky2016benefits, H.N.Mhaskar2020} wykazały istnienie tzw. \textbf{hierarchii głębokości}, zgodnie z którą zwiększanie liczby warstw jest znacznie bardziej efektywne niż ich poszerzanie. Dla pewnych klas funkcji ograniczenie głębokości prowadzi do wykładniczego wzrostu liczby neuronów wymaganych do osiągnięcia tej samej jakości aproksymacji. Zależność tę można opisać asymptotycznie:
@@ -402,6 +402,8 @@ W_{\mathrm{out}}=\left\lfloor \frac{W+2P-K}{S} \right\rfloor + 1.
 \]
 
 Zwiększenie kroku przesuwania prowadzi do zmniejszenia rozdzielczości mapy cech, natomiast zastosowanie paddingu pozwala zachować większą ilość informacji brzegowej i ograniczyć szybkie zmniejszanie wymiarów reprezentacji.
+\begin{figure}
+	
 
 \begin{tikzpicture}[
 	scale = 1.6,
@@ -460,8 +462,10 @@ Zwiększenie kroku przesuwania prowadzi do zmniejszenia rozdzielczości mapy cec
 	\node[above] at (4.8,1.0) {\contour{white}{splot}};
 	
 	% ===== INPUT + PADDING =====	
-\end{tikzpicture}
-
+	\end{tikzpicture}
+	\caption{Padding i Stride}
+	\label{Pad&Stri.}
+\end{figure}
 \subsubsection*{Hierarchia reprezentacji}
 
 Kolejne warstwy splotowe tworzą hierarchię reprezentacji. Warstwy płytsze uczą się prostych zależności lokalnych, natomiast warstwy głębsze budują na ich podstawie bardziej złożone reprezentacje przestrzenne. W klasycznych zastosowaniach pierwsze warstwy wykrywają proste wzorce, takie jak krawędzie lub tekstury, a dalsze warstwy łączą je w coraz bardziej złożone układy.
