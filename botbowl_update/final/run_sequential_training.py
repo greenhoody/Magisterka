@@ -2,14 +2,19 @@ from __future__ import annotations
 
 import argparse
 import importlib
+import os
 import time
+from contextlib import contextmanager
 from dataclasses import fields
-from typing import Dict, Iterable, List
+from typing import Dict, Iterable, Iterator, List
 
 
 DEFAULT_NETWORKS = [
     "small_network_inception_block",
+    "small_network_inception_block_controlled",
     "small_network_inception_residual_block",
+    "small_network_inception_residual_block_no_layer_norm",
+    "small_network_inception_residual_block_no_layer_norm_controlled",
     "small_network_hyperconnection_inception_block",
     "small_network_dynamic_hyperconnection_inception_block",
 ]
@@ -38,6 +43,11 @@ def parse_args() -> argparse.Namespace:
         choices=sorted(TRAINING_SCRIPTS.keys()),
         default=["a2c", "ppo"],
         help="Algorytmy do uruchomienia dla każdej sieci.",
+    )
+    parser.add_argument(
+        "--env-size",
+        type=int,
+        help="Ustawia BOTBOWL_ENV_SIZE na czas treningu.",
     )
     parser.add_argument(
         "--num-steps",
@@ -96,6 +106,23 @@ def _config_keys(config_cls) -> set[str]:
     return {field.name for field in fields(config_cls)}
 
 
+@contextmanager
+def temporary_env(var_name: str, value: str | None) -> Iterator[None]:
+    previous = os.environ.get(var_name)
+    if value is None:
+        yield
+        return
+
+    os.environ[var_name] = value
+    try:
+        yield
+    finally:
+        if previous is None:
+            os.environ.pop(var_name, None)
+        else:
+            os.environ[var_name] = previous
+
+
 def run_training_module(module_name: str, overrides: Dict[str, object]) -> None:
     module = importlib.import_module(module_name)
     original_config_cls = module.Config
@@ -149,29 +176,33 @@ def main() -> None:
     started_at = time.time()
     failures: List[tuple[str, str, str]] = []
 
-    for idx, (algorithm, network) in enumerate(runs, start=1):
-        script = TRAINING_SCRIPTS[algorithm]
-        overrides = build_overrides(args, policy_module=network)
+    with temporary_env(
+        "BOTBOWL_ENV_SIZE",
+        str(args.env_size) if args.env_size is not None else None,
+    ):
+        for idx, (algorithm, network) in enumerate(runs, start=1):
+            script = TRAINING_SCRIPTS[algorithm]
+            overrides = build_overrides(args, policy_module=network)
 
-        print(f"\n=== START [{idx}/{total}] {algorithm.upper()} | {network} ===")
-        step_started_at = time.time()
-        try:
-            run_training_module(script, overrides)
-        except Exception as exc:
-            elapsed = time.time() - step_started_at
-            print(
-                f"=== ERROR [{idx}/{total}] {algorithm.upper()} | {network} "
-                f"({elapsed:.1f}s): {exc} ==="
-            )
-            failures.append((algorithm, network, str(exc)))
-            if args.stop_on_error:
-                break
-        else:
-            elapsed = time.time() - step_started_at
-            print(
-                f"=== DONE  [{idx}/{total}] {algorithm.upper()} | {network} "
-                f"({elapsed:.1f}s) ==="
-            )
+            print(f"\n=== START [{idx}/{total}] {algorithm.upper()} | {network} ===")
+            step_started_at = time.time()
+            try:
+                run_training_module(script, overrides)
+            except Exception as exc:
+                elapsed = time.time() - step_started_at
+                print(
+                    f"=== ERROR [{idx}/{total}] {algorithm.upper()} | {network} "
+                    f"({elapsed:.1f}s): {exc} ==="
+                )
+                failures.append((algorithm, network, str(exc)))
+                if args.stop_on_error:
+                    break
+            else:
+                elapsed = time.time() - step_started_at
+                print(
+                    f"=== DONE  [{idx}/{total}] {algorithm.upper()} | {network} "
+                    f"({elapsed:.1f}s) ==="
+                )
 
     total_elapsed = time.time() - started_at
     print(f"\nCzas calkowity: {total_elapsed:.1f}s")

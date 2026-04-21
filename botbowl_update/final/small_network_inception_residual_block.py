@@ -8,7 +8,7 @@ training scripts in this repo. Use it as a starting point for new models.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Tuple
+from typing import Sequence, Tuple
 
 import torch
 import torch.nn as nn
@@ -55,7 +55,7 @@ class SpatialInceptionBlock(nn.Module):
             branches.append(
                 nn.Sequential(
                     nn.Conv2d(
-                        in_ch, out_ch, kernel_size=ks, stride=1, padding=pad, bias=False
+                        in_ch, out_ch, kernel_size=ks, stride=1, padding=pad, bias=True
                     ),
                     LayerNorm2d(out_ch),
                     nn.PReLU(num_parameters=out_ch),
@@ -68,6 +68,9 @@ class SpatialInceptionBlock(nn.Module):
         return torch.cat(feats, dim=1)
 
 
+KernelSpec = Tuple[int, int]
+
+
 class InceptionResidualBlock(nn.Module):
     def __init__(self, in_ch: int, kernels: Tuple[Tuple[int, int], ...] | list):
         super().__init__()
@@ -76,7 +79,7 @@ class InceptionResidualBlock(nn.Module):
         self.proj = None
         if self.out_ch != in_ch:
             self.proj = nn.Sequential(
-                nn.Conv2d(in_ch, self.out_ch, kernel_size=1, bias=False),
+                nn.Conv2d(in_ch, self.out_ch, kernel_size=1, bias=True),
                 LayerNorm2d(self.out_ch),
             )
         self.norm = LayerNorm2d(self.out_ch)
@@ -94,36 +97,37 @@ class CustomPolicy(nn.Module):
         spatial_shape: Tuple[int, int, int],
         non_spatial_size: int,
         action_space: int,
-        hidden_nodes: int = 512,
-        kernels: Tuple[Tuple[int, int], ...] = ((32, 3), (16, 5), (16, 7), (8, 9)),
-        residual_blocks: int = 3,
+        hidden_nodes: int = 256,
+        block_kernels: Sequence[Sequence[KernelSpec]] | None = None,
     ) -> None:
         super().__init__()
         c, h, w = spatial_shape
+        if block_kernels is None:
+            block_kernels = (
+                ((12, 3), (8, 5), (8, 7)),
+                ((24, 3), (16, 5), (16, 7)),
+                ((36, 3), (24, 5), (24, 7)),
+            )
 
-        base_ch = max(32, kernels[0][0] if kernels else c)
-        self.stem = nn.Sequential(
-            nn.Conv2d(c, base_ch, kernel_size=1, bias=False),
-            LayerNorm2d(base_ch),
-            nn.ReLU(inplace=True),
-        )
+        spatial_blocks = []
+        in_ch = c
+        final_spatial_ch = c
+        for block_spec in block_kernels:
+            if not block_spec:
+                raise ValueError("Each inception block must define at least one kernel")
+            block = InceptionResidualBlock(in_ch, block_spec)
+            spatial_blocks.append(block)
+            final_spatial_ch = block.out_ch
+            in_ch = final_spatial_ch
 
-        blocks = []
-        spatial_ch = base_ch
-        for _ in range(residual_blocks):
-            block = InceptionResidualBlock(spatial_ch, kernels)
-            blocks.append(block)
-            spatial_ch = block.out_ch
-        self.inception_residual = nn.Sequential(*blocks)
+        self.spatial = nn.Sequential(*spatial_blocks)
 
         self.non_spatial = nn.Sequential(
-            nn.Linear(non_spatial_size, hidden_nodes),
-            nn.ReLU(inplace=True),
-            nn.Linear(hidden_nodes, spatial_ch),
-            nn.ReLU(inplace=True),
+            nn.Linear(non_spatial_size, non_spatial_size),
+            nn.ReLU(),
         )
 
-        trunk_in = spatial_ch * h * w + spatial_ch
+        trunk_in = final_spatial_ch * h * w + non_spatial_size
         self.trunk = nn.Sequential(
             nn.Linear(trunk_in, hidden_nodes),
             nn.ReLU(),
@@ -146,33 +150,13 @@ class CustomPolicy(nn.Module):
             nn.ReLU(),
             nn.Linear(256, 1),
         )
-        self.reset_parameters()
-
-    def reset_parameters(self) -> None:
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode="fan_in", nonlinearity="relu")
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-            elif isinstance(m, nn.Linear):
-                nn.init.kaiming_normal_(m.weight, mode="fan_in", nonlinearity="relu")
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-            elif isinstance(m, (LayerNorm2d, nn.LayerNorm)):
-                nn.init.ones_(m.weight)
-                nn.init.zeros_(m.bias)
-
-    def _spatial_features(self, spatial: torch.Tensor) -> torch.Tensor:
-        x = self.stem(spatial)
-        x = self.inception_residual(x)
-        return x.flatten(1)
 
     def forward(self, spatial: torch.Tensor, non_spatial: torch.Tensor):
         # spatial: [B, C, H, W], non_spatial: [B, 1, N] or [B, N]
         if non_spatial.dim() == 3:
             non_spatial = non_spatial.squeeze(1)
 
-        spatial_feat = self._spatial_features(spatial)
+        spatial_feat = self.spatial(spatial).flatten(1)
         non_spatial_feat = self.non_spatial(non_spatial)
         z = torch.cat([spatial_feat, non_spatial_feat], dim=1)
         z = self.trunk(z)

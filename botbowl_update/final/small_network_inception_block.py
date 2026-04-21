@@ -8,7 +8,7 @@ training scripts in this repo. Use it as a starting point for new models.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Tuple
+from typing import Sequence, Tuple
 
 import torch
 import torch.nn as nn
@@ -64,31 +64,45 @@ class SpatialInceptionBlock(nn.Module):
         return torch.cat(feats, dim=1)
 
 
+KernelSpec = Tuple[int, int]
+
+
 class CustomPolicy(nn.Module):
     def __init__(
         self,
         spatial_shape: Tuple[int, int, int],
         non_spatial_size: int,
         action_space: int,
-        hidden_nodes: int = 512,
+        hidden_nodes: int = 256,
+        block_kernels: Sequence[Sequence[KernelSpec]] | None = None,
     ) -> None:
         super().__init__()
         c, h, w = spatial_shape
-        kernels = [(32, 3), (16, 5), (16, 7), (8, 9)]
-        spatial_ch = sum(out_ch for out_ch, _ in kernels)
+        if block_kernels is None:
+            block_kernels = (
+                ((12, 3), (8, 5), (8, 7)),
+                ((24, 3), (16, 5), (16, 7)),
+                ((36, 3), (24, 5), (24, 7)),
+            )
 
-        self.spatial = nn.Sequential(
-            SpatialInceptionBlock(c, kernels=kernels),
-            SpatialInceptionBlock(spatial_ch, kernels=kernels),
-        )
+        spatial_blocks = []
+        in_ch = c
+        final_spatial_ch = c
+        for block_spec in block_kernels:
+            if not block_spec:
+                raise ValueError("Each inception block must define at least one kernel")
+            spatial_ch = sum(out_ch for out_ch, _ in block_spec)
+            spatial_blocks.append(SpatialInceptionBlock(in_ch, kernels=block_spec))
+            final_spatial_ch = spatial_ch
+            in_ch = final_spatial_ch
+
+        self.spatial = nn.Sequential(*spatial_blocks)
         self.non_spatial = nn.Sequential(
             nn.Linear(non_spatial_size, non_spatial_size),
             nn.ReLU(),
-            nn.Linear(non_spatial_size, non_spatial_size),
-            nn.ReLU(),
         )
 
-        trunk_in = spatial_ch * h * w + non_spatial_size
+        trunk_in = final_spatial_ch * h * w + non_spatial_size
         self.trunk = nn.Sequential(
             nn.Linear(trunk_in, hidden_nodes),
             nn.ReLU(),

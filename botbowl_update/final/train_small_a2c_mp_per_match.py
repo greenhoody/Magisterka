@@ -9,7 +9,7 @@ from collections import deque
 from dataclasses import asdict, dataclass
 from multiprocessing import Pipe, Process
 from pathlib import Path
-from typing import Iterable, Tuple
+from typing import Iterable
 
 import numpy as np
 import torch
@@ -19,6 +19,7 @@ import torch.optim as optim
 from botbowl.ai.env import BotBowlEnv, EnvConf, RewardWrapper
 from a2c_env import A2C_Reward
 from training_env import resolve_env_size
+from training_run_naming import build_unique_run_paths
 
 
 @dataclass
@@ -27,15 +28,13 @@ class Config:
     env_size_default: int = 3
     num_envs: int = 8  # >=2 przez BatchNorm w CustomPolicy
     num_steps: int = 2_000_000
-    rollout_len: int = 64
+    rollout_len: int = 20  # Odpowiada steps_per_update z tutoriala BotBowl A2C
     lr: float = 3e-4
     gamma: float = 0.99
-    gae_lambda: float = 0.95
     entropy_coef: float = 0.01
     value_loss_coef: float = 0.5
     max_grad_norm: float = 0.5
     log_interval: int = 10
-    save_interval: int = 50
     policy_module: str = "small_network_inception_block"
     policy_class: str = "CustomPolicy"
     out_dir_root: str = "runs"
@@ -56,7 +55,7 @@ def format_duration(seconds: float) -> str:
 
 def make_env(env_size: int) -> BotBowlEnv:
     env = BotBowlEnv(EnvConf(size=env_size, pathfinding=False))
-    return RewardWrapper(env, home_reward_func=A2C_Reward(use_turn_end_rewards=True))
+    return RewardWrapper(env, home_reward_func=A2C_Reward(use_turn_end_rewards=False))
 
 
 def load_policy_class(module_name: str, class_name: str):
@@ -64,25 +63,21 @@ def load_policy_class(module_name: str, class_name: str):
     return getattr(module, class_name)
 
 
-def compute_gae(
+def compute_discounted_returns(
     rewards: torch.Tensor,  # [T, N, 1]
     dones: torch.Tensor,  # [T, N, 1], 1.0 = done
-    values: torch.Tensor,  # [T+1, N, 1]
+    bootstrap_value: torch.Tensor,  # [N, 1]
     gamma: float,
-    lam: float,
-) -> Tuple[torch.Tensor, torch.Tensor]:
+) -> torch.Tensor:
     t_steps, n_envs, _ = rewards.shape
-    advantages = torch.zeros(t_steps, n_envs, 1, device=rewards.device)
-    gae = torch.zeros(n_envs, 1, device=rewards.device)
+    returns = torch.zeros(t_steps, n_envs, 1, device=rewards.device)
+    running_return = bootstrap_value
 
     for t in reversed(range(t_steps)):
-        cont_mask = 1.0 - dones[t]
-        delta = rewards[t] + gamma * values[t + 1] * cont_mask - values[t]
-        gae = delta + gamma * lam * cont_mask * gae
-        advantages[t] = gae
+        running_return = rewards[t] + gamma * running_return * (1.0 - dones[t])
+        returns[t] = running_return
 
-    returns = advantages + values[:-1]
-    return returns, advantages
+    return returns
 
 
 def compute_explained_variance(values: torch.Tensor, returns: torch.Tensor) -> float:
@@ -363,11 +358,17 @@ def main():
     memory.non_spatial_obs[0].copy_(torch.from_numpy(non_spatial_np).float().to(device))
     memory.action_masks[0].copy_(torch.from_numpy(mask_np).to(device).bool())
 
-    run_name = f"{cfg.policy_module}__{Path(__file__).stem}"
-    out_dir = Path(cfg.out_dir_root) / run_name / f"botbowl-{env_size}"
+    run_name, out_dir, metrics_path, best_ckpt, final_ckpt, run_tag = (
+        build_unique_run_paths(
+            out_dir_root=cfg.out_dir_root,
+            policy_module=cfg.policy_module,
+            script_path=__file__,
+            env_size=env_size,
+            metrics_prefix="training_metrics_no_end_rewards",
+            checkpoint_prefix="small_network_a2c_mp",
+        )
+    )
     out_dir.mkdir(parents=True, exist_ok=True)
-
-    metrics_path = out_dir / "training_metrics.csv"
     init_metrics_file(metrics_path)
 
     total_updates = cfg.num_steps // (cfg.rollout_len * cfg.num_envs)
@@ -386,11 +387,14 @@ def main():
     losses_total = 0
     draws_total = 0
     episodes_finished_total = 0
+    best_score = None
 
     print(
         f"Device={device}, env_size={env_size}, action_space={action_space}, "
         f"num_envs={cfg.num_envs}, rollout_len={cfg.rollout_len}"
     )
+    print(f"Run name: {run_name}")
+    print(f"Run tag: {run_tag}")
     print(f"Metrics CSV: {metrics_path}")
 
     try:
@@ -463,25 +467,16 @@ def main():
                     memory.spatial_obs[-1], memory.non_spatial_obs[-1]
                 )
 
-            values_boot = torch.zeros(
-                cfg.rollout_len + 1, cfg.num_envs, 1, device=device
-            )
-            values_boot[:-1].copy_(memory.values)
-            values_boot[-1].copy_(next_values)
-
-            returns, advantages = compute_gae(
+            returns = compute_discounted_returns(
                 memory.rewards,
                 memory.dones,
-                values_boot,
+                next_values,
                 cfg.gamma,
-                cfg.gae_lambda,
             )
+            advantages = returns - memory.values
             explained_variance = compute_explained_variance(memory.values, returns)
             action_diag = compute_action_diagnostics(
                 memory.actions, memory.action_masks, action_space
-            )
-            advantages = (advantages - advantages.mean()) / (
-                advantages.std(unbiased=False) + 1e-8
             )
 
             batch_size = cfg.rollout_len * cfg.num_envs
@@ -589,22 +584,37 @@ def main():
                 }
                 append_metrics(metrics_path, row)
 
-            if update % cfg.save_interval == 0:
-                ckpt = out_dir / f"small_network_a2c_mp_upd{update}.pt"
+            current_score = (
+                win_rate_50,
+                mean_episode_return_50,
+                mean_td_for_50 - mean_td_opponent_50,
+            )
+            if best_score is None or current_score > best_score:
+                best_score = current_score
                 torch.save(
                     {
                         "model": policy.state_dict(),
                         "config": asdict(cfg),
                         "update": update,
+                        "best_metrics": {
+                            "win_rate_50": win_rate_50,
+                            "mean_episode_return_50": mean_episode_return_50,
+                            "mean_td_for_50": mean_td_for_50,
+                            "mean_td_opponent_50": mean_td_opponent_50,
+                        },
                     },
-                    ckpt,
+                    best_ckpt,
+                )
+                print(
+                    f"Saved best checkpoint: {best_ckpt} "
+                    f"(update={update}, win_rate_50={win_rate_50:.3f})"
                 )
 
-        final_ckpt = out_dir / "small_network_a2c_mp_final.pt"
         torch.save(
             {
                 "model": policy.state_dict(),
                 "config": asdict(cfg),
+                "update": total_updates,
             },
             final_ckpt,
         )

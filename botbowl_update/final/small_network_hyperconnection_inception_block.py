@@ -8,7 +8,7 @@ training scripts in this repo. Use it as a starting point for new models.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Tuple
+from typing import Sequence, Tuple
 
 import torch
 import torch.nn as nn
@@ -93,23 +93,36 @@ class CustomPolicy(nn.Module):
         non_spatial_size: int,
         action_space: int,
         hidden_nodes: int = 512,
+        block_kernels: Sequence[Sequence[Tuple[int, int]]] | None = None,
     ) -> None:
         super().__init__()
         c, h, w = spatial_shape
-        kernels = [(32, 3), (16, 5), (16, 7), (8, 9)]
-        spatial_ch = 32 + 16 + 16 + 8
+        if block_kernels is None:
+            block_kernels = (
+                ((12, 3), (8, 5), (8, 7)),
+                ((12, 3), (8, 5), (8, 7)),
+                ((12, 3), (8, 5), (8, 7)),
+                ((12, 3), (8, 5), (8, 7)),
+            )
+
+        if not block_kernels or not block_kernels[0]:
+            raise ValueError("block_kernels must define at least one inception block")
+
+        spatial_ch = sum(out_ch for out_ch, _ in block_kernels[0])
+        if any(sum(out_ch for out_ch, _ in block_spec) != spatial_ch for block_spec in block_kernels):
+            raise ValueError("HyperConnection variant requires the same output width in every block")
 
         self.spatial_stem = nn.Sequential(
             nn.Conv2d(c, spatial_ch, kernel_size=1),
             nn.ReLU(),
         )
+        spatial_blocks = []
+        for block_spec in block_kernels:
+            if not block_spec:
+                raise ValueError("Each inception block must define at least one kernel")
+            spatial_blocks.append(InceptionBlock(spatial_ch, block_spec))
         self.spatial = HyperConnectionStack(
-            nn.ModuleList(
-                [
-                    InceptionBlock(spatial_ch, kernels),
-                    InceptionBlock(spatial_ch, kernels),
-                ]
-            ),
+            nn.ModuleList(spatial_blocks),
             rate=2,
             dim=spatial_ch,
             dynamic=False,

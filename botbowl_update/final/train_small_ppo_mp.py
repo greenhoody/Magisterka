@@ -20,14 +20,15 @@ from botbowl.ai.env import BotBowlEnv, EnvConf, RewardWrapper
 from a2c_env import A2C_Reward
 from ppo_utils import probability_ratio
 from training_env import resolve_env_size
+from training_run_naming import build_unique_run_paths
 
 
 @dataclass
 class Config:
-    seed: int = 42
-    env_size_default: int = 5
+    seed: int = random.randint(1,1000)
+    env_size_default: int = 3
     num_envs: int = 8  # >=2 przez BatchNorm w CustomPolicy
-    num_steps: int = 2_000_000
+    num_steps: int = 5_000_000
     rollout_len: int = 64
     lr: float = 3e-4
     gamma: float = 0.99
@@ -60,7 +61,7 @@ def format_duration(seconds: float) -> str:
 
 def make_env(env_size: int) -> BotBowlEnv:
     env = BotBowlEnv(EnvConf(size=env_size, pathfinding=False))
-    return RewardWrapper(env, home_reward_func=A2C_Reward(use_turn_end_rewards=True))
+    return RewardWrapper(env, home_reward_func=A2C_Reward(use_turn_end_rewards=False))
 
 
 def load_policy_class(module_name: str, class_name: str):
@@ -350,7 +351,7 @@ def main():
         "action_space": action_space,
     }
     if "hidden_nodes" in inspect.signature(policy_cls.__init__).parameters:
-        policy_kwargs["hidden_nodes"] = action_space
+        policy_kwargs["hidden_nodes"] = 128
     policy = policy_cls(**policy_kwargs).to(device)
 
     optimizer = optim.Adam(policy.parameters(), lr=cfg.lr)
@@ -368,11 +369,17 @@ def main():
     memory.non_spatial_obs[0].copy_(torch.from_numpy(non_spatial_np).float().to(device))
     memory.action_masks[0].copy_(torch.from_numpy(mask_np).to(device).bool())
 
-    run_name = f"{cfg.policy_module}__{Path(__file__).stem}"
-    out_dir = Path(cfg.out_dir_root) / run_name / f"botbowl-{env_size}"
+    run_name, out_dir, metrics_path, best_ckpt, final_ckpt, run_tag = (
+        build_unique_run_paths(
+            out_dir_root=cfg.out_dir_root,
+            policy_module=cfg.policy_module,
+            script_path=__file__,
+            env_size=env_size,
+            metrics_prefix="training_metrics_no_end_rewards",
+            checkpoint_prefix="small_network_ppo_mp",
+        )
+    )
     out_dir.mkdir(parents=True, exist_ok=True)
-
-    metrics_path = out_dir / "training_metrics.csv"
     init_metrics_file(metrics_path)
 
     total_updates = cfg.num_steps // (cfg.rollout_len * cfg.num_envs)
@@ -391,11 +398,14 @@ def main():
     losses_total = 0
     draws_total = 0
     episodes_finished_total = 0
+    best_score = None
 
     print(
         f"Device={device}, env_size={env_size}, action_space={action_space}, "
         f"num_envs={cfg.num_envs}, rollout_len={cfg.rollout_len}"
     )
+    print(f"Run name: {run_name}")
+    print(f"Run tag: {run_tag}")
     print(f"Metrics CSV: {metrics_path}")
 
     try:
@@ -630,22 +640,37 @@ def main():
                 }
                 append_metrics(metrics_path, row)
 
-            if update % cfg.save_interval == 0:
-                ckpt = out_dir / f"small_network_ppo_mp_upd{update}.pt"
+            current_score = (
+                win_rate_50,
+                mean_episode_return_50,
+                mean_td_for_50 - mean_td_opponent_50,
+            )
+            if best_score is None or current_score > best_score:
+                best_score = current_score
                 torch.save(
                     {
                         "model": policy.state_dict(),
                         "config": asdict(cfg),
                         "update": update,
+                        "best_metrics": {
+                            "win_rate_50": win_rate_50,
+                            "mean_episode_return_50": mean_episode_return_50,
+                            "mean_td_for_50": mean_td_for_50,
+                            "mean_td_opponent_50": mean_td_opponent_50,
+                        },
                     },
-                    ckpt,
+                    best_ckpt,
+                )
+                print(
+                    f"Saved best checkpoint: {best_ckpt} "
+                    f"(update={update}, win_rate_50={win_rate_50:.3f})"
                 )
 
-        final_ckpt = out_dir / "small_network_ppo_mp_final.pt"
         torch.save(
             {
                 "model": policy.state_dict(),
                 "config": asdict(cfg),
+                "update": total_updates,
             },
             final_ckpt,
         )
