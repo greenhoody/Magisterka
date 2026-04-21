@@ -13,6 +13,7 @@ Do porównania włączono również dwa boty referencyjne, pełniące funkcję m
 
 Ze względu na ograniczenia zasobów obliczeniowych oraz czasu, eksperymenty przeprowadzono w środowisku z 3  zawodnikami na planszy 12x5 zamiast wersji klasycznej. Wytrenowanie pojedynczej sieci do poziomu umożliwiającego podstawową grę zajmowało około 1,5 godziny nawet w tak zmniejszonym środowisku, podczas gdy dla pełnowymiarowej planszy czas ten można szacować na około tydzień. Należy również uwzględnić, że bot Drefsante był pierwotnie projektowany do gry na planszy o pełnym rozmiarze, przez co w zastosowanym wariancie środowiska znajdował się w mniej korzystnych warunkach niż w swoim docelowym ustawieniu. Mimo to jego obecność w lidze stanowiła wartościowy punkt odniesienia dla oceny jakości wytrenowanych modeli.
 
+Do oceny jakości badanych modeli wykorzystano dwa uzupełniające się zestawy metryk. W analizie procesu uczenia uwzględniono przede wszystkim \textit{win rate}, czyli odsetek zwycięstw osiąganych podczas ewaluacji, oraz średnią \textit{reward}, opisującą zmianę łącznej nagrody uzyskiwanej przez agenta w trakcie treningu. Pierwsza z tych miar pokazuje bezpośrednio skuteczność wyuczonej polityki, natomiast druga pozwala śledzić dynamikę uczenia i tempo poprawy zachowania modelu. Z kolei w ocenie końcowej, przeprowadzonej w formie turnieju ligowego, wykorzystano liczbę zwycięstw, remisów i porażek, łączną liczbę punktów przyznawanych w systemie 3–1–0 oraz bilans przyłożeń zapisany w postaci \textit{Prz.}. Taki zestaw miar pozwalał ocenić zarówno przebieg uczenia, jak i rzeczywistą skuteczność modeli w bezpośredniej rywalizacji.
 
 \begin{table}[H]
 	\centering
@@ -371,3 +372,26 @@ Po wyłączeniu z analizy wariantów wykorzystujących \textit{Layer Normalizati
 
 Wyniki meczów bezpośrednich doprecyzowują ten obraz. \textit{Inception-Residual Constant A2C} okazał się lepszy od \textit{Inception-Residual A2C} (5--1--4), od \textit{HC + Inception A2C} (6--3--1) oraz od \textit{Dynamic HC + Inception A2C} (5--3--2), co potwierdza jego przewagę w obrębie modeli A2C. Z kolei \textit{Inception-Residual A2C} wygrał z \textit{Inception A2C} (6--2--2) i z \textit{HC + Inception A2C} (5--3--2), ale zremisował bilans zwycięstw i porażek z \textit{Dynamic HC + Inception A2C} (5--0--5). Interesujący jest przypadek modelu \textit{Inception A2C}, który mimo trzeciego miejsca w klasyfikacji ogólnej bezpośrednio pokonał \textit{Dynamic HC + Inception A2C} (6--0--4), lecz nie uzyskał przewagi nad \textit{HC + Inception A2C} (4--2--4). Wskazuje to, że o końcowej pozycji w lidze decydowała nie tylko siła w pojedynkach z najbliższymi konkurentami, ale również większa stabilność wyników przeciwko całemu przekrojowi przeciwników.
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{rysunki/winrate50_reward_vs_steps_inception_constant_residual_ln.png}
+	\caption{Win rate i reward w zależności od liczby kroków.}
+	\label{fig:winrate-reward}
+\end{figure}
+
+Na podstawie przedstawionych wykresów widać wyraźnie, że modele uczone algorytmem A2C cechowały się zbliżoną dynamiką uczenia. Przez długi czas utrzymywały niski współczynnik zwycięstw, po czym w podobnym momencie treningu następował gwałtowny wzrost skuteczności. Oznacza to, że w A2C poprawa polityki miała charakter skokowy. Potwierdza to również przebieg nagrody, która po okresie powolnych zmian zaczynała rosnąć znacznie szybciej.
+
+W przypadku PPO zależność od architektury była znacznie silniejsza. Poszczególne modele zaczynały wygrywać w wyraźnie różnych momentach, a ich przebiegi były bardziej zróżnicowane i mniej jednorodne. Wzrost skuteczności miał tu zwykle charakter stopniowy, często z okresowymi wahaniami, a nie nagły jak w A2C. Oznacza to, że PPO prowadziło do bardziej rozciągniętego w czasie doskonalenia polityki, natomiast A2C częściej dawało efekt nagłego przejścia od gry słabej do wyraźnie skuteczniejszej.
+
+Hiperparametry uczenia dobrano tak, aby porównanie modeli dotyczyło przede wszystkim wpływu zastosowanej architektury oraz algorytmu uczenia. Wszystkie warianty trenowano w środowisku BotBowl o rozmiarze 3, z wykorzystaniem 8 równoległych instancji środowiska. Każde uczenie obejmowało 5 000 000 kroków środowiska, a optymalizację prowadzono algorytmem Adam ze współczynnikiem uczenia równym 3 · 10⁻⁴. W obu metodach zastosowano współczynnik dyskontowania γ = 0,99, współczynnik regularyzacji entropii równy 0,01, wagę funkcji straty krytyka równą 0,5 oraz ograniczenie normy gradientu do 0,5. Dla A2C długość rollout’u wynosiła 20 kroków, co przy 8 środowiskach dawało 160 próbek na jedną aktualizację. W przypadku PPO zastosowano rollout o długości 64 kroków, parametr GAE λ = 0,95, zakres obcinania ilorazu prawdopodobieństw ε = 0,2, 2 epoki optymalizacji oraz podział danych na 4 minibatch’e. Dzięki temu PPO wykonywało bardziej rozbudowaną aktualizację na większej porcji doświadczeń, natomiast A2C aktualizowało politykę częściej, ale na krótszych fragmentach trajektorii.
+
+
+
+
+
+
+
+
+
+
+Dalsze badania powinny objąć przede wszystkim trzy konkretne kierunki. Po pierwsze, warto powtórzyć eksperymenty w większych wariantach środowiska BotBowl, na przykład dla rozmiaru 5, 7 oraz docelowo dla pełnej planszy, aby sprawdzić, czy zaobserwowane zależności między architekturą sieci a skutecznością gry utrzymują się także przy większej złożoności problemu. Po drugie, zasadne byłoby wykonanie kilku niezależnych treningów dla każdej konfiguracji, na przykład 5 lub 10 uruchomień z różnymi ziarnami losowymi, a następnie porównanie średnich wyników, odchyleń standardowych oraz pozycji w tabeli ligowej, co pozwoliłoby lepiej ocenić stabilność uzyskiwanych rezultatów. Po trzecie, celowe byłoby zbadanie wpływu parametrów procesu uczenia, takich jak współczynnik uczenia, liczba kroków między aktualizacjami, współczynnik entropii, parametr γ oraz sposób doboru długości rolloutów, ponieważ różnice obserwowane między A2C i PPO mogą wynikać nie tylko z samej architektury sieci, ale również z odmiennej wrażliwości tych algorytmów na konfigurację treningu. Tego rodzaju eksperymenty pozwoliłyby dokładniej określić, czy o skuteczności modelu decyduje głównie budowa sieci, czy raczej sposób jej uczenia.
