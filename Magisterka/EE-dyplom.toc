@@ -30,5 +30,5 @@
 \contentsline {section}{\numberline {4.1}Blood Bowl jako benchmark dla uczenia ze wzmocnieniem.}{56}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Środowisko BotBowl}{57}{section.4.2}%
 \contentsline {chapter}{\numberline {5}Eksperymenty}{59}{chapter.5}%
-\contentsline {chapter}{Spis rysunków}{71}{chapter*.65}%
-\contentsline {chapter}{Spis tabel}{73}{chapter*.66}%
+\contentsline {chapter}{Spis rysunków}{69}{chapter*.63}%
+\contentsline {chapter}{Spis tabel}{71}{chapter*.64}%

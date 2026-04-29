@@ -1,4 +1,4 @@
-Idea sztucznych sieci neuronowych narodziła się podczas prób modelowaniu pracy ludzkiego mózgu. Warren S. McCulloch oraz Walter Pitts w swojej pracy "A logical calculus of the ideas immanent in nervous activity" \cite{McCulloch1943} zaproponowali model sieci neuronowej, jako grafu skierowanego, gdzie węzły to matematyczne modele neuronu takie, że
+Idea sztucznych sieci neuronowych narodziła się podczas prób modelowania pracy ludzkiego mózgu. Warren S. McCulloch oraz Walter Pitts w swojej pracy "A logical calculus of the ideas immanent in nervous activity" \cite{McCulloch1943} zaproponowali model sieci neuronowej, jako graf skierowany, gdzie węzły to matematyczne modele neuronu takie, że
 
 \[N_{i}\left( t+1 \right) = H\left( \sum_{j=1}^{n}w_{ij}(t)N_{j}(t)-\Theta_{i}\left( t \right)\right)\]
 gdzie:
@@ -15,7 +15,7 @@ gdzie:
 Sieć złożona z takich neuronów jest nazywana dzisiaj perceptronem. Służy ona do zadań klasyfikacji binarnej. Potrafi określić przynależność badanego obiektu do jednej z klas na podstawie wybranych cech. W 1957 roku Frank Rosenblatt opracował pierwszy uczący się perceptron, który stanowił przełom w rozwoju sztucznych sieci neuronowych. Pomimo swojej innowacyjności, model ten miał istotne ograniczenia – nie potrafił rozwiązywać problemów nieliniowych, takich jak klasyczny przykład funkcji XOR, a jego struktura uniemożliwiała zastosowanie metod uczenia opartych na obliczaniu pochodnych.
 Źródłem tego ograniczenia była funkcja skokowa Heaviside’a, wykorzystywana jako funkcja aktywacji neuronu. Współcześnie zastępuje się ją funkcjami ciągłymi i różniczkowalnymi, takimi jak sigmoid, tangens hiperboliczny czy ReLU (Rectified Linear Unit) wraz z jej modyfikacjami (np. Leaky ReLU, Parametric ReLU), które umożliwiają skuteczne stosowanie algorytmów gradientowych, takich jak propagacja wsteczna błędu.
 \cite{minsky1969perceptrons}
-Jak zostało wcześniej wspomniane ten model został stworzony w celu opisania sposobu działania biologicznego neuronu. Można go uogólnić, pozwalając stworzyć bardziej uniwersalny model matematyczny.
+Jak wspomniano wcześniej, model ten został stworzony w celu opisania sposobu działania biologicznego neuronu. Można go uogólnić, pozwalając stworzyć bardziej uniwersalny model matematyczny.
 
 \[ y=f\left( \sum_{i=1}^{m}w_{i}(t)x_{i}(t)+b\right) \]
 gdzie:

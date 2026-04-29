@@ -1,19 +1,18 @@
 \chapter{Eksperymenty}
 
-Niniejszy rozdział omawia eksperymenty przeprowadzone w środowisku BotBowl, których celem
-było porównanie skuteczności architektur sieci neuronowych opisanych w rozdziale 3.11.
-Analizie poddano sześć wariantów modeli: IN, IN-C, IR, IR-C, IR-LN, HC oraz DHC.
+Niniejszy rozdział omawia eksperymenty przeprowadzone w środowisku BotBowl, których celem było porównanie skuteczności architektur sieci neuronowych opisanych w rozdziale 3.11.
+Analizie poddano siedem wariantów modeli: IN, IN-C-LN, IR, IR-C, IR-LN, HC oraz DHC.
 Wszystkie porównywane modele zachowują wspólny schemat agenta typu actor--critic,
 różniąc się przede wszystkim budową encodera przestrzennego, liczbą bloków, sposobem skalowania liczby kanałów, obecnością połączeń rezydualnych, zastosowaniem normalizacji
 warstwowej oraz wykorzystaniem mechanizmu hyper-connections.
 
-W celu końcowej oceny jakości wytrenowanych agentów przeprowadzono turniej ligowy obejmujący wszystkie analizowane modele oraz boty referencyjne. Rozgrywki zorganizowano w formule „każdy z każdym”, co oznacza, że każda para uczestników rozegrała pomiędzy sobą po 10 meczów. Za zwycięstwo przyznawano 3 punkty, za remis 1 punkt, natomiast za porażkę 0 punktów. Taka forma ewaluacji pozwoliła ograniczyć wpływ pojedynczych losowych przebiegów meczu i uzyskać bardziej reprezentatywną ocenę rzeczywistej skuteczności poszczególnych agentów.
+W celu końcowej oceny jakości wytrenowanych agentów przeprowadzono turniej ligowy obejmujący wszystkie analizowane modele oraz boty referencyjne. Rozgrywki zorganizowano w formule „każdy z każdym”, co oznacza, że każda para uczestników rozegrała pomiędzy sobą po 10 meczów. Za zwycięstwo przyznawano 3 punkty, za remis 1 punkt, natomiast za porażkę 0 punktów. Taka forma ewaluacji pozwoliła ograniczyć wpływ pojedynczych losowych przebiegów meczu i uzyskać bardziej wiarygodną ocenę rzeczywistej skuteczności poszczególnych agentów.
 
-Do porównania włączono również dwa boty referencyjne, pełniące funkcję modeli kontrolnych. \textit{RandomBot} stanowił dolny punkt odniesienia, ponieważ wybierał akcje w sposób losowy w granicach działań dopuszczalnych przez środowisko. Z kolei \textit{Drefsante AI v.0.7} pełnił rolę silniejszego bota porównawczego, pozwalającego ocenić, w jakim stopniu wytrenowane sieci są w stanie zbliżyć się do poziomu bardziej zaawansowanego, klasycznego bota heurystycznego. Uwzględnienie obu tych botów umożliwiło osadzenie wyników badanych architektur pomiędzy bardzo prostym punktem odniesienia a przeciwnikiem reprezentującym wyższy poziom gry, co ułatwia interpretację uzyskanych rezultatów.
+Do porównania włączono również dwa boty referencyjne, pełniące funkcję modeli kontrolnych. \textit{RandomBot} stanowił dolny punkt odniesienia, ponieważ wybierał akcje w sposób losowy w granicach działań dopuszczalnych przez środowisko. Z kolei \textit{Drefsante AI v.0.7} pełnił rolę silniejszego bota porównawczego, pozwalającego ocenić, w jakim stopniu wytrenowane sieci są w stanie zbliżyć się do poziomu bardziej zaawansowanego, klasycznego bota heurystycznego. Uwzględnienie obu tych botów umożliwiło osadzenie wyników badanych architektur pomiędzy bardzo prostym punktem odniesienia a przeciwnikiem reprezentującym wyższy poziom trudności, co ułatwia interpretację uzyskanych rezultatów.
 
-Ze względu na ograniczenia zasobów obliczeniowych oraz czasu, eksperymenty przeprowadzono w środowisku z 3  zawodnikami na planszy 12x5 zamiast wersji klasycznej. Wytrenowanie pojedynczej sieci do poziomu umożliwiającego podstawową grę zajmowało około 1,5 godziny nawet w tak zmniejszonym środowisku, podczas gdy dla pełnowymiarowej planszy czas ten można szacować na około tydzień. Należy również uwzględnić, że bot Drefsante był pierwotnie projektowany do gry na planszy o pełnym rozmiarze, przez co w zastosowanym wariancie środowiska znajdował się w mniej korzystnych warunkach niż w swoim docelowym ustawieniu. Mimo to jego obecność w lidze stanowiła wartościowy punkt odniesienia dla oceny jakości wytrenowanych modeli.
+Ze względu na ograniczenia zasobów obliczeniowych oraz czasu eksperymenty przeprowadzono w środowisku z 3 zawodnikami na planszy o rozmiarze 12x5 zamiast w wersji klasycznej. Wytrenowanie pojedynczej sieci do poziomu umożliwiającego podstawową grę zajmowało około 1,5 godziny nawet w tak zmniejszonym środowisku, podczas gdy dla pełnowymiarowej planszy czas ten można szacować na około tydzień. Należy również zaznaczyć, że bot Drefsante był projektowany z myślą o grze na planszy o pełnym rozmiarze, dlatego w zastosowanym wariancie środowiska działał poza swoim docelowym ustawieniem. Mimo to jego obecność w lidze stanowiła wartościowy punkt odniesienia.
 
-Do oceny jakości badanych modeli wykorzystano dwa uzupełniające się zestawy metryk. W analizie procesu uczenia uwzględniono przede wszystkim \textit{win rate}, czyli odsetek zwycięstw osiąganych podczas ewaluacji, oraz średnią \textit{reward}, opisującą zmianę łącznej nagrody uzyskiwanej przez agenta w trakcie treningu. Pierwsza z tych miar pokazuje bezpośrednio skuteczność wyuczonej polityki, natomiast druga pozwala śledzić dynamikę uczenia i tempo poprawy zachowania modelu. Z kolei w ocenie końcowej, przeprowadzonej w formie turnieju ligowego, wykorzystano liczbę zwycięstw, remisów i porażek, łączną liczbę punktów przyznawanych w systemie 3–1–0 oraz bilans przyłożeń zapisany w postaci \textit{Prz.}. Taki zestaw miar pozwalał ocenić zarówno przebieg uczenia, jak i rzeczywistą skuteczność modeli w bezpośredniej rywalizacji.
+Do oceny jakości badanych modeli wykorzystano dwa uzupełniające się zestawy metryk. W analizie procesu uczenia uwzględniono przede wszystkim \textit{win rate}, czyli odsetek zwycięstw osiąganych podczas ewaluacji, oraz średnią \textit{reward}, opisującą zmianę łącznej nagrody uzyskiwanej przez agenta w trakcie treningu. W ocenie końcowej, przeprowadzonej w formie turnieju ligowego, analizowano liczbę zwycięstw, remisów i porażek, łączną liczbę punktów oraz bilans przyłożeń zapisany w postaci \textit{Prz.}. Taki zestaw miar pozwalał ocenić zarówno przebieg uczenia, jak i skuteczność modeli w bezpośredniej rywalizacji.
 
 \begin{table}[H]
 	\centering
@@ -27,12 +26,12 @@ Do oceny jakości badanych modeli wykorzystano dwa uzupełniające się zestawy 
 		2 & Inception-Residual & A2C & 78 & 14 & 28 & 248 & 343:191 \\
 		3 & Inception & A2C & 78 & 13 & 29 & 247 & 370:225 \\
 		4 & Drefsante AI v.0.7 & bot & 76 & 18 & 26 & 246 & 264:104 \\
-		5 & HC + Inception & A2C & 73 & 18 & 29 & 237 & 311:184 \\
-		6 & Dynamic HC + Inception & A2C & 72 & 12 & 36 & 228 & 318:183 \\
+		5 & HC & A2C & 73 & 18 & 29 & 237 & 311:184 \\
+		6 & Dynamic HC & A2C & 72 & 12 & 36 & 228 & 318:183 \\
 		7 & Inception & PPO & 70 & 15 & 35 & 225 & 322:212 \\
-		8 & Dynamic HC + Inception & PPO & 48 & 19 & 53 & 163 & 208:219 \\
+		8 & Dynamic HC& PPO & 48 & 19 & 53 & 163 & 208:219 \\
 		9 & Inception-Residual & PPO & 44 & 20 & 56 & 152 & 203:254 \\
-		10 & HC + Inception & PPO & 44 & 12 & 64 & 144 & 156:237 \\
+		10 & HC & PPO & 44 & 12 & 64 & 144 & 156:237 \\
 		11 & Inception Constant with Layer Normalization & A2C & 0 & 31 & 89 & 31 & 0:276 \\
 		12 & RandomBot & bot & 0 & 28 & 92 & 28 & 0:294 \\
 		13 & Inception-Residual with Layer Normalization & A2C & 0 & 22 & 98 & 22 & 0:299 \\
@@ -40,8 +39,6 @@ Do oceny jakości badanych modeli wykorzystano dwa uzupełniające się zestawy 
 	\end{tabular}
 \end{table}
 
-% Zmieniono sposób rysowania linii w tabeli trójkątnej, aby pionowe linie
-% występowały tylko w zapełnionej części tabeli, analogicznie do linii poziomych.
 
 \begin{table}[H]
 	\centering
@@ -49,16 +46,16 @@ Do oceny jakości badanych modeli wykorzystano dwa uzupełniające się zestawy 
 	\label{tab:league-head2head-env3}
 	\scriptsize
 	\setlength{\tabcolsep}{3pt}
-	\renewcommand{\arraystretch}{1.15}
+	\renewcommand{\arraystretch}{2.5}
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{cccccccccccccc}
 			\hline
 			\multicolumn{1}{|c|}{} &
 			\multicolumn{1}{c|}{\shortstack{IR-LN\\A2C}} &
 			\multicolumn{1}{c|}{\shortstack{Random\\Bot}} &
-			\multicolumn{1}{c|}{\shortstack{IN-C\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{IN-C-LN\\A2C}} &
 			\multicolumn{1}{c|}{\shortstack{HC\\PPO}} &
-			\multicolumn{1}{c|}{\shortstack{IR-LN\\PPO}} &
+			\multicolumn{1}{c|}{\shortstack{IR\\PPO}} &
 			\multicolumn{1}{c|}{\shortstack{DHC\\PPO}} &
 			\multicolumn{1}{c|}{\shortstack{IN\\PPO}} &
 			\multicolumn{1}{c|}{\shortstack{DHC\\A2C}} &
@@ -218,7 +215,7 @@ Do oceny jakości badanych modeli wykorzystano dwa uzupełniające się zestawy 
 			\multicolumn{1}{c}{} &
 			\multicolumn{1}{c}{} \\
 			\cline{1-5}
-			\multicolumn{1}{|c|}{\shortstack{IN-C\\A2C}} &
+			\multicolumn{1}{|c|}{\shortstack{IN-C-LN\\A2C}} &
 			\multicolumn{1}{c|}{\shortstack{0-10-0\\0:0}} &
 			\multicolumn{1}{c|}{\shortstack{0-10-0\\0:0}} &
 			\multicolumn{1}{c|}{--} &
@@ -267,110 +264,19 @@ Do oceny jakości badanych modeli wykorzystano dwa uzupełniające się zestawy 
 	}
 \end{table}
 
-Na podstawie wyników przedstawionych w tabeli 2 widać, że jedynymi architekturami, które nie wykształciły skutecznej polityki gry, były warianty wykorzystujące \textit{Layer Normalization}. Obydwa modele zakończyły turniej bez ani jednego zwycięstwa, uzyskując odpowiednio 31 i 22 punkty wyłącznie dzięki remisom, przy bardzo słabych bilansach przyłożeń 0:276 oraz 0:299. Dla porównania wszystkie pozostałe wytrenowane sieci osiągnęły co najmniej kilkadziesiąt zwycięstw. Wyniki te wskazują, że polityka tych modeli była zbliżona do zachowania losowego, co potwierdza również fakt, że \textit{RandomBot} zdobył porównywalną liczbę punktów, równą 28. Oznacza to, że w badanej konfiguracji \textit{Layer Normalization} nie poprawiła procesu uczenia, lecz wyraźnie obniżyła skuteczność agentów.
+Na podstawie tabeli \ref{tab:liga-ranking-env3} można stwierdzić, że jedynymi architekturami, które nie wykształciły skutecznej polityki, były warianty wykorzystujące \textit{Layer Normalization}. Obydwa modele zakończyły turniej bez ani jednego zwycięstwa, uzyskując odpowiednio 31 i 22 punkty wyłącznie dzięki remisom, przy bardzo słabych bilansach przyłożeń 0:276 oraz 0:299. Dla porównania wszystkie pozostałe sieci osiągnęły co najmniej kilkadziesiąt zwycięstw. Wyniki te wskazują, że polityka tych modeli była zbliżona do zachowania losowego, co potwierdza również fakt, że \textit{RandomBot} zdobył porównywalną liczbę punktów, równą 28. Oznacza to, że w badanej konfiguracji \textit{Layer Normalization} nie poprawiła procesu uczenia, lecz wyraźnie obniżyła skuteczność agentów.
 
 Źródłem tego zjawiska mogła być niekorzystna zmiana charakterystyki aktywacji w całej sieci. \textit{Layer Normalization} normalizuje aktywacje niezależnie dla każdej próbki, przez co zmienia ich skalę i rozkład na każdym etapie przetwarzania. W rozpatrywanym zadaniu mogło to prowadzić do osłabienia informacji zakodowanej w bezwzględnych wartościach aktywacji, nadmiernego wygładzenia reprezentacji oraz niekorzystnej interakcji z połączeniami rezydualnymi. Możliwe jest również, że ta technika wymagała innego doboru hiperparametrów niż warianty bez normalizacji. Niezależnie od dokładnej przyczyny wyniki jednoznacznie pokazują, że w badanej konfiguracji \textit{Layer Normalization} okazała się rozwiązaniem niekorzystnym.
 
 
-PPO
-% W każdej komórce tabeli meczów bezpośrednich pierwszy wiersz oznacza bilans
-% Z-R-P (zwycięstwa-remisy-porażki) z perspektywy modelu z wiersza względem modelu z kolumny,
-% a drugi wiersz przedstawia łączny bilans przyłożeń.
+Zestawienie wyników z tabeli \ref{tab:liga-ranking-env3} prowadzi do jednoznacznego wniosku: w badanej konfiguracji algorytm uczący PPO był mniej skuteczny od A2C dla każdej porównywanej architektury. Wariant \textit{Inception} osiągnął przy uczeniu A2C 247 punktów, podczas gdy jego odpowiednik PPO uzyskał 225 punktów. Jeszcze większa rozbieżność wystąpiła dla architektury \textit{Inception-Residual}, która zdobyła 248 punktów w wersji A2C i 152 punkty w wersji PPO, a także dla modeli \textit{HC} oraz \textit{Dynamic HC}, gdzie wyniki A2C wyniosły odpowiednio 237 i 228 punktów, wobec 144 i 163 punktów dla PPO. Jedynym wyjątkiem są wcześniej omówienie sieci z Layer Normalization.
 
-\begin{table}[H]
-	\centering
-	\caption{Końcowa tabela rankingowa ograniczona do grupy modeli PPO i botów}
-	\label{tab:liga-ranking-ppo-boty-wewnatrz-grupy}
-	\begin{tabular}{clcccccc}
-		\hline
-		Miejsce & Model & Alg. & Zwyc. & Rem. & Por. & Punkty & Prz. \\
-		\hline
-		1 & Drefsante AI v.0.7 & bot & 31 & 11 & 8 & 104 & 98:38 \\
-		2 & Inception & PPO & 32 & 6 & 12 & 102 & 135:62 \\
-		3 & Inception-Residual & PPO & 21 & 9 & 20 & 72 & 89:92 \\
-		4 & Dynamic HC + Inception & PPO & 20 & 10 & 20 & 70 & 82:79 \\
-		5 & HC + Inception & PPO & 20 & 9 & 21 & 69 & 69:80 \\
-		6 & RandomBot & bot & 0 & 7 & 43 & 7 & 0:122 \\
-		\hline
-	\end{tabular}
-\end{table}
+Przewaga A2C nad PPO zapewne wynika z charakteru badanego środowiska oraz przyjętej konfiguracji treningu. Mechanizm \textit{clippingu} w PPO ogranicza tempo zmian polityki, co zwykle stabilizuje uczenie, lecz jednocześnie może spowalniać proces optymalizacji polityki. Dodatkowo PPO jest bardziej wrażliwe na dobór hiperparametrów, takich jak współczynnik uczenia, liczba epok optymalizacji, wartość parametru ϵ w mechanizmie \textit{clippingu} czy siła bonusu entropijnego. Ponieważ w pracy przyjęto możliwie ujednoliconą konfigurację badawczą, mogła ona sprzyjać A2C bardziej niż PPO. Znaczenie miał również ograniczony budżet obliczeniowy: A2C aktualizuje parametry na podstawie świeżo zebranych rolloutów, podczas gdy PPO wykonuje kilka kroków optymalizacji na tej samej paczce danych. W krótkim treningu prostszy schemat A2C mógł więc lepiej dopasować się do badanego środowiska. 
 
-\begin{table}[H]
-	\centering
-	\caption{Wyniki meczów bezpośrednich w grupie modeli PPO i botów}
-	\label{tab:league-head2head-ppo-boty-wewnatrz-grupy}
-	\scriptsize
-	\setlength{\tabcolsep}{4pt}
-	\renewcommand{\arraystretch}{1.0}{%
-		\begin{tabular}{ccccccc}
-			\hline
-			\multicolumn{1}{|c|}{} &
-			\multicolumn{1}{c|}{\shortstack{Random\\bot}} &
-			\multicolumn{1}{c|}{\shortstack{HC\\PPO}} &
-			\multicolumn{1}{c|}{\shortstack{DHC\\PPO}} &
-			\multicolumn{1}{c|}{\shortstack{IR\\PPO}} &
-			\multicolumn{1}{c|}{\shortstack{IN\\PPO}} &
-			\multicolumn{1}{c|}{\shortstack{Drefsante\\bot}} \\
-			\hline
-			\multicolumn{1}{|c|}{\shortstack{Drefsante\\bot}} &
-			\multicolumn{1}{c|}{\shortstack{7-3-0\\18:0}} &
-			\multicolumn{1}{c|}{\shortstack{6-2-2\\18:6}} &
-			\multicolumn{1}{c|}{\shortstack{5-3-2\\15:7}} &
-			\multicolumn{1}{c|}{\shortstack{7-2-1\\28:5}} &
-			\multicolumn{1}{c|}{\shortstack{6-1-3\\19:20}} &
-			\multicolumn{1}{c|}{--} \\
-			\hline
-			\multicolumn{1}{|c|}{\shortstack{IN\\PPO}} &
-			\multicolumn{1}{c|}{\shortstack{10-0-0\\39:0}} &
-			\multicolumn{1}{c|}{\shortstack{9-1-0\\31:10}} &
-			\multicolumn{1}{c|}{\shortstack{5-3-2\\24:13}} &
-			\multicolumn{1}{c|}{\shortstack{5-1-4\\21:20}} &
-			\multicolumn{1}{c|}{--} &
-			\multicolumn{1}{c}{} \\
-			\cline{1-6}
-			\multicolumn{1}{|c|}{\shortstack{IR\\PPO}} &
-			\multicolumn{1}{c|}{\shortstack{9-1-0\\27:0}} &
-			\multicolumn{1}{c|}{\shortstack{2-4-4\\14:20}} &
-			\multicolumn{1}{c|}{\shortstack{5-1-4\\23:23}} &
-			\multicolumn{1}{c|}{--} &
-			\multicolumn{1}{c}{} &
-			\multicolumn{1}{c}{} \\
-			\cline{1-5}
-			\multicolumn{1}{|c|}{\shortstack{DHC\\PPO}} &
-			\multicolumn{1}{c|}{\shortstack{8-2-0\\22:0}} &
-			\multicolumn{1}{c|}{\shortstack{4-1-5\\17:17}} &
-			\multicolumn{1}{c|}{--} &
-			\multicolumn{1}{c}{} &
-			\multicolumn{1}{c}{} &
-			\multicolumn{1}{c}{} \\
-			\cline{1-4}
-			\multicolumn{1}{|c|}{\shortstack{HC\\PPO}} &
-			\multicolumn{1}{c|}{\shortstack{9-1-0\\16:0}} &
-			\multicolumn{1}{c|}{--} &
-			\multicolumn{1}{c}{} &
-			\multicolumn{1}{c}{} &
-			\multicolumn{1}{c}{} &
-			\multicolumn{1}{c}{} \\
-			\cline{1-3}
-			\multicolumn{1}{|c|}{\shortstack{Random\\bot}} &
-			\multicolumn{1}{c|}{--} &
-			\multicolumn{1}{c}{} &
-			\multicolumn{1}{c}{} &
-			\multicolumn{1}{c}{} &
-			\multicolumn{1}{c}{} &
-			\multicolumn{1}{c}{} \\
-			\cline{1-2}
-		\end{tabular}%
-	}
-\end{table}
 
-Zestawienie wyników z tabeli 2 prowadzi do jednoznacznego wniosku: w badanej konfiguracji algorytm PPO był mniej skuteczny od A2C dla każdej architektury, dla której możliwe było bezpośrednie porównanie obu metod uczenia. Wariant \textit{Inception} osiągnął przy uczeniu A2C 247 punktów, podczas gdy jego odpowiednik PPO uzyskał 225 punktów. Taka sama zależność wystąpiła dla architektury \textit{Inception-Residual}, która zdobyła 248 punktów w wersji A2C i 152 punkty w wersji PPO, a także dla modeli \textit{HC + Inception} oraz \textit{Dynamic HC + Inception}, gdzie wyniki A2C wyniosły odpowiednio 237 i 228 punktów, wobec 144 i 163 punktów dla PPO. Jedynym wyjątkiem są wcześniej omówienie sieci z Layer Normalization.
+Po wyłączeniu z analizy wariantów wykorzystujących Layer Normalization, na podstawie tabeli \ref*{tab:liga-ranking-env3} można zauważyć, że w grupie modeli uczonych algorytmem A2C najwyższą skuteczność osiągnęły architektury oparte na połączeniach rezydualnych. Najlepszy wynik końcowy uzyskał model \textit{Inception-Residual Constant A2C}, który zdobył 252 punkty przy bilansie 80 zwycięstw, 12 remisów i 28 porażek oraz stosunku przyłożeń 367:184. Bezpośrednio za nim uplasował się \textit{Inception-Residual A2C} z 248 punktami i bilansem 343:191, natomiast trzecie miejsce zajął bazowy \textit{Inception A2C}, który zdobył 247 punktów, a zarazem osiągnął najwyższą liczbę zdobytych przyłożeń w tej grupie, równą 370, przy wyraźnie słabszym bilansie defensywnym 370:225. Słabiej od tych trzech wariantów wypadły architektury wykorzystujące \textit{Hyper-Connections}: \textit{HC A2C} uzyskał 237 punktów, a \textit{Dynamic HC A2C} 228 punktów. Oznacza to, że w badanej konfiguracji A2C najlepiej współpracowało z architekturami rezydualnymi, natomiast dodanie mechanizmu \textit{Hyper-Connections} nie poprawiło wyników względem prostszych wariantów.
 
-Przewaga A2C nad PPO w tych eksperymentach najprawdopodobniej wynika z charakteru badanego środowiska oraz przyjętej konfiguracji treningu. Mechanizm \textit{clippingu} w PPO ogranicza tempo zmian polityki, co zwykle stabilizuje uczenie, lecz w środowisku o dużej losowości, wysokim współczynniku rozgałęzienia decyzji i rzadkim sygnale nagrody mogło zbyt mocno spowalniać odchodzenie od słabej polityki początkowej. Dodatkowo PPO jest bardziej wrażliwe na dobór hiperparametrów, takich jak współczynnik uczenia, liczba epok optymalizacji, wartość parametru ϵ w mechanizmie \textit{clippingu} czy siła bonusu entropijnego. Ponieważ w pracy przyjęto możliwie ujednoliconą konfigurację badawczą, mogła ona sprzyjać A2C bardziej niż PPO. Znaczenie miał również ograniczony budżet obliczeniowy: A2C aktualizuje parametry na podstawie świeżo zebranych rolloutów, podczas gdy PPO wykonuje kilka kroków optymalizacji na tej samej paczce danych. W krótkim treningu prostszy schemat A2C mógł więc lepiej dopasować się do badanego środowiska. 
-
-Po wyłączeniu z analizy wariantów wykorzystujących \textit{Layer Normalization} widać, że w grupie modeli uczonych algorytmem A2C najwyższą skuteczność osiągnęły architektury oparte na połączeniach rezydualnych. Najlepszy wynik końcowy uzyskał model \textit{Inception-Residual Constant A2C}, który zdobył 252 punkty przy bilansie 80 zwycięstw, 12 remisów i 28 porażek oraz stosunku przyłożeń 367:184. Bezpośrednio za nim uplasował się \textit{Inception-Residual A2C} z 248 punktami i bilansem 343:191, natomiast trzecie miejsce zajął bazowy \textit{Inception A2C}, który zdobył 247 punktów, a zarazem osiągnął najwyższą liczbę zdobytych przyłożeń w tej grupie, równą 370, przy wyraźnie słabszym bilansie defensywnym 370:225. Słabiej od tych trzech wariantów wypadły architektury wykorzystujące \textit{Hyper-Connections}: \textit{HC + Inception A2C} uzyskał 237 punktów, a \textit{Dynamic HC + Inception A2C} 228 punktów. Oznacza to, że w badanej konfiguracji A2C najlepiej współpracowało z architekturami rezydualnymi, natomiast dodanie mechanizmu \textit{Hyper-Connections} nie poprawiło wyników względem prostszych wariantów.
-
-Wyniki meczów bezpośrednich doprecyzowują ten obraz. \textit{Inception-Residual Constant A2C} okazał się lepszy od \textit{Inception-Residual A2C} (5--1--4), od \textit{HC + Inception A2C} (6--3--1) oraz od \textit{Dynamic HC + Inception A2C} (5--3--2), co potwierdza jego przewagę w obrębie modeli A2C. Z kolei \textit{Inception-Residual A2C} wygrał z \textit{Inception A2C} (6--2--2) i z \textit{HC + Inception A2C} (5--3--2), ale zremisował bilans zwycięstw i porażek z \textit{Dynamic HC + Inception A2C} (5--0--5). Interesujący jest przypadek modelu \textit{Inception A2C}, który mimo trzeciego miejsca w klasyfikacji ogólnej bezpośrednio pokonał \textit{Dynamic HC + Inception A2C} (6--0--4), lecz nie uzyskał przewagi nad \textit{HC + Inception A2C} (4--2--4). Wskazuje to, że o końcowej pozycji w lidze decydowała nie tylko siła w pojedynkach z najbliższymi konkurentami, ale również większa stabilność wyników przeciwko całemu przekrojowi przeciwników.
+Wyniki meczów bezpośrednich przedstawione w tabeli \ref{tab:league-head2head-env3} doprecyzowują ten obraz. \textit{Inception-Residual Constant A2C} okazał się lepszy od \textit{Inception-Residual A2C} (5--1--4), od \textit{HC A2C} (6--3--1) oraz od \textit{Dynamic HC A2C} (5--3--2), co potwierdza jego przewagę w obrębie modeli A2C. Z kolei \textit{Inception-Residual A2C} wygrał z \textit{Inception A2C} (6--2--2) i z \textit{HC A2C} (5--3--2), ale zremisował bilans zwycięstw i porażek z \textit{Dynamic HC A2C} (5--0--5). Interesujący jest przypadek modelu \textit{Inception A2C}, który mimo trzeciego miejsca w klasyfikacji ogólnej bezpośrednio pokonał \textit{Dynamic HC A2C} (6--0--4), lecz nie uzyskał przewagi nad \textit{HC A2C} (4--2--4). Wskazuje to, że o końcowej pozycji w lidze decydowała nie tylko siła w pojedynkach z najbliższymi konkurentami, ale również większa stabilność wyników przeciwko całemu przekrojowi przeciwników.
 
 \begin{figure}[htbp]
 	\centering
@@ -379,19 +285,14 @@ Wyniki meczów bezpośrednich doprecyzowują ten obraz. \textit{Inception-Residu
 	\label{fig:winrate-reward}
 \end{figure}
 
-Na podstawie przedstawionych wykresów widać wyraźnie, że modele uczone algorytmem A2C cechowały się zbliżoną dynamiką uczenia. Przez długi czas utrzymywały niski współczynnik zwycięstw, po czym w podobnym momencie treningu następował gwałtowny wzrost skuteczności. Oznacza to, że w A2C poprawa polityki miała charakter skokowy. Potwierdza to również przebieg nagrody, która po okresie powolnych zmian zaczynała rosnąć znacznie szybciej.
+Na podstawie rysunku \ref{fig:winrate-reward} można zauważyć, że modele uczone algorytmem A2C cechowały się zbliżoną dynamiką uczenia. Przez długi czas utrzymywały niski współczynnik zwycięstw, po czym w podobnym momencie treningu następował gwałtowny wzrost skuteczności. Oznacza to, że w A2C poprawa polityki miała charakter skokowy. Potwierdza to również dolny wykres na rysunek \ref{fig:winrate-reward}, na którym nagroda po okresie powolnych zmian zaczynała rosnąć znacznie szybciej.
 
-W przypadku PPO zależność od architektury była znacznie silniejsza. Poszczególne modele zaczynały wygrywać w wyraźnie różnych momentach, a ich przebiegi były bardziej zróżnicowane i mniej jednorodne. Wzrost skuteczności miał tu zwykle charakter stopniowy, często z okresowymi wahaniami, a nie nagły jak w A2C. Oznacza to, że PPO prowadziło do bardziej rozciągniętego w czasie doskonalenia polityki, natomiast A2C częściej dawało efekt nagłego przejścia od gry słabej do wyraźnie skuteczniejszej.
+Na podstawie rysunku \ref{fig:winrate-reward} można również zauważyć, że w przypadku PPO zależność od architektury była znacznie silniejsza. Poszczególne modele zaczynały wygrywać w wyraźnie różnych momentach, a ich przebiegi były bardziej zróżnicowane i mniej jednorodne. Wzrost skuteczności miał tu zwykle charakter stopniowy, często z okresowymi wahaniami, a nie nagły jak w A2C. Oznacza to, że PPO prowadziło do bardziej rozciągniętego w czasie doskonalenia polityki, natomiast A2C częściej dawało efekt nagłego przejścia od gry słabej do wyraźnie skuteczniejszej.
 
 Hiperparametry uczenia dobrano tak, aby porównanie modeli dotyczyło przede wszystkim wpływu zastosowanej architektury oraz algorytmu uczenia. Wszystkie warianty trenowano w środowisku BotBowl o rozmiarze 3, z wykorzystaniem 8 równoległych instancji środowiska. Każde uczenie obejmowało 5 000 000 kroków środowiska, a optymalizację prowadzono algorytmem Adam ze współczynnikiem uczenia równym 3 · 10⁻⁴. W obu metodach zastosowano współczynnik dyskontowania γ = 0,99, współczynnik regularyzacji entropii równy 0,01, wagę funkcji straty krytyka równą 0,5 oraz ograniczenie normy gradientu do 0,5. Dla A2C długość rollout’u wynosiła 20 kroków, co przy 8 środowiskach dawało 160 próbek na jedną aktualizację. W przypadku PPO zastosowano rollout o długości 64 kroków, parametr GAE λ = 0,95, zakres obcinania ilorazu prawdopodobieństw ε = 0,2, 2 epoki optymalizacji oraz podział danych na 4 minibatch’e. Dzięki temu PPO wykonywało bardziej rozbudowaną aktualizację na większej porcji doświadczeń, natomiast A2C aktualizowało politykę częściej, ale na krótszych fragmentach trajektorii.
 
+Przeprowadzone eksperymenty jednoznacznie pokazują, że w badanym zadaniu o skuteczności agenta decydowały zarówno zastosowany algorytm uczenia, jak i architektura części przestrzennej sieci neuronowej. Najlepsze wyniki osiągnęły modele oparte na połączeniach rezydualnych, co potwierdza, że w środowisku Blood Bowl szczególnie istotna jest stabilność przepływu informacji i gradientu w głębszych strukturach. Wyniki te wskazują również, że zwiększanie złożoności architektury nie prowadzi automatycznie do poprawy jakości gry, czego przykładem są słabsze rezultaty wariantów z Hyper-Connections oraz całkowite niepowodzenie modeli wykorzystujących Layer Normalization. Można stwierdzić, że w środowiskach o dużej przestrzeni decyzji i wysokim współczynniku branching factor kluczowe znaczenie ma nie tyle sama złożoność modelu, ile takie dobranie architektury, które rzeczywiście wspiera stabilne i skuteczne uczenie polityki.
 
+Dalsze badania powinny objąć przede wszystkim trzy konkretne kierunki. Po pierwsze, warto powtórzyć eksperymenty w większych wariantach środowiska BotBowl, na przykład dla rozmiaru 5, 7 oraz docelowo dla pełnej planszy, aby sprawdzić, czy zaobserwowane zależności między architekturą sieci a skutecznością gry utrzymują się także przy większej złożoności problemu. Po drugie, zasadne byłoby wykonanie kilku niezależnych treningów dla każdej konfiguracji, na przykład 5 lub 10 uruchomień z różnymi ziarnami losowymi, a następnie porównanie średnich wyników, odchyleń standardowych oraz pozycji w tabeli \ref{tab:liga-ranking-env3}, co pozwoliłoby lepiej ocenić stabilność uzyskiwanych rezultatów. Po trzecie, celowe byłoby zbadanie wpływu parametrów procesu uczenia, takich jak współczynnik uczenia, liczba kroków między aktualizacjami, współczynnik entropii, parametr γ oraz sposób doboru długości rolloutów, ponieważ różnice obserwowane między A2C i PPO mogą wynikać nie tylko z samej architektury sieci, ale również z odmiennej wrażliwości tych algorytmów na konfigurację treningu. Tego rodzaju eksperymenty pozwoliłyby dokładniej określić, czy o skuteczności modelu decyduje głównie budowa sieci, czy raczej sposób jej uczenia.
 
-
-
-
-
-
-
-
-Dalsze badania powinny objąć przede wszystkim trzy konkretne kierunki. Po pierwsze, warto powtórzyć eksperymenty w większych wariantach środowiska BotBowl, na przykład dla rozmiaru 5, 7 oraz docelowo dla pełnej planszy, aby sprawdzić, czy zaobserwowane zależności między architekturą sieci a skutecznością gry utrzymują się także przy większej złożoności problemu. Po drugie, zasadne byłoby wykonanie kilku niezależnych treningów dla każdej konfiguracji, na przykład 5 lub 10 uruchomień z różnymi ziarnami losowymi, a następnie porównanie średnich wyników, odchyleń standardowych oraz pozycji w tabeli ligowej, co pozwoliłoby lepiej ocenić stabilność uzyskiwanych rezultatów. Po trzecie, celowe byłoby zbadanie wpływu parametrów procesu uczenia, takich jak współczynnik uczenia, liczba kroków między aktualizacjami, współczynnik entropii, parametr γ oraz sposób doboru długości rolloutów, ponieważ różnice obserwowane między A2C i PPO mogą wynikać nie tylko z samej architektury sieci, ale również z odmiennej wrażliwości tych algorytmów na konfigurację treningu. Tego rodzaju eksperymenty pozwoliłyby dokładniej określić, czy o skuteczności modelu decyduje głównie budowa sieci, czy raczej sposób jej uczenia.
+Kod źródłowy wykorzystany w pracy został udostępniony w publicznym repozytorium.\footnote{\texttt{https://github.com/greenhoody/Magisterka}}

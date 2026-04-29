@@ -376,7 +376,7 @@ gdzie
 	\item $HxW$ odpowiada wymiarom planszy.
 \end{itemize}
 
-Botbowl w formule turniejowej udostępnia 44 kanały. Kanały te zawierają między innymi informacje o 
+BotBowl w formule turniejowej udostępnia 44 kanały. Kanały te zawierają między innymi informacje o 
 \begin{itemize}
 	\item położenie zawodników drużyny gracza
 	\item położenie zawodników przeciwnika
@@ -390,7 +390,7 @@ Botbowl w formule turniejowej udostępnia 44 kanały. Kanały te zawierają mię
 	\item szanse na wykonanie bloku
 \end{itemize}
 
-\subsection*{strumień nie przestrzenny}
+\subsection*{Strumień nie przestrzenny}
 Drugim komponentem reprezentacji danych jest strumień nieprzestrzenny, zawierający wszystkie informacje dotyczące gry, których nie da się w sposób naturalny odwzorować jako mapę dwuwymiarową. Są to np. numer aktualnej tury, flagi opisujące możliwe operacje w danej chwili, dostępne ponowne rzuty obydwu drużyn. Jest on zapisywany w postaci wektora.
 \[ y \in \mathbb{R}^d\]
 gdzie $d$ oznacza liczbę cech.
@@ -955,8 +955,8 @@ Opis poniżej dotyczy wspólnego schematu agenta. Poszczególne warianty różni
 \subsection{Analizowane warianty architektur}
 
 W dalszej części pracy stosowane są następujące skróty nazw modeli:
-IN, IN-C, IR, IR-LN, IR-C oraz DHC+IN.
-Wszystkie warianty korzystają ze wspólnego schematu aktor--krytyk
+IN, IN-C, IR, IR-LN, IR-C, HC oraz DHC.
+Wszystkie warianty korzystają ze wspólnego schematu agenta typu aktor--krytyk
 przedstawionego na rys.~\ref{fig:ac_env3}. O ile nie zaznaczono inaczej,
 encoder nieprzestrzenny składa się z jednej warstwy liniowej z aktywacją ReLU,
 a wspólny trzon MLP ma rozmiar \texttt{hidden\_nodes}=256.
@@ -971,19 +971,19 @@ a wspólny trzon MLP ma rozmiar \texttt{hidden\_nodes}=256.
 	W gałęziach bloków stosowana jest aktywacja ReLU. Wariant ten nie
 	zawiera połączeń rezydualnych ani mechanizmu Hyper-Connections.
 	
-	\item \textbf{IN-C} (\emph{Inception Constant}) -- wariant kontrolny
+	\item \textbf{IN-C-LN} (\emph{Inception Constant}) -- wariant kontrolny
 	o stałej szerokości kanałowej. Wejście przestrzenne jest najpierw
 	rzutowane konwolucją \(1\times1\) do stałej liczby kanałów, a następnie
 	przetwarzane przez cztery bloki Inception o identycznej konfiguracji
-	gałęzi \((12,8,8)\). Wariant ten nie zawiera połączeń rezydualnych.
+	gałęzi \((12,8,8)\). Wariant ten nie zawiera połączeń rezydualnych, ale zawiera Layer Normalization.
 	
 	\item \textbf{IR} (\emph{Inception-Residual}) -- wariant z trzema blokami Inception-Residual o rosnącej liczbie kanałów, zgodnej z wariantem IN. Sygnał wejściowy jest dodawany do wyjścia bloku przez ścieżkę skrótową; gdy liczba kanałów się zmienia, w ścieżce tej stosowana jest projekcja \(1\times1\).
 	
-	\item \textbf{IR-C} (\emph{Inception-Residual Constan}) -- Tak samo jak w przypadku IN-C tutaj bloki mają stałą ilość kanałów.
+	\item \textbf{IR-C} (\emph{Inception-Residual Constant}) -- Tak samo jak w przypadku IN-C-LN tutaj bloki mają stałą ilość kanałów.
 	
-	\item \textbf{IR-LN} (\emph{Inception-Residual without Layer Normalization}) -- wariant analogiczny do IR, lecz z normalizacją warstw, pomiędzy blokami Inception.
+	\item \textbf{IR-LN} (\emph{Inception-Residual with Layer Normalization}) -- wariant analogiczny do IR, lecz z normalizacją warstw, pomiędzy blokami Inception.
 	
-	\item \textbf{HC} (\emph{Hyper-Connections Inception}) -- wariant
+	\item \textbf{HC} (\emph{Hyper-Connections}) -- wariant
 	z mechanizmem statycznych Hyper-Connections. Wejście przestrzenne
 	jest najpierw rzutowane konwolucją \(1\times1\) do stałej szerokości
 	72 kanałów, a następnie przetwarzane przez dwa bloki Inception
