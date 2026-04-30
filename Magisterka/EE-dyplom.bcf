@@ -2424,6 +2424,19 @@
     <bcf:citekey order="37" intorder="1">he2015</bcf:citekey>
     <bcf:citekey order="38" intorder="1">Vinyals2017SC2LE</bcf:citekey>
     <bcf:citekey order="39" intorder="1">botbowl_docs</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">BotBowlI</bcf:citekey>
+    <bcf:citekey order="40" intorder="2">BotBowlII</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">BotBowlIII</bcf:citekey>
+    <bcf:citekey order="41" intorder="2">PezzottiMimicBot</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">PezzottiMimicBot</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">BotBowlIV</bcf:citekey>
+    <bcf:citekey order="43" intorder="2">BotBowlV</bcf:citekey>
+    <bcf:citekey order="44" intorder="1">BotBowlI</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">BotBowlII</bcf:citekey>
+    <bcf:citekey order="46" intorder="1">BotBowlIII</bcf:citekey>
+    <bcf:citekey order="46" intorder="2">PezzottiMimicBot</bcf:citekey>
+    <bcf:citekey order="47" intorder="1">BotBowlIV</bcf:citekey>
+    <bcf:citekey order="47" intorder="2">BotBowlV</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

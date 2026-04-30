@@ -35,3 +35,51 @@ Stan rozgrywki zwracany przez środowisko jest podzielony na część przestrzen
 
 Podsumowując, Blood Bowl dostarcza unikalne, wymagające środowisko o wysokiej złożoności, które dzięki platformie BotBowl jest dostępne do eksperymentów z algorytmami uczenia ze wzmocnieniem. Połączenie czynników takich jak ogromny współczynnik rozgałęzienia, losowość i wieloetapowość decyzji oraz potrzeba percepcji przestrzennej czyni z niego atrakcyjny poligon doświadczalny dla nowoczesnych metod AI. BotBowl zapewnia zaś odpowiednie narzędzia – od interfejsu Gym, poprzez bogatą reprezentację stanów i mechanizmy ułatwiające implementację własnych agentów, aż po możliwość symulacji gier na masową skalę – aby skutecznie trenować i testować modele uczące się gry w Blood Bowl \cite{botbowl_docs}.
 
+\section{Przegląd najlepszych rozwiązań w środowisku BotBowl}
+
+Poniżej przedstawiono zestawienie rozwiązań osiągających najlepsze wyniki w kolejnych edycjach konkursu BotBowl. Wyróżniono osobno zwycięzców całych edycji konkursu oraz najwyżej sklasyfikowane rozwiązania wykorzystujące uczenie maszynowe, ponieważ w BotBowl najlepsze wyniki ogólne nie zawsze były uzyskiwane przez modele uczone.
+
+\begin{table}[H]
+	\centering
+	\caption{Zwycięskie modele BotBowl}
+	\label{tab:botbowl-sota}
+	\begin{tabular}{lll}
+		\hline
+		Edycja & Bot & Podejście \\
+		\hline
+		Bot Bowl I & GrodBot & reguły eksperckie \\
+		Bot Bowl II & Minigrod & reguły eksperckie  \\
+		Bot Bowl III & MimicBot & imitation learning + RL \\
+		Bot Bowl IV & Drefsante AI & bot ekspercki / heurystyczny  \\
+		Bot Bowl V & Drefsante AI & bot ekspercki / heurystyczny  \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Najlepsze rozwiązania wykorzystujące uczenie maszynowe w kolejnych edycjach BotBowl}
+	\label{tab:botbowl-sota-ml}
+	\begin{tabular}{llll}
+		\hline
+		Edycja & Bot & Podejście & Wynik / rola \\
+		\hline
+		Bot Bowl I & NO ONE & A2C, self-play, reward shaping & 3. miejsce \\
+		Bot Bowl II & Gotebot & A2C, self-play, curriculum learning & 4. miejsce\\
+		Bot Bowl III & MimicBot & imitation learning + RL & 1. miejsce, nagroda ML \\
+		Bot Bowl IV & MotBot & uczenie maszynowe & 2. miejsce \\
+		Bot Bowl V & Treeman & uczenie maszynowe / techniki ML lub search & 3. miejsce \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+Na podstawie tabeli \ref{tab:botbowl-sota} można zauważyć, że w kolejnych edycjach konkursu BotBowl dominowały przede wszystkim rozwiązania oparte na wiedzy dziedzinowej, regułach eksperckich lub podejściach hybrydowych. W pierwszej edycji zwyciężył GrodBot, natomiast w Bot Bowl II najlepszy okazał się Minigrod. Oba boty wykorzystywały podejście skryptowe, oparte na ręcznie zaprojektowanych regułach gry \cite{BotBowlI,BotBowlII}. Oznacza to, że we wczesnym etapie rozwoju BotBowl najwyższą skuteczność osiągały przede wszystkim rozwiązania korzystające z wiedzy eksperckiej, a nie modele uczone wyłącznie na podstawie interakcji ze środowiskiem.
+
+Przełomowym przypadkiem był MimicBot, który zwyciężył w Bot Bowl III. Jak pokazano w tabeli \ref{tab:botbowl-sota}, był to bot wykorzystujący połączenie uczenia przez naśladowanie oraz uczenia ze wzmocnieniem \cite{BotBowlIII,PezzottiMimicBot}. MimicBot stanowił więc przykład rozwiązania hybrydowego, w którym proces uczenia nie rozpoczynał się od całkowicie losowej polityki, lecz był wspierany przez imitation learning. Takie podejście pozwalało ograniczyć problem niskiej efektywności próbkowania, szczególnie istotny w środowisku Blood Bowl, gdzie wartościowy sygnał nagrody pojawia się rzadko, a przestrzeń możliwych decyzji jest bardzo duża \cite{PezzottiMimicBot}.
+
+W kolejnych edycjach konkursu ponownie bardzo silną pozycję zajęły boty eksperckie i heurystyczne. W Bot Bowl IV oraz Bot Bowl V zwyciężył Drefsante AI, co potwierdza, że najlepsze wyniki konkursowe nadal mogły być osiągane przez rozwiązania silnie wykorzystujące wiedzę dziedzinową \cite{BotBowlIV,BotBowlV}. Nie oznacza to jednak braku postępu metod uczonych. Jak pokazano w tabeli \ref{tab:botbowl-sota-ml}, w każdej edycji pojawiały się również boty wykorzystujące uczenie maszynowe, które osiągały coraz lepsze wyniki względem całej stawki konkursowej.
+
+Szczególnie istotne są wyniki zestawione w tabeli \ref{tab:botbowl-sota-ml}. W Bot Bowl I najlepszy bot wykorzystujący uczenie maszynowe, NO ONE, zajął 3. miejsce, stosując A2C, self-play oraz reward shaping \cite{BotBowlI}. W Bot Bowl II Gotebot, oparty na A2C, self-play i curriculum learning, zajął 4. miejsce \cite{BotBowlII}. W Bot Bowl III MimicBot nie tylko otrzymał nagrodę ML, ale także wygrał cały konkurs \cite{BotBowlIII,PezzottiMimicBot}. W Bot Bowl IV MotBot zajął 2. miejsce, a w Bot Bowl V Treeman zajął 3. miejsce \cite{BotBowlIV,BotBowlV}. Wyniki te wskazują, że rozwiązania uczone stopniowo osiągały coraz bardziej konkurencyjny poziom, choć często miały charakter hybrydowy i nie polegały wyłącznie na klasycznym uczeniu ze wzmocnieniem od zera.
+
+Zestawienie tabel \ref{tab:botbowl-sota} oraz \ref{tab:botbowl-sota-ml} pokazuje więc istotną zależność: state-of-the-art w BotBowl należy rozpatrywać w dwóch wymiarach. Pierwszym jest ogólna skuteczność konkursowa, w której bardzo mocne pozostają boty skryptowe, eksperckie i heurystyczne. Drugim jest rozwój metod wykorzystujących uczenie maszynowe, w których szczególne znaczenie mają techniki zwiększające efektywność próbkowania, takie jak imitation learning, self-play, curriculum learning oraz reward shaping. Na tym tle niniejsza praca nie stanowi próby zbudowania bota przewyższającego najlepsze rozwiązania konkursowe w pełnym środowisku BotBowl, lecz koncentruje się na porównaniu architektur sieci neuronowych uczonych metodami actor--critic w kontrolowanym wariancie środowiska.

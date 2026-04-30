@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  29 APR 2026 18:44
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  30 APR 2026 18:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2192,13 +2192,22 @@ File: rysunki/Botbowl_board.jpg Graphic file (type bmp)
 
 [56]
 
-[57]) (./tekst/Wyniki.tex
+[57]
 
 [58]
+Overfull \hbox (7.48705pt too wide) in paragraph at lines 63--74
+ [][] 
+ []
+
+
+
+[59]) (./tekst/Wyniki.tex
+
+[60]
 Rozdział 5.
 
 
-[59
+[61
 
 ]
 Overfull \hbox (39.51099pt too wide) in paragraph at lines 21--40
@@ -2207,14 +2216,14 @@ Overfull \hbox (39.51099pt too wide) in paragraph at lines 21--40
 
 
 
-[60]
+[62]
 
-[61]
+[63]
 Missing character: There is no ϵ (U+03F5) in font Latin Modern Sans 10 Regular/
 OT:script=latn;language=PLK;mapping=tex-text;!
 
 
-[62]
+[64]
 File: rysunki/winrate50_reward_vs_steps_inception_constant_residual_ln.png Grap
 hic file (type bmp)
 <rysunki/winrate50_reward_vs_steps_inception_constant_residual_ln.png>
@@ -2231,7 +2240,7 @@ Missing character: There is no ε (U+03B5) in font Latin Modern Sans 10 Regular/
 OT:script=latn;language=PLK;mapping=tex-text;!
 
 
-[63]
+[65]
 Missing character: There is no γ (U+03B3) in font Latin Modern Sans 10 Regular/
 OT:script=latn;language=PLK;mapping=tex-text;!
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
@@ -2240,17 +2249,17 @@ LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
 (Font)              scaled to size 9.0pt on input line 298.
 ))
 
-[64]
+[66]
 
-[65
+[67
 
 ]
 
-[66]
+[68]
 
-[67]
+[69]
 
-[68
+[70
 
 ] (./EE-dyplom.lof)
 \tf@lof=\write11
@@ -2258,9 +2267,9 @@ LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
 
 
 
-[69]
+[71]
 
-[70
+[72
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2274,7 +2283,7 @@ This document will not have a glossary.
 
 
 
-[71] (./EE-dyplom.aux)
+[73] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2283,19 +2292,25 @@ L3 programming layer <2025-06-09>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
-(rerunfilecheck)             Checksum: EE8488A05B2789D778C462E078836DB5;5774.
+
+Package rerunfilecheck Warning: File `EE-dyplom.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `EE-dyplom.out':
+(rerunfilecheck)             Before: A7EF5531913FD0AC593A78E114F9DE4C;6026
+(rerunfilecheck)             After:  9998D4622437D345824B8D8EF5EBF9F3;6111.
 Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 \openout1 = `EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 58939 strings out of 468529
- 1354686 string characters out of 5451399
- 2634943 words of memory out of 5000000
- 86334 multiletter control sequences out of 15000+600000
+ 58959 strings out of 468529
+ 1355529 string characters out of 5451399
+ 2635463 words of memory out of 5000000
+ 86354 multiletter control sequences out of 15000+600000
  636797 words of font info for 158 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 114i,19n,131p,2506b,5099s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 114i,19n,131p,2506b,5096s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (71 pages).
+Output written on EE-dyplom.pdf (73 pages).

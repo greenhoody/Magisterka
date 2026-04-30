@@ -340,7 +340,7 @@ def main():
         "action_space": action_space,
     }
     if "hidden_nodes" in inspect.signature(policy_cls.__init__).parameters:
-        policy_kwargs["hidden_nodes"] = 128
+        policy_kwargs["hidden_nodes"] = getattr(policy_cls, "recommended_hidden_nodes", 128)
     policy = policy_cls(**policy_kwargs).to(device)
 
     optimizer = optim.Adam(policy.parameters(), lr=cfg.lr)

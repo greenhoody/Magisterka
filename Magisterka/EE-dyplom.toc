@@ -29,6 +29,7 @@
 \contentsline {chapter}{\numberline {4}Środowisko testowe}{55}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Blood Bowl jako benchmark dla uczenia ze wzmocnieniem.}{56}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Środowisko BotBowl}{57}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Eksperymenty}{59}{chapter.5}%
-\contentsline {chapter}{Spis rysunków}{69}{chapter*.63}%
-\contentsline {chapter}{Spis tabel}{71}{chapter*.64}%
+\contentsline {section}{\numberline {4.3}Przegląd najlepszych rozwiązań w środowisku BotBowl}{59}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Eksperymenty}{61}{chapter.5}%
+\contentsline {chapter}{Spis rysunków}{71}{chapter*.65}%
+\contentsline {chapter}{Spis tabel}{73}{chapter*.66}%

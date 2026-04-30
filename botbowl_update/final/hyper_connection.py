@@ -39,7 +39,6 @@ class HyperConnection(nn.Module):
             self.dynamic_alpha_scale = nn.Parameter(torch.ones(1) * 0.01)
             self.dynamic_beta_fn = nn.Parameter(torch.zeros(dim))
             self.dynamic_beta_scale = nn.Parameter(torch.ones(1) * 0.01)
-            self.layer_norm = nn.LayerNorm(dim)
 
     def _pool_for_dynamic(self, h: torch.Tensor) -> torch.Tensor:
         # h: [B, N, C, H, W] or [B, N, D]
@@ -53,11 +52,10 @@ class HyperConnection(nn.Module):
         # h: [B, N, ...] -> mix_h: [B, N+1, ...]
         if self.dynamic:
             pooled = self._pool_for_dynamic(h)
-            norm_h = self.layer_norm(pooled)
-            wc_weight = torch.tanh(norm_h @ self.dynamic_alpha_fn)
+            wc_weight = torch.tanh(pooled @ self.dynamic_alpha_fn)
             dynamic_alpha = wc_weight * self.dynamic_alpha_scale
             alpha = dynamic_alpha + self.static_alpha[None, ...]
-            dc_weight = torch.tanh(norm_h @ self.dynamic_beta_fn)
+            dc_weight = torch.tanh(pooled @ self.dynamic_beta_fn)
             dynamic_beta = dc_weight * self.dynamic_beta_scale
             beta = dynamic_beta + self.static_beta[None, ...]
             mix_h = torch.einsum("bnm,bm...->bn...", alpha.transpose(-1, -2), h)
