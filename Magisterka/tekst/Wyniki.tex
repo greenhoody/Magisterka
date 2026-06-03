@@ -8,6 +8,8 @@ warstwowej oraz wykorzystaniem mechanizmu hyper-connections.
 
 W celu końcowej oceny jakości wytrenowanych agentów przeprowadzono turniej ligowy obejmujący wszystkie analizowane modele oraz boty referencyjne. Rozgrywki zorganizowano w formule „każdy z każdym”, co oznacza, że każda para uczestników rozegrała pomiędzy sobą po 10 meczów. Za zwycięstwo przyznawano 3 punkty, za remis 1 punkt, natomiast za porażkę 0 punktów. Taka forma ewaluacji pozwoliła ograniczyć wpływ pojedynczych losowych przebiegów meczu i uzyskać bardziej wiarygodną ocenę rzeczywistej skuteczności poszczególnych agentów.
 
+W tabelach \ref{tab:league-head2head-env3} oraz \ref{tab:league-head2head-imitation-vs-final} wyników bezpośrednich każda komórka przedstawia rezultat rywalizacji modelu z danego wiersza z modelem z danej kolumny. Pierwsza linia zapisu ma postać Z--R--P i oznacza odpowiednio liczbę zwycięstw, remisów oraz porażek modelu z wiersza. Druga linia przedstawia bilans przyłożeń w formacie przyłożenia zdobyte : przyłożenia stracone. Znak „--” na przekątnej oznacza, że dany model nie rozgrywał meczu sam ze sobą.
+
 Do porównania włączono również dwa boty referencyjne, pełniące funkcję modeli kontrolnych. \textit{RandomBot} stanowił dolny punkt odniesienia, ponieważ wybierał akcje w sposób losowy w granicach działań dopuszczalnych przez środowisko. Z kolei \textit{Drefsante AI v.0.7} pełnił rolę silniejszego bota porównawczego, pozwalającego ocenić, w jakim stopniu wytrenowane sieci są w stanie zbliżyć się do poziomu bardziej zaawansowanego, klasycznego bota heurystycznego. Uwzględnienie obu tych botów umożliwiło osadzenie wyników badanych architektur pomiędzy bardzo prostym punktem odniesienia a przeciwnikiem reprezentującym wyższy poziom trudności, co ułatwia interpretację uzyskanych rezultatów.
 
 Ze względu na ograniczenia zasobów obliczeniowych oraz czasu eksperymenty przeprowadzono w środowisku z 3 zawodnikami na planszy o rozmiarze 12x5 zamiast w wersji klasycznej. Wytrenowanie pojedynczej sieci do poziomu umożliwiającego podstawową grę zajmowało około 1,5 godziny nawet w tak zmniejszonym środowisku, podczas gdy dla pełnowymiarowej planszy czas ten można szacować na około tydzień. Należy również zaznaczyć, że bot Drefsante był projektowany z myślą o grze na planszy o pełnym rozmiarze, dlatego w zastosowanym wariancie środowiska działał poza swoim docelowym ustawieniem. Mimo to jego obecność w lidze stanowiła wartościowy punkt odniesienia.
@@ -291,8 +293,111 @@ Na podstawie rysunku \ref{fig:winrate-reward} można również zauważyć, że w
 
 Hiperparametry uczenia dobrano tak, aby porównanie modeli dotyczyło przede wszystkim wpływu zastosowanej architektury oraz algorytmu uczenia. Wszystkie warianty trenowano w środowisku BotBowl o rozmiarze 3, z wykorzystaniem 8 równoległych instancji środowiska. Każde uczenie obejmowało 5 000 000 kroków środowiska, a optymalizację prowadzono algorytmem Adam ze współczynnikiem uczenia równym 3 · 10⁻⁴. W obu metodach zastosowano współczynnik dyskontowania γ = 0,99, współczynnik regularyzacji entropii równy 0,01, wagę funkcji straty krytyka równą 0,5 oraz ograniczenie normy gradientu do 0,5. Dla A2C długość rollout’u wynosiła 20 kroków, co przy 8 środowiskach dawało 160 próbek na jedną aktualizację. W przypadku PPO zastosowano rollout o długości 64 kroków, parametr GAE λ = 0,95, zakres obcinania ilorazu prawdopodobieństw ε = 0,2, 2 epoki optymalizacji oraz podział danych na 4 minibatch’e. Dzięki temu PPO wykonywało bardziej rozbudowaną aktualizację na większej porcji doświadczeń, natomiast A2C aktualizowało politykę częściej, ale na krótszych fragmentach trajektorii.
 
-Przeprowadzone eksperymenty jednoznacznie pokazują, że w badanym zadaniu o skuteczności agenta decydowały zarówno zastosowany algorytm uczenia, jak i architektura części przestrzennej sieci neuronowej. Najlepsze wyniki osiągnęły modele oparte na połączeniach rezydualnych, co potwierdza, że w środowisku Blood Bowl szczególnie istotna jest stabilność przepływu informacji i gradientu w głębszych strukturach. Wyniki te wskazują również, że zwiększanie złożoności architektury nie prowadzi automatycznie do poprawy jakości gry, czego przykładem są słabsze rezultaty wariantów z Hyper-Connections oraz całkowite niepowodzenie modeli wykorzystujących Layer Normalization. Można stwierdzić, że w środowiskach o dużej przestrzeni decyzji i wysokim współczynniku branching factor kluczowe znaczenie ma nie tyle sama złożoność modelu, ile takie dobranie architektury, które rzeczywiście wspiera stabilne i skuteczne uczenie polityki.
-
-Dalsze badania powinny objąć przede wszystkim trzy konkretne kierunki. Po pierwsze, warto powtórzyć eksperymenty w większych wariantach środowiska BotBowl, na przykład dla rozmiaru 5, 7 oraz docelowo dla pełnej planszy, aby sprawdzić, czy zaobserwowane zależności między architekturą sieci a skutecznością gry utrzymują się także przy większej złożoności problemu. Po drugie, zasadne byłoby wykonanie kilku niezależnych treningów dla każdej konfiguracji, na przykład 5 lub 10 uruchomień z różnymi ziarnami losowymi, a następnie porównanie średnich wyników, odchyleń standardowych oraz pozycji w tabeli \ref{tab:liga-ranking-env3}, co pozwoliłoby lepiej ocenić stabilność uzyskiwanych rezultatów. Po trzecie, celowe byłoby zbadanie wpływu parametrów procesu uczenia, takich jak współczynnik uczenia, liczba kroków między aktualizacjami, współczynnik entropii, parametr γ oraz sposób doboru długości rolloutów, ponieważ różnice obserwowane między A2C i PPO mogą wynikać nie tylko z samej architektury sieci, ale również z odmiennej wrażliwości tych algorytmów na konfigurację treningu. Tego rodzaju eksperymenty pozwoliłyby dokładniej określić, czy o skuteczności modelu decyduje głównie budowa sieci, czy raczej sposób jej uczenia.
-
 Kod źródłowy wykorzystany w pracy został udostępniony w publicznym repozytorium.\footnote{\texttt{https://github.com/greenhoody/Magisterka}}
+
+\section{Wyniki w pełnej skali}
+
+Uczenie w pełnej skali wymaga większych zasobów i dłuższego czasu treningu niż eksperymenty w środowisku zredukowanym. Z tego powodu dalsze testy przeprowadzono tylko dla jednej architektury. Wybrano wariant Dynamic Hyper-Connections (DHC), ponieważ większa plansza i większa liczba zawodników mogły lepiej wykorzystać mechanizm dynamicznego mieszania reprezentacji.
+
+W eksperymencie pełnoskalowym zastosowano rozbudowany wariant DHC. W porównaniu z modelem użytym w środowisku zredukowanym zwiększono szerokość reprezentacji przestrzennej z 28 do 64 kanałów, zastosowano konwolucję wejściową $1 \times 1$, normalizację ChannelManifoldNorm, bias pozycyjny planszy oraz bramkowane połączenia rezydualne. Część przestrzenna składała się z czterech bloków ManifoldInceptionBlock w dynamicznym stosie Hyper-Connections z parametrem $rate=3$. Zmiany te miały zwiększyć pojemność modelu i lepiej dopasować go do pełniejszej reprezentacji gry.
+
+Proces uczenia podzielono na dwa etapy. Najpierw zastosowano 24-godzinne uczenie przez naśladowanie, w którym ekspertem był Drefsante AI v.0.7. Celem tego etapu było uzyskanie polityki lepszej od losowej. Następnie model trenowano metodą A2C, rozgrywając mecze przeciwko Drefsante AI v.0.7.
+
+W tabeli~\ref{tab:liga-ranking-imitation-vs-final} zestawiono wyniki turnieju dla kolejnych wersji modelu. Wariant \textit{DHC after imitation} oznacza model po etapie uczenia przez naśladowanie, \textit{DHC best} oznacza najlepszy zapis uzyskany podczas dalszego treningu, a \textit{DHC final} oznacza model końcowy.
+
+\begin{table}[H]
+	\centering
+	\caption{Końcowa tabela rankingowa modeli z turnieju po uczeniu przez naśladowanie}
+	\label{tab:liga-ranking-imitation-vs-final}
+	\begin{tabular}{clcccccc}
+		\hline
+		Miejsce & Model & Alg. & Zwyc. & Rem. & Por. & Punkty & Prz. \\
+		\hline
+		1 & Drefsante AI v.0.7 & bot & 40 & 0 & 0 & 120 & 210:0 \\
+		2 & DHC after imitation & A2C & 18 & 11 & 11 & 65 & 31:49 \\
+		3 & DHC best & A2C & 15 & 12 & 13 & 57 & 29:58 \\
+		4 & RandomBot & bot & 0 & 18 & 22 & 18 & 0:78 \\
+		5 & DHC final & A2C & 0 & 13 & 27 & 13 & 0:85 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Na podstawie tabeli~\ref{tab:liga-ranking-imitation-vs-final} można stwierdzić, że najlepszy wynik spośród modeli DHC osiągnął wariant po uczeniu przez naśladowanie. Zdobył on 65 punktów, przy bilansie 18 zwycięstw, 11 remisów i 11 porażek. Wariant \textit{DHC best} uzyskał 57 punktów, natomiast model końcowy zdobył tylko 13 punktów i nie wygrał żadnego meczu. Oznacza to, że dalsze uczenie ze wzmocnieniem nie poprawiło polityki uzyskanej po etapie naśladowania.
+
+Możliwą przyczyną pogorszenia wyników była zbyt duża różnica poziomu między uczonym modelem a Drefsante AI v.0.7. Agent często znajdował się w sytuacjach przegranych i defensywnych, przez co zbierał mało użytecznych danych do poprawy gry ofensywnej. W efekcie dalszy trening mógł osłabić wcześniej wyuczoną politykę.
+
+
+
+\begin{table}[H]
+	\centering
+	\caption{Wyniki meczów bezpośrednich pomiędzy modelami po uczeniu przez naśladowanie}
+	\label{tab:league-head2head-imitation-vs-final}
+	\scriptsize
+	\setlength{\tabcolsep}{4pt}
+	\renewcommand{\arraystretch}{2.3}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{cccccc}
+			\hline
+			\multicolumn{1}{|c|}{} &
+			\multicolumn{1}{c|}{\shortstack{DHC final\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{Random\\Bot}} &
+			\multicolumn{1}{c|}{\shortstack{DHC best\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{DHC after\\imitation}} &
+			\multicolumn{1}{c|}{\shortstack{Drefsante\\bot}} \\
+			\hline
+			\multicolumn{1}{|c|}{\shortstack{Drefsante\\bot}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\55:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\58:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\52:0}} &
+			\multicolumn{1}{c|}{\shortstack{10-0-0\\45:0}} &
+			\multicolumn{1}{c|}{--} \\
+			\hline
+			\multicolumn{1}{|c|}{\shortstack{DHC after\\imitation}} &
+			\multicolumn{1}{c|}{\shortstack{8-2-0\\14:0}} &
+			\multicolumn{1}{c|}{\shortstack{7-3-0\\11:0}} &
+			\multicolumn{1}{c|}{\shortstack{3-6-1\\6:4}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-5}
+			\multicolumn{1}{|c|}{\shortstack{DHC best\\A2C}} &
+			\multicolumn{1}{c|}{\shortstack{9-1-0\\16:0}} &
+			\multicolumn{1}{c|}{\shortstack{5-5-0\\9:0}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-4}
+			\multicolumn{1}{|c|}{\shortstack{Random\\Bot}} &
+			\multicolumn{1}{c|}{\shortstack{0-10-0\\0:0}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-3}
+			\multicolumn{1}{|c|}{\shortstack{DHC final\\A2C}} &
+			\multicolumn{1}{c|}{--} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} &
+			\multicolumn{1}{c}{} \\
+			\cline{1-2}
+		\end{tabular}%
+	}
+\end{table}
+
+Wyniki bezpośrednie z tabeli~\ref{tab:league-head2head-imitation-vs-final} potwierdzają tę zależność. Drefsante AI v.0.7 wygrał wszystkie mecze i nie stracił żadnego przyłożenia. Model \textit{DHC after imitation} był najlepszy spośród modeli uczonych: pokonał \textit{DHC final} wynikiem 8--2--0, RandomBota wynikiem 7--3--0 oraz uzyskał dodatni bilans z \textit{DHC best} wynikiem 3--6--1. Wyniki te wskazują, że uczenie przez naśladowanie poprawiło punkt startowy polityki, ale dalszy trening przeciwko znacznie silniejszemu przeciwnikowi okazał się nieskuteczny.
+
+\section{Ograniczenia wykorzystania rozwiązań referencyjnych}
+
+Rozwiązania referencyjne Minigrod oraz GrodBot okazały się trudne do wykorzystania w procesie uczenia i ewaluacji. Boty te zostały przygotowane z myślą o starszej wersji frameworku BotBowl, przez co w obecnej wersji środowiska wielokrotnie próbowały wykonywać akcje niedozwolone lub niezgodne z aktualnym interfejsem. Ich poprawne uruchomienie wymagałoby przygotowania dodatkowej warstwy pośredniej, odpowiedzialnej za modyfikację stanu gry lub tłumaczenie decyzji bota na aktualny format akcji. Wprowadzenie takiego mechanizmu zaburzyło porównywalność wyników, przez ograniczenie ich umiejętności. Dlatego boty Minigrod oraz GrodBot nie zostały uwzględnione w końcowym zestawieniu eksperymentalnym.
+
+\chapter{Podsumowanie}
+
+Celem pracy było porównanie wybranych architektur sieci neuronowych uczonych metodami uczenia ze wzmocnieniem w środowisku BotBowl. Szczególną uwagę poświęcono części sieci odpowiedzialnej za analizę danych przestrzennych, ponieważ w grze Blood Bowl układ zawodników, piłki i stref zagrożenia ma kluczowe znaczenie dla podejmowania decyzji.
+
+Przeprowadzone eksperymenty pokazały, że na skuteczność agenta wpływa zarówno zastosowany algorytm uczenia, jak i architektura sieci. Najlepsze wyniki osiągnęły modele wykorzystujące połączenia rezydualne, co wskazuje na znaczenie stabilnego przepływu informacji i gradientu. Jednocześnie bardziej złożone rozwiązania nie zawsze dawały lepsze rezultaty. Warianty z Hyper-Connections uzyskały słabsze wyniki, a modele z Layer Normalization nie nauczyły się skutecznej polityki. Oznacza to, że w badanym środowisku ważniejszy od samej złożoności modelu był właściwy dobór architektury.
+
+Ograniczeniem badań był zmniejszony rozmiar środowiska. Pozwoliło to porównać wiele modeli w rozsądnym czasie, ale utrudnia bezpośrednie przeniesienie wniosków na pełną wersję gry. Należy również pamiętać, że uczenie ze wzmocnieniem jest wrażliwe na losowość, dlatego pojedyncze treningi nie zawsze wystarczają do pełnej oceny stabilności modeli.
+
+Dalsze badania powinny objąć trzy kierunki. Po pierwsze, warto powtórzyć eksperymenty w większych wariantach środowiska BotBowl, na przykład dla rozmiaru 5, 7 oraz pełnej planszy. Po drugie, należy wykonać kilka niezależnych treningów dla każdej konfiguracji, z różnymi ziarnami losowymi, a następnie porównać średnie wyniki, odchylenia standardowe oraz pozycje w tabeli \ref{tab:liga-ranking-env3}. Po trzecie, warto zbadać wpływ hiperparametrów, takich jak współczynnik uczenia, liczba kroków między aktualizacjami, współczynnik entropii, parametr $\gamma$ oraz długość rolloutów. Pozwoliłoby to lepiej określić, czy o wyniku decyduje głównie architektura sieci, czy sposób jej uczenia.
+
+Uzyskane wyniki pokazują, że BotBowl jest wartościowym środowiskiem do testowania metod uczenia ze wzmocnieniem. Praca potwierdza, że dobór architektury sieci ma istotny wpływ na jakość uczonej polityki, szczególnie w zadaniach o dużej przestrzeni decyzji.

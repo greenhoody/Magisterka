@@ -4,7 +4,7 @@
 \contentsline {figure}{\numberline {2}{\ignorespaces \xpg@aux {}{polish}Padding i Stride}}{18}{figure.caption.9}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3}{\ignorespaces \xpg@aux {}{polish}Schemat sieci actor-critic}}{32}{figure.caption.28}%
-\contentsline {figure}{\numberline {4}{\ignorespaces \xpg@aux {}{polish} \textit {\textit {Połączenia Hyper-Connections}. } }}{44}{figure.caption.46}%
+\contentsline {figure}{\numberline {4}{\ignorespaces \xpg@aux {}{polish} Połączenia Hyper-Connections.}}{44}{figure.caption.46}%
 \contentsline {figure}{\numberline {5}{\ignorespaces \xpg@aux {}{polish}Wspólny schemat architektury agenta typu actor--critic stosowanej w eksperymentach. Encoder przestrzenny składa się z trzech kolejnych bloków, natomiast po fuzji cech wspólna reprezentacja jest kierowana do części aktora i krytyka.}}{53}{figure.caption.54}%
 \contentsline {figure}{\numberline {6}{\ignorespaces \xpg@aux {}{polish}Schemat pojedynczego bloku Inception używanego jako podstawowy moduł części przestrzennej.}}{53}{figure.caption.55}%
 \contentsline {figure}{\numberline {7}{\ignorespaces \xpg@aux {}{polish}Schemat bloku Inception z połączeniem rezydualnym. Wejście bloku jest łączone ze ścieżką główną przez sumowanie, a wynik trafia dalej do następnego bloku encodera.}}{54}{figure.caption.56}%
@@ -13,3 +13,4 @@
 \contentsline {figure}{\numberline {9}{\ignorespaces \xpg@aux {}{polish}Plansza Blood Bowl}}{56}{figure.caption.58}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {10}{\ignorespaces \xpg@aux {}{polish}Win rate i reward w zależności od liczby kroków.}}{65}{figure.caption.63}%
+\addvspace {10\p@ }

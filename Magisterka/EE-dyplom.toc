@@ -31,5 +31,8 @@
 \contentsline {section}{\numberline {4.2}Środowisko BotBowl}{57}{section.4.2}%
 \contentsline {section}{\numberline {4.3}Przegląd najlepszych rozwiązań w środowisku BotBowl}{59}{section.4.3}%
 \contentsline {chapter}{\numberline {5}Eksperymenty}{61}{chapter.5}%
-\contentsline {chapter}{Spis rysunków}{71}{chapter*.65}%
-\contentsline {chapter}{Spis tabel}{73}{chapter*.66}%
+\contentsline {section}{\numberline {5.1}Wyniki w pełnej skali}{66}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Ograniczenia wykorzystania rozwiązań referencyjnych}{68}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Podsumowanie}{69}{chapter.6}%
+\contentsline {chapter}{Spis rysunków}{75}{chapter*.67}%
+\contentsline {chapter}{Spis tabel}{77}{chapter*.68}%

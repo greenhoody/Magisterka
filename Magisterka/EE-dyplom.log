@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  30 APR 2026 18:11
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.29)  28 MAY 2026 19:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2155,7 +2155,7 @@ LaTeX Font Warning: Font shape `TU/LatinModernSans(1)/m/sc' undefined
 [49]
 
 [50]
-Underfull \hbox (badness 1097) in paragraph at lines 947--952
+Underfull \hbox (badness 1097) in paragraph at lines 946--951
 []\TU/LatinModernSans(1)/m/n/10.95 W pokazanej implementacji interfejs sieci wy
 maga, aby metoda \TU/LatinModernMono(0)/m/n/10.95 forward \TU/LatinModernSans(1
 )/m/n/10.95 zwracała parę
@@ -2164,7 +2164,7 @@ maga, aby metoda \TU/LatinModernMono(0)/m/n/10.95 forward \TU/LatinModernSans(1
 
 
 [51]
-Overfull \hbox (41.24438pt too wide) in paragraph at lines 1083--1084
+Overfull \hbox (41.24438pt too wide) in paragraph at lines 1082--1083
  [][] 
  []
 
@@ -2173,7 +2173,7 @@ Overfull \hbox (41.24438pt too wide) in paragraph at lines 1083--1084
 [52]
 
 [53]
-Overfull \hbox (3.24495pt too wide) in paragraph at lines 1277--1278
+Overfull \hbox (3.24495pt too wide) in paragraph at lines 1276--1277
  [][] 
  []
 
@@ -2210,7 +2210,7 @@ Rozdział 5.
 [61
 
 ]
-Overfull \hbox (39.51099pt too wide) in paragraph at lines 21--40
+Overfull \hbox (39.51099pt too wide) in paragraph at lines 23--42
  [][] 
  []
 
@@ -2241,25 +2241,35 @@ OT:script=latn;language=PLK;mapping=tex-text;!
 
 
 [65]
-Missing character: There is no γ (U+03B3) in font Latin Modern Sans 10 Regular/
-OT:script=latn;language=PLK;mapping=tex-text;!
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/n' will be
-(Font)              scaled to size 9.0pt on input line 298.
+(Font)              scaled to size 9.0pt on input line 296.
 LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
-(Font)              scaled to size 9.0pt on input line 298.
-))
+(Font)              scaled to size 9.0pt on input line 296.
+
 
 [66]
 
-[67
+[67]
+
+[68]
+Rozdział 6.
+))
+
+[69
 
 ]
 
-[68]
-
-[69]
-
 [70
+
+]
+
+[71]
+
+[72]
+
+[73]
+
+[74
 
 ] (./EE-dyplom.lof)
 \tf@lof=\write11
@@ -2267,9 +2277,9 @@ LaTeX Font Info:    Font shape `TU/LatinModernMath(1)/m/it' will be
 
 
 
-[71]
+[75]
 
-[72
+[76
 
 ] (./EE-dyplom.lot)
 \tf@lot=\write12
@@ -2283,7 +2293,7 @@ This document will not have a glossary.
 
 
 
-[73] (./EE-dyplom.aux)
+[77] (./EE-dyplom.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2292,25 +2302,19 @@ L3 programming layer <2025-06-09>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-Package rerunfilecheck Warning: File `EE-dyplom.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `EE-dyplom.out':
-(rerunfilecheck)             Before: A7EF5531913FD0AC593A78E114F9DE4C;6026
-(rerunfilecheck)             After:  9998D4622437D345824B8D8EF5EBF9F3;6111.
+Package rerunfilecheck Info: File `EE-dyplom.out' has not changed.
+(rerunfilecheck)             Checksum: A65E8186AEBB0E58222E0FC4F24EA576;6712.
 Package logreq Info: Writing requests to 'EE-dyplom.run.xml'.
 \openout1 = `EE-dyplom.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
  58959 strings out of 468529
- 1355529 string characters out of 5451399
- 2635463 words of memory out of 5000000
- 86354 multiletter control sequences out of 15000+600000
- 636797 words of font info for 158 fonts, out of 8000000 for 9000
+ 1355504 string characters out of 5451399
+ 2636675 words of memory out of 5000000
+ 86355 multiletter control sequences out of 15000+600000
+ 636789 words of font info for 157 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 114i,19n,131p,2506b,5096s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 114i,19n,131p,2506b,5098s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on EE-dyplom.pdf (73 pages).
+Output written on EE-dyplom.pdf (77 pages).
